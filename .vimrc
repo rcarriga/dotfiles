@@ -12,12 +12,14 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 " Opens new panes below and to right of current
 set splitbelow
 set splitright
+" Set all code unfolded by default
+set foldlevel=99
 " Switch panes with Ctrl + J/K/L/H
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
+map <C-S> :w<CR>
 call plug#begin('~/.vim/plugged')
 " Install fzf then fzf.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -27,6 +29,8 @@ Plug 'tpope/vim-surround'
 
 Plug 'plytophogy/vim-virtualenv'
 
+Plug 'tmhedberg/SimpylFold'
+
 Plug 'scrooloose/nerdcommenter'
 "Needed for NERD comment
 filetype plugin on
@@ -35,9 +39,6 @@ Plug 'majutsushi/tagbar'
 " Tagbar mapping
 nmap <F8> :TagbarToggle<CR>
 
-Plug 'tmhedberg/SimpylFold'
-" Config for folding python code
-let g:SimpylFold_docstring_preview = 1
 
 Plug 'heavenshell/vim-pydocstring'
 " Mapping for auto docstring in python
@@ -53,15 +54,7 @@ let g:terraform_fmt_on_save=1
 
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-" Configure vim-lsp to use pyls
-if executable('pyls')
-    " pip install python-language-server
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
+Plug 'ryanolsonx/vim-lsp-python'
 
 " Some lovely key bindings for vim-lsp
 map <Leader>la :LspCodeAction<CR>
@@ -71,7 +64,7 @@ map <Leader>lr :LspRename<CR>
 map <Leader>lb :LspReferences<CR>
 map <Leader>le :LspNextError<CR>
 map <Leader>ls :LspCodeAction<CR>
-
+map <Leader>lf :LspDocumentFormat<CR>
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Some not so lovely stuff for asyncomplete (Not sure what they do just
@@ -86,20 +79,8 @@ let g:asyncomplete_auto_popup = 1
 set completeopt+=preview
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-Plug 'w0rp/ale'
-" Ale highlighting config
-hi link ALEError Error
-hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
-hi link ALEWarning Warning
-hi link ALEInfo SpellCap
-map <Leader>lf :ALEFix<CR>
-
-" Mypy doesn't play nice with conda
-let g:ale_linters = {'python': ['pylint', 'flake8', 'mypy']}
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf', 'isort'],
-\}
+Plug 'vim-syntastic/syntastic'
+let g:syntastic_python_checkers = ['pylint']
 
 Plug 'neovimhaskell/haskell-vim'
 " Makes Haskell Vim work
