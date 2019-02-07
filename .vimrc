@@ -1,3 +1,4 @@
+
 " General configuration
 " Show line numbers
 set number
@@ -19,7 +20,6 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-map <C-S> :w<CR>
 call plug#begin('~/.vim/plugged')
 " Install fzf then fzf.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,6 +30,13 @@ Plug 'tpope/vim-surround'
 Plug 'plytophogy/vim-virtualenv'
 
 Plug 'tmhedberg/SimpylFold'
+Plug 'chrisbra/csv.vim'
+" Track the engine.
+Plug 'SirVer/ultisnips'
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<c-g>"
 
 Plug 'scrooloose/nerdcommenter'
 "Needed for NERD comment
@@ -55,7 +62,15 @@ let g:terraform_fmt_on_save=1
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
-
+if executable('solargraph')
+   "" gem install solargraph
+   "au User lsp_setup call lsp#register_server({
+       "\ 'name': 'solargraph',
+       "\ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+       "\ 'initialization_options': {"diagnostics": "true"},
+       "\ 'whitelist': ['ruby'],
+       "\ })
+endif
 " Some lovely key bindings for vim-lsp
 map <Leader>la :LspCodeAction<CR>
 map <Leader>lk :LspHover<CR>
