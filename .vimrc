@@ -27,6 +27,12 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
 
+" Async testing
+Plug 'tpope/vim-dispatch'
+
+" Json manipulation
+Plug 'pope/vim-jdaddy'
+
 Plug 'plytophogy/vim-virtualenv'
 
 Plug 'tmhedberg/SimpylFold'
