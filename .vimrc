@@ -1,4 +1,3 @@
-
 " General configuration
 " Show line numbers
 set number
@@ -15,17 +14,32 @@ set splitbelow
 set splitright
 " Set all code unfolded by default
 set foldlevel=99
+" Autoupdate files on change
+set autoread
+au BufEnter * :checktime
 " Switch panes with Ctrl + J/K/L/H
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Arrow keys are bad and you shouldn't use them
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 call plug#begin('~/.vim/plugged')
+
 " Install fzf then fzf.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>g :Ag .<CR>
 
+" Plugins for surrounding with quotes, brackets etc
 Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 
 " Async testing
 Plug 'tpope/vim-dispatch'
@@ -33,10 +47,16 @@ Plug 'tpope/vim-dispatch'
 " Json manipulation
 Plug 'pope/vim-jdaddy'
 
+Plug 'tomasiser/vim-code-dark'
+
 Plug 'plytophogy/vim-virtualenv'
 
 Plug 'tmhedberg/SimpylFold'
-Plug 'chrisbra/csv.vim'
+
+"Needed for debugging plugin
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'idanarye/vim-vebugger'
+
 " Track the engine.
 Plug 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
@@ -51,11 +71,6 @@ filetype plugin on
 Plug 'majutsushi/tagbar'
 " Tagbar mapping
 nmap <F8> :TagbarToggle<CR>
-
-
-Plug 'heavenshell/vim-pydocstring'
-" Mapping for auto docstring in python
-nmap <silent> <Leader>ld <Plug>(pydocstring)
 
 Plug 'hashivim/vim-terraform'
 " Setup for terraform
@@ -86,6 +101,8 @@ map <Leader>lb :LspReferences<CR>
 map <Leader>le :LspNextError<CR>
 map <Leader>ls :LspCodeAction<CR>
 map <Leader>lf :LspDocumentFormat<CR>
+map <Leader>ld :LspDefinition<CR>
+
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 " Some not so lovely stuff for asyncomplete (Not sure what they do just
@@ -121,13 +138,13 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 Plug 'itchyny/lightline.vim'
-" Make lightline work 
+" Make lightline work
 set laststatus=2
 " Hides --insert-- under lightline
 set noshowmode
 
 Plug 'airblade/vim-gitgutter'
-" Set gitgutter update time 
+" Set gitgutter update time
 set updatetime=100
 
 
@@ -136,5 +153,5 @@ Plug 'sonph/onehalf', {'rtp': 'vim/'}
 call plug#end()
 
 " Needs to be after plugend
-colorscheme onehalfdark
+colorscheme codedark
 let g:lightline = { 'colorscheme': 'onehalfdark' }
