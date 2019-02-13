@@ -2,7 +2,7 @@
 Just a simple vimrc
 
 Current Setup: 
-  - Basic Plugins:
+  - Basic Plugins & Config:
       - NERDTree for file structure with git plugin.
       - NERD Comment for commenting.
       - Tagbar for showing ctags.
@@ -10,7 +10,10 @@ Current Setup:
       - Surround for... well surrounding with quotes, brackets etc.
       - Gitgutter to show git diff beside lines.
       - Lightline for better status bar.
-      - One half colorscheme (Copy of Atom One colorscheme).
+      - Codedark colorscheme (Copy of vscode colors)
+      - Open files in chrome using "\ch" (Mainly for pdfs)
+      - Vim-pandoc for pandoc support
+      - Vim-fugitive for some fantastic git commands
   - Python:
       - Pylint linting using Syntastic (Be aware this is not done asynchronously so can be a little slow, but is more stable than ALE).
       - Vim-lsp and pyls for all other language server stuff (IE: Flake8 linting, jedi autocomplete, black and yapf formatting etc).

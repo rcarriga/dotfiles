@@ -29,13 +29,30 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Open up current file in chrome
+nmap <silent> <leader>ch :exec 'silent !open -a "Google Chrome" % &'<CR>
+
 call plug#begin('~/.vim/plugged')
+
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+nnoremap <Leader>pc :Pandoc pdf -f markdown+smart --pdf-engine=xelatex -V geometry:margin=2.5cm -V fontsize=12pt
 
 " Install fzf then fzf.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>g :Ag .<CR>
+nnoremap <Leader>ag :Ag .<CR>
+
+" Fantastic git commands built in
+Plug 'tpope/vim-fugitive'
+Plug 'shumphrey/fugitive-gitlab.vim'
+"Add private repo urls to this list to use Gbrowse(Opens file in browser)"
+let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net']
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gb :Gbrowse<CR>
 
 " Plugins for surrounding with quotes, brackets etc
 Plug 'tpope/vim-surround'
@@ -45,7 +62,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-dispatch'
 
 " Json manipulation
-Plug 'pope/vim-jdaddy'
+Plug 'tpope/vim-jdaddy'
 
 Plug 'tomasiser/vim-code-dark'
 
