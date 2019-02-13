@@ -15,7 +15,7 @@ Current Setup:
       - Vim-pandoc for pandoc support
       - Vim-fugitive for some fantastic git commands
   - Python:
-      - Pylint linting using Syntastic (Be aware this is not done asynchronously so can be a little slow, but is more stable than ALE).
+      - Pylint linting using ALE 
       - Vim-lsp and pyls for all other language server stuff (IE: Flake8 linting, jedi autocomplete, black and yapf formatting etc).
       - SimpylFold for folding.
       - Pydocstring to generate docstrings
