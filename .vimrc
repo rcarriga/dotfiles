@@ -138,8 +138,13 @@ let g:asyncomplete_auto_popup = 1
 set completeopt+=preview
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-Plug 'vim-syntastic/syntastic'
-let g:syntastic_python_checkers = ['pylint']
+Plug 'w0rp/ale'
+let g:ale_linters = {
+\   'python': ['pylint'],
+\}
+" Forces pylint to project base rather than running each file in it's own
+" directory
+let g:ale_python_pylint_change_directory = 0
 
 Plug 'neovimhaskell/haskell-vim'
 " Makes Haskell Vim work
