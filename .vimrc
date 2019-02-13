@@ -32,6 +32,10 @@ noremap <Right> <NOP>
 " Open up current file in chrome
 nmap <silent> <leader>ch :exec 'silent !open -a "Google Chrome" % &'<CR>
 
+" Don't waste time holding shift for commands
+map ; :
+noremap ;; ;
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-pandoc/vim-pandoc'
@@ -53,7 +57,7 @@ nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gb :Gbrowse<CR>
-
+nnoremap <Leader>gl :Gblame<CR>
 " Plugins for surrounding with quotes, brackets etc
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
