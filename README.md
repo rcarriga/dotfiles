@@ -19,7 +19,7 @@ Current Setup:
       - Vim-lsp and pyls for all other language server stuff (IE: Flake8 linting, jedi autocomplete, black and yapf formatting etc).
       - SimpylFold for folding.
       - Pydocstring to generate docstrings
-      - Vim-virtualenv for virtualenv support.
+      - Vim-virtualenv for virtualenv support (Don't activate virtualenv outside of vim, install pylint in virtualenv to prevent using system version).
   - Terraform:
       - vim-terrform for syntax highlighting and formatting
   - Ruby:
