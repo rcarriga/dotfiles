@@ -105,19 +105,13 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
 if executable('solargraph')
-  "gem install solargraph
-   au User lsp_setup call lsp#register_server({
-       \ 'name': 'solargraph',
-       \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-       \ 'initialization_options': {"diagnostics": "true"},
-       \ 'whitelist': ['ruby'],
-       \ })
-endif
-if executable('hie-wrapper')
-  au User lsp_setup call lsp#register_server({
-      \ 'name': 'hie',
-      \ 'cmd': {server_info->['hie-wrapper']},
-      \ })
+   "" gem install solargraph
+   "au User lsp_setup call lsp#register_server({
+       "\ 'name': 'solargraph',
+       "\ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+       "\ 'initialization_options': {"diagnostics": "true"},
+       "\ 'whitelist': ['ruby'],
+       "\ })
 endif
 " Some lovely key bindings for vim-lsp
 map <Leader>la :LspCodeAction<CR>
@@ -147,7 +141,6 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 Plug 'w0rp/ale'
 let g:ale_linters = {
 \   'python': ['pylint'],
-\   'haskell': ['hlint', 'stack-ghc']
 \}
 " Forces pylint to project base rather than running each file in it's own
 " directory

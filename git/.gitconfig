@@ -1,0 +1,6 @@
+
+[user]
+	email = ronanc@qualtrics.com
+	name = ronanc
+[core]
+	excludesfile = /Users/rcarriga/dotfiles/git/.gitignore_global
