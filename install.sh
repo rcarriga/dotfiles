@@ -1,6 +1,7 @@
-# #!/bin/bash
+#!/bin/bash
 
 chsh -s $(which zsh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo "Shell changed to zsh. Log out and in to start using!\n"
 
 echo "\nThe next step will remove .vimrc, .gitconfig & .zshrc from home directory!\n"
