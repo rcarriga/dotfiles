@@ -1,4 +1,6 @@
-# vimrc
+# My dotfiles
+
+## vimrc
 Just a simple vimrc
 
 Current Setup: 
