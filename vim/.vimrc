@@ -1,4 +1,6 @@
 " General configuration
+" Reduce delay between switchin mode
+set ttimeoutlen=50
 " Show line numbers
 set number
 set relativenumber
@@ -37,6 +39,10 @@ map ; :
 noremap ;; ;
 
 call plug#begin('~/.vim/plugged')
+
+
+" Window focusing
+Plug 'vim-scripts/ZoomWin'
 
 " Auto indented pasting
 Plug 'sickill/vim-pasta'
