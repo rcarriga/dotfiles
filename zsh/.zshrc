@@ -23,6 +23,7 @@ plugins=(
   git
   zsh-autosuggestions
   zsh-syntax-highlighting
+  vi-mode
 )
 
 
@@ -36,3 +37,5 @@ source ~/dotfiles/system/.function
 export MANPATH="/usr/local/man:$MANPATH"
 
 export EDITOR='vim'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
