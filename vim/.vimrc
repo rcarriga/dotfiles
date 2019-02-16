@@ -38,6 +38,9 @@ noremap ;; ;
 
 call plug#begin('~/.vim/plugged')
 
+" Auto indented pasting
+Plug 'sickill/vim-pasta'
+
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 nnoremap <Leader>pc :Pandoc pdf -f markdown+smart --pdf-engine=xelatex -V geometry:margin=2.5cm -V fontsize=12pt
@@ -154,7 +157,7 @@ filetype plugin indent on
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " Auto opens NERDTree
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 " Auto closes NERDTree if no other open pane
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle NERDTree with Ctrl+o
