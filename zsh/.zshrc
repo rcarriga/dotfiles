@@ -3,7 +3,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export ZSH=~/".oh-my-zsh"
 
-ZSH_THEME="refined"
+ZSH_THEME="spaceship"
 
 HYPHEN_INSENSITIVE="true"
 
@@ -39,3 +39,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR='vim'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ -s /home/ronan/.autojump/etc/profile.d/autojump.sh ]] && source /home/ronan/.autojump/etc/profile.d/autojump.sh
+
+	autoload -U compinit && compinit -u

@@ -15,3 +15,8 @@ ln -sv ~/dotfiles/zsh/.zshrc ~
 
 echo "Setting up global .gitignore"
 git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
+
+echo "Installing themes and plugins"
+git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+./zsh/autojump/install.py
