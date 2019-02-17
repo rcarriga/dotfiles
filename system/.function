@@ -7,3 +7,10 @@ ref-aws() {
 virenv() {
         virtualenv "/Users/rcarriga/.virtualenvs/"$1
 }
+
+ck() { 
+        cd "$@" && k;
+}
+jk() { 
+        j "$@" && k;
+}
