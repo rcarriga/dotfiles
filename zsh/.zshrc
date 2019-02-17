@@ -1,7 +1,19 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+source ~/dotfiles/system/.alias
+source ~/dotfiles/system/.export
+source ~/dotfiles/system/.function
+source ~/dotfiles/zsh/antigen.zsh
+antigen use oh-my-zsh
 
-export ZSH=~/".oh-my-zsh"
+  antigen theme denysdovhan/spaceship-prompt
+
+  antigen bundle zsh-users/zsh-autosuggestions
+  antigen bundle zsh-users/zsh-completions
+  antigen bundle zsh-users/zsh-syntax-highlighting
+  antigen bundle wting/autojump 
+  antigen bundle git
+  antigen bundle supercrabtree/k
+
+antigen apply
 
 ZSH_THEME="spaceship"
 
@@ -18,19 +30,8 @@ HIST_STAMPS="dd/mm/yyyy"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-plugins=(
-  autojump
-  git
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  vi-mode
-)
-
-
+# Source after all oh my zsh config
 source $ZSH/oh-my-zsh.sh
-source ~/dotfiles/system/.alias
-source ~/dotfiles/system/.export
-source ~/dotfiles/system/.function
 
 # User configuration
 

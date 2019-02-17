@@ -1,2 +1,0 @@
-# Ensure batch files are crlf
-*.bat text eol=crlf

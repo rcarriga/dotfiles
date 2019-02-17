@@ -19,4 +19,6 @@ git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
 echo "Installing themes and plugins"
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
 ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-./zsh/autojump/install.py
+
+curl -L git.io/antigen > ~/dofiles/zsh/antigen.zsh
+
