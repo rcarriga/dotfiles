@@ -40,8 +40,10 @@ noremap ;; ;
 
 call plug#begin('~/.vim/plugged')
 
+" Easy aligning
+Plug 'godlygeek/tabular'
 
-" Window focusing
+"Window focusing
 Plug 'vim-scripts/ZoomWin'
 
 " Auto indented pasting
