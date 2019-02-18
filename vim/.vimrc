@@ -83,6 +83,7 @@ Plug 'tomasiser/vim-code-dark'
 
 Plug 'plytophogy/vim-virtualenv'
 
+" Python friendly folding
 Plug 'tmhedberg/SimpylFold'
 
 "Needed for debugging plugin
@@ -102,7 +103,7 @@ filetype plugin on
 
 Plug 'majutsushi/tagbar'
 " Tagbar mapping
-nmap <F8> :TagbarToggle<CR>
+nmap <Leader>tt :TagbarToggle<CR>
 
 Plug 'hashivim/vim-terraform'
 " Setup for terraform
@@ -115,6 +116,7 @@ let g:terraform_fmt_on_save=1
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
+Plug 'ryanolsonx/vim-lsp-javascript'
 if executable('solargraph')
    "" gem install solargraph
    "au User lsp_setup call lsp#register_server({
