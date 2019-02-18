@@ -1,4 +1,7 @@
 " General configuration
+" Enable search highlighting and set color
+set hlsearch
+hi Search guibg=LightBlue
 " Reduce delay between switchin mode
 set ttimeoutlen=50
 " Show line numbers
@@ -118,13 +121,13 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'ryanolsonx/vim-lsp-python'
 Plug 'ryanolsonx/vim-lsp-javascript'
 if executable('solargraph')
-   "" gem install solargraph
-   "au User lsp_setup call lsp#register_server({
-       "\ 'name': 'solargraph',
-       "\ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-       "\ 'initialization_options': {"diagnostics": "true"},
-       "\ 'whitelist': ['ruby'],
-       "\ })
+   " gem install solargraph
+   au User lsp_setup call lsp#register_server({
+       \ 'name': 'solargraph',
+       \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
+       \ 'initialization_options': {"diagnostics": "true"},
+       \ 'whitelist': ['ruby'],
+       \ })
 endif
 " Some lovely key bindings for vim-lsp
 map <Leader>la :LspCodeAction<CR>
