@@ -16,9 +16,14 @@ ln -sv ~/dotfiles/zsh/.zshrc ~
 echo "Setting up global .gitignore"
 git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
 
-echo "Installing themes and plugins"
-git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
+echo "Installing zplug"
 curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 
+echo "Installing powerline fonts. (My favourite it cousine)"
+git clone https://github.com/powerline/fonts.git --depth=1
+cd fonts
+./install.sh
+cd ..
+rm -rf fonts
+
+echo "You will need to change executable paths for language servers in .vimrc!!"
