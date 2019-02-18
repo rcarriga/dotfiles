@@ -115,30 +115,31 @@ let g:terraform_fold_sections=1
 let g:terraform_remap_spacebar=1
 let g:terraform_commentstring='//%s'
 let g:terraform_fmt_on_save=1
+" Deoplete setup needed for language server
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+let g:deoplete#enable_at_startup = 1
 
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'ryanolsonx/vim-lsp-python'
-Plug 'ryanolsonx/vim-lsp-javascript'
-if executable('solargraph')
-   " gem install solargraph
-   au User lsp_setup call lsp#register_server({
-       \ 'name': 'solargraph',
-       \ 'cmd': {server_info->[&shell, &shellcmdflag, 'solargraph stdio']},
-       \ 'initialization_options': {"diagnostics": "true"},
-       \ 'whitelist': ['ruby'],
-       \ })
-endif
-" Some lovely key bindings for vim-lsp
-map <Leader>la :LspCodeAction<CR>
-map <Leader>lk :LspHover<CR>
-map <Leader>lg :LspDeclaration<CR>
-map <Leader>lr :LspRename<CR>
-map <Leader>lb :LspReferences<CR>
-map <Leader>le :LspNextError<CR>
-map <Leader>ls :LspCodeAction<CR>
-map <Leader>lf :LspDocumentFormat<CR>
-map <Leader>ld :LspDefinition<CR>
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \} 
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['solargraph','socket'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'python': ['pyls'],
+    \ }
+nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
