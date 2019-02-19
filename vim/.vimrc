@@ -1,4 +1,19 @@
 " General configuration
+" Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
+au FileType qf call AdjustWindowHeight(3, 50)
+   function! AdjustWindowHeight(minheight, maxheight)
+       let l = 1
+       let n_lines = 0
+       let w_width = winwidth(0)
+       while l <= line('$')
+           " number to float for division
+           let l_len = strlen(getline(l)) + 0.0
+           let line_width = l_len/w_width
+           let n_lines += float2nr(ceil(line_width))
+           let l += 1
+       endw
+       exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+   endfunction
 " Enable search highlighting and set color
 set hlsearch
 hi Search guibg=LightBlue
@@ -78,7 +93,12 @@ Plug 'jiangmiao/auto-pairs'
 
 " Async testing
 Plug 'tpope/vim-dispatch'
-
+" Save report to html
+nmap <Leader>th :Dispatch pytest --cov-report html --cov ./ test/<CR>
+" Show report in terminal
+nmap <Leader>tr :Dispatch pytest --cov ./ test/<CR>
+" Open report in chrome
+nmap <Leader>to :!open htmlcov/index.html<CR>
 " Json manipulation
 Plug 'tpope/vim-jdaddy'
 
@@ -115,18 +135,25 @@ let g:terraform_fold_sections=1
 let g:terraform_remap_spacebar=1
 let g:terraform_commentstring='//%s'
 let g:terraform_fmt_on_save=1
+
 " Deoplete setup needed for language server
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 let g:deoplete#enable_at_startup = 1
 
+" Echodoc for function signatures 
+Plug 'Shougo/echodoc.vim'
+set cmdheight=2
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'signature'
+
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \} 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['solargraph','socket'],
+    \ 'ruby': ['solargraph','stdio'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
     \ }
@@ -168,6 +195,10 @@ Plug 'neovimhaskell/haskell-vim'
 syntax on
 filetype plugin indent on
 
+" Python syntax highlighting
+Plug 'hdima/python-syntax'
+let python_highlight_all = 1
+
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " Auto opens NERDTree
@@ -190,11 +221,12 @@ Plug 'airblade/vim-gitgutter'
 " Set gitgutter update time
 set updatetime=100
 
-
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'patstockwell/vim-monokai-tasty'
+
 " Initialize plugin system
 call plug#end()
 
 " Needs to be after plugend
-colorscheme codedark
-let g:lightline = { 'colorscheme': 'onehalfdark' }
+colorscheme vim-monokai-tasty 
+let g:lightline = { 'colorscheme': 'monokai_tasty' }
