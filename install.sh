@@ -9,9 +9,11 @@ read -p "Hit any key to continue (Or Ctrl-C to cancel)" x
 rm ~/.vimrc
 rm ~/.zshrc
 rm ~/.gitconfig
+rm ~/.tmux.conf
 ln -sv ~/dotfiles/git/.gitconfig ~
 ln -sv ~/dotfiles/vim/.vimrc ~
 ln -sv ~/dotfiles/zsh/.zshrc ~
+ln -sv ~/dotfiles/tmux/.tmux.conf
 
 echo "Setting up global .gitignore"
 git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
