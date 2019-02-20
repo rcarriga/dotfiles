@@ -142,7 +142,7 @@ Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 let g:deoplete#enable_at_startup = 1
 
-" Echodoc for function signatures 
+" Echodoc for function signatures
 Plug 'Shougo/echodoc.vim'
 set cmdheight=2
 let g:echodoc#enable_at_startup = 1
@@ -151,11 +151,12 @@ let g:echodoc#type = 'signature'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
-    \} 
+    \}
 let g:LanguageClient_serverCommands = {
     \ 'ruby': ['solargraph','stdio'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
+    \ 'java': ['/usr/local/bin/jdtls'],
     \ }
 nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
@@ -211,7 +212,8 @@ map <C-o> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
 " Make lightline work
 set laststatus=2
 " Hides --insert-- under lightline
@@ -228,5 +230,5 @@ Plug 'patstockwell/vim-monokai-tasty'
 call plug#end()
 
 " Needs to be after plugend
-colorscheme vim-monokai-tasty 
-let g:lightline = { 'colorscheme': 'monokai_tasty' }
+colorscheme vim-monokai-tasty
+let g:airline_theme='monokai_tasty'
