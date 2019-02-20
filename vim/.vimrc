@@ -169,20 +169,6 @@ nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
 nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
-" Some not so lovely stuff for asyncomplete (Not sure what they do just
-" copypastad everything
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-let g:asyncomplete_remove_duplicates = 1
-let g:asyncomplete_smart_completion = 1
-let g:asyncomplete_auto_popup = 1
-set completeopt+=preview
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
 Plug 'w0rp/ale'
 let g:ale_linters = {
 \   'python': ['pylint'],
@@ -202,8 +188,6 @@ let python_highlight_all = 1
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-" Auto opens NERDTree
-"autocmd vimenter * NERDTree
 " Auto closes NERDTree if no other open pane
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle NERDTree with Ctrl+o
@@ -212,8 +196,8 @@ map <C-o> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-"Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
+let g:airline#extensions#tabline#enabled = 1
 " Make lightline work
 set laststatus=2
 " Hides --insert-- under lightline
@@ -223,7 +207,6 @@ Plug 'airblade/vim-gitgutter'
 " Set gitgutter update time
 set updatetime=100
 
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'patstockwell/vim-monokai-tasty'
 
 " Initialize plugin system
