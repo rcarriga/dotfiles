@@ -1,8 +1,8 @@
-if [[ ! -d ~/.zplug ]]; then
-source ~/dotfiles/zsh/zplug-setup.sh
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-fi
+#if [[ ! -d ~/.zplug ]]; then
+#source ~/dotfiles/zsh/zplug-setup.sh
+  #git clone https://github.com/zplug/zplug ~/.zplug
+  #source ~/.zplug/init.zsh && zplug update --self
+#fi
 
 source ~/.zplug/init.zsh
 
@@ -13,6 +13,7 @@ zplug "plugins/autojump", from:oh-my-zsh
 zplug "supercrabtree/k", from:github
 zplug "plugins/git",   from:oh-my-zsh
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+zplug "chrissicool/zsh-256color", from:github
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
