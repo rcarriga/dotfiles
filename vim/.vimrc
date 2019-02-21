@@ -91,18 +91,23 @@ nnoremap <Leader>gl :Gblame<CR>
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
-" Async testing
-Plug 'tpope/vim-dispatch'
+Plug 'benmills/vimux'
 " Save report to html
-nmap <Leader>th :Dispatch pytest --cov-report html --cov ./ test/<CR>
+nmap <Leader>th :call VimuxRunCommand("pytest --cov-report html --cov ./ test/")<CR><CR>
 " Show report in terminal
-nmap <Leader>tr :Dispatch pytest --cov ./ test/<CR>
+nmap <Leader>tr :call VimuxRunCommand("pytest --cov ./ test/")<CR>
 " Open report in chrome
-nmap <Leader>to :!open htmlcov/index.html<CR>
+nmap <Leader>to :call VimuxRunCommand("open htmlcov/index.html" )<CR>
+
+Plug 'janko-m/vim-test'
+nmap <Leader>tn :TestNearest<CR>
+nmap <Leader>tf :TestFile<CR>
+nmap <Leader>ts :TestSuite<CR>
+nmap <Leader>tl :TestLast<CR>
+nmap <Leader>tv :TestVisit<CR>
+
 " Json manipulation
 Plug 'tpope/vim-jdaddy'
-
-Plug 'tomasiser/vim-code-dark'
 
 Plug 'plytophogy/vim-virtualenv'
 
@@ -112,13 +117,6 @@ Plug 'tmhedberg/SimpylFold'
 "Needed for debugging plugin
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'idanarye/vim-vebugger'
-
-" Track the engine.
-Plug 'SirVer/ultisnips'
-" Snippets are separated from the engine. Add this if you want them:
-Plug 'honza/vim-snippets'
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<c-g>"
 
 Plug 'scrooloose/nerdcommenter'
 "Needed for NERD comment
@@ -175,7 +173,7 @@ Plug 'w0rp/ale'
 let g:ale_linters = {
 \   'python': ['pylint'],
 \}
-" Forces pylint to project base rather than running each file in it's own
+" Forces pylint to run at project base rather than running each file in it's own
 " directory
 let g:ale_python_pylint_change_directory = 0
 
