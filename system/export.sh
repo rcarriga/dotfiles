@@ -6,3 +6,4 @@ export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR='vim'
 export M2_HOME=/Applications/apache-maven-3.6.0
 export PATH=$PATH:$M2_HOME/bin
+export FZF_DEFAULT_COMMAND='ag --depth 10 --hidden --ignore .git -f -g ""'
