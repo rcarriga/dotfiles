@@ -7,3 +7,4 @@ export EDITOR='vim'
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export M2_HOME=/Applications/apache-maven-3.6.0
 export PATH=$PATH:$M2_HOME/bin
+export FZF_DEFAULT_COMMAND='ag --depth 10 --hidden --ignore .git -f -g ""'
