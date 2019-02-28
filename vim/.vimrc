@@ -58,19 +58,6 @@ noremap ;; ;
 
 call plug#begin('~/.vim/plugged')
 
-" Easy aligning
-Plug 'godlygeek/tabular'
-
-"Window focusing
-Plug 'vim-scripts/ZoomWin'
-
-" Auto indented pasting
-Plug 'sickill/vim-pasta'
-
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-nnoremap <Leader>pc :Pandoc pdf -f markdown+smart --pdf-engine=xelatex -V geometry:margin=2.5cm -V fontsize=12pt
-
 " Install fzf then fzf.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -91,40 +78,14 @@ nnoremap <Leader>gl :Gblame<CR>
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'benmills/vimux'
-" Save report to html
-nmap <Leader>th :call VimuxRunCommand("pytest --cov-report html --cov ./ test/")<CR><CR>
-" Show report in terminal
-nmap <Leader>tr :call VimuxRunCommand("pytest --cov ./ test/")<CR>
-" Open report in chrome
-nmap <Leader>to :call VimuxRunCommand("open htmlcov/index.html" )<CR>
-
-Plug 'janko-m/vim-test'
-nmap <Leader>tn :TestNearest<CR>
-nmap <Leader>tf :TestFile<CR>
-nmap <Leader>ts :TestSuite<CR>
-nmap <Leader>tl :TestLast<CR>
-nmap <Leader>tv :TestVisit<CR>
-
-" Json manipulation
-Plug 'tpope/vim-jdaddy'
-
 Plug 'plytophogy/vim-virtualenv'
 
 " Python friendly folding
 Plug 'tmhedberg/SimpylFold'
 
-"Needed for debugging plugin
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'idanarye/vim-vebugger'
-
 Plug 'scrooloose/nerdcommenter'
 "Needed for NERD comment
 filetype plugin on
-
-Plug 'majutsushi/tagbar'
-" Tagbar mapping
-nmap <Leader>tt :TagbarToggle<CR>
 
 Plug 'hashivim/vim-terraform'
 " Setup for terraform
@@ -138,7 +99,10 @@ let g:terraform_fmt_on_save=1
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-let g:deoplete#enable_at_startup = 1
+" These 3 lines are for speeding up startup time
+let g:deoplete#enable_at_startup = 0
+autocmd InsertEnter * call deoplete#enable()
+let g:python3_host_prog = '/usr/bin/python3'
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -153,10 +117,10 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \}
 let g:LanguageClient_serverCommands = {
-    \ 'ruby': ['solargraph','stdio'],
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
     \ 'java': ['/usr/local/bin/jdtls'],
+    \ 'haskell': ['hie-wrapper']
     \ }
 nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
@@ -172,19 +136,16 @@ nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 Plug 'w0rp/ale'
 let g:ale_linters = {
 \   'python': ['pylint'],
+\   'haskell': [],
 \}
 " Forces pylint to run at project base rather than running each file in it's own
 " directory
 let g:ale_python_pylint_change_directory = 0
 
-Plug 'neovimhaskell/haskell-vim'
-" Makes Haskell Vim work
-syntax on
-filetype plugin indent on
-
-" Python syntax highlighting
-Plug 'hdima/python-syntax'
-let python_highlight_all = 1
+"Plug 'neovimhaskell/haskell-vim'
+"" Makes Haskell Vim work
+"syntax on
+"filetype plugin indent on
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
