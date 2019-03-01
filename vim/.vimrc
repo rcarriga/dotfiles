@@ -49,14 +49,14 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-" Open up current file in chrome
-nmap <silent> <leader>ch :exec 'silent !open -a "Google Chrome" % &'<CR>
-
 " Don't waste time holding shift for commands
 map ; :
 noremap ;; ;
 
 call plug#begin('~/.vim/plugged')
+
+" Syntax hightlighting and indenting for ts
+Plug 'leafgarland/typescript-vim' ,{'for': 'typescript'}
 
 " Install fzf then fzf.vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -68,7 +68,7 @@ nnoremap <Leader>ag :Ag .<CR>
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
-let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net']
+let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://github.com']
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
@@ -78,16 +78,16 @@ nnoremap <Leader>gl :Gblame<CR>
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 
-Plug 'plytophogy/vim-virtualenv'
+Plug 'plytophogy/vim-virtualenv' ,{'for': 'python'}
 
 " Python friendly folding
-Plug 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold' ,{'for': 'python'}
 
 Plug 'scrooloose/nerdcommenter'
 "Needed for NERD comment
 filetype plugin on
 
-Plug 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform' ,{'for': 'terraform'}
 " Setup for terraform
 let g:terraform_align=1
 let g:terraform_fold_sections=1
@@ -99,10 +99,13 @@ let g:terraform_fmt_on_save=1
 Plug 'Shougo/deoplete.nvim'
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
-" These 3 lines are for speeding up startup time
+" Gotta have your emojis!
+Plug 'fszymanski/deoplete-emoji'
+" Deoplete spelling suggestions
+Plug 'ujihisa/neco-look'
+"These 2 lines are for speeding up startup time
 let g:deoplete#enable_at_startup = 0
-autocmd InsertEnter * call deoplete#enable()
-let g:python3_host_prog = '/usr/bin/python3'
+autocmd InsertEnter * call deoplete#enable() | call deoplete#custom#source('emoji', 'converters', ['converter_emoji']) | call deoplete#custom#source('look', 'filetypes', ['markdown'])
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
@@ -118,6 +121,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \}
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
     \ 'python': ['pyls'],
     \ 'java': ['/usr/local/bin/jdtls'],
     \ 'haskell': ['hie-wrapper']
@@ -129,7 +133,7 @@ nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
 nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
 nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <leader>lk :call LanguageClient#textDocument_hover()<CR>
 nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
 nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>lh :call LanguageClient#textDocument_documentHighlight()<CR>
@@ -138,28 +142,27 @@ Plug 'w0rp/ale'
 let g:ale_linters = {
 \   'python': ['pylint'],
 \   'haskell': [],
+\   'typescript': [],
 \}
 " Forces pylint to run at project base rather than running each file in it's own
 " directory
 let g:ale_python_pylint_change_directory = 0
 
-"Plug 'neovimhaskell/haskell-vim'
+Plug 'neovimhaskell/haskell-vim' ,{'for': 'haskell'}
 "" Makes Haskell Vim work
-"syntax on
-"filetype plugin indent on
+syntax on
+filetype plugin indent on
 
 Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-" Auto closes NERDTree if no other open pane
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle NERDTree with Ctrl+o
 map <C-o> :NERDTreeToggle<CR>
 " Hide 'Press ? for help'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-Plug 'vim-airline/vim-airline'
-let g:airline#extensions#tabline#enabled = 1
+"Plug 'vim-airline/vim-airline'
+"let g:airline#extensions#tabline#enabled = 1
+Plug 'itchyny/lightline.vim'
 " Make lightline work
 set laststatus=2
 " Hides --insert-- under lightline
@@ -169,11 +172,16 @@ Plug 'airblade/vim-gitgutter'
 " Set gitgutter update time
 set updatetime=100
 
-Plug 'patstockwell/vim-monokai-tasty'
-
+Plug 'joshdick/onedark.vim'
 " Initialize plugin system
 call plug#end()
 
 " Needs to be after plugend
-colorscheme vim-monokai-tasty
-let g:airline_theme='monokai_tasty'
+set t_Co=256
+set cursorline
+colorscheme onedark
+if (has("termguicolors"))
+    set termguicolors
+endif
+"let g:airline_theme='onehalfdark'
+let g:lightline = {'colorscheme': 'onedark'}
