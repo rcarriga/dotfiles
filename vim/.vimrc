@@ -1,4 +1,3 @@
-" General configuration
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
    function! AdjustWindowHeight(minheight, maxheight)
@@ -21,6 +20,7 @@ hi Search guibg=LightBlue
 set ttimeoutlen=50
 " Show line numbers
 set number
+" Show numbers relative to current line
 set relativenumber
 " Fix backspace issue
 set bs=2
@@ -52,6 +52,12 @@ noremap <Right> <NOP>
 " Don't waste time holding shift for commands
 map ; :
 noremap ;; ;
+" Auto install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -91,7 +97,6 @@ Plug 'hashivim/vim-terraform' ,{'for': 'terraform'}
 " Setup for terraform
 let g:terraform_align=1
 let g:terraform_fold_sections=1
-let g:terraform_remap_spacebar=1
 let g:terraform_commentstring='//%s'
 let g:terraform_fmt_on_save=1
 
@@ -160,8 +165,6 @@ map <C-o> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-"Plug 'vim-airline/vim-airline'
-"let g:airline#extensions#tabline#enabled = 1
 Plug 'itchyny/lightline.vim'
 " Make lightline work
 set laststatus=2
@@ -180,8 +183,6 @@ call plug#end()
 set t_Co=256
 set cursorline
 colorscheme onedark
-if (has("termguicolors"))
-    set termguicolors
-endif
+set termguicolors
 "let g:airline_theme='onehalfdark'
 let g:lightline = {'colorscheme': 'onedark'}
