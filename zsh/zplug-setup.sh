@@ -1,5 +1,4 @@
 if [[ ! -d ~/.zplug ]]; then
-source ~/dotfiles/zsh/zplug-setup.sh
   git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update --self
 fi

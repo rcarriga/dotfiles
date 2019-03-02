@@ -1,10 +1,11 @@
 #!/bin/bash
 
-YELLOW='\033[0;31m'
+YELLOW="\033[0;31m"
+NC='\033[0m' # No Color
 cd ~
 
-echo "\n$YELLOW The next step will remove .vimrc, .gitconfig .tmux.conf & .zshrc from home directory!\n"
-read -n 1 -p "Hit any key to continue (Or Ctrl-C to cancel)" x
+echo -e $YELLOW"This process will delete .vimrc, .gitconfig .tmux.conf & .zshrc!$NC"
+read -n 1 -p "Hit any key to continue (Or Ctrl-C to cancel)"
 rm ~/.vimrc
 rm ~/.zshrc
 rm ~/.gitconfig
@@ -15,44 +16,108 @@ ln -sv ~/dotfiles/zsh/.zshrc ~
 ln -sv ~/dotfiles/tmux/.tmux.conf
 
 
-echo "$YELLOW Setting up global .gitignore"
-git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
+echo -e $YELLOW"Setting up global .gitignore$NC"
+x=$(git config --global core.excludesfile ~/dotfiles/git/.gitignore_global)||
+  echo x
 
 
-echo "$YELLOW Installing powerline fonts. (My favourite is cousine)"
-git clone https://github.com/powerline/fonts.git --depth=1
-cd fonts
-./install.sh
-cd ..
-rm -rf fonts
 
 if command -v apt >/dev/null 2>&1; then
-  command -v stack >/dev/null 2>&1 || echo "$YELLOW Installing Stack" && curl -sSL https://get.haskellstack.org/ | sh
-  command -v npm >/dev/null 2>&1 || echo "$YELLOW Installing NodeJS" && curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs
-  command -v python3 >/dev/null 2>&1 || echo "$YELLOW Installing python3" &&  sudo apt install python3.7
-  command -v ag >/dev/null 2>&1 || echo "$YELLOW Installing the silver searcher" && sudo apt install silversearcher-ag
-  command -v pyls >/dev/null 2>&1 || echo "$YELLOW Installing Python Language Server" && pip install 'python-language-server[all]'
-  command -v typescript-language-server >/dev/null 2>&1 || echo "$YELLOW Installing TypeScript Language Server" && npm install -g typescript-language-server
-  command -v tmux >/dev/null 2>&1 || echo "$YELLOW Installing Tmux" && sudo apt install tmux 
-  command -v vim >/dev/null 2>&1 || echo "$YELLOW Installing Vim" && sudo apt install vim
-  command -v zsh >/dev/null 2>&1 || echo "$YELLOW Installing Zsh" && sudo apt install zsh
+  x=$(sudo apt update)||
+    echo x
+  x=$(sudo apt upgrade)||
+    echo x
+
+  command -v curl >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing curl$NC" &&
+    x=$(sudo apt install -y curl)||
+    echo x
+
+  command -v stack >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing Stack$NC" && 
+    x=$(curl -sSL https://get.haskellstack.org/ | sh) ||
+    echo x
+  
+  command -v npm >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing NodeJS & npm$NC" && 
+    x=$(curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs npm)||
+    echo x
+
+  command -v python3 >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing python3$NC" &&
+    x=$(sudo apt install -y python3.7)||
+    echo x
+
+  if command -v ag >/dev/null 2>&1 ; then
+    echo -e $YELLOW"Installing the silver searcher$NC" 
+    x=$(sudo add-apt-repository ppa:pgolm/the-silver-searcher)||
+      echo x
+    x=$(sudo apt-get update)||
+      echo x
+    x=$(sudo apt-get install the-silver-searcher)||
+      echo x
+  fi
+
+  command -v pyls >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing Python Language Server$NC" &&
+    x=$(pip3 install "python-language-server[all]")||
+    echo x
+
+  command -v typescript-language-server >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing TypeScript Language Server$NC" &&
+    x=$(npm install -g typescript-language-server)||
+    echo x
+
+  command -v tmux >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing Tmux$NC" &&
+    x=$(sudo apt install -y tmux) ||
+    echo x
+
+  command -v vim >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing Vim$NC" &&
+    x=$(sudo apt install -y vim)||
+    echo x
+
+  command -v zsh >/dev/null 2>&1 || 
+    echo -e $YELLOW"Installing Zsh$NC" &&
+    x=$(sudo apt install -y zsh)||
+    echo x
+
   if command -v hie >/dev/null 2>&1; then
-    echo "$YELLOW Installing Haskell IDE Engine" 
-    git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
+    echo -e $YELLOW"Installing Haskell IDE Engine$NC" 
+    x=$(git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules)||
+      echo x
     cd haskell-ide-engine
     stack upgrade 2>&1 >/dev/null
-    STACK_VERSION=$(stack -- --version | awk '{print $NF}')
+    STACK_VERSION=$(stack -- --version | awk "{print $NF}")
     read -p "Haskell IDE Engine can take a long time to setup. Do you want to do this now? Enter 'y'" -n 1 -r
-    echo    # (optional) move to a new line
+    echo -e    # (optional) move to a new line
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       make hie-$STACK_VERSION
       make build-doc-$STACK_VERSION
     else 
-      echo "$YELLOW Not setting up HIE. Run 'make hie-$STACK_VERSION' and 'make hie-$STACK_VERSION' in HIE directory to build"
+      echo -e $YELLOW"Not setting up HIE. Run 'make hie-$STACK_VERSION' and 'make hie-$STACK_VERSION' in HIE directory to build$NC"
     fi
-    cd
+
+    cd # Return to home directory
   fi
 fi
 
+echo -e $YELLOW"Installing powerline fonts. (My favourite is cousine)$NC"
+x=$(git clone https://github.com/powerline/fonts.git --depth=1)||
+  echo x
+cd fonts
+x=$(./install.sh)||
+  echo x
+cd ..
+rm -rf fonts
+
+echo -e $YELLOW"Installing oh-my-zsh$NC"
+x=$(sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)")||
+  echo x
+rm ~/.zshrc
+mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+
+echo -e $YELLOW"Switching shell to zsh by default"
 chsh -s $(which zsh)
-echo "Shell changed to zsh. Log out and in to start using!\n"
+echo -e "Shell changed to zsh. Log out and in to start using!$NC"
