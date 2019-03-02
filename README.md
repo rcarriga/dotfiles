@@ -16,6 +16,8 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
 <details><summary>Plugins</summary>
 <p>
 
+**General**
+
   - [vim-plug](https://github.com/junegunn/vim-plug)
   - [NERDTree](https://github.com/scrooloose/nerdtree)
   - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
@@ -30,14 +32,21 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
   - [echodoc](https://github.com/Shougo/echodoc.vim)
   - [deoplete](https://github.com/Shougo/deoplete.nvim)
   - [ondark colorscheme](https://github.com/joshdick/onedark.vim)
-  - **Python Specific**:
-      - [SimpylFold](https://github.com/tmhedberg/SimpylFold)
-      - [vim-virtualenv](https://github.com/plytophogy/vim-virtualenv) *NB: Install pylint in virtualenv*.
-  - **Terraform Specific**:
-      - [vim-terraform](https://github.com/hashivim/vim-terraform)
-  - **Haskell Specific**:
-      - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
-  - Also a couple of others used only to support the above.
+
+**Python Specific**:
+
+  - [SimpylFold](https://github.com/tmhedberg/SimpylFold)
+  - [vim-virtualenv](https://github.com/plytophogy/vim-virtualenv) *NB: Install pylint in virtualenv*.
+
+**Terraform Specific**:
+
+  - [vim-terraform](https://github.com/hashivim/vim-terraform)
+
+**Haskell Specific**:
+
+  - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
+
+Also a couple of others used only to support the above.
 
 <p>
 </details>
