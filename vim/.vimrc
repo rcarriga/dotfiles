@@ -175,14 +175,13 @@ Plug 'airblade/vim-gitgutter'
 " Set gitgutter update time
 set updatetime=100
 
-Plug 'joshdick/onedark.vim'
+Plug 'patstockwell/vim-monokai-tasty'
 " Initialize plugin system
 call plug#end()
 
 " Needs to be after plugend
 set t_Co=256
 set cursorline
-colorscheme onedark
+colorscheme vim-monokai-tasty
 set termguicolors
-"let g:airline_theme='onehalfdark'
-let g:lightline = {'colorscheme': 'onedark'}
+let g:lightline = {'colorscheme': 'monokai_tasty'}
