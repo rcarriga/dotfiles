@@ -6,86 +6,74 @@ cd ~
 
 echo -e $YELLOW"This process will delete .vimrc, .gitconfig .tmux.conf & .zshrc!$NC"
 read -n 1 -p "Hit any key to continue (Or Ctrl-C to cancel)"
-rm ~/.vimrc
-rm ~/.zshrc
-rm ~/.gitconfig
-rm ~/.tmux.conf
-ln -sv ~/dotfiles/git/.gitconfig ~
-ln -sv ~/dotfiles/vim/.vimrc ~
-ln -sv ~/dotfiles/zsh/.zshrc ~
-ln -sv ~/dotfiles/tmux/.tmux.conf
 
-
-echo -e $YELLOW"Setting up global .gitignore$NC"
-x=$(git config --global core.excludesfile ~/dotfiles/git/.gitignore_global)||
-  echo x
 
 
 
 if command -v apt >/dev/null 2>&1; then
-  x=$(sudo apt update)||
+  sudo apt update
     echo x
-  x=$(sudo apt upgrade)||
+  sudo apt upgrade
     echo x
 
   command -v curl >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing curl$NC" &&
-    x=$(sudo apt install -y curl)||
+    sudo apt install -y curl
     echo x
 
   command -v stack >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing Stack$NC" && 
-    x=$(curl -sSL https://get.haskellstack.org/ | sh) ||
+    curl -sSL https://get.haskellstack.org/ | sh
     echo x
   
   command -v npm >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing NodeJS & npm$NC" && 
-    x=$(curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs npm)||
+    curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs npm
     echo x
 
   command -v python3 >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing python3$NC" &&
-    x=$(sudo apt install -y python3.7)||
+    sudo apt install -y python3.7
     echo x
 
   if command -v ag >/dev/null 2>&1 ; then
     echo -e $YELLOW"Installing the silver searcher$NC" 
-    x=$(sudo add-apt-repository ppa:pgolm/the-silver-searcher)||
+    sudo add-apt-repository ppa:pgolm/the-silver-searcher
       echo x
-    x=$(sudo apt-get update)||
+    sudo apt-get update
       echo x
-    x=$(sudo apt-get install the-silver-searcher)||
+    sudo apt-get install the-silver-searcher
       echo x
   fi
 
   command -v pyls >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing Python Language Server$NC" &&
-    x=$(pip3 install "python-language-server[all]")||
+    pip3 install "python-language-server[all]"
     echo x
 
   command -v typescript-language-server >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing TypeScript Language Server$NC" &&
-    x=$(npm install -g typescript-language-server)||
+    npm install -g typescript-language-server
     echo x
 
   command -v tmux >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing Tmux$NC" &&
-    x=$(sudo apt install -y tmux) ||
+    sudo apt install -y tmux
     echo x
 
   command -v vim >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing Vim$NC" &&
-    x=$(sudo apt install -y vim)||
+    sudo apt install -y vim
     echo x
 
   command -v zsh >/dev/null 2>&1 || 
     echo -e $YELLOW"Installing Zsh$NC" &&
-    x=$(sudo apt install -y zsh)||
+    sudo apt install -y zsh
     echo x
 
   if command -v hie >/dev/null 2>&1; then
     echo -e $YELLOW"Installing Haskell IDE Engine$NC" 
-    x=$(git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules)||
+    git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
       echo x
     cd haskell-ide-engine
     stack upgrade 2>&1 >/dev/null
@@ -103,17 +91,29 @@ if command -v apt >/dev/null 2>&1; then
   fi
 fi
 
+rm ~/.vimrc
+rm ~/.zshrc
+rm ~/.gitconfig
+rm ~/.tmux.conf
+ln -sv ~/dotfiles/git/.gitconfig ~
+ln -sv ~/dotfiles/vim/.vimrc ~
+ln -sv ~/dotfiles/zsh/.zshrc ~
+ln -sv ~/dotfiles/tmux/.tmux.conf
+
+echo -e $YELLOW"Setting up global .gitignore$NC"
+git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
+  echo x
 echo -e $YELLOW"Installing powerline fonts. (My favourite is cousine)$NC"
-x=$(git clone https://github.com/powerline/fonts.git --depth=1)||
+git clone https://github.com/powerline/fonts.git --depth=1
   echo x
 cd fonts
-x=$(./install.sh)||
+./install.sh
   echo x
 cd ..
 rm -rf fonts
 
 echo -e $YELLOW"Installing oh-my-zsh$NC"
-x=$(sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)")||
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
   echo x
 rm ~/.zshrc
 mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
