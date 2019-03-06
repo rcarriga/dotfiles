@@ -15,47 +15,47 @@ if command -v apt >/dev/null 2>&1; then
   sudo apt upgrade
 
   command -v curl >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing curl$NC" &&
-    sudo apt install -y curl
+    (echo -e $YELLOW"Installing curl$NC" &&
+    sudo apt install -y curl)
     
   command -v tmux >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing Tmux$NC" &&
-    sudo apt install -y tmux
+    (echo -e $YELLOW"Installing Tmux$NC" &&
+    sudo apt install -y tmux)
     
   command -v vim >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing Vim$NC" &&
-    sudo apt install -y vim
+    (echo -e $YELLOW"Installing Vim$NC" &&
+    sudo apt install -y vim)
     
   command -v zsh >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing Zsh$NC" &&
-    sudo apt install -y zsh
+    (echo -e $YELLOW"Installing Zsh$NC" &&
+    sudo apt install -y zsh)
 
   command -v stack >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing Stack$NC" && 
-    curl -sSL https://get.haskellstack.org/ | sh
+    (echo -e $YELLOW"Installing Stack$NC" && 
+    curl -sSL https://get.haskellstack.org/ | sh)
   
   command -v npm >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing NodeJS & npm$NC" && 
-    curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs npm
+    (echo -e $YELLOW"Installing NodeJS & npm$NC" && 
+    curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs)
 
   command -v python3 >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing python3$NC" &&
-    sudo apt install -y python3.7
+    (echo -e $YELLOW"Installing python3$NC" &&
+    sudo apt install -y python3.7 &&
+    sudo apt install -y python3-pip &&
+    pip3 install neovim)
+
 
   command -v ag >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing the silver searcher$NC" &&
-    sudo add-apt-repository ppa:pgolm/the-silver-searcher &&
-    sudo apt-get update &&
-    sudo apt-get install the-silver-searcher
-
+    echo -e $YELLOW"NEED TO INSTALL THE SILVER SEARCHER!!" &&
+    
   command -v pyls >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing Python Language Server$NC" &&
-    pip3 install "python-language-server[all]"
+    (echo -e $YELLOW"Installing Python Language Server$NC" &&
+    pip3 install "python-language-server[all]")
     
 
   command -v typescript-language-server >/dev/null 2>&1 || 
-    echo -e $YELLOW"Installing TypeScript Language Server$NC" &&
-    npm install -g typescript-language-server
+    (echo -e $YELLOW"Installing TypeScript Language Server$NC" &&
+    sudo npm install -g typescript-language-server)
 
 
   if command -v hie >/dev/null 2>&1; then
@@ -90,21 +90,24 @@ ln -sv ~/dotfiles/tmux/.tmux.conf
 echo -e $YELLOW"Setting up global .gitignore$NC"
 git config --global core.excludesfile ~/dotfiles/git/.gitignore_global
   
-echo -e $YELLOW"Installing powerline fonts. (My favourite is cousine)$NC"
-git clone https://github.com/powerline/fonts.git --depth=1
-  
-cd fonts
-./install.sh
+fonts=$(fc-list | grep 'Cousine')
+if [[ fonts == "" ]]; then
+  echo -e $YELLOW"Installing powerline fonts. (My favourite is cousine)$NC"
+  git clone https://github.com/powerline/fonts.git --depth=1
+  cd fonts
+  ./install.sh
+fi
   
 cd ..
 rm -rf fonts
 
-echo -e $YELLOW"Installing oh-my-zsh$NC"
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-  
-rm ~/.zshrc
-mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+if [[ ! -d ~/.oh-my-zsh ]]; then
+  echo -e $YELLOW"Installing oh-my-zsh$NC"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" 
+  rm ~/.zshrc
+  mv ~/.zshrc.pre-oh-my-zsh ~/.zshrc
+  echo -e $YELLOW"Switching shell to zsh by default"
+  chsh -s $(which zsh)
+  echo -e "Shell changed to zsh. Log out and in to start using!$NC"
+fi
 
-echo -e $YELLOW"Switching shell to zsh by default"
-chsh -s $(which zsh)
-echo -e "Shell changed to zsh. Log out and in to start using!$NC"
