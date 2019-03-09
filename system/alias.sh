@@ -6,3 +6,5 @@ fi
 alias pip=pip3
 alias python=python3
 alias tmux="TERM=screen-256color-bce tmux"
+alias icat="kitty +kitten icat"
+
