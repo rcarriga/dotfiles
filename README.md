@@ -1,8 +1,8 @@
 # My Dotfiles
 
-*Disclaimer: README might not be up to date. Use install scripts at your own risk (Read them before using)*
+*Disclaimer: README might not be up to date. Install script is not stable and probably will not work!* 
 
-My humble collection of dotfiles. I try aim for performance over features so I keep only what I use often.
+My humble collection of dotfiles. I to not go overboard with features so I keep only what I use often.
 If you're just passing through and see something you think could be better, then let me know!
 
 ## Vim
@@ -10,7 +10,6 @@ If you're just passing through and see something you think could be better, then
 Been using Vim daily since January 2019 so by no means an expert. 
 This setup might be useful if you are just starting out.
 Main language support is for Haskell, Python and Typescript. Most other languages have linting support from ALE.
-I've attempted to strike a balance between performance and IDE-like tools.
 Most plugins that offer built in commands for terminal interaction (e.g. debugging) are unnecessary due to Tmux.
 
 <details><summary>Plugins</summary>
@@ -147,3 +146,12 @@ for buttery smooth performance.
 
 ## Tmux
 Config is shamelessly ripped from [this fantastic repo](https://github.com/gpakosz/.tmux)
+
+## Programs to Install 
+
+<details><summary> These are just programs I use often and so I want to just have them listed.  </summary>
+<p>
+sds
+</p>
+</details>
+
