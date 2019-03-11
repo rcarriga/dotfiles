@@ -1,0 +1,2 @@
+x=$(sudo apt install cowsay) || 
+  echo x

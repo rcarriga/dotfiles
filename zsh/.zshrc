@@ -8,16 +8,15 @@ source ~/dotfiles/system/export.sh
 source ~/dotfiles/system/function.sh
 
 # Oh-my-zsh settings go in this one
-source ~/dotfiles/zsh/ohmyzsh-setup.sh
+#source ~/dotfiles/zsh/ohmyzsh-setup.sh
 
 # ZPlug settings go in... you guessed it!
 source ~/dotfiles/zsh/zplug-setup.sh
+screenfetch
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 [[ -s /home/ronan/.autojump/etc/profile.d/autojump.sh ]] && source /home/ronan/.autojump/etc/profile.d/autojump.sh
-
-autoload -U compinit && compinit -u
 
 ###-tns-completion-start-###
 if [ -f /Users/rcarriga/.tnsrc ]; then 

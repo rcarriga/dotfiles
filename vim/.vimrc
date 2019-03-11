@@ -1,4 +1,3 @@
-" General configuration
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
    function! AdjustWindowHeight(minheight, maxheight)
@@ -14,8 +13,6 @@ au FileType qf call AdjustWindowHeight(3, 50)
        endw
        exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
    endfunction
-
-
 " Enable search highlighting and set color
 set hlsearch
 hi Search guibg=LightBlue
@@ -23,6 +20,7 @@ hi Search guibg=LightBlue
 set ttimeoutlen=50
 " Show line numbers
 set number
+" Show numbers relative to current line
 set relativenumber
 " Fix backspace issue
 set bs=2
@@ -54,6 +52,12 @@ noremap <Right> <NOP>
 " Don't waste time holding shift for commands
 map ; :
 noremap ;; ;
+" Auto install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -93,7 +97,6 @@ Plug 'hashivim/vim-terraform' ,{'for': 'terraform'}
 " Setup for terraform
 let g:terraform_align=1
 let g:terraform_fold_sections=1
-let g:terraform_remap_spacebar=1
 let g:terraform_commentstring='//%s'
 let g:terraform_fmt_on_save=1
 
@@ -162,25 +165,31 @@ map <C-o> :NERDTreeToggle<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-"Plug 'vim-airline/vim-airline'
-"let g:airline#extensions#tabline#enabled = 1
 Plug 'itchyny/lightline.vim'
 " Make lightline work
 set laststatus=2
 " Hides --insert-- under lightline
 set noshowmode
 
+Plug 'alvan/vim-closetag'
+
 Plug 'airblade/vim-gitgutter'
 " Set gitgutter update time
 set updatetime=100
 
-Plug 'joshdick/onedark.vim'
+Plug 'patstockwell/vim-monokai-tasty'
 " Initialize plugin system
 call plug#end()
 
 " Needs to be after plugend
 set t_Co=256
 set cursorline
-colorscheme onedark
-"let g:airline_theme='onehalfdark'
-let g:lightline = {'colorscheme': 'onedark'}
+colorscheme vim-monokai-tasty
+set termguicolors
+let g:lightline = {'colorscheme': 'monokai_tasty'}
+" vim hardcodes background color erase even if the terminfo file does
+        " not contain bce (not to mention that libvte based terminals
+        " incorrectly contain bce in their terminfo files). This causes
+        " incorrect background rendering when using a color theme with a
+        " background color.
+let &t_ut=''
