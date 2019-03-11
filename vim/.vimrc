@@ -14,6 +14,8 @@ au FileType qf call AdjustWindowHeight(3, 50)
        endw
        exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
    endfunction
+
+
 " Enable search highlighting and set color
 set hlsearch
 hi Search guibg=LightBlue
@@ -68,7 +70,7 @@ nnoremap <Leader>ag :Ag .<CR>
 Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
-let g:fugitive_gitlab_domains = ['***REMOVED***', 'https://github.com']
+let g:fugitive_gitlab_domains = ['***REMOVED***', 'https://github.com', '***REMOVED***']
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
@@ -180,8 +182,5 @@ call plug#end()
 set t_Co=256
 set cursorline
 colorscheme onedark
-if (has("termguicolors"))
-    set termguicolors
-endif
 "let g:airline_theme='onehalfdark'
 let g:lightline = {'colorscheme': 'onedark'}
