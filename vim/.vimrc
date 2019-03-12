@@ -34,7 +34,7 @@ set splitbelow
 set splitright
 " Set all code unfolded by default
 set foldlevel=99
-" Autoupdate files on change
+" Update files on change
 set autoread
 au BufEnter * :checktime
 " Switch panes with Ctrl + J/K/L/H
@@ -48,6 +48,12 @@ noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+
+" Who needs NERDTree?
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+nnoremap <Leader>nv :Vex<CR>
+nnoremap <Leader>ns :Sex<CR>
 
 " Don't waste time holding shift for commands
 map ; :
@@ -157,13 +163,6 @@ Plug 'neovimhaskell/haskell-vim' ,{'for': 'haskell'}
 "" Makes Haskell Vim work
 syntax on
 filetype plugin indent on
-
-Plug 'scrooloose/nerdtree'
-" Toggle NERDTree with Ctrl+o
-map <C-o> :NERDTreeToggle<CR>
-" Hide 'Press ? for help'
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
 
 Plug 'itchyny/lightline.vim'
 " Make lightline work
