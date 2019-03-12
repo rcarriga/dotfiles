@@ -1,3 +1,4 @@
+neofetch
 # Add custom aliases here
 source ~/dotfiles/system/alias.sh
 
@@ -12,7 +13,6 @@ source ~/dotfiles/system/function.sh
 
 # ZPlug settings go in... you guessed it!
 source ~/dotfiles/zsh/zplug-setup.sh
-screenfetch
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
