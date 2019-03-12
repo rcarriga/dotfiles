@@ -6,3 +6,4 @@ export EDITOR='vim'
 export PATH=$PATH:$M2_HOME/bin
 export FZF_DEFAULT_COMMAND='ag --depth 10 --hidden --ignore .git -f -g ""'
 export PATH=$HOME/.local/bin:$PATH
+source ~/dotfiles/system/local.export.sh

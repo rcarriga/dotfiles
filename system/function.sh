@@ -5,7 +5,11 @@ ref-aws() {
 
 # Automatically place virtualenvs in .virtualenvs so vim can use them
 virenv() {
-        virtualenv "/Users/rcarriga/.virtualenvs/"$1
+        virtualenv "$HOME/.virtualenvs/"$1
+}
+
+envactivate (){
+        source "$HOME/.virtualenvs/$1/bin/activate"
 }
 
 ck() { 
