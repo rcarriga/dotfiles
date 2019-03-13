@@ -2,7 +2,7 @@
 
 *Disclaimer: README might not be up to date. Install script is not stable and probably will not work!* 
 
-My humble collection of dotfiles. I to not go overboard with features so I keep only what I use often.
+My humble collection of dotfiles and programs I like. I try to not go overboard with features so I keep only what I use often.
 If you're just passing through and see something you think could be better, then let me know!
 
 ## Vim
@@ -18,9 +18,8 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
 **General**
 
   - [vim-plug](https://github.com/junegunn/vim-plug)
-  - [NERDTree](https://github.com/scrooloose/nerdtree)
   - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
-  - [FZF](https://github.com/junegunn/fzf.vim) *NB: Uses Ag - The Silver Searcher*
+  - [FZF](https://github.com/junegunn/fzf.vim)
   - [vim-surround](https://github.com/tpope/vim-surround)
   - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
   - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
@@ -30,7 +29,6 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
   - [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim)
   - [echodoc](https://github.com/Shougo/echodoc.vim)
   - [deoplete](https://github.com/Shougo/deoplete.nvim)
-  - [ondark colorscheme](https://github.com/joshdick/onedark.vim)
 
 **Python Specific**:
 
@@ -76,7 +74,7 @@ Also a couple of others used only to support the above.
 |   `t`    | Type Definition |
 |   `x`    | References |
 |   `a`    | Code Actions Menu |
-|   `k`    | Hover (Loo*k*up) |
+|   `k`    | Hover (Loo**k**up) |
 |   `m`    | Menu of all Language Server commands |
 |   `h`    | Hightlight |
 
@@ -93,6 +91,7 @@ Also a couple of others used only to support the above.
 |   `l`    | Blame |
 
   - *NB* Type "cc" in status window to commit changes.
+
 #### FZF Commands
 
 |   Suffix    | Command  |
@@ -138,20 +137,37 @@ for buttery smooth performance.
 <p>
 
   - [ZPlug](https://github.com/zplug/zplug)
-  - [Oh-My-Zsh](https://github.com/robbyrussell/oh-my-zsh)
 
 </p>
 </details>
 
 
 ## Tmux
-Config is shamelessly ripped from [this fantastic repo](https://github.com/gpakosz/.tmux)
 
-## Programs to Install 
+If you don't know what tmux is well then I can't do it justice. Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
+Basic tmux is useful but my config file is taken (shamelessly ripped) from [this fantastic repo](https://github.com/gpakosz/.tmux) which makes it even better!
 
-<details><summary> These are just programs I use often and so I want to just have them listed.  </summary>
+## Kitty
+
+Kitty is a GPU powered terminal emulator. To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code). It uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
+
+## Bonus Stuff
+
+<details><summary>Programs to Install</summary>
 <p>
-sds
+ These are just programs I use often and so I want to just have them listed.  
+
+- Terminal file browser: [ranger](https://github.com/ranger/ranger)
+- Haskell project manager: [stack](https://docs.haskellstack.org/en/stable/README/)
+ 
 </p>
 </details>
+
+<details><summary>Guides and References<summary>
+<p>
+A collection of great resources for learning about all things terminal and programming
+
+- [Bash scripting cheatsheet](https://devhints.io/bash)
+- [List of random but useful tools](https://kkovacs.eu/cool-but-obscure-unix-tools)
+- [Stack guide](https://guide.aelve.com/haskell/stack-cookbook-ai0adh03)
 
