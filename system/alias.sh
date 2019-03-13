@@ -8,3 +8,4 @@ alias python=python3
 alias tmux="TERM=screen-256color-bce tmux"
 alias icat="kitty +kitten icat"
 alias h='k -h'
+alias weather="curl http://wttr.in/"
