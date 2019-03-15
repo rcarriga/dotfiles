@@ -18,51 +18,58 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
 **General**
 
   - [vim-plug](https://github.com/junegunn/vim-plug)
+        Plugin manager for vim which allows for lazy loading.
   - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
+        Multi-lingual commenting plugin.
   - [FZF](https://github.com/junegunn/fzf.vim)
+        Fuzzy file finding to open files from child directories.
   - [vim-surround](https://github.com/tpope/vim-surround)
+        Allows for surrounding text objects with any character.
   - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
+        Creates pairs of quotes and brackets when one is typed.
   - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
+        Shows git status for  each line in gutter (Left side of buffer).
   - [lightline](https://github.com/itchyny/lightline.vim)
+        Prettier statusbar.
   - [vim-fugitive](https://github.com/tpope/vim-fugitive)
-  - [ALE: Asynchronous Lint Engine](https://github.com/w0rp/ale)
+        Better git integration.
+  - [ALE](https://github.com/w0rp/ale)
+        Asynchronous linting.
   - [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim)
+        Runs language servers.
   - [echodoc](https://github.com/Shougo/echodoc.vim)
+        Shows function signatures without opening new window.
   - [deoplete](https://github.com/Shougo/deoplete.nvim)
+        Asynchronous auto complete popup with custom sources.
 
 **Python Specific**:
 
   - [SimpylFold](https://github.com/tmhedberg/SimpylFold)
+        Python friendly code folding.
   - [vim-virtualenv](https://github.com/plytophogy/vim-virtualenv) *NB: Install pylint in virtualenv*.
-
-**Terraform Specific**:
-
-  - [vim-terraform](https://github.com/hashivim/vim-terraform)
+        Enables virtual environments.
 
 **Haskell Specific**:
 
   - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
+        Better haskell syntax highlighting.
+
+**Typescript Specific**
+
+  - [typescript-vim](https://github.com/leafgarland/typescript-vim)
+        Better typescript syntax highlighting.
 
 Also a couple of others used only to support the above.
 
 <p>
 </details>
 
-<details><summary>Programs Needed</summary>
-<p>
-
-  - [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
-  - [Python Language Server](https://github.com/palantir/python-language-server)
-  - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
-  - [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
-
-</p>
-</details>
-
 <details><summary>Mappings - Tries to follow vim's mnemonics</summary>
 <p>
 
 #### Langage Server Commands
+
+My leader key is set to default "\\" key.
 
 *Prefix*: `Leader+l` (Lower case L)
 
@@ -103,7 +110,8 @@ Also a couple of others used only to support the above.
 
 |   Suffix         | Command  |
 |  :------:        | :------- |
-| `Ctrl+o`         | Toggle NERDTree |
+| `Leader+nv`      | Open netrw vertical split |
+| `Leader+ns`      | Open netrw horizontal split |
 | `Tab`            | Next Completion |
 | `Ctrl+(h/j/k/l)` | Switch Window in Direction  |
 
@@ -159,11 +167,15 @@ Kitty is a GPU powered terminal emulator. To be honest my main reason for pickin
 
 - Terminal file browser: [ranger](https://github.com/ranger/ranger)
 - Haskell project manager: [stack](https://docs.haskellstack.org/en/stable/README/)
+- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
+- [Python Language Server](https://github.com/palantir/python-language-server)
+- [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
+- [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
  
 </p>
 </details>
 
-<details><summary>Guides and References<summary>
+<details><summary>Guides and References</summary>
 <p>
 A collection of great resources for learning about all things terminal and programming
 
@@ -171,3 +183,5 @@ A collection of great resources for learning about all things terminal and progr
 - [List of random but useful tools](https://kkovacs.eu/cool-but-obscure-unix-tools)
 - [Stack guide](https://guide.aelve.com/haskell/stack-cookbook-ai0adh03)
 
+</p>
+</details>
