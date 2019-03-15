@@ -1,3 +1,47 @@
+
+" ###################################################################################
+" Install Plugins 
+" See README for links (Or just paste each plugin to https://github.com/)
+
+" Auto install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/echodoc.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'alvan/vim-closetag'
+Plug 'fszymanski/deoplete-emoji'
+Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'leafgarland/typescript-vim' ,{'for': 'typescript'}
+Plug 'neovimhaskell/haskell-vim' ,{'for': 'haskell'}
+Plug 'patstockwell/vim-monokai-tasty'
+Plug 'plytophogy/vim-virtualenv' ,{'for': 'python'}
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'scrooloose/nerdcommenter'
+Plug 'shumphrey/fugitive-gitlab.vim'
+Plug 'tmhedberg/SimpylFold' ,{'for': 'python'}
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'ujihisa/neco-look'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'w0rp/ale'
+
+" Initialize plugin system
+call plug#end()
+
+" ###################################################################################
+" Native Vim Settings Section
+
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
    function! AdjustWindowHeight(minheight, maxheight)
@@ -13,6 +57,17 @@ au FileType qf call AdjustWindowHeight(3, 50)
        endw
        exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
    endfunction
+
+" Allow filetype specific plugins and indenting
+filetype plugin indent on
+" Honestly do not know but makes lightline work
+set laststatus=2
+" Hides --insert-- under lightline
+set noshowmode
+" Set file update time in milliseconds
+set updatetime=100
+" Turn on 24 bit color. Delete this line if colors are weird
+set termguicolors
 " Enable search highlighting and set color
 set hlsearch
 hi Search guibg=LightBlue
@@ -33,103 +88,44 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
 set splitbelow
 set splitright
 " Set all code unfolded by default
+let g:ale_linters = {
+\   'python': ['pylint'],
+\   'haskell': [],
+\   'typescript': [],
+\}
 set foldlevel=99
 " Update files on change
 set autoread
 au BufEnter * :checktime
-" Switch panes with Ctrl + J/K/L/H
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Arrow keys are bad and you shouldn't use them
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
-
-" Who needs NERDTree?
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-nnoremap <Leader>nv :Vex<CR>
-nnoremap <Leader>ns :Sex<CR>
-
+" Save edit history between sessions
+set undofile
+set undodir=~/.vim/undodir
 " Don't waste time holding shift for commands
 map ; :
 noremap ;; ;
-" Auto install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" Who needs NERDTree? (Makes netrw look nicer)
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+" Allows commandline to usee 2 lines (Makes echodoc work) 
+set cmdheight=2
+" Only needed for Kitty so background isn't messed up
+let &t_ut=''
 
-call plug#begin('~/.vim/plugged')
+" ###################################################################################
+" Plugin Settings Section
 
-" Syntax hightlighting and indenting for ts
-Plug 'leafgarland/typescript-vim' ,{'for': 'typescript'}
-
-" Install fzf then fzf.vim
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>ag :Ag .<CR>
-
-" Fantastic git commands built in
-Plug 'tpope/vim-fugitive'
-Plug 'shumphrey/fugitive-gitlab.vim'
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
 let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://github.com', 'https://gitlab.engservices.qops.net']
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gp :Gpush<CR>
-nnoremap <Leader>gb :Gbrowse<CR>
-nnoremap <Leader>gl :Gblame<CR>
-" Plugins for surrounding with quotes, brackets etc
-Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
 
-Plug 'plytophogy/vim-virtualenv' ,{'for': 'python'}
-
-" Python friendly folding
-Plug 'tmhedberg/SimpylFold' ,{'for': 'python'}
-
-Plug 'scrooloose/nerdcommenter'
-"Needed for NERD comment
-filetype plugin on
-
-Plug 'hashivim/vim-terraform' ,{'for': 'terraform'}
-" Setup for terraform
-let g:terraform_align=1
-let g:terraform_fold_sections=1
-let g:terraform_commentstring='//%s'
-let g:terraform_fmt_on_save=1
-
-" Deoplete setup needed for language server
-Plug 'Shougo/deoplete.nvim'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-" Gotta have your emojis!
-Plug 'fszymanski/deoplete-emoji'
-" Deoplete spelling suggestions
-Plug 'ujihisa/neco-look'
-"These 2 lines are for speeding up startup time
+" These 2 lines are for speeding up startup time
 let g:deoplete#enable_at_startup = 0
 autocmd InsertEnter * call deoplete#enable() | call deoplete#custom#source('emoji', 'converters', ['converter_emoji']) | call deoplete#custom#source('look', 'filetypes', ['markdown'])
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Echodoc for function signatures
-Plug 'Shougo/echodoc.vim'
-set cmdheight=2
+" Shows function signature above commandline instead of opening new window
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \}
+" Set commands to run for language server for filetypes. (Pass arguements in array)
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['typescript-language-server', '--stdio'],
     \ 'typescript': ['typescript-language-server', '--stdio'],
@@ -137,6 +133,52 @@ let g:LanguageClient_serverCommands = {
     \ 'java': ['/usr/local/bin/jdtls'],
     \ 'haskell': ['hie-wrapper']
     \ }
+
+" Set linters for filetypes. I normally disable if running language server
+" Python Language Server doesn't run pylint so enable it here.
+let g:ale_linters = {
+\   'python': ['pylint'], 
+\   'haskell': [],
+\   'typescript': [],
+\}
+
+" Forces pylint to run at project base rather than running each file in it's own directory
+let g:ale_python_pylint_change_directory = 0
+
+colorscheme vim-monokai-tasty
+let g:lightline = {'colorscheme': 'monokai_tasty'}
+
+" ###################################################################################
+" Custom Mappings
+
+" Netrw mappings
+nnoremap <Leader>nv :Vex<CR>
+nnoremap <Leader>ns :Sex<CR>
+
+" Disable arrow keys (Just throw yourself into it trust me...)
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
+" Switch windows with Ctrl + regular direction keys
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" FZF and Ag mappings
+nnoremap <Leader>f :Files<CR>
+nnoremap <Leader>ag :Ag .<CR>
+
+" Git functions with vim-fugitive
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gb :Gbrowse<CR>
+nnoremap <Leader>gl :Gblame<CR>
+
+" Language server functions
 nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
 nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
 nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
@@ -149,46 +191,5 @@ nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
 nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
 nnoremap <leader>lh :call LanguageClient#textDocument_documentHighlight()<CR>
 
-Plug 'w0rp/ale'
-let g:ale_linters = {
-\   'python': ['pylint'],
-\   'haskell': [],
-\   'typescript': [],
-\}
-" Forces pylint to run at project base rather than running each file in it's own
-" directory
-let g:ale_python_pylint_change_directory = 0
-
-Plug 'neovimhaskell/haskell-vim' ,{'for': 'haskell'}
-"" Makes Haskell Vim work
-syntax on
-filetype plugin indent on
-
-Plug 'itchyny/lightline.vim'
-" Make lightline work
-set laststatus=2
-" Hides --insert-- under lightline
-set noshowmode
-
-Plug 'alvan/vim-closetag'
-
-Plug 'airblade/vim-gitgutter'
-" Set gitgutter update time
-set updatetime=100
-
-Plug 'patstockwell/vim-monokai-tasty'
-" Initialize plugin system
-call plug#end()
-
-" Needs to be after plugend
-set t_Co=256
-set cursorline
-colorscheme vim-monokai-tasty
-set termguicolors
-let g:lightline = {'colorscheme': 'monokai_tasty'}
-" vim hardcodes background color erase even if the terminfo file does
-        " not contain bce (not to mention that libvte based terminals
-        " incorrectly contain bce in their terminfo files). This causes
-        " incorrect background rendering when using a color theme with a
-        " background color.
-let &t_ut=''
+" Use tab for cycling through autocomplete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
