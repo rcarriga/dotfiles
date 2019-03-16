@@ -35,6 +35,8 @@ Plug 'tpope/vim-surround'
 Plug 'ujihisa/neco-look'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'w0rp/ale'
+Plug 'lervag/vimtex'
+Plug 'Ron89/thesaurus_query.vim' ,{'for': ['tex', 'markdown']}
 
 " Initialize plugin system
 call plug#end()
@@ -57,6 +59,8 @@ au FileType qf call AdjustWindowHeight(3, 50)
        endw
        exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
    endfunction
+
+au FileType tex set nowrap 
 
 " Allow filetype specific plugins and indenting
 filetype plugin indent on
@@ -119,7 +123,7 @@ let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://git
 
 " These 2 lines are for speeding up startup time
 let g:deoplete#enable_at_startup = 0
-autocmd InsertEnter * call deoplete#enable() | call deoplete#custom#source('emoji', 'converters', ['converter_emoji']) | call deoplete#custom#source('look', 'filetypes', ['markdown'])
+autocmd InsertEnter * call deoplete#enable() | call deoplete#custom#source('emoji', 'converters', ['converter_emoji']) | call deoplete#custom#source('look', 'filetypes', ['markdown', 'tex'])
 
 " Shows function signature above commandline instead of opening new window
 let g:echodoc#enable_at_startup = 1
@@ -193,3 +197,6 @@ nnoremap <leader>lh :call LanguageClient#textDocument_documentHighlight()<CR>
 
 " Use tab for cycling through autocomplete
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" Built in thesaurus!
+nnoremap <Leader>th :ThesaurusQueryReplaceCurrentWord<CR>
