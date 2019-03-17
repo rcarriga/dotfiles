@@ -15,28 +15,29 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/echodoc.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag', {'for': 'html'}
 Plug 'fszymanski/deoplete-emoji'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'leafgarland/typescript-vim' ,{'for': 'typescript'}
-Plug 'neovimhaskell/haskell-vim' ,{'for': 'haskell'}
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'patstockwell/vim-monokai-tasty'
-Plug 'plytophogy/vim-virtualenv' ,{'for': 'python'}
+Plug 'plytophogy/vim-virtualenv', {'for': 'python'}
 Plug 'roxma/nvim-yarp'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'tmhedberg/SimpylFold' ,{'for': 'python'}
+Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'ujihisa/neco-look'
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'w0rp/ale'
-Plug 'lervag/vimtex'
-Plug 'Ron89/thesaurus_query.vim' ,{'for': ['tex', 'markdown']}
+Plug 'lervag/vimtex', {'for': 'tex'}
+Plug 'Ron89/thesaurus_query.vim', {'for': ['tex', 'markdown']}
+Plug 'junegunn/vim-easy-align', {'for': 'markdown'}
 
 " Initialize plugin system
 call plug#end()
@@ -200,3 +201,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " Built in thesaurus!
 nnoremap <Leader>th :ThesaurusQueryReplaceCurrentWord<CR>
+
+" Align GitHub-flavored Markdown tables
+vmap <Leader>a :EasyAlign*<Bar><Enter>

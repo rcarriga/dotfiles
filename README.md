@@ -1,8 +1,10 @@
 # My Dotfiles
 
-*Disclaimer: README might not be up to date. Install script is not stable and probably will not work!* 
+*Disclaimer: README might not be up to date. 
+Install script is not stable and probably will not work!* 
 
-My humble collection of dotfiles and programs I like. I try to not go overboard with features so I keep only what I use often.
+My humble collection of dotfiles and programs I like. 
+I try to not go overboard with features so I keep only what I use often.
 If you're just passing through and see something you think could be better, then let me know!
 
 ## Vim
@@ -14,6 +16,8 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
 
 <details><summary>Plugins</summary>
 <p>
+
+Language specific plugins are only loaded for the specified filetype to speedup startup time.
 
 **General**
 
@@ -59,6 +63,15 @@ Most plugins that offer built in commands for terminal interaction (e.g. debuggi
   - [typescript-vim](https://github.com/leafgarland/typescript-vim)
         Better typescript syntax highlighting.
 
+**Markdown and LaTex Specific**
+
+  - [vim-easy-align](https://github.com/junegunn/vim-easy-align)
+        Auto align markdown tables
+  - [vimtex](https://github.com/lervag/vimtex)
+        Integrated latex compiler, viewer and other features
+  - [Thesauras Query](https://github.com/Ron89/thesaurus_query.vim)
+        Built in thesauras (Only in markdown and latex files)
+
 Also a couple of others used only to support the above.
 
 <p>
@@ -71,49 +84,60 @@ Also a couple of others used only to support the above.
 
 My leader key is set to default "\\" key.
 
-*Prefix*: `Leader+l` (Lower case L)
+*Prefix*: `<Leader>l` (Lower case L)
 
-|  Suffix  | Command  |
-| :------: | :------- |
-|   `d`    | Definition |
-|   `r`    | Rename |
-|   `f`    | Format Document |
-|   `t`    | Type Definition |
-|   `x`    | References |
-|   `a`    | Code Actions Menu |
-|   `k`    | Hover (Loo**k**up) |
-|   `m`    | Menu of all Language Server commands |
-|   `h`    | Hightlight |
+| Suffix | Command                              |
+| :----: | :----------------------------------- |
+| `d`    | Definition                           |
+| `r`    | Rename                               |
+| `f`    | Format Document                      |
+| `t`    | Type Definition                      |
+| `x`    | References                           |
+| `a`    | Code Actions Menu                    |
+| `k`    | Hover (Loo**k**up)                   |
+| `m`    | Menu of all Language Server commands |
+| `h`    | Hightlight                           |
 
 #### Git Commands
 
-*Prefix*: `Leader+g`
+*Prefix*: `<Leader>g`
 
-|  Suffix  | Command  |
-| :------: | :------- |
-|   `s`    | Status |
-|   `p`    | Push |
-|   `d`    | Diff |
-|   `b`    | Browse (Open repo in browser)  |
-|   `l`    | Blame |
+| Suffix | Command                       |
+| :----: | :---------------------------- |
+| `s`    | Status                        |
+| `p`    | Push                          |
+| `d`    | Diff                          |
+| `b`    | Browse (Open repo in browser) |
+| `l`    | Blame                         |
 
   - *NB* Type "cc" in status window to commit changes.
 
 #### FZF Commands
 
-|   Suffix    | Command  |
-|  :------:   | :------- |
-| `Leader+f`  | Fuzzy File Finder |
-| `Leader+ag` | Fuzzy File Contents Search (Using Ag) |
+| Suffix       | Command                               |
+| :----------: | :------------------------------------ |
+| `<Leader>f`  | Fuzzy File Finder                     |
+| `<Leader>ag` | Fuzzy File Contents Search (Using Ag) |
+
+#### LaTex Commands
+
+*Prefix*: `<Leader>l`
+
+| Suffix | Command                               |
+| :----: | :------------------------------------ |
+| `l`    | Run compile server for LaTex document |
+| `v`    | View compiled document                |
 
 #### Misc:
 
-|   Suffix         | Command  |
-|  :------:        | :------- |
-| `Leader+nv`      | Open netrw vertical split |
-| `Leader+ns`      | Open netrw horizontal split |
-| `Tab`            | Next Completion |
-| `Ctrl+(h/j/k/l)` | Switch Window in Direction  |
+| Suffix           | Command                          |
+| :------:         | :------------------------------- |
+| `<Leader>nv`     | Open netrw vertical split        |
+| `<Leader>ns`     | Open netrw horizontal split      |
+| `Tab`            | Next Completion                  |
+| `Ctrl+(h/j/k/l)` | Switch Window in Direction       |
+| `<Leader>th`     | Open thesauras for selected word |
+| `<Leader>a`      | Align highlighted markdown table |
 
 Arrow keys are disabled in normal mode.
 
@@ -157,7 +181,7 @@ Basic tmux is useful but my config file is taken (shamelessly ripped) from [this
 
 ## Kitty
 
-Kitty is a GPU powered terminal emulator. To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code). It uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
+Kitty is a GPU powered terminal emulator. To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
 
 ## Bonus Stuff
 
@@ -165,13 +189,15 @@ Kitty is a GPU powered terminal emulator. To be honest my main reason for pickin
 <p>
  These are just programs I use often and so I want to just have them listed.  
 
-- Terminal file browser: [ranger](https://github.com/ranger/ranger)
-- Haskell project manager: [stack](https://docs.haskellstack.org/en/stable/README/)
-- [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
-- [Python Language Server](https://github.com/palantir/python-language-server)
-- [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
-- [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
- 
+- Terminal file browser: [Ranger](https://github.com/ranger/ranger)
+- Haskell project manager: [Stack](https://docs.haskellstack.org/en/stable/README/)
+- Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
+
+- Language Servers: 
+  - [Python Language Server](https://github.com/palantir/python-language-server)
+  - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
+  - [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
+
 </p>
 </details>
 
