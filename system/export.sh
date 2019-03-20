@@ -1,6 +1,6 @@
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export ZSH=~/".oh-my-zsh"
-export TERM=xterm-256color
+export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR='vim'
 export PATH=$PATH:$M2_HOME/bin

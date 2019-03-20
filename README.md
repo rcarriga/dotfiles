@@ -192,7 +192,7 @@ Kitty is a GPU powered terminal emulator. To be honest my main reason for pickin
 - Terminal file browser: [Ranger](https://github.com/ranger/ranger)
 - Haskell project manager: [Stack](https://docs.haskellstack.org/en/stable/README/)
 - Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
-
+- Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Language Servers: 
   - [Python Language Server](https://github.com/palantir/python-language-server)
   - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
