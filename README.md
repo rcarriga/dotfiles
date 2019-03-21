@@ -183,23 +183,28 @@ Basic tmux is useful but my config file is taken (shamelessly ripped) from [this
 
 Kitty is a GPU powered terminal emulator. To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
 
-## Bonus Stuff
+## Development Tools
 
-<details><summary>Programs to Install</summary>
-<p>
- These are just programs I use often and so I want to just have them listed.  
+These are some of the tools I use with Vim and standalone for software development
 
-- Terminal file browser: [Ranger](https://github.com/ranger/ranger)
 - Haskell project manager: [Stack](https://docs.haskellstack.org/en/stable/README/)
 - Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
-- Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Language Servers: 
   - [Python Language Server](https://github.com/palantir/python-language-server)
   - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
   - [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
 
-</p>
-</details>
+
+## Enviroment Management and Utilities
+
+Some programs for managing the environment in i3 and in the terminal.
+
+- Terminal file browser: [Ranger](https://github.com/ranger/ranger)
+- Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
+- Backlight Control that just works: [light](https://github.com/haikarainen/light)
+- Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
+- Wallpaper Setter: [feh](https://feh.finalrewind.org/)
+
 
 <details><summary>Guides and References</summary>
 <p>
