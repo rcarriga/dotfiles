@@ -1,0 +1,4 @@
+#!/bin/bash
+
+output=$(df -H | grep '/$' | awk '{print $4}' | grep -o '[0-9]*' )
+echo "  $output""GB   "
