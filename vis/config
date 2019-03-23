@@ -1,5 +1,5 @@
 ##Refresh rate of the visualizers. A really high refresh rate may cause screen tearing. Default is 20.
-visualizer.fps=20
+visualizer.fps=30
 
 ##Sets the audio sources to use. Currently available ones are "mpd" and "alsa"Sets the audio sources to use.
 ##Currently available ones are "mpd", "pulse" and "alsa". Defaults to "mpd".
@@ -43,7 +43,7 @@ visualizer.spectrum.bar.width=1
 
 ##The amount of space between each bar in the spectrum visualizer. Defaults to 1. It's possible to set this to
 ##zero to have no space between bars
-visualizer.spectrum.bar.spacing=2
+visualizer.spectrum.bar.spacing=1
 
 ##Available smoothing options are monstercat, sgs, none.
 visualizer.spectrum.smoothing.mode=monstercat
@@ -85,7 +85,7 @@ visualizer.spectrum.falloff.mode=fill
 
 
 ##Turns off overriding the user's terminal colors. This is true by default.
-colors.override.terminal=false
+#colors.override.terminal=false
 
 ##Specifies the color scheme. The color scheme must be in ~/.config/vis/colors/ directory. The default scheme is "colors".
-#colors.scheme=rainbow
+colors.scheme=rainbow

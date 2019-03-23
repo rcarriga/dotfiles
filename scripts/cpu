@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cores=$(grep -c ^processor /proc/cpuinfo)
+idle_nums=$( mpstat -P 0-$((cores - 1)) --dec=0 | awk '{print $NF}' | tail -n$((cores)))
+usage_nums=$(for num in ${idle_nums[@]}; do 
+                echo $((100 - num)) 
+             done)
+output=$(echo $usage_nums | sort -n | awk '{print $1"% "}' )
+echo "  $output  "

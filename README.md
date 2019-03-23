@@ -197,13 +197,21 @@ These are some of the tools I use with Vim and standalone for software developme
 
 ## Enviroment Management and Utilities
 
-Some programs for managing the environment in i3 and in the terminal.
+Programs for managing the environment in i3 and in the terminal.
+Some links are just for extra info. In those cases it should just be a package to install
 
 - Terminal file browser: [Ranger](https://github.com/ranger/ranger)
 - Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Backlight Control that just works: [light](https://github.com/haikarainen/light)
 - Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
 - Wallpaper Setter: [feh](https://feh.finalrewind.org/)
+- Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
+- Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
+- GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
+- Window Switcher: [Rofi](https://github.com/DaveDavenport/rofi)
+- Battery Info Command: [acpi](https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface)
+- Status Bar Manager: [i3blocks](https://github.com/vivien/i3blocks)
+- Temperature Monitoring[lm-sensors](https://github.com/lm-sensors/lm-sensors)
 
 
 <details><summary>Guides and References</summary>
