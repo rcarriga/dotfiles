@@ -39,7 +39,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'ujihisa/neco-look'
 Plug 'w0rp/ale'
-
+Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
 " Initialize plugin system
 call plug#end()
 
@@ -200,8 +200,10 @@ nnoremap <leader>lh :call LanguageClient#textDocument_documentHighlight()<CR>
 " Use tab for cycling through autocomplete
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Built in thesaurus!
-nnoremap <Leader>th :ThesaurusQueryReplaceCurrentWord<CR>
+" Who doesn't like a good thesauras 
+nnoremap <Leader>st :ThesaurusQueryReplaceCurrentWord<CR>
+" Some lovely grammar checking
+nnoremap <Leader>sg :GrammarousCheck<CR>
 
 " Align GitHub-flavored Markdown tables
 vmap <Leader>a :EasyAlign*<Bar><Enter>
