@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[[ "$1" == "UP" ]] && pactl set-sink-volume 0 +2% && pkill -SIGRTMIN+1 i3blocks
+[[ "$1" == "DOWN" ]] && pactl set-sink-volume 0 -2% && pkill -SIGRTMIN+1 i3blocks 
+
+volume=$( pactl list sinks | grep 'Volume' | head -n1 | awk '{print $5}' )
+echo "  VOL:$volume "
