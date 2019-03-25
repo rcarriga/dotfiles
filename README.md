@@ -1,18 +1,16 @@
 # My Dotfiles
 
 *Disclaimer: README might not be up to date. 
-Install script is not stable and probably will not work!* 
+Install script is reasonably stable (Only for Ubuntu)*
 
-My humble collection of dotfiles and programs I like. 
-I try to not go overboard with features so I keep only what I use often.
 If you're just passing through and see something you think could be better, then let me know!
 
 ## Vim
 
-Been using Vim daily since January 2019 so by no means an expert. 
 This setup might be useful if you are just starting out.
-Main language support is for Haskell, Python and Typescript. Most other languages have linting support from ALE.
-Most plugins that offer built in commands for terminal interaction (e.g. debugging) are unnecessary due to Tmux.
+Main language support is for Haskell, Python and Typescript.
+Most other languages have linting support from ALE.
+Also includes support for LaTex and Markdown documents
 
 <details><summary>Plugins</summary>
 <p>
@@ -146,7 +144,8 @@ Arrow keys are disabled in normal mode.
 
 ## Zsh
 
-Using oh-my-zsh just for config settings. All plugins managed by zplug.
+Using oh-my-zsh just for config settings. 
+Plugins managed by zplug.
 If you like a more featureful shell then would recommend using spaceship theme.
 However I found this caused slight delay between commands so using the pure theme
 for buttery smooth performance.
@@ -176,12 +175,14 @@ for buttery smooth performance.
 
 ## Tmux
 
-If you don't know what tmux is well then I can't do it justice. Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
+If you don't know what tmux is well then I can't do it justice. 
+Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
 Basic tmux is useful but my config file is taken (shamelessly ripped) from [this fantastic repo](https://github.com/gpakosz/.tmux) which makes it even better!
 
 ## Kitty
 
-Kitty is a GPU powered terminal emulator. To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
+Kitty is a GPU powered terminal emulator. 
+To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
 
 ## Development Tools
 
@@ -198,7 +199,8 @@ These are some of the tools I use with Vim and standalone for software developme
 ## Enviroment Management and Utilities
 
 Programs for managing the environment in i3 and in the terminal.
-Some links are just for extra info. In those cases it should just be a package to install
+Some links are just for extra info. 
+In those cases it should just be a package to install
 
 - Terminal file browser: [Ranger](https://github.com/ranger/ranger)
 - Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
