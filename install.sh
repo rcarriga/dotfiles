@@ -41,6 +41,10 @@ if command -v apt-get >/dev/null 2>&1; then
 
   command -v rofi >/dev/null 2>&1 || (echo -e $YELLOW"Installing rofi$NC" && sudo apt-get install -y rofi)
 
+  command -v xautolock >/dev/null 2>&1 || (echo -e $YELLOW"Installing xautolock$NC" && sudo apt-get install -y xautolock)
+
+  command -v i3lock-fancy >/dev/null 2>&1 || (echo -e $YELLOW"NEED TO MANUALL INSTALL i3lock-fancy https://github.com/meskarune/i3lock-fancy$NC")
+
   command -v stack >/dev/null 2>&1 || (echo -e $YELLOW"Installing Stack$NC" && curl -sSL https://get.haskellstack.org/ | sh)
   
   command -v npm >/dev/null 2>&1 || (echo -e $YELLOW"Installing NodeJS & npm$NC" && curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - && sudo apt-get install -y nodejs)

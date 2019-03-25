@@ -81,15 +81,15 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: Terminals "
-set $ws2 "2: Firefox "
+set $ws1 "1 "
+set $ws2 "2 "
 set $ws3 "3"
 set $ws4 "4"
 set $ws5 "5"
 set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
-set $ws9 "9: Bluetooth "
+set $ws9 "9 "
 set $ws10 "10"
 
 # switch to workspace
@@ -169,11 +169,11 @@ bar {
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id bash ~/dotfiles/scripts/volume UP #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id bash ~/dotfiles/scripts/volume DOWN #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioMute exec --no-startup-id bash ~/dotfiles/scripts/volume MUTE
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 5
-bindsym XF86MonBrightnessDown exec light -U 5
+bindsym XF86MonBrightnessUp exec bash ~/dotfiles/scripts/brightness UP
+bindsym XF86MonBrightnessDown exec bash ~/dotfiles/scripts/brightness DOWN
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -192,6 +192,11 @@ exec --no-startup-id firefox
 exec --no-startup-id kitty
 exec --no-startup-id nm-applet
 exec --no-startup-id light -N 1
+exec --no-startup-id compton 
+exec --no-startup-id xautolock -locker "i3lock-fancy -f FiraCode-Regular -t 'Enter Password'" \
+                      -killer "systemctl suspend" -detectsleep \
+                      -notify 30 \
+                      -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'"
 
 # Moon image can be found here https://www.reddit.com/r/space/comments/arer0k/i_took_nearly_50000_images_of_the_night_sky_to
 exec_always feh --bg-fill ~/dotfiles/images/moon.jpg

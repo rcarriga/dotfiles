@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[[ $1 == "UP" ]] && light -A 10 && pkill -SIGRTMIN+2 i3blocks
+[[ $1 == "DOWN" ]] && light -U 10 && pkill -SIGRTMIN+2 i3blocks
+
+brightness=$(light | grep -o '^[0-9]*')
+echo "  ${brightness::-1}0%   "
