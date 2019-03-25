@@ -16,6 +16,10 @@ interval=5
 signal=1
 interval=once
 
+[brightness]
+signal=2
+interval=once
+
 [battery]
 interval=5
 

@@ -202,7 +202,7 @@ Programs for managing the environment in i3 and in the terminal.
 Some links are just for extra info. 
 In those cases it should just be a package to install
 
-- Terminal file browser: [Ranger](https://github.com/ranger/ranger)
+- Terminal file browser: [ranger](https://github.com/ranger/ranger)
 - Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Backlight Control that just works: [light](https://github.com/haikarainen/light)
 - Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
@@ -210,10 +210,13 @@ In those cases it should just be a package to install
 - Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
 - Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
 - GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
-- Window Switcher: [Rofi](https://github.com/DaveDavenport/rofi)
+- Window Switcher: [rofi](https://github.com/DaveDavenport/rofi)
 - Battery Info Command: [acpi](https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface)
 - Status Bar Manager: [i3blocks](https://github.com/vivien/i3blocks)
 - Temperature Monitoring[lm-sensors](https://github.com/lm-sensors/lm-sensors)
+- Nice Lock Screen: [i3lock-fancy](https://github.com/meskarune/i3lock-fancy)
+- Automatic Screen Locking: [xautolock](https://linux.die.net/man/1/xautolock)
+- Screen Compositor (Transparent Backgrounds) [compton](https://github.com/chjj/compton)
 
 
 <details><summary>Guides and References</summary>
