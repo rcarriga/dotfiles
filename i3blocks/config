@@ -12,6 +12,10 @@ interval=5
 [cpu]
 interval=5
 
+[volume]
+signal=1
+interval=once
+
 [battery]
 interval=5
 
