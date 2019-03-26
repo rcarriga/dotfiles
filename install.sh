@@ -53,6 +53,8 @@ if command -v apt-get >/dev/null 2>&1; then
 
   command -v pip3 >/dev/null 2>&1 || (echo -e $YELLOW"Installing pip3$NC" && sudo apt-get install -y python3-pip && pip3 install neovim)
 
+  command -v autojump >/dev/null 2>&1 || (echo -e $YELLOW"Installing autojump$NC" && python3 ./zsh/autojump/install.py)
+
   command -v ag >/dev/null 2>&1 || (echo -e $YELLOW"Installing the silver searcher$NC" && sudo apt-get install -y silversearcher-ag)
     
   command -v pyls >/dev/null 2>&1 || (echo -e $YELLOW"Installing Python Language Server$NC" && pip3 install "python-language-server[all]")
