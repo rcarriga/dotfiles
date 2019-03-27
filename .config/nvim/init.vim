@@ -1,6 +1,6 @@
 
 " ###################################################################################
-" Install Plugins 
+" Install Plugins
 " See README for links (Or just paste each plugin to https://github.com/)
 
 " Auto install vim-plug
@@ -13,13 +13,9 @@ endif
 call plug#begin('~/.vim/plugged')
 
 Plug 'Ron89/thesaurus_query.vim', {'for': ['tex', 'markdown']}
-Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/echodoc.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag', {'for': 'html'}
-Plug 'ap/vim-css-color'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'fszymanski/deoplete-emoji'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,16 +26,14 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'plytophogy/vim-virtualenv', {'for': 'python'}
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-Plug 'ujihisa/neco-look'
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 " Initialize plugin system
 call plug#end()
 
@@ -48,21 +42,8 @@ call plug#end()
 
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
-   function! AdjustWindowHeight(minheight, maxheight)
-       let l = 1
-       let n_lines = 0
-       let w_width = winwidth(0)
-       while l <= line('$')
-           " number to float for division
-           let l_len = strlen(getline(l)) + 0.0
-           let line_width = l_len/w_width
-           let n_lines += float2nr(ceil(line_width))
-           let l += 1
-       endw
-       exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
-   endfunction
 
-au FileType tex set nowrap 
+au FileType tex set nowrap
 
 " Allow filetype specific plugins and indenting
 filetype plugin indent on
@@ -81,8 +62,6 @@ hi Search guibg=LightBlue
 set ttimeoutlen=50
 " Show line numbers
 set number
-" Don't highlight selected line (Major performance impact)
-set nocursorline
 " Show numbers relative to current line
 set relativenumber
 " Fix backspace issue
@@ -97,7 +76,7 @@ set splitbelow
 set splitright
 " Set all code unfolded by default
 let g:ale_linters = {
-\   'python': ['pylint'],
+\   'python': ['mypy'],
 \   'haskell': [],
 \   'typescript': [],
 \}
@@ -114,11 +93,36 @@ noremap ;; ;
 " Who needs NERDTree? (Makes netrw look nicer)
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-let g:netrw_list_hide= netrw_gitignore#Hide() . '.*\.swp$'
-" Allows commandline to usee 2 lines (Makes echodoc work) 
+" Allows commandline to usee 2 lines (Makes echodoc work)
 set cmdheight=2
 " Only needed for Kitty so background isn't messed up
 let &t_ut=''
+" Don't unload buffers when left
+set hidden
+" Don't give ins-completion-menu messages
+set shortmess+=c
+
+" ###################################################################################
+" Functions Section
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+ function! AdjustWindowHeight(minheight, maxheight)
+     let l = 1
+     let n_lines = 0
+     let w_width = winwidth(0)
+     while l <= line('$')
+         " number to float for division
+         let l_len = strlen(getline(l)) + 0.0
+         let line_width = l_len/w_width
+         let n_lines += float2nr(ceil(line_width))
+         let l += 1
+     endw
+     exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
+ endfunction
 
 " ###################################################################################
 " Plugin Settings Section
@@ -126,36 +130,31 @@ let &t_ut=''
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
 let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://github.com', 'https://gitlab.engservices.qops.net']
 
-" These 2 lines are for speeding up startup time
-let g:deoplete#enable_at_startup = 0
-autocmd InsertEnter * call deoplete#enable() | call deoplete#custom#source('emoji', 'converters', ['converter_emoji']) | call deoplete#custom#source('look', 'filetypes', ['markdown', 'tex'])
-
 " Shows function signature above commandline instead of opening new window
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-" Set commands to run for language server for filetypes. (Pass arguements in array)
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['typescript-language-server', '--stdio'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'python': ['pyls'],
-    \ 'java': ['/usr/local/bin/jdtls'],
-    \ 'haskell': ['hie-wrapper']
-    \ }
-
 " Set linters for filetypes. I normally disable if running language server
 " Python Language Server doesn't run pylint so enable it here.
 let g:ale_linters = {
-\   'python': ['pylint'], 
+\   'python': ['mypy'],
 \   'haskell': [],
 \   'typescript': [],
 \}
 
-" Forces pylint to run at project base rather than running each file in it's own directory
-let g:ale_python_pylint_change_directory = 0
-
 colorscheme vim-monokai-tasty
-let g:lightline = {'colorscheme': 'monokai_tasty'}
+let g:lightline = {
+      \ 'colorscheme': 'monokai_tasty',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+
+let g:coc_global_extensions = [ 'coc-css', 'coc-pyls', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml' ]
 
 " ###################################################################################
 " Custom Mappings
@@ -188,25 +187,35 @@ nnoremap <Leader>gb :Gbrowse<CR>
 nnoremap <Leader>gl :Gblame<CR>
 
 " Language server functions
-nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-nnoremap <leader>lk :call LanguageClient#textDocument_hover()<CR>
-nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
-nnoremap <leader>lh :call LanguageClient#textDocument_documentHighlight()<CR>
+nnoremap <leader>ld :call CocAction('jumpDefinition')<CR>
+nnoremap <leader>lr <Plug>(coc-rename)
+nnoremap <leader>lf :call CocAction('format')<CR>
+nnoremap <leader>lt <Plug>(coc-type-definition)
+nnoremap <leader>lx <Plug>(coc-references)
+nnoremap <leader>la <Plug>(coc-codeaction)
+nnoremap <leader>lk :call CocAction('doHover')<CR>
+nnoremap <leader>ls :call CocAction('documentSymbols')<CR>
+nnoremap <leader>lh :call CocAction('highlight')<CR>
+nnoremap <leader>lq :call CocAction('quickfixes')<CR>
 
-" Use tab for cycling through autocomplete
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Who doesn't like a good thesauras 
+" Who doesn't like a good thesauras
 nnoremap <Leader>st :ThesaurusQueryReplaceCurrentWord<CR>
 " Some lovely grammar checking
 nnoremap <Leader>sg :GrammarousCheck<CR>
 
 " Align GitHub-flavored Markdown tables
 vmap <Leader>a :EasyAlign*<Bar><Enter>
+

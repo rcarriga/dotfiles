@@ -1,3 +1,13 @@
+neofetch
+# Add custom aliases here
+source ~/.config/system/alias.sh
+
+# Add environment var exports here
+source ~/.config/system/export.sh
+
+# Add custom functions here
+source ~/.config/system/function.sh
+
 if [[ ! -d ~/.zplug ]]; then
   git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update 
@@ -16,3 +26,13 @@ zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "mafredri/zsh-async", from:"github", use:"async.zsh"
 
 zplug load 
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+[[ -s /home/ronan/.autojump/etc/profile.d/autojump.sh ]] && source /home/ronan/.autojump/etc/profile.d/autojump.sh
+
+###-tns-completion-start-###
+if [ -f /Users/rcarriga/.tnsrc ]; then 
+    source /Users/rcarriga/.tnsrc 
+fi
+###-tns-completion-end-###
