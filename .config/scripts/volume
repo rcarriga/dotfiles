@@ -8,5 +8,5 @@ sink=$(pactl list sinks | grep 'Sink' | grep -o '[0-9]*' | tail -n1)
 
 volume=$(pactl list sinks | grep 'Volume.*,.*' | tail -n1 | awk '{print $5}')
 mute=$(pactl list sinks | grep 'Mute' | tail -n1 | awk '{print $2}')
-([[ $mute == "yes" ]] &&  echo "  VOL: Mute  ") || echo "  VOL:$volume "
+([[ $mute == "yes" ]] &&  echo "    ") || echo "  $volume   "
 

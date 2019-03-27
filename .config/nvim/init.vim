@@ -154,7 +154,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-css', 'coc-pyls', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml' ]
+let g:coc_global_extensions = [ 'coc-css', 'coc-pyls', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 
 " ###################################################################################
 " Custom Mappings
