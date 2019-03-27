@@ -1,0 +1,6 @@
+#!/bin/bash
+
+info=$(acpi)
+[[ -n $(echo "$info" | grep -o 'Discharging') ]] && status="" || status=""
+percent=$(echo "$info" | grep -o '[0-9]\{1,3\}%')
+echo "  $percent $status  "

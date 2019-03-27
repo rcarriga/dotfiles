@@ -1,0 +1,4 @@
+#!/bin/bash
+
+temp=$(sensors | grep 'CPU' | awk '{print $2}' | grep -o '[0-9].*' | sed 's/\.[0-9]//')
+echo " $temp  "
