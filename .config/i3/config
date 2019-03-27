@@ -167,13 +167,13 @@ bar {
         status_command i3blocks
 }
 # Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id bash ~/dotfiles/scripts/volume UP #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id bash ~/dotfiles/scripts/volume DOWN #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id bash ~/dotfiles/scripts/volume MUTE
+bindsym XF86AudioRaiseVolume exec --no-startup-id bash ~/.config/scripts/volume UP #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id bash ~/.config/scripts/volume DOWN #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id bash ~/.config/scripts/volume MUTE
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec bash ~/dotfiles/scripts/brightness UP
-bindsym XF86MonBrightnessDown exec bash ~/dotfiles/scripts/brightness DOWN
+bindsym XF86MonBrightnessUp exec bash ~/.config/scripts/brightness UP
+bindsym XF86MonBrightnessDown exec bash ~/.config/scripts/brightness DOWN
 
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
@@ -193,13 +193,13 @@ exec --no-startup-id kitty
 exec --no-startup-id nm-applet
 exec --no-startup-id light -N 1
 exec --no-startup-id compton 
-exec --no-startup-id xautolock -locker "i3lock-fancy -f FiraCode-Regular -t 'Enter Password'" \
+exec --no-startup-id xautolock -locker "systemctl suspend" # "i3lock-fancy -f FiraCode-Regular -t 'Enter Password'" \
                       -killer "systemctl suspend" -detectsleep \
                       -notify 30 \
                       -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'"
 
 # Moon image can be found here https://www.reddit.com/r/space/comments/arer0k/i_took_nearly_50000_images_of_the_night_sky_to
-exec_always feh --bg-fill ~/dotfiles/images/moon.jpg
+exec_always feh --bg-fill ~/.config/images/moon.jpg
 
 assign [class="kitty"] $ws1
 assign [class="Firefox"] $ws2
