@@ -1,4 +1,4 @@
-command=~/dotfiles/scripts/$BLOCK_NAME
+command=~/.config/scripts/$BLOCK_NAME
 
 [disk]
 interval=60
