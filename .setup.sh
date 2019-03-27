@@ -51,11 +51,7 @@ if command -v apt-get >/dev/null 2>&1; then
   command -v xautolock >/dev/null 2>&1 || (echo -e "Installing xautolock" && sudo apt-get install -y xautolock >> setuplog.txt)
 
   command -v i3lock-fancy >/dev/null 2>&1 || (echo -e "NEED TO MANUALL INSTALL i3lock-fancy https://github.com/meskarune/i3lock-fancy")
-
-  command -v stack >/dev/null 2>&1 || (echo -e "Installing Stack" && curl -sSL https://get.haskellstack.org/ | sh >> setuplog.txt)
   
-  command -v npm >/dev/null 2>&1 || (echo -e "Installing NodeJS & npm" && curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - >> setuplog.txt && sudo apt-get install -y nodejs >> setuplog.txt)
-
   command -v python3 >/dev/null 2>&1 || (echo -e "Installing python3" && sudo apt-get install -y python3.7 >> setuplog.txt)
 
   command -v pip3 >/dev/null 2>&1 || (echo -e "Installing pip3" && sudo apt-get install -y python3-pip && pip3 install neovim >> setuplog.txt)
@@ -71,28 +67,32 @@ if command -v apt-get >/dev/null 2>&1; then
 
   command -v ag >/dev/null 2>&1 || (echo -e "Installing the silver searcher" && sudo apt-get install -y silversearcher-ag >> setuplog.txt)
     
-  command -v pyls >/dev/null 2>&1 || (echo -e "Installing Python Language Server" && pip3 install "python-language-server[all]" >> setuplog.txt)
+  read -p "Do you want to install development tools? This can take upto 12GB if installing hie" -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    command -v stack >/dev/null 2>&1 || (echo -e "Installing Stack" && curl -sSL https://get.haskellstack.org/ | sh >> setuplog.txt)
 
-  command -v typescript-language-server >/dev/null 2>&1 || (echo -e "Installing TypeScript Language Server" && sudo npm install -g typescript-language-server >> setuplog.txt)
+    command -v npm >/dev/null 2>&1 || (echo -e "Installing NodeJS & npm" && curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash - >> setuplog.txt && sudo apt-get install -y nodejs >> setuplog.txt)
 
+    command -v pyls >/dev/null 2>&1 || (echo -e "Installing Python Language Server" && pip3 install "python-language-server[all]" >> setuplog.txt)
 
-  if ! command -v hie >/dev/null 2>&1; then
-    echo -e "Installing Haskell IDE Engine. Takes a while so showing full output" 
-    git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
-    sudo apt-get install libtinfo-dev 2>&1 > /dev/null
-    cd haskell-ide-engine
-    stack upgrade 2>&1 >/dev/null
-    stack ghc -- --version 2>&1 > /dev/null
-    STACK_VERSION=$(stack ghc -- --version | awk "{print $NF}")
-    read -p "Haskell IDE Engine can take a long time to setup. Do you want to do this now? Enter 'y'" -n 1 -r
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      make hie-$STACK_VERSION
-      make build-doc-$STACK_VERSION
-    else 
-      echo -e "Not setting up HIE. Run 'make hie-$STACK_VERSION' and 'make hie-$STACK_VERSION' in HIE directory to build"
+    if ! command -v hie >/dev/null 2>&1; then
+      echo -e "Installing Haskell IDE Engine. Takes a while so showing full output" 
+      git clone https://github.com/haskell/haskell-ide-engine --recurse-submodules
+      sudo apt-get install libtinfo-dev 2>&1 > /dev/null
+      cd haskell-ide-engine
+      stack upgrade 2>&1 >/dev/null
+      stack ghc -- --version 2>&1 > /dev/null
+      STACK_VERSION=$(stack ghc -- --version | awk "{print $NF}")
+      read -p "Haskell IDE Engine can take a long time to setup. Do you want to do this now? Enter 'y'" -n 1 -r
+      if [[ $REPLY =~ ^[Yy]$ ]]; then
+        stack ./install.hs hie-$STACK_VERSION
+        stack ./install.hs build-doc-$STACK_VERSION
+      else 
+        echo -e "Not setting up HIE. Run 'make hie-$STACK_VERSION' and 'make hie-$STACK_VERSION' in HIE directory to build"
+      fi
+
+      cd # Return to home directory
     fi
-
-    cd # Return to home directory
   fi
 
   [[ -n $(fc-list | grep 'Fira Code') ]] || ( echo -e "Installing Fira Code for them beautiful ligatures" && sudo apt-get install fonts-firacode  >> setuplog.txt)
