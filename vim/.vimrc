@@ -80,6 +80,8 @@ hi Search guibg=LightBlue
 set ttimeoutlen=50
 " Show line numbers
 set number
+" Don't highlight selected line (Major performance impact)
+set nocursorline
 " Show numbers relative to current line
 set relativenumber
 " Fix backspace issue
@@ -111,6 +113,7 @@ noremap ;; ;
 " Who needs NERDTree? (Makes netrw look nicer)
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
+let g:netrw_list_hide= netrw_gitignore#Hide() . '.*\.swp$'
 " Allows commandline to usee 2 lines (Makes echodoc work) 
 set cmdheight=2
 " Only needed for Kitty so background isn't messed up
