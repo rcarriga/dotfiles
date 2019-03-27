@@ -12,16 +12,21 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'Ron89/thesaurus_query.vim', {'for': ['tex', 'markdown']}
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/echodoc.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'alvan/vim-closetag', {'for': 'html'}
+Plug 'ap/vim-css-color'
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'fszymanski/deoplete-emoji'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align', {'for': 'markdown'}
 Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'lervag/vimtex', {'for': 'tex'}
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'plytophogy/vim-virtualenv', {'for': 'python'}
@@ -33,12 +38,8 @@ Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'ujihisa/neco-look'
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'w0rp/ale'
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'Ron89/thesaurus_query.vim', {'for': ['tex', 'markdown']}
-Plug 'junegunn/vim-easy-align', {'for': 'markdown'}
-
+Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
 " Initialize plugin system
 call plug#end()
 
@@ -202,8 +203,10 @@ nnoremap <leader>lh :call LanguageClient#textDocument_documentHighlight()<CR>
 " Use tab for cycling through autocomplete
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-" Built in thesaurus!
-nnoremap <Leader>th :ThesaurusQueryReplaceCurrentWord<CR>
+" Who doesn't like a good thesauras 
+nnoremap <Leader>st :ThesaurusQueryReplaceCurrentWord<CR>
+" Some lovely grammar checking
+nnoremap <Leader>sg :GrammarousCheck<CR>
 
 " Align GitHub-flavored Markdown tables
 vmap <Leader>a :EasyAlign*<Bar><Enter>

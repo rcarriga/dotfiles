@@ -1,18 +1,16 @@
 # My Dotfiles
 
 *Disclaimer: README might not be up to date. 
-Install script is not stable and probably will not work!* 
+Install script is reasonably stable (Only for Ubuntu)*
 
-My humble collection of dotfiles and programs I like. 
-I try to not go overboard with features so I keep only what I use often.
 If you're just passing through and see something you think could be better, then let me know!
 
 ## Vim
 
-Been using Vim daily since January 2019 so by no means an expert. 
 This setup might be useful if you are just starting out.
-Main language support is for Haskell, Python and Typescript. Most other languages have linting support from ALE.
-Most plugins that offer built in commands for terminal interaction (e.g. debugging) are unnecessary due to Tmux.
+Main language support is for Haskell, Python and Typescript.
+Most other languages have linting support from ALE.
+Also includes support for LaTex and Markdown documents
 
 <details><summary>Plugins</summary>
 <p>
@@ -146,7 +144,8 @@ Arrow keys are disabled in normal mode.
 
 ## Zsh
 
-Using oh-my-zsh just for config settings. All plugins managed by zplug.
+Using oh-my-zsh just for config settings. 
+Plugins managed by zplug.
 If you like a more featureful shell then would recommend using spaceship theme.
 However I found this caused slight delay between commands so using the pure theme
 for buttery smooth performance.
@@ -176,30 +175,49 @@ for buttery smooth performance.
 
 ## Tmux
 
-If you don't know what tmux is well then I can't do it justice. Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
+If you don't know what tmux is well then I can't do it justice. 
+Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
 Basic tmux is useful but my config file is taken (shamelessly ripped) from [this fantastic repo](https://github.com/gpakosz/.tmux) which makes it even better!
 
 ## Kitty
 
-Kitty is a GPU powered terminal emulator. To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
+Kitty is a GPU powered terminal emulator. 
+To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
 
-## Bonus Stuff
+## Development Tools
 
-<details><summary>Programs to Install</summary>
-<p>
- These are just programs I use often and so I want to just have them listed.  
+These are some of the tools I use with Vim and standalone for software development
 
-- Terminal file browser: [Ranger](https://github.com/ranger/ranger)
 - Haskell project manager: [Stack](https://docs.haskellstack.org/en/stable/README/)
 - Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
-
 - Language Servers: 
   - [Python Language Server](https://github.com/palantir/python-language-server)
   - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
   - [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
 
-</p>
-</details>
+
+## Enviroment Management and Utilities
+
+Programs for managing the environment in i3 and in the terminal.
+Some links are just for extra info. 
+In those cases it should just be a package to install
+
+- Terminal file browser: [ranger](https://github.com/ranger/ranger)
+- Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
+- Backlight Control that just works: [light](https://github.com/haikarainen/light)
+- Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
+- Wallpaper Setter: [feh](https://feh.finalrewind.org/)
+- Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
+- Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
+- GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
+- Window Switcher: [rofi](https://github.com/DaveDavenport/rofi)
+- Battery Info Command: [acpi](https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface)
+- Status Bar Manager: [i3blocks](https://github.com/vivien/i3blocks)
+- Temperature Monitoring[lm-sensors](https://github.com/lm-sensors/lm-sensors)
+- Nice Lock Screen: [i3lock-fancy](https://github.com/meskarune/i3lock-fancy)
+- Automatic Screen Locking: [xautolock](https://linux.die.net/man/1/xautolock)
+- Screen Compositor (Transparent Backgrounds) [compton](https://github.com/chjj/compton)
+
 
 <details><summary>Guides and References</summary>
 <p>
