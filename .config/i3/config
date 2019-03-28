@@ -181,7 +181,7 @@ bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-bindsym $mod+shift+t exec i3lock
+bindsym $mod+shift+t exec i3lock-fancy -f FiraCode-Regular -t 'Enter Password'
 
 # Enable tap to click on touchpad
 exec --no-startup-id xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Tapping Enabled" 1
@@ -193,12 +193,13 @@ exec --no-startup-id kitty
 exec --no-startup-id nm-applet
 exec --no-startup-id light -N 1
 exec --no-startup-id compton 
-exec --no-startup-id xautolock -locker "systemctl suspend" # "i3lock-fancy -f FiraCode-Regular -t 'Enter Password'" \
-                      -killer "systemctl suspend" -detectsleep \
+exec --no-startup-id xautolock -locker "systemctl suspend" \
+                      -detectsleep -time 30\
                       -notify 30 \
-                      -notifier "notify-send -u critical -t 10000 -- 'LOCKING screen in 30 seconds'"
+                      -notifier "notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'"
+exec --no-startup-id notify-send -t 10000 "Don't forget to launch sudo tlp start"          
 
-# Moon image can be found here https://www.reddit.com/r/space/comments/arer0k/i_took_nearly_50000_images_of_the_night_sky_to
+# Moon image from here https://www.reddit.com/r/space/comments/arer0k/i_took_nearly_50000_images_of_the_night_sky_to
 exec_always feh --bg-fill ~/.config/images/moon.jpg
 
 assign [class="kitty"] $ws1
