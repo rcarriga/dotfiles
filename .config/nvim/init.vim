@@ -70,7 +70,7 @@ set bs=2
 set wildmode=longest,list,full
 set wildmenu
 " Setup tabs to be 4 spaces
-set tabstop=8 softtabstop=0 expandtab shiftwidth=2 smarttab
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 " Opens new panes below and to right of current
 set splitbelow
 set splitright
@@ -188,11 +188,11 @@ nnoremap <Leader>gl :Gblame<CR>
 
 " Language server functions
 nnoremap <leader>ld :call CocAction('jumpDefinition')<CR>
-nnoremap <leader>lr <Plug>(coc-rename)
+nnoremap <leader>lr :call CocAction('rename')<CR>
 nnoremap <leader>lf :call CocAction('format')<CR>
-nnoremap <leader>lt <Plug>(coc-type-definition)
-nnoremap <leader>lx <Plug>(coc-references)
-nnoremap <leader>la <Plug>(coc-codeaction)
+nnoremap <leader>lt :call CocAction('jumpTypeDefinition')<CR>
+nnoremap <leader>lx :call CocAction('jumpReferences')<CR>
+nnoremap <leader>la :call CocAction('codeAction')<CR>
 nnoremap <leader>lk :call CocAction('doHover')<CR>
 nnoremap <leader>ls :call CocAction('documentSymbols')<CR>
 nnoremap <leader>lh :call CocAction('highlight')<CR>
