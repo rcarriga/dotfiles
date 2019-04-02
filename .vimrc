@@ -95,12 +95,8 @@ noremap ;; ;
 " Who needs NERDTree? (Makes netrw look nicer)
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-<<<<<<< HEAD:vim/.vimrc
 let g:netrw_list_hide= netrw_gitignore#Hide() . '.*\.swp$'
 " Allows commandline to usee 2 lines (Makes echodoc work) 
-=======
-" Allows commandline to usee 2 lines (Makes echodoc work)
->>>>>>> changeToCocNvim:.vimrc
 set cmdheight=2
 " Only needed for Kitty so background isn't messed up
 let &t_ut=''
