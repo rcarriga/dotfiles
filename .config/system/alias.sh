@@ -13,3 +13,4 @@ alias gg="git log --graph --abbrev-commit --branches --decorate --format=format:
 alias gs="git status"
 alias gp="git push"
 alias ga="git add"
+alias v=nvim
