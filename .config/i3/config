@@ -197,7 +197,6 @@ exec --no-startup-id xautolock -locker "systemctl suspend" \
                       -detectsleep -time 30\
                       -notify 30 \
                       -notifier "notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'"
-exec --no-startup-id notify-send -t 10000 "Don't forget to launch sudo tlp start"          
 
 # Moon image from here https://www.reddit.com/r/space/comments/arer0k/i_took_nearly_50000_images_of_the_night_sky_to
 exec_always feh --bg-fill ~/.config/images/moon.jpg
