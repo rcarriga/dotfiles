@@ -1,0 +1,16 @@
+
+[user]
+	email = ronanc@qualtrics.com
+	name = ronanc
+[core]
+	excludesfile = /Users/rcarriga/.gitignore_global
+[diff]
+	tool = vimdiff
+[difftool]
+    prompt = false
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Users/rcarriga/Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
