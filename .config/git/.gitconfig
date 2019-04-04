@@ -1,8 +1,0 @@
-
-[user]
-	email = ronanc@qualtrics.com
-	name = ronanc
-[core]
-	excludesfile = /home/ronan/dotfiles/git/.gitignore_global
-[diff]
-	tool = vimdiff
