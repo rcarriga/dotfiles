@@ -34,6 +34,7 @@ Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'mhinz/vim-janah'
 " Initialize plugin system
 call plug#end()
 
@@ -76,7 +77,7 @@ set splitbelow
 set splitright
 " Set all code unfolded by default
 let g:ale_linters = {
-\   'python': ['mypy'],
+\   'python': [],
 \   'haskell': [],
 \   'typescript': [],
 \}
@@ -142,7 +143,8 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
-colorscheme vim-monokai-tasty
+autocmd ColorScheme janah highlight Normal ctermbg=255
+colorscheme janah
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
@@ -154,7 +156,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-pyls', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 
 " ###################################################################################
 " Custom Mappings
