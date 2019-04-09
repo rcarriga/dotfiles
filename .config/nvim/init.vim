@@ -138,7 +138,7 @@ let g:echodoc#type = 'signature'
 " Python Language Server doesn't run pylint so enable it here.
 let g:ale_linters = {
 \   'python': ['mypy'],
-\   'haskell': [],
+\   'haskell': ['ghc'],
 \   'typescript': [],
 \}
 
