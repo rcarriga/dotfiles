@@ -30,11 +30,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'mhinz/vim-janah'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " Initialize plugin system
 call plug#end()
 
@@ -95,7 +96,7 @@ noremap ;; ;
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 " Allows commandline to usee 2 lines (Makes echodoc work)
-set cmdheight=2
+set cmdheight=4
 " Only needed for Kitty so background isn't messed up
 let &t_ut=''
 " Don't unload buffers when left
@@ -144,7 +145,7 @@ let g:ale_linters = {
 \}
 
 autocmd ColorScheme janah highlight Normal ctermbg=255
-colorscheme janah
+colorscheme vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
