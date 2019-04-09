@@ -30,10 +30,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'w0rp/ale'
 Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'mhinz/vim-janah'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " Initialize plugin system
 call plug#end()
 
@@ -76,7 +78,7 @@ set splitbelow
 set splitright
 " Set all code unfolded by default
 let g:ale_linters = {
-\   'python': ['mypy'],
+\   'python': [],
 \   'haskell': [],
 \   'typescript': [],
 \}
@@ -94,7 +96,7 @@ noremap ;; ;
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 " Allows commandline to usee 2 lines (Makes echodoc work)
-set cmdheight=2
+set cmdheight=4
 " Only needed for Kitty so background isn't messed up
 let &t_ut=''
 " Don't unload buffers when left
@@ -142,6 +144,7 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
+autocmd ColorScheme janah highlight Normal ctermbg=255
 colorscheme vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
@@ -154,7 +157,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-pyls', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 
 " ###################################################################################
 " Custom Mappings
