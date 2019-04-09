@@ -187,7 +187,7 @@ bindsym $mod+shift+t exec i3lock-fancy -f FiraCode-Regular -t 'Enter Password'
 exec --no-startup-id xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Tapping Enabled" 1
 exec --no-startup-id xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 1
 exec --no-startup-id xset r rate 150 40
-exec --no-startup-id redshift -l 53:-6 -t 6500:3000
+exec --no-startup-id redshift -l 53:-6 -t 6500:2500
 exec --no-startup-id firefox
 exec --no-startup-id kitty
 exec --no-startup-id nm-applet
