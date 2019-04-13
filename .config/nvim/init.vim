@@ -36,6 +36,7 @@ Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'mhinz/vim-janah'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 " Initialize plugin system
 call plug#end()
 
@@ -77,11 +78,6 @@ set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 set splitbelow
 set splitright
 " Set all code unfolded by default
-let g:ale_linters = {
-\   'python': [],
-\   'haskell': [],
-\   'typescript': [],
-\}
 set foldlevel=99
 " Update files on change
 set autoread
@@ -95,7 +91,7 @@ noremap ;; ;
 " Who needs NERDTree? (Makes netrw look nicer)
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-" Allows commandline to usee 2 lines (Makes echodoc work)
+" Allows commandline to use 4 lines (Better for multiline lint messages etc)
 set cmdheight=4
 " Only needed for Kitty so background isn't messed up
 let &t_ut=''
@@ -129,6 +125,11 @@ endfunction
 " ###################################################################################
 " Plugin Settings Section
 
+" Open preview window after entering the markdown buffer
+let g:mkdp_auto_start = 0
+" Auto close current preview window when change
+let g:mkdp_auto_close = 1
+
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
 let g:fugitive_gitlab_domains = ['***REMOVED***', 'https://github.com', '***REMOVED***']
 
@@ -139,7 +140,7 @@ let g:echodoc#type = 'signature'
 " Set linters for filetypes. I normally disable if running language server
 " Python Language Server doesn't run pylint so enable it here.
 let g:ale_linters = {
-\   'python': ['mypy'],
+\   'python': [],
 \   'haskell': ['ghc'],
 \   'typescript': [],
 \}
