@@ -6,7 +6,7 @@ sink=$(pactl list sinks | grep 'Sink' | grep -o '[0-9]*' | tail -n1)
 [[ "$1" == "DOWN" ]] && pactl set-sink-volume "$sink" -2% && pkill -SIGRTMIN+1 i3blocks 
 [[ "$1" == "MUTE" ]] && pactl set-sink-mute "$sink" toggle && pkill -SIGRTMIN+1 i3blocks 
 
-volume=$(pactl list sinks | grep 'Volume.*,.*' | tail -n1 | awk '{print $5}')
+volume=$(pactl list sinks | grep 'Volume.*\(,\|mono\).*' | tail -n1 | awk '{print $5}')
 mute=$(pactl list sinks | grep 'Mute' | tail -n1 | awk '{print $2}')
 ([[ $mute == "yes" ]] &&  echo "    ") || echo "  $volume   "
 

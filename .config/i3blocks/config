@@ -2,10 +2,6 @@ command=~/.config/scripts/$BLOCK_NAME
 
 [bandwidth]
 interval=5
-#INTERFACE=wlp2s0
-#INLABEL=
-#OUTLABEL= 
-#TREAT_UNKNOWN_AS_UP=0
 
 [disk]
 interval=60
