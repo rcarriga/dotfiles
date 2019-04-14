@@ -91,8 +91,8 @@ noremap ;; ;
 " Who needs NERDTree? (Makes netrw look nicer)
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-" Allows commandline to use 4 lines (Better for multiline lint messages etc)
-set cmdheight=4
+" Allows commandline to use 2 lines (Better for multiline lint messages etc)
+set cmdheight=2
 " Only needed for Kitty so background isn't messed up
 let &t_ut=''
 " Don't unload buffers when left
@@ -196,6 +196,7 @@ nnoremap <leader>lr :call CocAction('rename')<CR>
 nnoremap <leader>lf :call CocAction('format')<CR>
 nnoremap <leader>lt :call CocAction('jumpTypeDefinition')<CR>
 nnoremap <leader>lx :call CocAction('jumpReferences')<CR>
+nnoremap <leader>lg :call CocAction('diagnosticInfo')<CR>
 nnoremap <leader>la :call CocAction('codeAction')<CR>
 nnoremap <leader>lk :call CocAction('doHover')<CR>
 nnoremap <leader>ls :call CocAction('documentSymbols')<CR>
