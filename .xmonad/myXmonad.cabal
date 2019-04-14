@@ -1,0 +1,12 @@
+
+name:                myXmonad
+version:             0.1.0.0
+build-type:          Simple
+cabal-version:       >=1.10
+
+executable xmonad
+  main-is:             xmonad.hs
+  build-depends:       base
+                     , xmonad
+                     , xmonad-contrib
+                     , containers
