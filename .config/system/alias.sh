@@ -1,8 +1,5 @@
 alias prettyjson="python -m json.tool"
 alias ls='ls -GFh'
-if [ -d "/usr/local/Cellar/vim/8.1.0800" ]; then
-  alias vim=/usr/local/Cellar/vim/8.1.0800/bin/vim
-fi
 alias pip=pip3
 alias python=python3.7
 alias tmux="TERM=screen-256color-bce tmux"
@@ -14,4 +11,7 @@ alias yg="yadm log --graph --abbrev-commit --branches --decorate --format=format
 alias gs="git status"
 alias gp="git push"
 alias ga="git add"
+alias gc="git commit"
+alias gco="git checkout"
 alias v=nvim
+[[ -f "~/.config/system/local.alias.sh" ]] && source ~/.config/system/local.alias.sh

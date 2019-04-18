@@ -81,7 +81,6 @@ set splitright
 set foldlevel=99
 " Update files on change
 set autoread
-au BufEnter * :checktime
 " Save edit history between sessions
 set undofile
 set undodir=~/.vim/undodir
@@ -145,7 +144,6 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
-autocmd ColorScheme janah highlight Normal ctermbg=255
 colorscheme vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
