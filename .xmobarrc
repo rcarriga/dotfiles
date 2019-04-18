@@ -1,8 +1,8 @@
-Config { font = "xft:FiraCode-Regular:size=10, FontAwesome:size=10"
-       , additionalFonts = []
+Config { font = "xft:FiraCode-Regular:size=10,xft:Font Awesome 5 Solid:size=10"
+       , additionalFonts = ["xft:FontAwesome:size=10"]
        , borderColor = "black"
        , border = TopB
-       , bgColor = "#222222"
+       , bgColor = "black"
        , fgColor = "grey"
        , alpha = 255
        , position = Top
@@ -15,18 +15,19 @@ Config { font = "xft:FiraCode-Regular:size=10, FontAwesome:size=10"
        , iconRoot = "."
        , allDesktops = True
        , overrideRedirect = True
-       , commands = [ Run StdinReader
+       , commands = [ Run UnsafeStdinReader
                     , Run BatteryP ["BAT0"] ["-t", "Batt: <left> <timeleft>", "-S", "True"] 600
                     , Run Network "wlp2s0" ["-L","0","-H","32", "--normal","green","--high","red"] 10
                     , Run Network "eth1" ["-L","0","-H","32", "--normal","green","--high","red"] 10
                     , Run Cpu ["-L","3","-H","50", "--normal","green","--high","red"] 10 
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
                     , Run Swap [] 10
-                    , Run Com "uname" ["-s","-r"] "" 36000
+                    , Run Com "/home/ronan/.config/scripts/temp" [] "cputemp" 1000
+                    , Run Com "/home/ronan/.config/scripts/trayer_padding" [] "trayerpad" 10 
                     , Run Date "%a %b %_d %H:%M" "date" 100
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }\
-                    \{ %battery% | %cpu% | %memory% * %swap% | %wlp2s0% | <fc=#ee9a00>%date%</fc>"
+       , template = "%UnsafeStdinReader% }\
+                    \{ %battery% | %cpu% | %memory% * %swap% | %wlp2s0% | %cputemp% | <fc=#ee9a00>%date%</fc> | %trayerpad%"
        }
