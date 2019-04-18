@@ -18,6 +18,7 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
+    call dein#add('wsdjeg/dein-ui.vim')
     call dein#add( 'Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add( 'Shougo/echodoc.vim')
     call dein#add( 'airblade/vim-gitgutter')
@@ -30,7 +31,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add( 'leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add( 'lervag/vimtex', {'on_ft': 'tex'})
     call dein#add( 'neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
-    call dein#add( 'patstockwell/vim-monokai-tasty', {'script_type': 'colors'} )
+    call dein#add( 'dikiaap/minimalist')
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add( 'scrooloose/nerdcommenter')
     call dein#add( 'shumphrey/fugitive-gitlab.vim')
@@ -100,8 +101,6 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 " Allows commandline to use 2 lines (Better for multiline lint messages etc)
 set cmdheight=2
-" Only needed for Kitty so background isn't messed up
-let &t_ut=''
 " Don't unload buffers when left
 set hidden
 " Don't give ins-completion-menu messages
@@ -152,9 +151,8 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
-colorscheme vim-monokai-tasty
+colorscheme minimalist
 let g:lightline = {
-      \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
