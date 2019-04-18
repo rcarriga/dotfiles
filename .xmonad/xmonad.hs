@@ -11,19 +11,19 @@ import           XMonad.Hooks.ManageDocks
 import           XMonad.Actions.WorkspaceNames
 import           XMonad.Util.Run
 import           XMonad.Layout.Tabbed
+import           XMonad.Layout.Grid
 import           XMonad.Layout.NoBorders
+import           XMonad.Util.SpawnOnce
+import           XMonad.Layout.Accordion
+import           XMonad.Layout.AutoMaster
+import           XMonad.Util.NamedScratchpad
+
+myScratchpads =
+    [
+-- run htop in xterm, find it by title, use default floating window placement
+     NS "htop" "kitty htop" (title =? "htop") defaultFloating]
 myTerminal = "kitty"
-myWorkspaces = map show [1..9]
-    --[ " 1 => \xf269 "
-    --, " 2 -> : \xf121 "
-    --, " 3 == : \xf02d "
-    --, " 4 : \xf025 "
-    --, " 5 : \xf03d "
-    --, " 6 : \xf1e3 "
-    --, " 7 : \xf07b "
-    --, " 8 : \xf21b "
-    --, " 9 : \xf21e "
-    --]
+myWorkspaces = map show [1 .. 9]
 myNormalBorderColor = "#333333"
 myFocusedBorderColor = "#888888"
 myModMask = mod4Mask
@@ -51,19 +51,30 @@ myConfig pipe =
 
 myLogHook pipe = dynamicLogWithPP xmobarPP { ppOutput = hPutStrLn pipe }
 
-myLayoutHook = avoidStruts $ Tall 1 (3/100) (1/2) ||| noBorders Full
+myLayoutHook =
+    avoidStruts
+        $   Tall 1 (3 / 100) (1 / 2)
+        ||| noBorders Full
+        ||| Accordion
+        ||| autoMaster 1 (1 / 100) Grid
 
 myStartupHook :: X ()
 myStartupHook = do
     setWMName "XMonad"
     mapM_
         spawn
-        [ "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Tapping Enabled\" 1"
+        [ "pkill trayer; trayer --expand true --transparent true --margin 5 --iconspacing 5 --edge top --align right --width 2 --height 19 --tint 0x000000 --SetPartialStrut true --padding 5"
+        , "pgrep redshift || redshift -l 53:-6 -t 6500:2500"
+        , "pgrep nm-applet || nm-applet"
+        , "pgrep blueman-applet || blueman-applet"
+        , "pgrep compton || compton"
+        , "pgrep xautolock || xautolock -locker \"systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
+        , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Tapping Enabled\" 1"
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Natural Scrolling Enabled\" 1"
         , "xset r rate 150 40"
+        , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
         , "feh --bg-fill ~/.config/images/moon.jpg"
-        , "bash ~/.config/scripts/startup"
         ]
 
 myKeys :: [(String, X ())]
@@ -76,5 +87,6 @@ myKeys =
     , ("M-p"                    , spawn "rofi -show run -opacity \"85\" ")
     , ("M-<Tab>", cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
     , ("M-t"                    , sendMessage ToggleStruts)
+    , ("M-h"                  , namedScratchpadAction myScratchpads "htop")
     ]
 
