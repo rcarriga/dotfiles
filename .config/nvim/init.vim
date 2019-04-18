@@ -4,42 +4,50 @@
 " See README for links (Or just paste each plugin to https://github.com/)
 
 " Auto install vim-plug
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"if empty(glob('~/.vim/autoload/plug.vim'))
+  "silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    "\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  "autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
+
+if &compatible
+  set nocompatible
 endif
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
 
-call plug#begin('~/.vim/plugged')
-
-Plug 'Ron89/thesaurus_query.vim', {'for': ['tex', 'markdown']}
-Plug 'Shougo/echodoc.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'alvan/vim-closetag', {'for': 'html'}
-Plug 'itchyny/lightline.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-easy-align', {'for': 'markdown'}
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'lervag/vimtex', {'for': 'tex'}
-Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-Plug 'patstockwell/vim-monokai-tasty'
-Plug 'plytophogy/vim-virtualenv', {'for': 'python'}
-Plug 'scrooloose/nerdcommenter'
-Plug 'shumphrey/fugitive-gitlab.vim'
-Plug 'tmhedberg/SimpylFold', {'for': 'python'}
-Plug 'tpope/vim-fugitive'
-Plug 'machakann/vim-sandwich'
-Plug 'w0rp/ale'
-Plug 'rhysd/vim-grammarous', {'for': ['markdown', 'tex']}
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-Plug 'mhinz/vim-janah'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
-" Initialize plugin system
-call plug#end()
-
+    call dein#add( 'Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
+    call dein#add( 'Shougo/echodoc.vim')
+    call dein#add( 'airblade/vim-gitgutter')
+    call dein#add( 'alvan/vim-closetag', {'on_ft': 'html'})
+    call dein#add( 'itchyny/lightline.vim')
+    call dein#add( 'jiangmiao/auto-pairs')
+    call dein#add( 'junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
+    call dein#add( 'junegunn/fzf.vim', { 'depends': 'fzf' })
+    call dein#add( 'junegunn/vim-easy-align', {'on_ft': 'markdown'})
+    call dein#add( 'leafgarland/typescript-vim', {'on_ft': 'typescript'})
+    call dein#add( 'lervag/vimtex', {'on_ft': 'tex'})
+    call dein#add( 'neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
+    call dein#add( 'patstockwell/vim-monokai-tasty', {'script_type': 'colors'} )
+    call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
+    call dein#add( 'scrooloose/nerdcommenter')
+    call dein#add( 'shumphrey/fugitive-gitlab.vim')
+    call dein#add( 'tmhedberg/SimpylFold', {'on_ft': 'python'})
+    call dein#add( 'tpope/vim-fugitive')
+    call dein#add( 'machakann/vim-sandwich')
+    call dein#add( 'w0rp/ale')
+    call dein#add( 'rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
+    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
+    call dein#add( 'mhinz/vim-janah')
+    call dein#add( 'numirias/semshi', {'on_ft': 'python'})
+    call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
+					\ 'build': 'cd app & yarn install' })
+    call dein#remote_plugins()
+  call dein#end()
+  call dein#save_state()
+endif
 " ###################################################################################
 " Native Vim Settings Section
 
@@ -81,7 +89,6 @@ set splitright
 set foldlevel=99
 " Update files on change
 set autoread
-au BufEnter * :checktime
 " Save edit history between sessions
 set undofile
 set undodir=~/.vim/undodir
@@ -145,7 +152,6 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
-autocmd ColorScheme janah highlight Normal ctermbg=255
 colorscheme vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
