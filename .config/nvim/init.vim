@@ -4,11 +4,11 @@
 " See README for links (Or just paste each plugin to https://github.com/)
 
 " Auto install vim-plug
-"if empty(glob('~/.vim/autoload/plug.vim'))
-  "silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    "\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  "autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-"endif
+if empty(glob('~/.cache/dein'))
+  silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh 
+  silent !sh ./installer.sh ~/.cache/dein
+  silent !rm .installer.sh
+endif
 
 if &compatible
   set nocompatible
@@ -19,30 +19,30 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
     call dein#add('wsdjeg/dein-ui.vim')
-    call dein#add( 'Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add( 'Shougo/echodoc.vim')
-    call dein#add( 'airblade/vim-gitgutter')
-    call dein#add( 'alvan/vim-closetag', {'on_ft': 'html'})
-    call dein#add( 'itchyny/lightline.vim')
-    call dein#add( 'jiangmiao/auto-pairs')
-    call dein#add( 'junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
-    call dein#add( 'junegunn/fzf.vim', { 'depends': 'fzf' })
-    call dein#add( 'junegunn/vim-easy-align', {'on_ft': 'markdown'})
-    call dein#add( 'leafgarland/typescript-vim', {'on_ft': 'typescript'})
-    call dein#add( 'lervag/vimtex', {'on_ft': 'tex'})
-    call dein#add( 'neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
-    call dein#add( 'dikiaap/minimalist')
+    call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
+    call dein#add('Shougo/echodoc.vim', {'on_event': 'InsertEnter'})
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
+    call dein#add('itchyny/lightline.vim')
+    call dein#add('jiangmiao/auto-pairs')
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
+    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+    call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
+    call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
+    call dein#add('lervag/vimtex', {'on_ft': 'tex'})
+    call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
+    call dein#add('dikiaap/minimalist', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
-    call dein#add( 'scrooloose/nerdcommenter')
-    call dein#add( 'shumphrey/fugitive-gitlab.vim')
-    call dein#add( 'tmhedberg/SimpylFold', {'on_ft': 'python'})
-    call dein#add( 'tpope/vim-fugitive')
-    call dein#add( 'machakann/vim-sandwich')
-    call dein#add( 'w0rp/ale')
-    call dein#add( 'rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
-    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
-    call dein#add( 'mhinz/vim-janah')
-    call dein#add( 'numirias/semshi', {'on_ft': 'python'})
+    call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
+    call dein#add('shumphrey/fugitive-gitlab.vim')
+    call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter'})
+    call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
+    call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
+    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly', 'on_event': 'InsertEnter'})
+    call dein#add('mhinz/vim-janah')
+    call dein#add('numirias/semshi', {'on_ft': 'python'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
     call dein#remote_plugins()

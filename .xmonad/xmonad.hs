@@ -18,10 +18,7 @@ import           XMonad.Layout.Accordion
 import           XMonad.Layout.AutoMaster
 import           XMonad.Util.NamedScratchpad
 
-myScratchpads =
-    [
--- run htop in xterm, find it by title, use default floating window placement
-     NS "htop" "kitty htop" (title =? "htop") defaultFloating]
+myScratchpads = [NS "htop" "kitty htop" (title =? "htop") defaultFloating]
 myTerminal = "kitty"
 myWorkspaces = map show [1 .. 9]
 myNormalBorderColor = "#333333"
@@ -87,6 +84,6 @@ myKeys =
     , ("M-p"                    , spawn "rofi -show run -opacity \"85\" ")
     , ("M-<Tab>", cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
     , ("M-t"                    , sendMessage ToggleStruts)
-    , ("M-h"                  , namedScratchpadAction myScratchpads "htop")
+    , ("M-h"                    , namedScratchpadAction myScratchpads "htop")
     ]
 
