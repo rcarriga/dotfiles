@@ -4,4 +4,5 @@
 [[ $1 == "DOWN" ]] && light -U 10 && pkill -SIGRTMIN+2 i3blocks
 
 brightness=$(light | grep -o '^[0-9]*')
-echo "  ${brightness::-1}0%   "
+# Had  icon for i3. Moved to xmobarrc.
+echo "${brightness::-1}0% "

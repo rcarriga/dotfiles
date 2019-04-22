@@ -96,6 +96,7 @@ if command -v apt-get >/dev/null 2>&1; then
   fi
 
   [[ -n $(fc-list | grep 'Fira Code') ]] || ( echo -e "Installing Fira Code for them beautiful ligatures" && sudo apt-get install fonts-firacode  >> setuplog.txt)
+  [[ -n $(fc-list | grep 'FontAwesome') ]] || ( echo -e "Installing Font Awesome for system icons" && sudo apt-get install fonts-font-awesome  >> setuplog.txt)
   [[ -d /usr/share/icons/Numic-Circle ]] || ( echo -e "Installing Numix Icons" && sudo apt-get install numix-icon-theme-circle  >> setuplog.txt)
   [[ -d /usr/share/themes/Arc ]] || ( echo -e "Installing Arc theme" && sudo apt-get install arc-theme  >> setuplog.txt)
 

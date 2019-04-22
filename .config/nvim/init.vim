@@ -18,20 +18,19 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
-    call dein#add('wsdjeg/dein-ui.vim')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('Shougo/echodoc.vim', {'on_event': 'InsertEnter'})
     call dein#add('airblade/vim-gitgutter')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('itchyny/lightline.vim')
-    call dein#add('jiangmiao/auto-pairs')
+    call dein#add('jiangmiao/auto-pairs', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
-    call dein#add('dikiaap/minimalist', {'style': 'colors'})
+    call dein#add('jacoborus/tender.vim', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
@@ -41,7 +40,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly', 'on_event': 'InsertEnter'})
-    call dein#add('mhinz/vim-janah')
     call dein#add('numirias/semshi', {'on_ft': 'python'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
@@ -57,6 +55,11 @@ au FileType qf call AdjustWindowHeight(3, 50)
 
 au FileType tex set nowrap
 
+" Indents word-wrapped lines as much as the 'parent' line
+set breakindent
+" Ensures word-wrap does not split words
+set formatoptions=l
+set lbr
 " Allow filetype specific plugins and indenting
 filetype plugin indent on
 " Honestly do not know but makes lightline work
@@ -151,8 +154,11 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
-colorscheme minimalist
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+colorscheme tender
 let g:lightline = {
+      \ 'colorscheme': 'tender',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -163,6 +169,7 @@ let g:lightline = {
       \ }
 
 let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+
 
 " ###################################################################################
 " Custom Mappings

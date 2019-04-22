@@ -5,9 +5,13 @@ Install script is reasonably stable (Only for Ubuntu)*
 
 If you're just passing through and see something you think could be better, then let me know!
 
-## Vim
+## NeoVim/Vim
 
 This setup might be useful if you are just starting out.
+I recommend using NeoVim for better plugin support and faster updates.
+This config [here](https://github.com/rcarriga/dotfiles/blob/master/.config/nvim/init.vim) will work for NeoVim and (hopefully) Vim 8.1 or above.
+If you want a Vim 8.0 config look (here)[https://github.com/rcarriga/dotfiles/blob/master/.vimrc], though I do not update it.
+
 Main language support is for Haskell, Python and Typescript.
 Most other languages have linting support from ALE.
 Also includes support for LaTex and Markdown documents
@@ -19,13 +23,13 @@ Language specific plugins are only loaded for the specified filetype to speedup 
 
 **General**
 
-  - [vim-plug](https://github.com/junegunn/vim-plug)
+  - [dein.vim](https://github.com/Shougo/dein.vim)
         Plugin manager for vim which allows for lazy loading.
   - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
         Multi-lingual commenting plugin.
   - [FZF](https://github.com/junegunn/fzf.vim)
         Fuzzy file finding to open files from child directories.
-  - [vim-surround](https://github.com/tpope/vim-surround)
+  - [vim-sandwich](https://github.com/machakann/vim-sandwich)
         Allows for surrounding text objects with any character.
   - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
         Creates pairs of quotes and brackets when one is typed.
@@ -37,12 +41,10 @@ Language specific plugins are only loaded for the specified filetype to speedup 
         Better git integration.
   - [ALE](https://github.com/w0rp/ale)
         Asynchronous linting.
-  - [LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim)
-        Runs language servers.
+  - [coc.nvim](https://github.com/neoclide/coc.nvim/)
+        Fast and powerful language server client.
   - [echodoc](https://github.com/Shougo/echodoc.vim)
         Shows function signatures without opening new window.
-  - [deoplete](https://github.com/Shougo/deoplete.nvim)
-        Asynchronous auto complete popup with custom sources.
 
 **Python Specific**:
 
@@ -68,7 +70,9 @@ Language specific plugins are only loaded for the specified filetype to speedup 
   - [vimtex](https://github.com/lervag/vimtex)
         Integrated latex compiler, viewer and other features
   - [Thesauras Query](https://github.com/Ron89/thesaurus_query.vim)
-        Built in thesauras (Only in markdown and latex files)
+        Built in thesauras
+  - [vim-grammarous](https://github.com/rhysd/vim-grammarous)
+        Grammar checking (Requires Java to be installed)
 
 Also a couple of others used only to support the above.
 
@@ -84,58 +88,59 @@ My leader key is set to default "\\" key.
 
 *Prefix*: `<Leader>l` (Lower case L)
 
-| Suffix | Command                              |
-| :----: | :----------------------------------- |
-| `d`    | Definition                           |
-| `r`    | Rename                               |
-| `f`    | Format Document                      |
-| `t`    | Type Definition                      |
-| `x`    | References                           |
-| `a`    | Code Actions Menu                    |
-| `k`    | Hover (Loo**k**up)                   |
-| `m`    | Menu of all Language Server commands |
-| `h`    | Hightlight                           |
+| Suffix           | Command                               |
+| :----:           | :-----------------------------------  |
+| `d`              | Definition                            |
+| `r`              | Rename                                |
+| `f`              | Format Document                       |
+| `t`              | Type Definition                       |
+| `x`              | References                            |
+| `a`              | Code Actions Menu                     |
+| `k`              | Hover (Loo**k**up)                    |
+| `m`              | Menu of all Language Server commands  |
+| `h`              | Hightlight                            |
+| `g`              | Diagnostic Info at Cursor
 
 #### Git Commands
 
 *Prefix*: `<Leader>g`
 
-| Suffix | Command                       |
-| :----: | :---------------------------- |
-| `s`    | Status                        |
-| `p`    | Push                          |
-| `d`    | Diff                          |
-| `b`    | Browse (Open repo in browser) |
-| `l`    | Blame                         |
+| Suffix           | Command                               |
+| :----:           | :----------------------------         |
+| `s`              | Status                                |
+| `p`              | Push                                  |
+| `d`              | Diff                                  |
+| `b`              | Browse (Open repo in browser)         |
+| `l`              | Blame                                 |
 
   - *NB* Type "cc" in status window to commit changes.
 
 #### FZF Commands
 
-| Suffix       | Command                               |
-| :----------: | :------------------------------------ |
-| `<Leader>f`  | Fuzzy File Finder                     |
-| `<Leader>ag` | Fuzzy File Contents Search (Using Ag) |
+| Suffix           | Command                               |
+| :----------:     | :------------------------------------ |
+| `<Leader>f`      | Fuzzy File Finder                     |
+| `<Leader>ag`     | Fuzzy File Contents Search (Using Ag) |
 
 #### LaTex Commands
 
 *Prefix*: `<Leader>l`
 
-| Suffix | Command                               |
-| :----: | :------------------------------------ |
-| `l`    | Run compile server for LaTex document |
-| `v`    | View compiled document                |
+| Suffix           | Command                               |
+| :----:           | :------------------------------------ |
+| `l`              | Run compile server for LaTex document |
+| `v`              | View compiled document                |
 
 #### Misc:
 
-| Suffix           | Command                          |
-| :------:         | :------------------------------- |
-| `<Leader>nv`     | Open netrw vertical split        |
-| `<Leader>ns`     | Open netrw horizontal split      |
-| `Tab`            | Next Completion                  |
-| `Ctrl+(h/j/k/l)` | Switch Window in Direction       |
-| `<Leader>th`     | Open thesauras for selected word |
-| `<Leader>a`      | Align highlighted markdown table |
+| Suffix           | Command                               |
+| :------:         | :-------------------------------      |
+| `<Leader>nv`     | Open netrw vertical split             |
+| `<Leader>ns`     | Open netrw horizontal split           |
+| `Tab`            | Next Completion                       |
+| `Ctrl+(h/j/k/l)` | Switch Window in Direction            |
+| `<Leader>th`     | Open thesauras for selected word      |
+| `<Leader>a`      | Align highlighted markdown table      |
 
 Arrow keys are disabled in normal mode.
 
@@ -171,6 +176,14 @@ for buttery smooth performance.
 
 </p>
 </details>
+
+## XMonad
+
+XMonad is a tiling window manager.
+It is written in Haskell which might be difficult to setup quickly.
+For a quick, easy-to-use WM try out [i3](https://i3wm.org/https://i3wm.org/).
+XMonad site can be found [here](https://xmonad.org/).
+i3 is faster to setup but I find XMonad to be much more powerful in configuration and less restrictive in what you can do.
 
 
 ## Tmux
@@ -212,11 +225,12 @@ In those cases it should just be a package to install
 - GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
 - Window Switcher: [rofi](https://github.com/DaveDavenport/rofi)
 - Battery Info Command: [acpi](https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface)
-- Status Bar Manager: [i3blocks](https://github.com/vivien/i3blocks)
-- Temperature Monitoring[lm-sensors](https://github.com/lm-sensors/lm-sensors)
+- Status Bar: [xmobar](https://archives.haskell.org/projects.haskell.org/xmobar/)
+- Temperature Monitoring: [lm-sensors](https://github.com/lm-sensors/lm-sensors)
 - Nice Lock Screen: [i3lock-fancy](https://github.com/meskarune/i3lock-fancy)
 - Automatic Screen Locking: [xautolock](https://linux.die.net/man/1/xautolock)
-- Screen Compositor (Transparent Backgrounds) [compton](https://github.com/chjj/compton)
+- Screen Compositor (Transparent Backgrounds): [compton](https://github.com/chjj/compton)
+- System Tray: [trayer-srg](https://github.com/sargon/trayer-srg)
 
 
 <details><summary>Guides and References</summary>

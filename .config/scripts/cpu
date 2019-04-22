@@ -1,4 +1,4 @@
 #!/bin/bash
 
 output=$(top -bn 2 -d 0.01 | grep '^%Cpu.s.' | tail -n 1 | gawk '{print $2+$4+$6}' | grep -o '^[0-9]*')
-echo "  $output%   "
+echo "$output"

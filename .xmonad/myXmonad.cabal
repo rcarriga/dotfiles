@@ -10,5 +10,8 @@ executable xmonad
                      , xmonad
                      , xmonad-contrib
                      , containers
+                     , text
+                     , X11
+                     , ghc
   default-language:    Haskell98
   other-languages:     Haskell2010
