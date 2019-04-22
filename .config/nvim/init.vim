@@ -34,6 +34,7 @@ if dein#load_state('~/.cache/dein')
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
+    call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
     call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
     call dein#add('tpope/vim-fugitive')
     call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter'})
@@ -41,6 +42,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly', 'on_event': 'InsertEnter'})
     call dein#add('numirias/semshi', {'on_ft': 'python'})
+    call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
     call dein#remote_plugins()
@@ -147,16 +149,15 @@ let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
 " Set linters for filetypes. I normally disable if running language server
-" Python Language Server doesn't run pylint so enable it here.
 let g:ale_linters = {
 \   'python': [],
-\   'haskell': ['ghc'],
+\   'haskell': [],
 \   'typescript': [],
 \}
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-colorscheme tender
+color tender
 let g:lightline = {
       \ 'colorscheme': 'tender',
       \ 'active': {
@@ -170,6 +171,9 @@ let g:lightline = {
 
 let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 
+" Enable limelight when using GoYo
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 " ###################################################################################
 " Custom Mappings
@@ -213,6 +217,9 @@ nnoremap <leader>lk :call CocAction('doHover')<CR>
 nnoremap <leader>ls :call CocAction('documentSymbols')<CR>
 nnoremap <leader>lh :call CocAction('highlight')<CR>
 nnoremap <leader>lq :call CocAction('quickfixes')<CR>
+
+" Distraction free writing
+nnoremap <leader>d :Goyo<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.

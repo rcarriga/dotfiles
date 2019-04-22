@@ -51,7 +51,7 @@ myConfig pipe =
 myScratchpads :: [NamedScratchpad]
 myScratchpads =
     [ NS "htop"            "kitty htop"      (title =? "htop")                defaultFloating
-    , NS "blueman-manager" "blueman-manager" (className =? "blueman-manager") defaultFloating
+    , NS "Blueman-manager" "blueman-manager" (className =? "Blueman-manager") defaultFloating
     ]
 
 myTerminal :: String
@@ -89,7 +89,6 @@ myLogHook pipe = do
 -- ######################################################################################
 -- This section is used to convert a workspace ID to a string containing an icon for the focused window in that workspace
 -- Can be used for XMobar (Or any status bar desired)
---
 
 -- | Given the mappings of workspace IDs to their strings aliases
 -- an ID return a string to represent workspace in XMobar.
@@ -104,7 +103,15 @@ type WindowIcons = M.Map WindowClass String
 windowIcons :: WindowIcons
 windowIcons =
     let wrapIcon icon = " <fn=1>" <> icon <> "</fn>"
-    in M.fromList $ map (liftSnd wrapIcon) [("kitty", "\xf120"), ("Firefox", "\xf269"), ("Blueman-manager", "\xf294")]
+    in
+        M.fromList $ map
+            (liftSnd wrapIcon)
+            [ ("kitty"                  , "\xf120")
+            , ("Firefox"                , "\xf269")
+            , ("Blueman-manager"        , "\xf294")
+            , ("libreoffice-startcenter", "\xf15c")
+            , ("libreoffice-draw"       , "\xf15c")
+            ]
 
 type WorkspaceAliases = M.Map WorkspaceId String
 
@@ -133,7 +140,7 @@ myStartupHook = do
     setWMName "XMonad"
     mapM_
         spawn
-        [ "pkill trayer; trayer --expand true --transparent true --margin 5 --iconspacing 5 --edge bottom --align right --width 2 --height 20 --tint 0x000000 --SetDockType true --SetPartialStrut true --padding 5"
+        [ "pkill trayer; trayer --expand true --transparent true --margin 5 --iconspacing 5 --edge bottom --align right --widthtype request  --height 20 --tint 0x000000 --SetDockType true --SetPartialStrut true --padding 5"
         , "pgrep redshift || redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
@@ -155,7 +162,7 @@ myKeys =
     , ("<XF86AudioLowerVolume>" , startScript "volume DOWN")
     , ("<XF86AudioMute>"        , startScript "volume MUTE")
     , ("M-p"                    , spawn "rofi -show run -opacity \"85\" ")
-    , ("M-m"                    , namedScratchpadAction myScratchpads "blueman-manager")
+    , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
     , ("M-t"                    , sendMessage ToggleStruts)
     , ("M-n"                    , namedScratchpadAction myScratchpads "htop")

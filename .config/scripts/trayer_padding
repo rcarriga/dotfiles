@@ -1,6 +1,6 @@
 #!/bin/sh
 # Very rough estimation going on here...
 pixels=$(xprop -name panel | grep 'program specified minimum size' | cut -d ' ' -f 5)
-spaces=$((pixels/7))
+spaces=$((pixels/10))
 printf " "
 printf ' %.0s' $(seq 1 $spaces)
