@@ -30,8 +30,9 @@ if dein#load_state('~/.cache/dein')
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
-    call dein#add('jacoborus/tender.vim', {'style': 'colors'})
-    call dein#add('dylanaraps/wal.vim')
+    call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
+    call dein#add('dylanaraps/wal.vim', {'style': 'colors'})
+    call dein#add('rainglow/vim', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
@@ -157,7 +158,7 @@ let g:ale_linters = {
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-color wal
+color vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'wal',
       \ 'active': {
