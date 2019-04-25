@@ -30,309 +30,312 @@ l2
 r2
 
 # Left window history (oldest to newest):
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	helloworld
 1
-d/Volumes/Repos/tapatempo/surveys
-	TapATempo
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	reporting
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	PostGameQuestions
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	helloworld
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/helloworld
+	widget.zip
+5
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	helloworld
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/helloworld
+	src
+2
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/helloworld/src
+	widget.json
+4
+d/Users/rcarriga/workspaces/ripsaw-workspace
+	widgets
 6
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	reporting
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	Groove_score_41-60%
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	mywidget
+2
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget
+	dist
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget/dist
+	..
+0
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget
+	src
+2
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	mywidget
+2
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget
+	test
 3
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/Groove_score_41-60%
-	questions
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	helloworld
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/Groove_score_41-60%/questions
-	QuestionID11
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/Groove_score_41-60%
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock/questions
-	QuestionID4
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
+d/Users/rcarriga
+	workspaces
+51
+d/Users/rcarriga/workspaces
+	vocalize
 2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock/questions
-	QuestionID5
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	QuestionID6.js
-3
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys
-	Tap-a-TempoV2 Questionnaire
-7
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	Default_Question_Block
-2
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/Default_Question_Block
-	block.json
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	SoundCheck_Duck
-10
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Duck
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	SoundCheck_Duck
-10
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Duck
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	SoundCheck_Dolphin
-9
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin/questions
-	QuestionID1
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin/questions
-	..
-0
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	SoundCheck_Dolphin
-10
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys
-	Tap-a-TempoV2 Questionnaire
-7
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	SoundCheck_Dolphin
-10
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin/questions
-	QuestionID1.json
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks/SoundCheck_Dolphin
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire/blocks
-	Dance_Training
-1
-d/Volumes/Repos/tapatempo/surveys/Tap-a-TempoV2 Questionnaire
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys
-	Physical Activity Readiness Questionnaire
-4
-d/Volumes/Repos/tapatempo/surveys/Physical Activity Readiness Questionnaire
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/Physical Activity Readiness Questionnaire/blocks
-	Diabetes
-4
-d/Volumes/Repos/tapatempo/surveys/Physical Activity Readiness Questionnaire
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys
-	TapATempo
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock
-	questions
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	QuestionID5.js
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	blocks
-1
-d/Volumes/Repos/tapatempo/surveys
-	..
-0
-d/Volumes/Repos/tapatempo
-	surveys
-4
-d/Volumes/Repos/tapatempo/surveys
-	..
-0
-d/Volumes/Repos/tapatempo
-	surveys
-4
-d/Volumes/Repos/tapatempo/surveys
-	Hoehn and Yahr Scale
-2
-d/Volumes/Repos/tapatempo/surveys/Hoehn and Yahr Scale
-	..
-0
-d/Volumes/Repos/tapatempo/surveys
-	Demographics Information
-1
-d/Volumes/Repos/tapatempo/surveys/Demographics Information
-	UnknownElem:RS
-3
-d/Volumes/Repos/tapatempo/surveys
-	Demographics Information
-1
-d/Volumes/Repos/tapatempo/surveys/Demographics Information
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys
-	Demographics Information
-1
-d/Volumes/Repos/tapatempo
-	trial_config.json
-7
-d/Volumes/Repos/tapatempo/scripts/tools
-	survey_parser.py
+d/Users/rcarriga/workspaces/vocalize
+	dist
 6
-d/Volumes/Repos/tapatempo/scripts
-	tools
+d/Users/rcarriga/workspaces
+	ripsaw-workspace
 1
-d/Volumes/Repos/tapatempo
-	surveys
+d/Users/rcarriga/workspaces/ripsaw-workspace
+	widgets
+6
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	reporting
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	simplechart
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	src
 4
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	..
+0
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	test
+5
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/test
+	unit
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/test/unit
+	controllers
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/test/unit/controllers
+	main-controller.spec.js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/test/unit
+	controllers
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/test
+	unit
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	src
+4
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	controllers
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/controllers
+	main-controller.js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	controllers
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	services
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/services
+	..
+0
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	controllers
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/controllers
+	main-controller.js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	controllers
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	services
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/services
+	source-helper-base.js
+12
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	services
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/services
+	dq-conversion.js
+6
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	services
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	src
+4
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	js
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	src
+4
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	simplechart
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	reporting
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace
+	widgets
+6
+d/Users/rcarriga/workspaces
+	ripsaw-workspace
+1
+d/Users/rcarriga
+	workspaces
+68
+d/Users/rcarriga/workspaces
+	vocalize
+2
+d/Users/rcarriga/workspaces/vocalize
+	config
+4
+d/Users/rcarriga/workspaces/vocalize/config
+	alpha
+1
+d/Users/rcarriga/workspaces/vocalize/config/alpha
+	vocalize-config.json
+1
+d/Users/rcarriga/workspaces/vocalize/config
+	alpha
+1
+d/Users/rcarriga/workspaces/vocalize
+	config
+4
+d/Users/rcarriga/workspaces
+	vocalize
+2
+d/Users/rcarriga/workspaces/vocalize
+	config
+4
+d/Users/rcarriga/workspaces/vocalize/config
+	alpha
+1
+d/Users/rcarriga/workspaces/vocalize/config/alpha
+	vocalize-config.json
+1
+d/Users/rcarriga/workspaces/vocalize/config
+	alpha
+1
+d/Users/rcarriga/workspaces/vocalize/config/alpha
+	vocalize-config.json
+1
+d/Users/rcarriga/workspaces/vocalize/config
+	alpha
+1
+d/Users/rcarriga/workspaces/vocalize
+	config
+4
+d/Users/rcarriga/workspaces
+	vocalize
+2
+d/Users/rcarriga
+	workspaces
+68
+d/Users/rcarriga/workspaces
+	ripsaw-workspace
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace
+	widgets
+6
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	reporting
+1
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	simplechart
+3
 d/Volumes/Repos/tapatempo/surveys
-	TapATempo
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo
+	LONG QUESTIONNAIRE - AF
+3
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF
 	javascript
 2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	QuestionID3.js
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo
-	javascript
-2
-d/Volumes/Repos/tapatempo/surveys/TapATempo/javascript
-	QuestionID3.js
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF/javascript
+	QuestionID111.js
+29
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF
 	blocks
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	gameblock
-8
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/gameblock
-	questions
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF/blocks
+	After_Flight_-_PART_3
+3
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF/blocks/After_Flight_-_PART_3
+	..
+0
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF/blocks
+	After_Flight_-_PART_3
+3
+d/Volumes/Repos/tapatempo/surveys
+	LONG QUESTIONNAIRE - AF
+3
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF
+	javascript
+2
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF/javascript
+	QuestionID63.js
+23
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF
+	flow.json
+10
+d/Volumes/Repos/tapatempo/surveys
+	LONG QUESTIONNAIRE - AF
+3
+d/Volumes/Repos/tapatempo/surveys/LONG QUESTIONNAIRE - AF
+	..
+0
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	..
+0
+d/Users/rcarriga/workspaces/ripsaw-workspace
+	widgets
+6
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets
+	reporting
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks
-	start
-9
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/start
-	questions
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	simplechart
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	src
+4
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	js
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/start/questions
-	QuestionID6
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	services
+3
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/services
+	dq-conversion.js
+6
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js
+	controllers
 1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/start/questions/QuestionID6
-	question.json
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/start/questions
-	QuestionID6
-1
-d/Volumes/Repos/tapatempo/surveys/TapATempo/blocks/start
-	questions
+d/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/js/controllers
+	main-controller.js
 1
 d
 
 # Right window history (oldest to newest):
+D/Users/rcarriga/Downloads
+	Tap-a-TempoV2_Questionnaire.qsf
+8
 D/Volumes/Repos/mobile_apps/TapATempo
 	..
 0
@@ -393,21 +396,31 @@ D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget/src/js
 D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget/src/js/controllers
 	main.js
 1
-D/Users/rcarriga
-	Downloads
-5
-D/Users/rcarriga/Downloads
-	Tap-a-TempoV2_Questionnaire.qsf
-8
-D/Users/rcarriga
-	Downloads
-5
-D/Users/rcarriga/Downloads
-	TapATempo.qsf
-9
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget/src/js
+	controllers
+1
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget/src
+	js
+1
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/mywidget
+	src
+2
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting
+	simplechart
+3
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart
+	src
+2
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src
+	templates
+3
+D/Users/rcarriga/workspaces/ripsaw-workspace/widgets/reporting/simplechart/src/templates
+	body.html
+2
 D
 
 # Command line history (oldest to newest):
+:goto ~/Downloads/
 :split
 :v
 :vs
@@ -430,11 +443,13 @@ D
 :!nvim 
 :w
 :!git clone ssh://git@gitlab-app.eng.qops.net:10022/reporting-widgets/image-slideshow.git
-:goto ~/Downloads/
+:qall
 :q
 
 # Search history (oldest to newest):
 /jj
+/vocal
+/work
 
 # Prompt history (oldest to newest):
 ptvocalize
@@ -443,7 +458,6 @@ pinjectabl
 # Local filter history (oldest to newest):
 
 # Registers:
-""/Users/rcarriga/.local/share/vifm/Trash/003_Default_Question_Block
 
 # Directory stack (oldest to newest):
 
@@ -500,7 +514,7 @@ t/Users/rcarriga/.local/share/vifm/Trash/003_Default_Question_Block
 # State:
 f
 i1
-[.1
+[.0
 [F
 F
 I1
