@@ -39,7 +39,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
     call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
     call dein#add('tpope/vim-fugitive')
-    call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter'})
+    call dein#add('machakann/vim-sandwich')
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly', 'on_event': 'InsertEnter'})
@@ -57,6 +57,8 @@ endif
 
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
+
+au ColorScheme * hi Normal ctermbg=none guibg=none
 
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
