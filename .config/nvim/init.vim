@@ -3,7 +3,7 @@
 " Install Plugins
 " See README for links (Or just paste each plugin to https://github.com/)
 
-" Auto install vim-plug
+" Auto install dein
 if empty(glob('~/.cache/dein'))
   silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh 
   silent !sh ./installer.sh ~/.cache/dein
@@ -162,7 +162,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 color vim-monokai-tasty
 let g:lightline = {
-      \ 'colorscheme': 'wal',
+      \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]

@@ -152,6 +152,7 @@ myStartupHook = do
         , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
         , "wal -i ~/.config/images"
+        , "wal --theme monokai"
         ]
 
 myKeys :: [(String, X ())]
