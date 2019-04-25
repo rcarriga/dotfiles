@@ -31,6 +31,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('jacoborus/tender.vim', {'style': 'colors'})
+    call dein#add('dylanaraps/wal.vim')
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
@@ -43,6 +44,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly', 'on_event': 'InsertEnter'})
     call dein#add('numirias/semshi', {'on_ft': 'python'})
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
+    call dein#add('lifepillar/vim-colortemplate')
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
     call dein#remote_plugins()
@@ -54,8 +56,6 @@ endif
 
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
-
-au FileType tex set nowrap
 
 au ColorScheme * hi Normal ctermbg=none guibg=none
 
@@ -159,9 +159,9 @@ let g:ale_linters = {
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
-color tender
+color wal
 let g:lightline = {
-      \ 'colorscheme': 'tender',
+      \ 'colorscheme': 'wal',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -244,3 +244,8 @@ nnoremap <Leader>sg :GrammarousCheck<CR>
 " Align GitHub-flavored Markdown tables
 vmap <Leader>a :EasyAlign*<Bar><Enter>
 
+" Disgusting mapping to find highlight group under cursor for changing
+" colorschemes
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
