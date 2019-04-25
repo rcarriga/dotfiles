@@ -44,7 +44,7 @@ myConfig pipe =
             , handleEventHook    = docksEventHook <+> def handleEventHook
             , startupHook        = myStartupHook
             , logHook            = myLogHook pipe
-            , borderWidth        = 2
+            , borderWidth        = 1
             }
         `additionalKeysP` myKeys
 
@@ -141,7 +141,7 @@ myStartupHook = do
     mapM_
         spawn
         [ "pkill trayer; trayer --expand true --transparent true --margin 5 --iconspacing 5 --edge bottom --align right --widthtype request  --height 20 --tint 0x000000 --SetDockType true --SetPartialStrut true --padding 5"
-        , "pgrep redshift || redshift -l 53:-6 -t 6500:2500"
+        , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
         , "pgrep compton || compton"
@@ -151,7 +151,7 @@ myStartupHook = do
         , "xset r rate 150 40"
         , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
-        , "feh --bg-fill ~/.config/images/moon.jpg"
+        , "wal -i ~/.config/images"
         ]
 
 myKeys :: [(String, X ())]
