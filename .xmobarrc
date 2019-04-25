@@ -29,5 +29,5 @@ Config { font = "xft:FiraCode-Regular:size=10"
                     , Run Com "/home/ronan/.config/scripts/volume" [] "v" 10
                     ]
        , sepChar = "$"
-       , template = "$UnsafeStdinReader$ } $date$ { $wlp2s0$ | $d$ <fn=1></fn> | $c$% <fn=1></fn> | $t$°C <fn=1></fn> | $v$<fn=1> </fn> | $b$<fn=1></fn> | $battery$ |$trayerpad$"
+       , template = "$UnsafeStdinReader$ } $date$ { $wlp2s0$ | $d$ <fn=1></fn> | $c$% <fn=1></fn> | $t$°C <fn=1></fn> | $v$<fn=1>   </fn> | $b$<fn=1></fn> | $battery$ |$trayerpad$"
        }
