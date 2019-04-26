@@ -20,6 +20,7 @@ Also includes support for LaTex and Markdown documents
 <p>
 
 Language specific plugins are only loaded for the specified filetype to speedup startup time.
+Also many plugins load on first entering insert mode. This is so startup time is <200ms
 
 **General**
 
@@ -149,11 +150,10 @@ Arrow keys are disabled in normal mode.
 
 ## Zsh
 
-Using oh-my-zsh just for config settings. 
 Plugins managed by zplug.
 If you like a more featureful shell then would recommend using spaceship theme.
 However I found this caused slight delay between commands so using the pure theme
-for buttery smooth performance.
+for buttery smooth performance, although my plugins are kinda slow too so will probably trim down eventually.
 
 <details><summary>Plugins</summary>
 <p>
@@ -187,15 +187,18 @@ i3 is faster to setup but I find XMonad to be much more powerful in configuratio
 
 
 ## Tmux
-
-If you don't know what tmux is well then I can't do it justice. 
+If working on a Mac or just don't want to commit to a window manager like XMonad/i3 then tmux is good for emulating some of their features for terminals.
 Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
 Basic tmux is useful but my config file is taken (shamelessly ripped) from [this fantastic repo](https://github.com/gpakosz/.tmux) which makes it even better!
 
 ## Kitty
 
-Kitty is a GPU powered terminal emulator. 
-To be honest my main reason for picking it was that it supported ligatures (e.g. Fira Code) and it uses a config file rather than a GUI which means it is easy to maintain a consistent terminal across machines. 
+Kitty is a GPU powered terminal emulator. It is not very lightweight but has so many features it's worth a few extra MBs (It's like 5MB).
+    - Buttery smooth performance
+    - Support for images
+    - Unicode support (even with shortcut to input)
+    - Font ligature support (Very nice with Haskell)
+    - Works with pywal
 
 ## Development Tools
 
@@ -211,11 +214,12 @@ These are some of the tools I use with Vim and standalone for software developme
 
 ## Enviroment Management and Utilities
 
-Programs for managing the environment in i3 and in the terminal.
+Programs for managing the environment in XMonad and in the terminal.
 Some links are just for extra info. 
-In those cases it should just be a package to install
+In those cases it should just be a package to install or an existing command.
 
-- Terminal file browser: [ranger](https://github.com/ranger/ranger)
+- Dotfiles Management: [YADM](https://yadm.io/)
+- Terminal file browser: [vifm](https://vifm.info/)
 - Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Backlight Control that just works: [light](https://github.com/haikarainen/light)
 - Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
