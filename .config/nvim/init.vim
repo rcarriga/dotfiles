@@ -7,7 +7,7 @@
 if empty(glob('~/.cache/dein'))
   silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh 
   silent !sh ./installer.sh ~/.cache/dein
-  silent !rm .installer.sh
+  silent !rm ./installer.sh
 endif
 
 if &compatible
@@ -53,7 +53,7 @@ if dein#load_state('~/.cache/dein')
   call dein#save_state()
 endif
 " ###################################################################################
-" Native Vim Settings Section
+" Native Vim Settings
 
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
@@ -67,7 +67,7 @@ set formatoptions=l
 set lbr
 " Allow filetype specific plugins and indenting
 filetype plugin indent on
-" Honestly do not know but makes lightline work
+" Always on statusline
 set laststatus=2
 " Hides --insert-- under lightline
 set noshowmode
@@ -115,7 +115,7 @@ set hidden
 set shortmess+=c
 
 " ###################################################################################
-" Functions Section
+" Functions
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -137,7 +137,7 @@ endfunction
  endfunction
 
 " ###################################################################################
-" Plugin Settings Section
+" Plugin Settings
 
 " Open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 0
@@ -158,8 +158,6 @@ let g:ale_linters = {
 \   'typescript': [],
 \}
 
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
 color vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
@@ -174,9 +172,13 @@ let g:lightline = {
 
 let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 
+" Set GoYo width
+let g:goyo_width = 100
+
 " Enable limelight when using GoYo
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+let g:limelight_conceal_guifg = 'DarkGray'
 
 " ###################################################################################
 " Custom Mappings
