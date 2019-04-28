@@ -1,4 +1,4 @@
-{-# LANGUAGE UnicodeSyntax, FlexibleContexts, OverloadedStrings #-}
+{-# LANGUAGE FlexibleContexts, OverloadedStrings #-}
 import XMonad hiding (WindowClass)
 import XMonad.Config.Prime (WindowSpace)
 import XMonad.Hooks.SetWMName
@@ -25,6 +25,7 @@ import Graphics.X11.Xlib.Extras (getClassHint, resClass)
 import Data.Foldable
 import Data.Maybe
 import Util
+import XMonad.Layout.Spacing 
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
@@ -44,7 +45,7 @@ myConfig pipe =
             , handleEventHook    = docksEventHook <+> def handleEventHook
             , startupHook        = myStartupHook
             , logHook            = myLogHook pipe
-            , borderWidth        = 1
+            , borderWidth        = 0
             }
         `additionalKeysP` myKeys
 
@@ -144,14 +145,14 @@ myStartupHook = do
         , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
-        , "pgrep compton || compton"
+        , "pgrep compton || compton -f -D 3 -i 0.8"
         , "pgrep xautolock || xautolock -locker \"systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Tapping Enabled\" 1"
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Natural Scrolling Enabled\" 1"
         , "xset r rate 150 40"
         , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
-        , "wal -i ~/.config/images"
+        , "feh --bg-fill ~/.config/images/city.jpg"
         , "wal --theme monokai"
         ]
 
