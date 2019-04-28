@@ -3,18 +3,6 @@ ref-aws() {
         eval $(sicom creds $1 -e)
 }
 
-# Automatically place virtualenvs in .virtualenvs so vim can use them
-virenv() {
-        virtualenv "$HOME/.virtualenvs/"$1
-}
-
-envactivate (){
-        source "$HOME/.virtualenvs/$1/bin/activate"
-}
-
-ck() { 
-        cd "$@" && k;
-}
-jk() { 
-        j "$@" && k;
+l (){
+    eval "ls -GFhl $1 | awk '{print \"\033[0;33m\"\$1\"\033[0;37m \"\$2\"\033[0;34m\t\"\$3\"\033[1;32m\t\"\$4\"\033[0;37m\t\"\$5\" \"\$6\"\033[0;31m\t\"\$7\"\033[1;37m\t\"\$8}'"
 }
