@@ -25,7 +25,7 @@ import Graphics.X11.Xlib.Extras (getClassHint, resClass)
 import Data.Foldable
 import Data.Maybe
 import Util
-import XMonad.Layout.Spacing 
+import XMonad.Layout.Spacing
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
@@ -134,7 +134,11 @@ storeAlias ws m = do
 
 -- ######################################################################################
 
-myLayoutHook = avoidStruts $ Tall 1 (3 / 100) (1 / 2) ||| noBorders Full
+myLayoutHook =
+    avoidStruts
+        $   spacingRaw False (Border 0 10 10 10) True (Border 10 10 10 10) True
+        $   Tall 1 (3 / 100) (1 / 2)
+        ||| noBorders Full
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -153,7 +157,7 @@ myStartupHook = do
         , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
         , "feh --bg-fill ~/.config/images/city.jpg"
-        , "wal --theme monokai"
+        , "wal -s --theme monokai"
         ]
 
 myKeys :: [(String, X ())]
@@ -170,6 +174,11 @@ myKeys =
     , ("M-n"                    , namedScratchpadAction myScratchpads "htop")
     , ("M-c"                    , confirmPrompt myPromptConfig "close window?" kill)
     , ("M-S-q"                  , confirmPrompt myPromptConfig "exit" $ io exitSuccess)
+    , ("M-C-S-j"                , decScreenSpacing 10)
+    , ("M-C-S-k"                , incScreenSpacing 10)
+    , ("M-C-j"                  , decWindowSpacing 10)
+    , ("M-C-k"                  , incWindowSpacing 10)
+    , ("M-g"                    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
     ]
 
 myPromptConfig :: XPConfig

@@ -4,9 +4,9 @@
 
 [[ -f ~/.config/system/function.sh ]] && source ~/.config/system/function.sh
 
-[[ -d $ZGEN ]] || git clone https://github.com/tarjoilija/zgen.git $ZGEN
+[[ -d ~/.zgen ]] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen
 
-source "$ZGEN/zgen.zsh"
+source ".zgen/zgen.zsh"
 
 if ! zgen saved; then
 
@@ -14,11 +14,11 @@ if ! zgen saved; then
     zgen load "zsh-users/zsh-syntax-highlighting"
     zgen load "zsh-users/zsh-completions" src
     zgen load "BrandonRoehl/zsh-clean"
-
     zgen save 
+
+    source ".zgen/BrandonRoehl/zsh-clean-master/clean.plugin.zsh"
 fi
 
-source "$ZGEN/BrandonRoehl/zsh-clean-master/clean.plugin.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
