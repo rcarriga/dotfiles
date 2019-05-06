@@ -1,9 +1,10 @@
-{-# LANGUAGE FlexibleContexts, OverloadedStrings #-}
+{-# LANGUAGE FlexibleContexts #-}
 import XMonad hiding (WindowClass)
 import XMonad.Config.Prime (WindowSpace)
 import XMonad.Hooks.SetWMName
 import XMonad.Actions.CycleRecentWS
 import Data.Monoid
+import Control.Exception
 import System.Exit
 import XMonad.Hooks.DynamicLog
 import qualified Data.Map as M
@@ -26,14 +27,19 @@ import Data.Foldable
 import Data.Maybe
 import Util
 import XMonad.Layout.Spacing
+import Data.List
+import Data.Ord
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
 
-main :: IO ()
-main = spawnPipe "xmobar" >>= xmonad . docks . myConfig
 
-myConfig pipe =
+main :: IO ()
+main = do
+    safeSpawn "mkfifo" ["/tmp/xmonad"]
+    xmonad $ docks myConfig
+
+myConfig =
     def
             { terminal           = myTerminal
             , modMask            = myModMask
@@ -44,7 +50,7 @@ myConfig pipe =
             , layoutHook         = myLayoutHook
             , handleEventHook    = docksEventHook <+> def handleEventHook
             , startupHook        = myStartupHook
-            , logHook            = myLogHook pipe
+            , logHook            = myLogHook
             , borderWidth        = 0
             }
         `additionalKeysP` myKeys
@@ -59,7 +65,7 @@ myTerminal :: String
 myTerminal = "kitty"
 
 myWorkspaces :: [String]
-myWorkspaces = map show [1 .. 9]
+myWorkspaces = map show [1 .. 9] ++ ["NSP"]
 
 myNormalBorderColor :: String
 myNormalBorderColor = "#333333"
@@ -73,19 +79,18 @@ myModMask = mod4Mask
 myManageHook :: ManageHook
 myManageHook = composeAll [manageDocks, def manageHook]
 
-myLogHook :: Handle -> X ()
-myLogHook pipe = do
-    m <- buildIconMap
-    dynamicLogWithPP def
-        { ppOutput  = hPutStrLn pipe . pad
-        , ppCurrent = xmobarColor "white" "black" . parseWorkspaceId m
-        , ppHidden  = xmobarColor "#555555" "black" . parseWorkspaceId m
-        , ppSep     = " | "
-        , ppWsSep   = xmobarColor "#555555" "black" "  "
-        , ppLayout  = const ""
-        , ppTitle   = const ""
-        }
-
+myLogHook :: X ()
+myLogHook = do
+    st               <- get
+    workspaceAliases <- foldrM storeAlias M.empty $ W.workspaces $ windowset st
+    let curWs   = W.tag $ W.workspace $ W.current $ windowset st
+        visWs   = map (W.tag . W.workspace) . W.visible $ windowset st
+        hidWs   = map W.tag $ filter (isJust . W.stack) $ W.hidden $ windowset st
+        tags    = sortOn (\t -> fromMaybe 99 $ t `elemIndex` myWorkspaces) $ curWs : visWs ++ hidWs
+        outTags = (++) "  " $ foldr1 (\a b -> a ++ "  " ++ b) $ filter (/= "") $ map
+            (parseWorkspaceId workspaceAliases curWs)
+            tags
+    io $ appendFile "/tmp/xmonad" $ outTags ++ "\n"
 
 -- ######################################################################################
 -- This section is used to convert a workspace ID to a string containing an icon for the focused window in that workspace
@@ -94,43 +99,37 @@ myLogHook pipe = do
 -- | Given the mappings of workspace IDs to their strings aliases
 -- an ID return a string to represent workspace in XMobar.
 -- Also returns empty string for NamedScratchpad workspace.
-parseWorkspaceId :: WorkspaceAliases -> WorkspaceId -> String
-parseWorkspaceId m i = if i == "NSP" then "" else fromMaybe i $ M.lookup i m
+parseWorkspaceId :: WorkspaceAliases -> WorkspaceId -> WorkspaceId -> String
+parseWorkspaceId m cur i =
+    let x = fromMaybe (" " ++ i ++ " ") $ M.lookup i m
+    in
+        if i == "NSP"
+            then ""
+            else if i == cur then "%{u#FF0033}%{F#FFFFFF}" ++ x ++ "%{F-}%{-u}" else "%{F#777777}" ++ x ++ "%{F-}"
 
 type WindowClass = String
 type WindowIcons = M.Map WindowClass String
-
--- | Icons to represent a specified window class
-windowIcons :: WindowIcons
-windowIcons =
-    let wrapIcon icon = " <fn=1>" <> icon <> "</fn>"
-    in
-        M.fromList $ map
-            (liftSnd wrapIcon)
-            [ ("kitty"                  , "\xf120")
-            , ("Firefox"                , "\xf269")
-            , ("Blueman-manager"        , "\xf294")
-            , ("libreoffice-startcenter", "\xf15c")
-            , ("libreoffice-draw"       , "\xf15c")
-            ]
-
 type WorkspaceAliases = M.Map WorkspaceId String
 
--- | Cycle through workspaces and store workspace aliases
-buildIconMap :: X WorkspaceAliases
-buildIconMap = foldrM storeAlias M.empty =<< W.workspaces . windowset <$> get
+myWindowIcons = M.fromList
+    [ ("kitty"                  , "\xf120")
+    , ("Firefox"                , "\xf269")
+    , ("Blueman-manager"        , "\xf294")
+    , ("libreoffice-startcenter", "\xf15c")
+    , ("libreoffice-draw"       , "\xf15c")
+    ]
 
 -- | Store the given workspace's name in given and return.
 -- This is where to change if the desired format is not <Workspace tag><Window Icon>
 storeAlias :: W.Workspace WorkspaceId l Window -> WorkspaceAliases -> X WorkspaceAliases
-storeAlias ws m = do
+storeAlias ws aliases = do
     dis <- display <$> ask
     case W.stack ws of
-        Nothing -> return m
+        Nothing -> return aliases
         Just a  -> do
-            focus <- liftIO $ resClass <$> getClassHint dis (W.focus a)          -- Get focused window in given workspace
-            let wsName = W.tag ws <> fromMaybe "" (M.lookup focus windowIcons)   -- Create name to give workspace (i.e. Append icon to tag)
-            return $ M.insert (W.tag ws) wsName m                                -- Store name in Map
+            focus <- io $ resClass <$> getClassHint dis (W.focus a)          -- Get focused window in given workspace
+            let wsName = (W.tag ws <> " " <> fromMaybe "" (M.lookup focus myWindowIcons)) ++ " "   -- Create name to give workspace (i.e. Append icon to tag)
+            return $ M.insert (W.tag ws) wsName aliases                                -- Store name in Map
 
 -- ######################################################################################
 
@@ -145,7 +144,7 @@ myStartupHook = do
     setWMName "XMonad"
     mapM_
         spawn
-        [ "pkill trayer; trayer --expand true --transparent true --margin 5 --iconspacing 5 --edge bottom --align right --widthtype request  --height 20 --tint 0x000000 --SetDockType true --SetPartialStrut true --padding 5"
+        [ "pkill polybar; polybar xmonad"
         , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
@@ -170,7 +169,7 @@ myKeys =
     , ("M-p"                    , spawn "rofi -show run -opacity \"85\" ")
     , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
-    , ("M-t"                    , sendMessage ToggleStruts)
+    , ("M-t"                    , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
     , ("M-n"                    , namedScratchpadAction myScratchpads "htop")
     , ("M-c"                    , confirmPrompt myPromptConfig "close window?" kill)
     , ("M-S-q"                  , confirmPrompt myPromptConfig "exit" $ io exitSuccess)
