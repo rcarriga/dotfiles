@@ -1,4 +1,6 @@
 {-# LANGUAGE FlexibleContexts #-}
+import XMonad.Layout.Spiral
+import XMonad.Layout.SimpleFloat
 import XMonad hiding (WindowClass)
 import XMonad.Config.Prime (WindowSpace)
 import XMonad.Hooks.SetWMName
@@ -138,6 +140,8 @@ myLayoutHook =
         $   spacingRaw False (Border 0 10 10 10) True (Border 10 10 10 10) True
         $   Tall 1 (3 / 100) (1 / 2)
         ||| noBorders Full
+        ||| simpleFloat
+        ||| spiral (6/7)
 
 myStartupHook :: X ()
 myStartupHook = do
