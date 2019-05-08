@@ -29,6 +29,7 @@ alert = #bd2c40
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 30
+align = bottom
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -84,6 +85,12 @@ format-underline =
 label-mounted = %{u#AA00FF}  %free% %{-u}
 label-unmounted-foreground = ${colors.foreground-alt}
 
+[module/cpu]
+type = internal/cpu
+interval = 5
+format-underline = #AAFF33
+label =  %percentage-sum%%
+
 [module/memory]
 type = internal/memory
 interval = 2
@@ -105,7 +112,7 @@ label = %date%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume =  %percentage%% 
+label-volume =  
 label-volume-foreground = ${root.foreground}
 
 label-muted = 
