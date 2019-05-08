@@ -18,6 +18,13 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
+    call dein#add('rhysd/git-messenger.vim', {
+            \   'lazy' : 1,
+            \   'on_cmd' : 'GitMessenger',
+            \   'on_map' : '<Plug>(git-messenger)',
+            \ })
+    " Hopefully temporary to set nicer background for git messenger
+    call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('Shougo/echodoc.vim', {'on_event': 'InsertEnter'})
     call dein#add('airblade/vim-gitgutter')
@@ -60,6 +67,7 @@ endif
 au FileType qf call AdjustWindowHeight(3, 50)
 
 au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme * hi Pmenu guibg=#222222
 
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
@@ -210,6 +218,7 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gb :Gbrowse<CR>
 nnoremap <Leader>gl :Gblame<CR>
+nnoremap <Leader>gm :GitMessenger<CR>
 
 " Language server functions
 nnoremap <leader>ld :call CocAction('jumpDefinition')<CR>
