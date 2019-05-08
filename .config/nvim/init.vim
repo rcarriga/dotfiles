@@ -30,7 +30,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('itchyny/lightline.vim')
-    call dein#add('jiangmiao/auto-pairs', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
@@ -179,7 +178,8 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Set GoYo width
 let g:goyo_width = 100
