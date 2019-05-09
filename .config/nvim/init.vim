@@ -21,6 +21,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('Shougo/echodoc.vim', {'on_event': 'InsertEnter'})
     call dein#add('airblade/vim-gitgutter')
+    call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('itchyny/lightline.vim')
     call dein#add('jiangmiao/auto-pairs', {'on_event': 'InsertEnter'})
@@ -31,8 +32,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
-    call dein#add('dylanaraps/wal.vim', {'style': 'colors'})
-    call dein#add('rainglow/vim', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
@@ -42,10 +41,9 @@ if dein#load_state('~/.cache/dein')
     call dein#add('machakann/vim-sandwich')
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
-    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly', 'on_event': 'InsertEnter'})
+    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
     call dein#add('numirias/semshi', {'on_ft': 'python'})
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
-    call dein#add('lifepillar/vim-colortemplate')
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
     call dein#remote_plugins()
@@ -136,6 +134,7 @@ endfunction
      exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
  endfunction
 
+
 " ###################################################################################
 " Plugin Settings
 
@@ -156,6 +155,7 @@ let g:ale_linters = {
 \   'python': [],
 \   'haskell': [],
 \   'typescript': [],
+\   'javascript': []
 \}
 
 color vim-monokai-tasty
@@ -170,7 +170,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-snippets', 'coc-eslint', 'coc-tslint-plugin', 'coc-pyls', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -180,8 +180,14 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 let g:limelight_conceal_guifg = 'DarkGray'
 
+
+let g:coc_snippet_next = '<tab>'
+
 " ###################################################################################
 " Custom Mappings
+
+" Replace word with yanked text
+nnoremap S "_diwP
 
 " Netrw mappings
 nnoremap <Leader>nv :Vex<CR>
@@ -229,7 +235,8 @@ nnoremap <leader>d :Goyo<CR>
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
