@@ -1,3 +1,5 @@
+zmodload zsh/zprof
+
 [[ -f ~/.config/system/alias.sh ]] && source ~/.config/system/alias.sh
 
 [[ -f ~/.config/system/export.sh ]] && source ~/.config/system/export.sh
@@ -6,7 +8,7 @@
 
 [[ -d ~/.zgen ]] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen
 
-source ".zgen/zgen.zsh"
+source "$HOME/.zgen/zgen.zsh"
 
 if ! zgen saved; then
 
@@ -16,7 +18,7 @@ if ! zgen saved; then
     zgen load "BrandonRoehl/zsh-clean"
     zgen save 
 
-    source ".zgen/BrandonRoehl/zsh-clean-master/clean.plugin.zsh"
+    source "$HOME/.zgen/BrandonRoehl/zsh-clean-master/clean.plugin.zsh"
 fi
 
 
