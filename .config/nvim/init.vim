@@ -242,9 +242,13 @@ nnoremap <leader>lq :call CocAction('quickfixes')<CR>
 " Distraction free writing
 nnoremap <leader>d :Goyo<CR>
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" Use Tab for cycling through completions.
+" Use Enter to expand a snippet.
 inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <silent><expr> <CR>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
