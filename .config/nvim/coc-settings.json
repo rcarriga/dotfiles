@@ -18,14 +18,12 @@
         "haskell"
       ],
       "initializationOptions": {}
-    },
-    "python":{
-        "command": "pyls",
-        "filetypes": [
-            "py",
-            "python"
-        ],
-        "initializationOptions": {}
     }
-  }
+  },
+  "tslint.jsEnable": true,
+  "tslint.enable": true,
+  "tsserver.npm": "/usr/local/bin/npm",
+  "tsserver.log": "verbose"
+
+
 }
