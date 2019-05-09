@@ -18,19 +18,26 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
+    call dein#add('rhysd/git-messenger.vim', {
+            \   'lazy' : 1,
+            \   'on_cmd' : 'GitMessenger',
+            \   'on_map' : '<Plug>(git-messenger)',
+            \ })
+    " Hopefully temporary to set nicer background for git messenger
+    call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('Shougo/echodoc.vim', {'on_event': 'InsertEnter'})
     call dein#add('airblade/vim-gitgutter')
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('itchyny/lightline.vim')
-    call dein#add('jiangmiao/auto-pairs', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
+    call dein#add('trusktr/seti.vim', {'style': 'colors'})
     call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
@@ -57,6 +64,7 @@ endif
 au FileType qf call AdjustWindowHeight(3, 50)
 
 au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme * hi Pmenu guibg=#222222
 
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
@@ -170,7 +178,8 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-snippets', 'coc-eslint', 'coc-tslint-plugin', 'coc-pyls', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -215,6 +224,7 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gb :Gbrowse<CR>
 nnoremap <Leader>gl :Gblame<CR>
+nnoremap <Leader>gm :GitMessenger<CR>
 
 " Language server functions
 nnoremap <leader>ld :call CocAction('jumpDefinition')<CR>
