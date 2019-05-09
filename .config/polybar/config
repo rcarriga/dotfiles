@@ -26,7 +26,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/xmonad]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 30
 align = bottom
