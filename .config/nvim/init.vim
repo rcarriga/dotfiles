@@ -65,6 +65,7 @@ au FileType qf call AdjustWindowHeight(3, 50)
 
 au ColorScheme * hi Normal ctermbg=none guibg=none
 au ColorScheme * hi Pmenu guibg=#222222
+au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
 
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
@@ -178,7 +179,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Set GoYo width
@@ -224,7 +225,7 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
 nnoremap <Leader>gb :Gbrowse<CR>
 nnoremap <Leader>gl :Gblame<CR>
-nnoremap <Leader>gm :GitMessenger<CR>
+nnoremap <Leader>m :GitMessenger<CR>
 
 " Language server functions
 nnoremap <leader>ld :call CocAction('jumpDefinition')<CR>
