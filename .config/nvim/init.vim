@@ -196,6 +196,9 @@ let g:coc_snippet_next = '<tab>'
 " ###################################################################################
 " Custom Mappings
 
+" Auto expand curly braces and place cursor in the middle
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+
 " Replace word with yanked text
 nnoremap S "_diwP
 
@@ -219,7 +222,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>ag :Ag .<CR>
 
-" Git functions with vim-fugitive
+" Git functions with vim-fugitive and git messenger
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gp :Gpush<CR>
@@ -249,11 +252,8 @@ inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <silent><expr> <CR>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+imap <silent> <CR> <Plug>(coc-snippets-expand)
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
