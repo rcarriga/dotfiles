@@ -7,12 +7,12 @@ If you're just passing through and see something you think could be better, then
 
 ## NeoVim/Vim
 
-This setup might be useful if you are just starting out.
+This setup might be useful if you are looking for an IDE like experience while preserving the speed of Vim.
 I recommend using NeoVim for better plugin support and faster updates.
-This config [here](https://github.com/rcarriga/dotfiles/blob/master/.config/nvim/init.vim) will work for NeoVim and (hopefully) Vim 8.1 or above.
-If you want a Vim 8.0 config look (here)[https://github.com/rcarriga/dotfiles/blob/master/.vimrc], though I do not update it.
+This config [here](https://github.com/rcarriga/dotfiles/blob/master/.config/nvim/init.vim) will work for NeoVim and is much more performant and powerful.
+If you want a Vim 8.0 config look at my [.vimrc](https://github.com/rcarriga/dotfiles/blob/master/.vimrc), though I do not update it and it likely will not work out of the box.
 
-Main language support is for Haskell, Python and Typescript.
+Main language support is for Haskell, Python and Typescript/Javascript.
 Most other languages have linting support from ALE.
 Also includes support for LaTex and Markdown documents
 
@@ -24,6 +24,8 @@ Also many plugins load on first entering insert mode. This is so startup time is
 
 **General**
 
+  - [git-messenger.vim](https://github.com/rhysd/git-messenger.vim)
+        Provides descriptive git history for any line in a file.
   - [dein.vim](https://github.com/Shougo/dein.vim)
         Plugin manager for vim which allows for lazy loading.
   - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
@@ -32,8 +34,6 @@ Also many plugins load on first entering insert mode. This is so startup time is
         Fuzzy file finding to open files from child directories.
   - [vim-sandwich](https://github.com/machakann/vim-sandwich)
         Allows for surrounding text objects with any character.
-  - [auto-pairs](https://github.com/jiangmiao/auto-pairs)
-        Creates pairs of quotes and brackets when one is typed.
   - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
         Shows git status for  each line in gutter (Left side of buffer).
   - [lightline](https://github.com/itchyny/lightline.vim)
@@ -113,6 +113,7 @@ My leader key is set to default "\\" key.
 | `d`              | Diff                                  |
 | `b`              | Browse (Open repo in browser)         |
 | `l`              | Blame                                 |
+| `m`              | Messenger *NB Does not use `g` prefix*|
 
   - *NB* Type "cc" in status window to commit changes.
 
@@ -150,10 +151,10 @@ Arrow keys are disabled in normal mode.
 
 ## Zsh
 
-Plugins managed by zplug.
+Plugins managed by zgen.
 If you like a more featureful shell then would recommend using spaceship theme.
-However I found this caused slight delay between commands so using the pure theme
-for buttery smooth performance, although my plugins are kinda slow too so will probably trim down eventually.
+However I found this caused slight delay between commands so using one inspired by the `pure` theme called `clean`.
+for buttery smooth performance.
 
 <details><summary>Plugins</summary>
 <p>
@@ -162,9 +163,8 @@ for buttery smooth performance, although my plugins are kinda slow too so will p
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
   - [autojump](https://github.com/wting/autojump)
-  - [k](https://github.com/supercrabtree/k)
   - [pure](https://github.com/sindresorhus/pure)
-  - [zsh-async](https://github.com/mafredri/zsh-async)
+  - [clean](https://github.com/BrandonRoehl/zsh-clean)
 
 </p>
 </details>
@@ -172,21 +172,19 @@ for buttery smooth performance, although my plugins are kinda slow too so will p
 <details><summary>Extras</summary>
 <p>
 
-  - [ZPlug](https://github.com/zplug/zplug)
+  - [Zgen](https://github.com/tarjoilija/zgen)
 
 </p>
 </details>
 
 ## XMonad
 
-XMonad is a tiling window manager.
+[XMonad](https://xmonad.org/) is a tiling window manager.
 It is written in Haskell which might be difficult to setup quickly.
-For a quick, easy-to-use WM try out [i3](https://i3wm.org/https://i3wm.org/).
-XMonad site can be found [here](https://xmonad.org/).
-i3 is faster to setup but I find XMonad to be much more powerful in configuration and less restrictive in what you can do.
-
+For a quick, easy-to-use WM try out [i3](https://i3wm.org/https://i3wm.org/) or [awesome](https://awesomewm.org/) if you really want something working out of the box.
 
 ## Tmux
+
 If working on a Mac or just don't want to commit to a window manager like XMonad/i3 then tmux is good for emulating some of their features for terminals.
 Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
 Basic tmux is useful but my config file is taken (shamelessly ripped) from [this fantastic repo](https://github.com/gpakosz/.tmux) which makes it even better!
@@ -194,15 +192,16 @@ Basic tmux is useful but my config file is taken (shamelessly ripped) from [this
 ## Kitty
 
 Kitty is a GPU powered terminal emulator. It is not very lightweight but has so many features it's worth a few extra MBs (It's like 5MB).
-    - Buttery smooth performance
-    - Support for images
-    - Unicode support (even with shortcut to input)
-    - Font ligature support (Very nice with Haskell)
-    - Works with pywal
+
+  - Buttery smooth performance
+  - Support for images
+  - Unicode support (even with shortcut to input)
+  - Font ligature support (Very nice with Haskell)
+  - Works with pywal
 
 ## Development Tools
 
-These are some of the tools I use with Vim and standalone for software development
+These are some of the tools I use with NeoVim and standalone for software development
 
 - Haskell project manager: [Stack](https://docs.haskellstack.org/en/stable/README/)
 - Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
@@ -215,8 +214,7 @@ These are some of the tools I use with Vim and standalone for software developme
 ## Enviroment Management and Utilities
 
 Programs for managing the environment in XMonad and in the terminal.
-Some links are just for extra info. 
-In those cases it should just be a package to install or an existing command.
+The ones listed here are the ones I am currently using.
 
 - Dotfiles Management: [YADM](https://yadm.io/)
 - Terminal file browser: [vifm](https://vifm.info/)
@@ -228,12 +226,9 @@ In those cases it should just be a package to install or an existing command.
 - Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
 - GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
 - Window Switcher: [rofi](https://github.com/DaveDavenport/rofi)
-- Battery Info Command: [acpi](https://en.wikipedia.org/wiki/Advanced_Configuration_and_Power_Interface)
-- Status Bar: [xmobar](https://archives.haskell.org/projects.haskell.org/xmobar/)
+- Status Bar and System Tray: [polybar](https://archives.haskell.org/projects.haskell.org/xmobar/)
 - Temperature Monitoring: [lm-sensors](https://github.com/lm-sensors/lm-sensors)
-- Automatic Screen Locking: [xautolock](https://linux.die.net/man/1/xautolock)
-- Screen Compositor (Transparent Backgrounds): [compton](https://github.com/chjj/compton)
-- System Tray: [trayer-srg](https://github.com/sargon/trayer-srg)
+- Screen Compositor: [compton](https://github.com/chjj/compton)
 
 
 <details><summary>Guides and References</summary>

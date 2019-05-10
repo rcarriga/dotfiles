@@ -1,5 +1,4 @@
 {-# LANGUAGE FlexibleContexts #-}
-import XMonad.Layout.Spiral
 import XMonad.Layout.SimpleFloat
 import XMonad hiding (WindowClass)
 import XMonad.Config.Prime (WindowSpace)
@@ -141,7 +140,6 @@ myLayoutHook =
         $   Tall 1 (3 / 100) (1 / 2)
         ||| noBorders Full
         ||| simpleFloat
-        ||| spiral (6/7)
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -152,7 +150,7 @@ myStartupHook = do
         , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
-        , "pgrep compton || compton -f -D 3 -i 0.8"
+        , "pgrep compton || compton -f -D 3 --backend glx"
         , "pgrep xautolock || xautolock -locker \"systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Tapping Enabled\" 1"
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Natural Scrolling Enabled\" 1"
@@ -182,6 +180,7 @@ myKeys =
     , ("M-C-j"                  , decWindowSpacing 10)
     , ("M-C-k"                  , incWindowSpacing 10)
     , ("M-g"                    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
+    , ("M-f"                    , spawn "firefox")
     ]
 
 myPromptConfig :: XPConfig
