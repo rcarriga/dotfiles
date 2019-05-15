@@ -8,5 +8,5 @@ export PATH=$HOME/.local/bin:$PATH
 export SCRIPT_DIR=$HOME/.config/scripts
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=1000
-export HISTSIZE="100"
+export HISTSIZE="1000"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh

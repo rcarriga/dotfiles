@@ -150,11 +150,12 @@ myStartupHook = do
         , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
-        , "pgrep compton || compton -f -D 3 --backend glx"
+        , "pgrep compton || compton -f -D 3"
         , "pgrep xautolock || xautolock -locker \"systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Tapping Enabled\" 1"
         , "xinput set-prop \"DLL07BE:01 06CB:7A13 Touchpad\" \"libinput Natural Scrolling Enabled\" 1"
         , "xset r rate 150 40"
+        , "setxkbmap -layout gb"
         , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
         , "feh --bg-fill ~/.config/images/city.jpg"
@@ -171,9 +172,9 @@ myKeys =
     , ("M-p"                    , spawn "rofi -show run -opacity \"85\" ")
     , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
-    , ("M-t"                    , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
+    , ("M-S-t"                    , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
     , ("M-n"                    , namedScratchpadAction myScratchpads "htop")
-    , ("M-c"                    , confirmPrompt myPromptConfig "close window?" kill)
+    -- , ("M-c"                    , confirmPrompt myPromptConfig "close window?" kill)
     , ("M-S-q"                  , confirmPrompt myPromptConfig "exit" $ io exitSuccess)
     , ("M-C-S-j"                , decScreenSpacing 10)
     , ("M-C-S-k"                , incScreenSpacing 10)
