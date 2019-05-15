@@ -26,7 +26,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/xmonad]
-monitor = ${env:MONITOR:HDMI-1}
+;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 30
 align = bottom
@@ -79,7 +79,8 @@ format = %{u#FFFF14} <label>% %{-u}
 
 [module/filesystem]
 type = internal/fs
-mount-0 = /
+mount-0 = /home
+mount-1 = /
 format-mounted = <label-mounted>
 format-underline = 
 label-mounted = %{u#AA00FF}  %free% %{-u}
@@ -112,7 +113,7 @@ label = %date%
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume =  
+label-volume =   
 label-volume-foreground = ${root.foreground}
 
 label-muted = 
@@ -129,9 +130,9 @@ bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 2
-bar-volume-fill = ─
+bar-volume-fill = -
 bar-volume-fill-font = 2
-bar-volume-empty = ─
+bar-volume-empty = -
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
