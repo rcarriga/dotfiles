@@ -18,15 +18,10 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
-    call dein#add('rhysd/git-messenger.vim', {
-            \   'lazy' : 1,
-            \   'on_cmd' : 'GitMessenger',
-            \   'on_map' : '<Plug>(git-messenger)',
-            \ })
+    call dein#add('rhysd/git-messenger.vim', { 'lazy' : 1, 'on_cmd' : 'GitMessenger' })
     " Hopefully temporary to set nicer background for git messenger
     call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add('Shougo/echodoc.vim', {'on_event': 'InsertEnter'})
     call dein#add('airblade/vim-gitgutter')
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
@@ -37,19 +32,15 @@ if dein#load_state('~/.cache/dein')
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
-    call dein#add('trusktr/seti.vim', {'style': 'colors'})
     call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
     call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
-    call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
     call dein#add('tpope/vim-fugitive')
     call dein#add('machakann/vim-sandwich')
-    call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
-    call dein#add('numirias/semshi', {'on_ft': 'python'})
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
@@ -57,6 +48,7 @@ if dein#load_state('~/.cache/dein')
   call dein#end()
   call dein#save_state()
 endif
+
 " ###################################################################################
 " Native Vim Settings
 
@@ -152,20 +144,13 @@ let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 1
 
+let g:vimtex_compiler_progname = 'nvr'
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
 let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://github.com', 'https://gitlab.engservices.qops.net']
 
 " Shows function signature above commandline instead of opening new window
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
-
-" Set linters for filetypes. I normally disable if running language server
-let g:ale_linters = {
-\   'python': [],
-\   'haskell': [],
-\   'typescript': [],
-\   'javascript': []
-\}
 
 color vim-monokai-tasty
 let g:lightline = {
@@ -180,7 +165,8 @@ let g:lightline = {
       \ }
 
 let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -190,8 +176,9 @@ autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 let g:limelight_conceal_guifg = 'DarkGray'
 
-
 let g:coc_snippet_next = '<tab>'
+
+let g:mkdp_browser = 'firefox'
 
 " ###################################################################################
 " Custom Mappings
@@ -200,7 +187,7 @@ let g:coc_snippet_next = '<tab>'
 inoremap {<CR> {<CR>}<C-o>==<C-o>O
 
 " Replace word with yanked text
-nnoremap S "_diwP
+nnoremap S "_dwP
 
 " Netrw mappings
 nnoremap <Leader>nv :Vex<CR>

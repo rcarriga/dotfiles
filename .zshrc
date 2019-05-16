@@ -1,12 +1,14 @@
 zmodload zsh/zprof
 
-[[ -f ~/.config/system/alias.sh ]] && source ~/.config/system/alias.sh
+[[ -f "$HOME/.config/system/alias.sh" ]] && source "$HOME/.config/system/alias.sh"
 
-[[ -f ~/.config/system/export.sh ]] && source ~/.config/system/export.sh
+[[ -f "$HOME/.config/system/export.sh" ]] && source "$HOME/.config/system/export.sh"
 
-[[ -f ~/.config/system/function.sh ]] && source ~/.config/system/function.sh
+[[ -f "$HOME/.config/system/function.sh" ]] && source "$HOME/.config/system/function.sh"
 
-[[ -d ~/.zgen ]] || git clone https://github.com/tarjoilija/zgen.git ~/.zgen
+[[ -f "$HOME/.local.zshrc" ]] && source "$HOME/.local.zshrc"
+
+[[ -d "$HOME/.zgen" ]] || git clone https://github.com/tarjoilija/zgen.git $HOME/.zgen
 
 source "$HOME/.zgen/zgen.zsh"
 
@@ -22,10 +24,10 @@ if ! zgen saved; then
 fi
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
-[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
+[[ -s "$HOME/.autojump/etc/profile.d/autojump.sh" ]] && source "$HOME/.autojump/etc/profile.d/autojump.sh"
 
-[ -f ~/.tnsrc ] && source ~/.tnsrc 
+[ -f "$HOME/.tnsrc" ] && source "$HOME/.tnsrc" 
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
