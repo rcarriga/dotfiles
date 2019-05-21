@@ -30,6 +30,7 @@ alert = #bd2c40
 width = 100%
 height = 30
 align = bottom
+bottom = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}

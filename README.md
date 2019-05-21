@@ -1,33 +1,44 @@
 # My Dotfiles
 
 *Disclaimer: README might not be up to date. 
-Install script is reasonably stable (Only for Ubuntu)*
+Setup script is reasonably stable (Only for Ubuntu)*
 
 If you're just passing through and see something you think could be better, then let me know!
 
-## NeoVim/Vim
+## Text Editor / IDE - NeoVim
 
-This setup might be useful if you are looking for an IDE like experience while preserving the speed of Vim.
-I recommend using NeoVim for better plugin support and faster updates.
-This config [here](https://github.com/rcarriga/dotfiles/blob/master/.config/nvim/init.vim) will work for NeoVim and is much more performant and powerful.
-If you want a Vim 8.0 config look at my [.vimrc](https://github.com/rcarriga/dotfiles/blob/master/.vimrc), though I do not update it and it likely will not work out of the box.
+Recommend using NeoVim over Vim for better plugin support and faster updates.
+For dependencies run `:checkhealth`.
 
-Main language support is for Haskell, Python and Typescript/Javascript.
-Most other languages have linting support from ALE.
-Also includes support for LaTex and Markdown documents
+<details><summary>Language Support</summary>
+<p>
+
+ - Haskell\*
+ - Python
+ - JavaScript/TypeScript
+ - C/C++\*
+ - Java
+ - Docker
+ - HTML/CSS
+ - YAML/JSON
+ - LaTex/Markdown
+
+\*_Requires manual install. See language servers below._
+
+</p>
+</details>
 
 <details><summary>Plugins</summary>
 <p>
 
-Language specific plugins are only loaded for the specified filetype to speedup startup time.
-Also many plugins load on first entering insert mode. This is so startup time is <200ms
-
 **General**
 
-  - [git-messenger.vim](https://github.com/rhysd/git-messenger.vim)
-        Provides descriptive git history for any line in a file.
   - [dein.vim](https://github.com/Shougo/dein.vim)
         Plugin manager for vim which allows for lazy loading.
+  - [coc.nvim](https://github.com/neoclide/coc.nvim/)
+        Fast and powerful language server client.
+  - [git-messenger.vim](https://github.com/rhysd/git-messenger.vim)
+        Provides descriptive git history for any line in a file.
   - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
         Multi-lingual commenting plugin.
   - [FZF](https://github.com/junegunn/fzf.vim)
@@ -40,12 +51,6 @@ Also many plugins load on first entering insert mode. This is so startup time is
         Prettier statusbar.
   - [vim-fugitive](https://github.com/tpope/vim-fugitive)
         Better git integration.
-  - [ALE](https://github.com/w0rp/ale)
-        Asynchronous linting.
-  - [coc.nvim](https://github.com/neoclide/coc.nvim/)
-        Fast and powerful language server client.
-  - [echodoc](https://github.com/Shougo/echodoc.vim)
-        Shows function signatures without opening new window.
 
 **Python Specific**:
 
@@ -75,12 +80,23 @@ Also many plugins load on first entering insert mode. This is so startup time is
   - [vim-grammarous](https://github.com/rhysd/vim-grammarous)
         Grammar checking (Requires Java to be installed)
 
-Also a couple of others used only to support the above.
+
 
 <p>
 </details>
 
-<details><summary>Mappings - Tries to follow vim's mnemonics</summary>
+<details><summary>Exterior Tools</summary>
+<p>
+
+- Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
+- Language Servers: 
+  - [Clangd](https://clang.llvm.org/extra/clangd/)
+  - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
+
+</p>
+</details>
+
+<details><summary>Key Mappings</summary>
 <p>
 
 #### Langage Server Commands
@@ -144,17 +160,14 @@ My leader key is set to default "\\" key.
 | `<Leader>th`     | Open thesauras for selected word      |
 | `<Leader>a`      | Align highlighted markdown table      |
 
-Arrow keys are disabled in normal mode.
+_Arrow keys are disabled in normal mode._
 
 </p>
 </details>
 
-## Zsh
+## Shell - Zsh
 
-Plugins managed by zgen.
-If you like a more featureful shell then would recommend using spaceship theme.
-However I found this caused slight delay between commands so using one inspired by the `pure` theme called `clean`.
-for buttery smooth performance.
+Plugins managed by [Zgen](https://github.com/tarjoilija/zgen).
 
 <details><summary>Plugins</summary>
 <p>
@@ -169,75 +182,93 @@ for buttery smooth performance.
 </p>
 </details>
 
-<details><summary>Extras</summary>
+## Window Manager - XMonad
+
+[XMonad](https://xmonad.org/)
+
+<details><summary>Features</summary>
 <p>
 
-  - [Zgen](https://github.com/tarjoilija/zgen)
+ - Tiling Window Manager
+ - Written and configured in Haskell
+ - Powerful/Flexible
+ - Lightweight
 
 </p>
 </details>
 
-## XMonad
+<details><summary>Other Tiling WMs</summary>
+<p>
 
-[XMonad](https://xmonad.org/) is a tiling window manager.
-It is written in Haskell which might be difficult to setup quickly.
-For a quick, easy-to-use WM try out [i3](https://i3wm.org/https://i3wm.org/) or [awesome](https://awesomewm.org/) if you really want something working out of the box.
+XMonad requires GHC which is large so if you're not writing Haskell anyway maybe check out these
 
-## Tmux
+ - [i3](https://i3wm.org/https://i3wm.org/)
+ - [awesome](https://awesomewm.org/)
 
-If working on a Mac or just don't want to commit to a window manager like XMonad/i3 then tmux is good for emulating some of their features for terminals.
-Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).
-Basic tmux is useful but my config file is taken (shamelessly ripped) from [this fantastic repo](https://github.com/gpakosz/.tmux) which makes it even better!
+</p>
+</details>
 
-## Kitty
+<details><summary>Tmux</summary>
+<p>
 
-Kitty is a GPU powered terminal emulator. It is not very lightweight but has so many features it's worth a few extra MBs (It's like 5MB).
+Working on Mac or just don't want to commit to a window manager?\
+then tmux is good for emulating some of their features for terminals.\
+Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).\
+Great config can be found in [this repo](https://github.com/gpakosz/.tmux)
 
+</p>
+</details>
+
+## Terminal - Kitty
+
+<details><summary>Features</summary>
+<p>
+
+  - Uses GPU
   - Buttery smooth performance
   - Support for images
   - Unicode support (even with shortcut to input)
   - Font ligature support (Very nice with Haskell)
   - Works with pywal
 
-## Development Tools
+</p>
+</details>
 
-These are some of the tools I use with NeoVim and standalone for software development
+## Linux Enviroment Management
 
-- Haskell project manager: [Stack](https://docs.haskellstack.org/en/stable/README/)
-- Fast code searching: [The Silver Searcher](https://github.com/ggreer/the_silver_searcher)
-- Language Servers: 
-  - [Python Language Server](https://github.com/palantir/python-language-server)
-  - [Haskell IDE Engine](https://github.com/haskell/haskell-ide-engine)
-  - [Typescript Language Server](https://github.com/theia-ide/typescript-language-server)
+<details><summary>General tools for system management</summary>
+<p>
 
-
-## Enviroment Management and Utilities
-
-Programs for managing the environment in XMonad and in the terminal.
 The ones listed here are the ones I am currently using.
 
 - Dotfiles Management: [YADM](https://yadm.io/)
-- Terminal file browser: [vifm](https://vifm.info/)
-- Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
-- Backlight Control that just works: [light](https://github.com/haikarainen/light)
+- Backlight Control: [light](https://github.com/haikarainen/light)
 - Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
 - Wallpaper Setter & Colorscheme Generator: [pywal](https://github.com/dylanaraps/pywal)
-- Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
-- Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
-- GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
 - Window Switcher: [rofi](https://github.com/DaveDavenport/rofi)
 - Status Bar and System Tray: [polybar](https://archives.haskell.org/projects.haskell.org/xmobar/)
 - Temperature Monitoring: [lm-sensors](https://github.com/lm-sensors/lm-sensors)
 - Screen Compositor: [compton](https://github.com/chjj/compton)
+- Terminal file browser: [vifm](https://vifm.info/)
 
+</p>
+</details>
 
-<details><summary>Guides and References</summary>
+<details><summary>Appearance and _Ricing_</summary>
 <p>
-A collection of great resources for learning about all things terminal and programming
+ 
+- GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
+- Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
+- Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
+- Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
+
+</p>
+</details>
+
+## Guides and References
+
+A collection of great resources I've used.
 
 - [Bash scripting cheatsheet](https://devhints.io/bash)
 - [List of random but useful tools](https://kkovacs.eu/cool-but-obscure-unix-tools)
 - [Stack guide](https://guide.aelve.com/haskell/stack-cookbook-ai0adh03)
-
-</p>
-</details>
