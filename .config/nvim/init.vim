@@ -40,6 +40,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('trusktr/seti.vim', {'style': 'colors'})
     call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
     "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
+    call dein#add('heavenshell/vim-pydocstring', {'on_ft': 'python', 'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
     call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
@@ -49,7 +50,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
-    call dein#add('numirias/semshi', {'on_ft': 'python'})
+    "call dein#add('numirias/semshi', {'on_ft': 'python'})
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
@@ -62,11 +63,12 @@ endif
 
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
-
+" Transparent Background
 au ColorScheme * hi Normal ctermbg=none guibg=none
+" Slightly different background for popup menu. Easier to see
 au ColorScheme * hi Pmenu guibg=#222222
+" Default error text is too dark to read in floating windows
 au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
-
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
 " Ensures word-wrap does not split words
@@ -114,8 +116,10 @@ noremap ;; ;
 " Who needs NERDTree? (Makes netrw look nicer)
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
+let g:netrw_winsize = 12
+let g:netrw_browse_split = 4
 " Allows commandline to use 2 lines (Better for multiline lint messages etc)
-set cmdheight=2
+"set cmdheight=2
 " Don't unload buffers when left
 set hidden
 " Don't give ins-completion-menu messages
@@ -143,6 +147,24 @@ endfunction
      exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
  endfunction
 
+ function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
 
 " ###################################################################################
 " Plugin Settings
@@ -193,6 +215,11 @@ let g:limelight_conceal_guifg = 'DarkGray'
 
 let g:coc_snippet_next = '<tab>'
 
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
 " ###################################################################################
 " Custom Mappings
 
@@ -203,8 +230,7 @@ inoremap {<CR> {<CR>}<C-o>==<C-o>O
 nnoremap S "_diwP
 
 " Netrw mappings
-nnoremap <Leader>nv :Vex<CR>
-nnoremap <Leader>ns :Sex<CR>
+nnoremap <Leader>nv :call ToggleVExplorer()<CR>
 
 " Disable arrow keys (Just throw yourself into it trust me...)
 noremap <Up> <NOP>
@@ -259,7 +285,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Who doesn't like a good thesauras
 nnoremap <Leader>st :ThesaurusQueryReplaceCurrentWord<CR>

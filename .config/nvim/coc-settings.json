@@ -23,7 +23,6 @@
   "tslint.jsEnable": true,
   "tslint.enable": true,
   "tsserver.npm": "/usr/local/bin/npm",
-  "tsserver.log": "verbose"
-
-
+  "tsserver.log": "verbose",
+  "python.linting.pydocstyleEnabled": true
 }
