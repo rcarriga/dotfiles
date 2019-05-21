@@ -42,10 +42,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('machakann/vim-sandwich')
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
     call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
-<<<<<<< HEAD
-    "call dein#add('numirias/semshi', {'on_ft': 'python'})
-=======
->>>>>>> a4e822f8d77050efb3b34d7af2a66aca620831a2
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
