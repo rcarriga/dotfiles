@@ -129,7 +129,7 @@ storeAlias ws aliases = do
         Nothing -> return aliases
         Just a  -> do
             focus <- io $ resClass <$> getClassHint dis (W.focus a)          -- Get focused window in given workspace
-            let wsName = (W.tag ws <> " " <> fromMaybe "" (M.lookup focus myWindowIcons)) ++ " "   -- Create name to give workspace (i.e. Append icon to tag)
+            let wsName = "  " <> (fromMaybe (W.tag ws) (M.lookup focus myWindowIcons)) <> "  "   -- Create name to give workspace (i.e. Append icon to tag)
             return $ M.insert (W.tag ws) wsName aliases                                -- Store name in Map
 
 -- ######################################################################################
