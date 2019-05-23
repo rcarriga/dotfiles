@@ -35,6 +35,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
+    call dein#add('heavenshell/vim-pydocstring', {'on_ft': 'python', 'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
     call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
@@ -115,9 +116,6 @@ set undodir=~/.vim/undodir
 map ; :
 noremap ;; ;
 
-" Allows commandline to use 2 lines (Better for multiline lint messages etc)
-set cmdheight=2
-
 " Don't unload buffers when left
 set hidden
 
@@ -195,6 +193,11 @@ let g:limelight_conceal_guifg = 'DarkGray'
 
 let g:coc_snippet_next = '<tab>'
 
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
 let g:mkdp_browser = 'firefox'
 
 let g:NERDTreeFileExtensionHighlightFullName = 1
@@ -204,10 +207,14 @@ let g:NERDTreePatternMatchHighlightFullName = 1
 " ###################################################################################
 " Custom Syntax Highlighting
 
-au ColorScheme * hi Normal ctermbg=none guibg=none
-au ColorScheme * hi Pmenu guibg=#222222
-au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
+" Transparent signify background
 au ColorScheme * hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+" Transparent Background
+au ColorScheme * hi Normal ctermbg=none guibg=none
+" Slightly different background for popup menu. Easier to see
+au ColorScheme * hi Pmenu guibg=#222222
+" Default error text is too dark to read in floating windows
+au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
 
 " ###################################################################################
 " Custom Mappings
@@ -275,7 +282,8 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Who doesn't like a good thesauras
 nnoremap <Leader>st :ThesaurusQueryReplaceCurrentWord<CR>
