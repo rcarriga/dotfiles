@@ -151,6 +151,7 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = #FF5555
 
 format-full = 
+format-full-underline = #55FF55
 
 animation-charging-0 = 
 animation-charging-1 = 

@@ -22,7 +22,9 @@ if dein#load_state('~/.cache/dein')
     " Hopefully temporary to set nicer background for git messenger
     call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add('airblade/vim-gitgutter')
+    call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
+    call dein#add('scrooloose/nerdtree', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_ft' : 'nerdtree' })
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('itchyny/lightline.vim')
@@ -33,14 +35,13 @@ if dein#load_state('~/.cache/dein')
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
-    "call dein#add( 'plytophogy/vim-virtualenv', {'on_ft': 'python'})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('shumphrey/fugitive-gitlab.vim')
     call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
-    call dein#add('tpope/vim-fugitive')
-    call dein#add('machakann/vim-sandwich')
+    call dein#add('tpope/vim-fugitive', { 'on_event': 'InsertEnter' })
+    call dein#add('machakann/vim-sandwich', { 'on_event': 'InsertEnter' })
     call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
-    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
+    call dein#add('neoclide/coc.nvim', {'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
@@ -55,63 +56,80 @@ endif
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
 
-au ColorScheme * hi Normal ctermbg=none guibg=none
-au ColorScheme * hi Pmenu guibg=#222222
-au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
-
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
+
 " Ensures word-wrap does not split words
 set formatoptions=l
 set lbr
+
 " Allow filetype specific plugins and indenting
 filetype plugin indent on
+
 " Always on statusline
 set laststatus=2
+
 " Hides --insert-- under lightline
 set noshowmode
+
 " Set file update time in milliseconds
 set updatetime=100
+
 " Turn on 24 bit color. Delete this line if colors are weird
 set termguicolors
-" Enable search highlighting and set color
-set hlsearch
-hi Search guibg=LightBlue
+
 " Reduce delay between switchin mode
 set ttimeoutlen=50
+
 " Show line numbers
 set number
+
 " Show numbers relative to current line
 set relativenumber
+
 " Fix backspace issue
 set bs=2
+
 " Make vim command autocomplete better
 set wildmode=longest,list,full
 set wildmenu
+
 " Setup tabs to be 4 spaces
 set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+
 " Opens new panes below and to right of current
 set splitbelow
 set splitright
+
 " Set all code unfolded by default
 set foldlevel=99
+
 " Update files on change
 set autoread
+
 " Save edit history between sessions
 set undofile
 set undodir=~/.vim/undodir
+
 " Don't waste time holding shift for commands
 map ; :
 noremap ;; ;
-" Who needs NERDTree? (Makes netrw look nicer)
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
+
 " Allows commandline to use 2 lines (Better for multiline lint messages etc)
 set cmdheight=2
+
 " Don't unload buffers when left
 set hidden
+
 " Don't give ins-completion-menu messages
 set shortmess+=c
+
+" Disable netrw
+let loaded_netrwPlugin = 1
+
+" Ignore case in search unless contains capital
+set ignorecase
+set smartcase
 
 " ###################################################################################
 " Functions
@@ -134,7 +152,6 @@ endfunction
      endw
      exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
  endfunction
-
 
 " ###################################################################################
 " Plugin Settings
@@ -164,7 +181,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji' ]
+let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -180,6 +197,18 @@ let g:coc_snippet_next = '<tab>'
 
 let g:mkdp_browser = 'firefox'
 
+let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeExactMatchHighlightFullName = 1
+let g:NERDTreePatternMatchHighlightFullName = 1
+
+" ###################################################################################
+" Custom Syntax Highlighting
+
+au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme * hi Pmenu guibg=#222222
+au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
+au ColorScheme * hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+
 " ###################################################################################
 " Custom Mappings
 
@@ -190,8 +219,7 @@ inoremap {<CR> {<CR>}<C-o>==<C-o>O
 nnoremap S "_dwP
 
 " Netrw mappings
-nnoremap <Leader>nv :Vex<CR>
-nnoremap <Leader>ns :Sex<CR>
+nnoremap <Leader>x :NERDTreeToggle<CR>
 
 " Disable arrow keys (Just throw yourself into it trust me...)
 noremap <Up> <NOP>
@@ -218,17 +246,18 @@ nnoremap <Leader>gl :Gblame<CR>
 nnoremap <Leader>m :GitMessenger<CR>
 
 " Language server functions
-nnoremap <leader>ld :call CocAction('jumpDefinition')<CR>
-nnoremap <leader>lr :call CocAction('rename')<CR>
-nnoremap <leader>lf :call CocAction('format')<CR>
-nnoremap <leader>lt :call CocAction('jumpTypeDefinition')<CR>
-nnoremap <leader>lx :call CocAction('jumpReferences')<CR>
-nnoremap <leader>lg :call CocAction('diagnosticInfo')<CR>
-nnoremap <leader>la :call CocAction('codeAction')<CR>
-nnoremap <leader>lk :call CocAction('doHover')<CR>
-nnoremap <leader>ls :call CocAction('documentSymbols')<CR>
-nnoremap <leader>lh :call CocAction('highlight')<CR>
-nnoremap <leader>lq :call CocAction('quickfixes')<CR>
+nnoremap <leader>lD :call CocActionAsync('jumpDefinition')<CR>
+nnoremap <leader>ld :vs<CR>:call CocActionAsync('jumpDefinition')<CR>
+nnoremap <leader>lr :call CocActionAsync('rename')<CR>
+nnoremap <leader>lf :call CocActionAsync('format')<CR>
+nnoremap <leader>lt :call CocActionAsync('jumpTypeDefinition')<CR>
+nnoremap <leader>lx :call CocActionAsync('jumpReferences')<CR>
+nnoremap <leader>lg :call CocActionAsync('diagnosticInfo')<CR>
+nnoremap <leader>la :call CocActionAsync('codeAction')<CR>
+nnoremap <leader>lk :call CocActionAsync('doHover')<CR>
+nnoremap <leader>ls :call CocActionAsync('documentSymbols')<CR>
+nnoremap <leader>lh :call CocActionAsync('highlight')<CR>
+nnoremap <leader>lq :call CocActionAsync('quickfixes')<CR>
 
 " Distraction free writing
 nnoremap <leader>d :Goyo<CR>
