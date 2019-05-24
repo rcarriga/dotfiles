@@ -51,6 +51,8 @@ For dependencies run `:checkhealth`.
         Prettier statusbar.
   - [vim-fugitive](https://github.com/tpope/vim-fugitive)
         Better git integration.
+  - [NERDTree](https://github.com/scrooloose/nerdtree)
+        Nice directory tree. Recommend using FZF over this generally.
 
 **Python Specific**:
 
@@ -208,17 +210,6 @@ XMonad requires GHC which is large so if you're not writing Haskell anyway maybe
 </p>
 </details>
 
-<details><summary>Tmux</summary>
-<p>
-
-Working on Mac or just don't want to commit to a window manager?\
-then tmux is good for emulating some of their features for terminals.\
-Check out a basic intro [here](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340).\
-Great config can be found in [this repo](https://github.com/gpakosz/.tmux)
-
-</p>
-</details>
-
 ## Terminal - Kitty
 
 <details><summary>Features</summary>
@@ -230,6 +221,8 @@ Great config can be found in [this repo](https://github.com/gpakosz/.tmux)
   - Unicode support (even with shortcut to input)
   - Font ligature support (Very nice with Haskell)
   - Works with pywal
+  - Keyboard oriented
+  - Tab and window support - Replaces Tmux 
 
 </p>
 </details>
@@ -244,8 +237,7 @@ The ones listed here are the ones I am currently using.
 - Dotfiles Management: [YADM](https://yadm.io/)
 - Backlight Control: [light](https://github.com/haikarainen/light)
 - Bluetooth Control: [Blueman](https://wiki.archlinux.org/index.php/Blueman#Usage)
-- Wallpaper Setter & Colorscheme Generator: [pywal](https://github.com/dylanaraps/pywal)
-- Window Switcher: [rofi](https://github.com/DaveDavenport/rofi)
+- Window Switcher and App Launcher: [rofi](https://github.com/DaveDavenport/rofi)
 - Status Bar and System Tray: [polybar](https://archives.haskell.org/projects.haskell.org/xmobar/)
 - Temperature Monitoring: [lm-sensors](https://github.com/lm-sensors/lm-sensors)
 - Screen Compositor: [compton](https://github.com/chjj/compton)
@@ -257,6 +249,7 @@ The ones listed here are the ones I am currently using.
 <details><summary>Appearance and _Ricing_</summary>
 <p>
  
+- Wallpaper Setter & Colorscheme Generator: [pywal](https://github.com/dylanaraps/pywal)
 - GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
 - Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
