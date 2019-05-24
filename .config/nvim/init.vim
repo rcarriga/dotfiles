@@ -24,7 +24,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdtree', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_ft' : 'nerdtree' })
+    call dein#add('ryanoasis/vim-devicons', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('itchyny/lightline.vim')
@@ -129,6 +130,9 @@ let loaded_netrwPlugin = 1
 set ignorecase
 set smartcase
 
+" Hide text set as concealed
+set conceallevel=3
+
 " ###################################################################################
 " Functions
 
@@ -167,6 +171,7 @@ let g:fugitive_gitlab_domains = ['***REMOVED***', 'https://github.com', '***REMO
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
+let g:vim_monokai_tasty_italic = 1
 color vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
@@ -200,10 +205,9 @@ let g:NERDSpaceDelims = 1
 
 let g:mkdp_browser = 'firefox'
 
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+let g:NERDTreeDirArrowExpandable = "\u00a0"
+let g:NERDTreeDirArrowCollapsible = "\u00a0"
 " ###################################################################################
 " Custom Syntax Highlighting
 
