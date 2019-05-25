@@ -17,12 +17,14 @@ if ! zgen saved; then
     zgen load "zsh-users/zsh-autosuggestions"
     zgen load "zsh-users/zsh-syntax-highlighting"
     zgen load "zsh-users/zsh-completions" src
-    zgen load "BrandonRoehl/zsh-clean"
+    # zgen load "BrandonRoehl/zsh-clean"
+    zgen load "romkatv/powerlevel10k" powerlevel10k
     zgen save 
 
     source "$HOME/.zgen/BrandonRoehl/zsh-clean-master/clean.plugin.zsh"
 fi
 
+([[ -f "$HOME/.purepower" ]] || (cd && curl -fsSLO https://raw.githubusercontent.com/romkatv/dotfiles-public/master/.purepower)) && source "$HOME/.purepower"
 
 [ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 

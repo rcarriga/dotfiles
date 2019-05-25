@@ -23,13 +23,14 @@ import XMonad.Prompt.ConfirmPrompt
 import XMonad.Prompt
 import GHC.IO.Handle.Types
 import qualified XMonad.StackSet as W
-import Graphics.X11.Xlib.Extras (getClassHint, resClass)
+import Graphics.X11.Xlib.Extras
 import Data.Foldable
 import Data.Maybe
 import Util
 import XMonad.Layout.Spacing
 import Data.List
 import Data.Ord
+import XMonad.Prompt.Shell
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
@@ -129,7 +130,7 @@ storeAlias ws aliases = do
         Nothing -> return aliases
         Just a  -> do
             focus <- io $ resClass <$> getClassHint dis (W.focus a)          -- Get focused window in given workspace
-            let wsName = "  " <> (fromMaybe (W.tag ws) (M.lookup focus myWindowIcons)) <> "  "   -- Create name to give workspace (i.e. Append icon to tag)
+            let wsName = "  " <> fromMaybe (W.tag ws) (M.lookup focus myWindowIcons) <> "  "   -- Create name to give workspace (i.e. Append icon to tag)
             return $ M.insert (W.tag ws) wsName aliases                                -- Store name in Map
 
 -- ######################################################################################
@@ -158,7 +159,7 @@ myStartupHook = do
         , "setxkbmap -layout gb"
         , "xsetroot -cursor_name left_ptr"
         , "light -N 1"
-        , "feh --bg-fill ~/.config/images/city.jpg"
+        , "feh --bg-fill ~/.config/images/space2.png"
         , "wal -s --theme monokai"
         ]
 
@@ -172,9 +173,9 @@ myKeys =
     , ("M-p"                    , spawn "rofi -show run -opacity \"85\" ")
     , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
-    , ("M-S-t"                    , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
+    , ("M-S-t"                  , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
     , ("M-n"                    , namedScratchpadAction myScratchpads "htop")
-    -- , ("M-c"                    , confirmPrompt myPromptConfig "close window?" kill)
+    , ("M-c"                    , confirmPrompt myPromptConfig "close window?" kill)
     , ("M-S-q"                  , confirmPrompt myPromptConfig "exit" $ io exitSuccess)
     , ("M-C-S-j"                , decScreenSpacing 10)
     , ("M-C-S-k"                , incScreenSpacing 10)
@@ -182,6 +183,7 @@ myKeys =
     , ("M-C-k"                  , incWindowSpacing 10)
     , ("M-g"                    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
     , ("M-f"                    , spawn "firefox")
+    , ("M-S-r"                  , withFocused $ \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
     ]
 
 myPromptConfig :: XPConfig
