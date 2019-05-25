@@ -1,13 +1,12 @@
 # My Dotfiles
 
-*Disclaimer: README might not be up to date. 
-Setup script is reasonably stable (Only for Ubuntu)*
 
-If you're just passing through and see something you think could be better, then let me know!
+If you're just passing through and see something you think could be better, then let me know!\
+_README might be out of date._
 
 ## Text Editor / IDE - NeoVim
 
-Recommend using NeoVim over Vim for better plugin support and faster updates.
+Recommend using [NeoVim](https://neovim.io/) over Vim for better plugin support and faster updates.
 For dependencies run `:checkhealth`.
 
 <details><summary>Language Support</summary>
@@ -30,6 +29,8 @@ For dependencies run `:checkhealth`.
 
 <details><summary>Plugins</summary>
 <p>
+
+Most plugins are loaded after entering insert mode so that startup time is ~100ms
 
 **General**
 
@@ -54,13 +55,6 @@ For dependencies run `:checkhealth`.
   - [NERDTree](https://github.com/scrooloose/nerdtree)
         Nice directory tree. Recommend using FZF over this generally.
 
-**Python Specific**:
-
-  - [SimpylFold](https://github.com/tmhedberg/SimpylFold)
-        Python friendly code folding.
-  - [vim-virtualenv](https://github.com/plytophogy/vim-virtualenv) *NB: Install pylint in virtualenv*.
-        Enables virtual environments.
-
 **Haskell Specific**:
 
   - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
@@ -81,8 +75,6 @@ For dependencies run `:checkhealth`.
         Built in thesauras
   - [vim-grammarous](https://github.com/rhysd/vim-grammarous)
         Grammar checking (Requires Java to be installed)
-
-
 
 <p>
 </details>
@@ -109,16 +101,17 @@ My leader key is set to default "\\" key.
 
 | Suffix           | Command                               |
 | :----:           | :-----------------------------------  |
-| `d`              | Definition                            |
+| `d`              | Definition (In vertical split)        |
+| `D`              | Definition (In current buffer)        |
 | `r`              | Rename                                |
 | `f`              | Format Document                       |
 | `t`              | Type Definition                       |
 | `x`              | References                            |
 | `a`              | Code Actions Menu                     |
 | `k`              | Hover (Loo**k**up)                    |
-| `m`              | Menu of all Language Server commands  |
 | `h`              | Hightlight                            |
-| `g`              | Diagnostic Info at Cursor
+| `g`              | Diagnostic Info at Cursor             |
+| `i`              | Diagnostic List for Document          |
 
 #### Git Commands
 
@@ -155,11 +148,11 @@ My leader key is set to default "\\" key.
 
 | Suffix           | Command                               |
 | :------:         | :-------------------------------      |
-| `<Leader>nv`     | Open netrw vertical split             |
-| `<Leader>ns`     | Open netrw horizontal split           |
+| `<Leader>x`      | Open NERDTree                         |
 | `Tab`            | Next Completion                       |
 | `Ctrl+(h/j/k/l)` | Switch Window in Direction            |
-| `<Leader>th`     | Open thesauras for selected word      |
+| `<Leader>st`     | Open thesauras for selected word      |
+| `<Leader>sg`     | Run grammarous check                  |
 | `<Leader>a`      | Align highlighted markdown table      |
 
 _Arrow keys are disabled in normal mode._
@@ -169,7 +162,8 @@ _Arrow keys are disabled in normal mode._
 
 ## Shell - Zsh
 
-Plugins managed by [Zgen](https://github.com/tarjoilija/zgen).
+Plugin Manager: [Zgen](https://github.com/tarjoilija/zgen).\
+Theme:          [Powerlevel10k](https://github.com/romkatv/powerlevel10k) with [PurePower](https://github.com/romkatv/dotfiles-public/blob/master/.purepower) config file.
 
 <details><summary>Plugins</summary>
 <p>
@@ -178,8 +172,27 @@ Plugins managed by [Zgen](https://github.com/tarjoilija/zgen).
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
   - [autojump](https://github.com/wting/autojump)
-  - [pure](https://github.com/sindresorhus/pure)
-  - [clean](https://github.com/BrandonRoehl/zsh-clean)
+
+</p>
+</details>
+
+## Terminal - Kitty 
+
+[Kitty](https://sw.kovidgoyal.net/kitty/)
+
+<details><summary>Features</summary>
+<p>
+
+Kitty is highly powerful out of the box. I can't list all of the features these are just some of my favourites.
+
+  - Uses GPU for lower CPU load
+  - Buttery smooth performance
+  - Support for images
+  - Unicode support (even with shortcut to input)
+  - Font ligature support (Very nice with Haskell)
+  - Works with pywal
+  - Keyboard oriented
+  - Tab and window support - Replaces Tmux 
 
 </p>
 </details>
@@ -210,23 +223,6 @@ XMonad requires GHC which is large so if you're not writing Haskell anyway maybe
 </p>
 </details>
 
-## Terminal - Kitty
-
-<details><summary>Features</summary>
-<p>
-
-  - Uses GPU
-  - Buttery smooth performance
-  - Support for images
-  - Unicode support (even with shortcut to input)
-  - Font ligature support (Very nice with Haskell)
-  - Works with pywal
-  - Keyboard oriented
-  - Tab and window support - Replaces Tmux 
-
-</p>
-</details>
-
 ## Linux Enviroment Management
 
 <details><summary>General tools for system management</summary>
@@ -246,14 +242,14 @@ The ones listed here are the ones I am currently using.
 </p>
 </details>
 
-<details><summary>Appearance and _Ricing_</summary>
+<details><summary>Appearance and <i>Ricing</i></summary>
 <p>
  
 - Wallpaper Setter & Colorscheme Generator: [pywal](https://github.com/dylanaraps/pywal)
 - GTK Themesetter: [lxappearance](http://www.linuxfromscratch.org/blfs/view/svn/lxde/lxappearance.html)
 - Terminal Music Visualiser: [CLI Visualiser](https://github.com/dpayne/cli-visualizer)
 - Custom Workspace Icons: [Font Awesome](https://fontawesome.com)
-- Great Dark GTK Theme: [Arc](https://github.com/horst3180/arc-theme)
+- GTK Theme: [Ant-Bloody](https://github.com/EliverLara/Ant-Bloody)
 
 </p>
 </details>
@@ -265,3 +261,6 @@ A collection of great resources I've used.
 - [Bash scripting cheatsheet](https://devhints.io/bash)
 - [List of random but useful tools](https://kkovacs.eu/cool-but-obscure-unix-tools)
 - [Stack guide](https://guide.aelve.com/haskell/stack-cookbook-ai0adh03)
+
+Can't recommend [Arch Wiki](https://wiki.archlinux.org/) enough for anything linux related.
+If you're having issues inside the terminal it's almost guaranteed to be there.

@@ -223,9 +223,6 @@ au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
 " ###################################################################################
 " Custom Mappings
 
-" Auto expand curly braces and place cursor in the middle
-inoremap {<CR> {<CR>}<C-o>==<C-o>O
-
 " Replace word with yanked text
 nnoremap S "_dwP
 
