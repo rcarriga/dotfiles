@@ -28,7 +28,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
-    call dein#add('itchyny/lightline.vim')
+    " call dein#add('itchyny/lightline.vim')
+    call dein#add('liuchengxu/eleline.vim')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
@@ -184,7 +185,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ 'coc-dictionary', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -210,6 +211,8 @@ au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
+
+let g:eleline_powerline_fonts = 1
 " ###################################################################################
 " Custom Syntax Highlighting
 
