@@ -68,7 +68,7 @@ hi Operator guifg=#ff8503 guibg=NONE guisp=NONE gui=bold ctermfg=208 ctermbg=NON
 hi CursorLine guifg=NONE guibg=NONE guisp=#3E3D32 gui=NONE ctermfg=NONE ctermbg=237 cterm=NONE
 hi Question guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=81 ctermbg=NONE cterm=NONE
 hi WarningMsg guifg=#FFFFFF guibg=NONE guisp=#333333 gui=bold ctermfg=15 ctermbg=236 cterm=bold
-hi VisualNOS guifg=NONE guibg=NONE guisp=#403D3D gui=NONE ctermfg=NONE ctermbg=238 cterm=NONE
+hi VisualNOS guifg=NONE guibg=#808080 guisp=#403D3D gui=NONE ctermfg=NONE ctermbg=238 cterm=NONE
 hi DiffDelete guifg=#C60848 guibg=NONE guisp=#1E0010 gui=NONE ctermfg=89 ctermbg=53 cterm=NONE
 hi ModeMsg guifg=#E6DB74 guibg=NONE guisp=NONE gui=NONE ctermfg=185 ctermbg=NONE cterm=NONE
 hi CursorColumn guifg=NONE guibg=#3E3D32 guisp=#3E3D32 gui=NONE ctermfg=NONE ctermbg=237 cterm=NONE
@@ -76,7 +76,7 @@ hi Define guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=81 ctermbg=NONE c
 hi Function guifg=#00ffea guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
 hi FoldColumn guifg=#465457 guibg=#000000 guisp=#000000 gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
 hi PreProc guifg=#A6E22E guibg=NONE guisp=NONE gui=bold ctermfg=40 ctermbg=NONE cterm=bold
-hi Visual guifg=NONE guibg=NONE guisp=#403D3D gui=NONE ctermfg=NONE ctermbg=238 cterm=NONE
+hi Visual guifg=NONE guibg=#403D3D guisp=#403D3D gui=NONE ctermfg=NONE ctermbg=238 cterm=NONE
 hi MoreMsg guifg=#E6DB74 guibg=NONE guisp=NONE gui=NONE ctermfg=185 ctermbg=NONE cterm=NONE
 hi VertSplit guifg=#808080 guibg=#080808 guisp=#080808 gui=bold ctermfg=8 ctermbg=232 cterm=bold
 hi Exception guifg=#A6E22E guibg=NONE guisp=NONE gui=bold ctermfg=112 ctermbg=NONE cterm=bold
