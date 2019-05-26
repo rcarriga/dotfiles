@@ -4,10 +4,14 @@
 If you're just passing through and see something you think could be better, then let me know!\
 _README might be out of date._
 
+![](.resources/neofetch.jpg)
+
 ## Text Editor / IDE - NeoVim
 
 Recommend using [NeoVim](https://neovim.io/) over Vim for better plugin support and faster updates.
 For dependencies run `:checkhealth`.
+
+![](.resources/output.gif)
 
 <details><summary>Language Support</summary>
 <p>
@@ -162,6 +166,7 @@ _Arrow keys are disabled in normal mode._
 
 ## Shell - Zsh
 
+![](.resources/zshdemo.gif)
 Plugin Manager: [Zgen](https://github.com/tarjoilija/zgen).\
 Theme:          [Powerlevel10k](https://github.com/romkatv/powerlevel10k) with [PurePower](https://github.com/romkatv/dotfiles-public/blob/master/.purepower) config file.
 
@@ -198,6 +203,8 @@ Kitty is highly powerful out of the box. I can't list all of the features these 
 </details>
 
 ## Window Manager - XMonad
+
+![](.resources/xmonad.png)
 
 [XMonad](https://xmonad.org/)
 
