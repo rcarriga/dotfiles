@@ -167,6 +167,7 @@ _Arrow keys are disabled in normal mode._
 ## Shell - Zsh
 
 ![](.resources/zshdemo.gif)
+
 Plugin Manager: [Zgen](https://github.com/tarjoilija/zgen).\
 Theme:          [Powerlevel10k](https://github.com/romkatv/powerlevel10k) with [PurePower](https://github.com/romkatv/dotfiles-public/blob/master/.purepower) config file.
 
@@ -204,9 +205,10 @@ Kitty is highly powerful out of the box. I can't list all of the features these 
 
 ## Window Manager - XMonad
 
-![](.resources/xmonad.png)
 
 [XMonad](https://xmonad.org/)
+
+<img src=".resources/xmonad.png" alt="drawing" width="780"/>
 
 <details><summary>Features</summary>
 <p>
