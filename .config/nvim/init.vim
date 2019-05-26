@@ -23,7 +23,7 @@ if dein#load_state('~/.cache/dein')
     call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdtree', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('scrooloose/nerdtree', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
     call dein#add('ryanoasis/vim-devicons', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('honza/vim-snippets')
@@ -172,7 +172,7 @@ let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
 let g:vim_monokai_tasty_italic = 1
-color vim-monokai-tasty
+color hasklo " vim-monokai-tasty
 let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
@@ -205,6 +205,8 @@ let g:NERDSpaceDelims = 1
 
 let g:mkdp_browser = 'firefox'
 
+au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
@@ -219,6 +221,7 @@ au ColorScheme * hi Normal ctermbg=none guibg=none
 au ColorScheme * hi Pmenu guibg=#222222
 " Default error text is too dark to read in floating windows
 au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
+
 
 " ###################################################################################
 " Custom Mappings
@@ -266,6 +269,7 @@ nnoremap <leader>lk :call CocActionAsync('doHover')<CR>
 nnoremap <leader>ls :call CocActionAsync('documentSymbols')<CR>
 nnoremap <leader>lh :call CocActionAsync('highlight')<CR>
 nnoremap <leader>lq :call CocActionAsync('quickfixes')<CR>
+nnoremap <leader>li :CocList<CR>
 
 " Distraction free writing
 nnoremap <leader>d :Goyo<CR>
