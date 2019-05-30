@@ -24,7 +24,6 @@
   "tslint.enable": true,
   "tsserver.npm": "/usr/local/bin/npm",
   "tsserver.log": "verbose",
-  "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "python.linting.pydocstyleEnabled": true
 }
