@@ -28,7 +28,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
-    " call dein#add('itchyny/lightline.vim')
+    call dein#add('numirias/semshi')
+    call dein#add('janko/vim-test', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
     call dein#add('liuchengxu/eleline.vim')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
@@ -134,6 +135,8 @@ set smartcase
 " Hide text set as concealed
 set conceallevel=3
 
+" Enable mouse so people don't get angry when using my editor...
+set mouse=nvi
 " ###################################################################################
 " Functions
 
@@ -185,7 +188,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-dictionary', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -247,6 +250,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Auto docstring
+nmap <leader>p <Plug>(pydocstring)
+
 " FZF and Ag mappings
 nnoremap <Leader>f :Files<CR>
 nnoremap <Leader>ag :Ag .<CR>
@@ -274,6 +280,11 @@ nnoremap <leader>lh :call CocActionAsync('highlight')<CR>
 nnoremap <leader>lq :call CocActionAsync('quickfixes')<CR>
 nnoremap <leader>li :CocList<CR>
 
+nnoremap <leader>tn :TestNearest<CR>
+nnoremap <leader>tf :TestFile<CR>
+nnoremap <leader>ts :TestSuite<CR>
+nnoremap <leader>tl :TestLast<CR>
+nnoremap <leader>tv :TestVisit<CR>
 " Distraction free writing
 nnoremap <leader>d :Goyo<CR>
 

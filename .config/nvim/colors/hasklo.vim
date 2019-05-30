@@ -106,3 +106,5 @@ hi haskellImportKeywords guifg=#AE81FF guibg=NONE guisp=NONE gui=NONE ctermfg=50
 hi haskellDecl guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
 hi haskellOperators guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
 hi haskellDelimiter guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
+
+hi jsonKeyword guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
