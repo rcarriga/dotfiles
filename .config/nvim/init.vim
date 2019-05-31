@@ -188,7 +188,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -216,6 +216,8 @@ let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
 
 let g:eleline_powerline_fonts = 1
+
+let test#strategy = "neovim"
 " ###################################################################################
 " Custom Syntax Highlighting
 
@@ -253,38 +255,47 @@ nnoremap <C-H> <C-W><C-H>
 " Auto docstring
 nmap <leader>p <Plug>(pydocstring)
 
+" HTTP requests - coc-post
+nnoremap <leader>hd :CocCommand post.do<CR>
+nnoremap <leader>hn :CocCommand post.new<CR>
+nnoremap <leader>hl :CocList post<CR>
+
 " FZF and Ag mappings
-nnoremap <Leader>f :Files<CR>
-nnoremap <Leader>ag :Ag .<CR>
+nnoremap <silent><leader>f :Files<CR>
+nnoremap <silent><leader>ag :Ag .<CR>
 
 " Git functions with vim-fugitive and git messenger
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gp :Gpush<CR>
-nnoremap <Leader>gb :Gbrowse<CR>
-nnoremap <Leader>gl :Gblame<CR>
-nnoremap <Leader>m :GitMessenger<CR>
+nnoremap <silent><Leader>gs :Gstatus<CR>
+nnoremap <silent><Leader>gd :Gdiff<CR>
+nnoremap <silent><Leader>gp :Gpush<CR>
+nnoremap <silent><Leader>gb :Gbrowse<CR>
+nnoremap <silent><Leader>gl :Gblame<CR>
+nnoremap <silent><Leader>m :GitMessenger<CR>
 
 " Language server functions
-nnoremap <leader>lD :call CocActionAsync('jumpDefinition')<CR>
-nnoremap <leader>ld :vs<CR>:call CocActionAsync('jumpDefinition')<CR>
-nnoremap <leader>lr :call CocActionAsync('rename')<CR>
-nnoremap <leader>lf :call CocActionAsync('format')<CR>
-nnoremap <leader>lt :call CocActionAsync('jumpTypeDefinition')<CR>
-nnoremap <leader>lx :call CocActionAsync('jumpReferences')<CR>
-nnoremap <leader>lg :call CocActionAsync('diagnosticInfo')<CR>
-nnoremap <leader>la :call CocActionAsync('codeAction')<CR>
-nnoremap <leader>lk :call CocActionAsync('doHover')<CR>
-nnoremap <leader>ls :call CocActionAsync('documentSymbols')<CR>
-nnoremap <leader>lh :call CocActionAsync('highlight')<CR>
-nnoremap <leader>lq :call CocActionAsync('quickfixes')<CR>
-nnoremap <leader>li :CocList<CR>
+nnoremap <silent><leader>ld :vs<CR>:call CocActionAsync('jumpDefinition')<CR>
+nmap <silent><leader>lD <Plug>(coc-definition)
+nmap <silent><leader>lr <Plug>(coc-rename)
+nmap <silent><leader>lf <Plug>(coc-format)
+nmap <silent><leader>lt <Plug>(coc-type-definition)
+nmap <silent><leader>lx <Plug>(coc-references)
+nmap <silent><leader>lg <Plug>(coc-diagnostic-info)
+nmap <silent><leader>ln <Plug>(coc-diagnostic-next)
+nmap <silent><leader>lp <Plug>(coc-diagnostic-prev)
+nmap <silent><leader>la <Plug>(coc-codeaction)
+nmap <silent><leader>lk :call CocActionAsync('doHover')<CR>
+nmap <silent><leader>ls :call CocActionAsync('documentSymbols')<CR>
+nmap <silent><leader>lh :call CocActionAsync('highlight')<CR>
+nmap <silent><leader>lq :call CocActionAsync('quickfixes')<CR>
+nmap <silent><leader>li :CocList<CR>
 
-nnoremap <leader>tn :TestNearest<CR>
-nnoremap <leader>tf :TestFile<CR>
-nnoremap <leader>ts :TestSuite<CR>
-nnoremap <leader>tl :TestLast<CR>
-nnoremap <leader>tv :TestVisit<CR>
+nnoremap <silent><leader>tn :TestNearest<CR>
+nnoremap <silent><leader>tf :TestFile<CR>
+nnoremap <silent><leader>ts :TestSuite<CR>
+nnoremap <silent><leader>tl :TestLast<CR>
+nnoremap <silent><leader>tv :TestVisit<CR>
+nnoremap <silent><leader>tm :make test<CR>
+nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
 " Distraction free writing
 nnoremap <leader>d :Goyo<CR>
 
