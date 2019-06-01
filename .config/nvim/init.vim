@@ -24,6 +24,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdtree', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
+    call dein#add('mbbill/undotree', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
     call dein#add('ryanoasis/vim-devicons', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('honza/vim-snippets')
@@ -137,6 +138,15 @@ set conceallevel=3
 
 " Enable mouse so people don't get angry when using my editor...
 set mouse=nvi
+
+" Preview changes when using search and replace
+set inccommand=nosplit
+
+" Show folding levels in a column beside buffer
+set foldcolumn=1
+
+" Dont wrap lines
+set nowrap
 " ###################################################################################
 " Functions
 
@@ -218,6 +228,10 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let g:eleline_powerline_fonts = 1
 
 let test#strategy = "neovim"
+
+let g:undotree_WindowLayout = 3
+let g:undotree_SplitWidth = 50
+let g:undotree_HighlightChangedText = 0
 " ###################################################################################
 " Custom Syntax Highlighting
 
@@ -272,6 +286,8 @@ nnoremap <silent><Leader>gb :Gbrowse<CR>
 nnoremap <silent><Leader>gl :Gblame<CR>
 nnoremap <silent><Leader>m :GitMessenger<CR>
 
+nnoremap <silent><leader>u :UndotreeToggle<CR>
+
 " Language server functions
 nnoremap <silent><leader>ld :vs<CR>:call CocActionAsync('jumpDefinition')<CR>
 nmap <silent><leader>lD <Plug>(coc-definition)
@@ -289,6 +305,7 @@ nmap <silent><leader>lh :call CocActionAsync('highlight')<CR>
 nmap <silent><leader>lq :call CocActionAsync('quickfixes')<CR>
 nmap <silent><leader>li :CocList<CR>
 
+" Testing functions
 nnoremap <silent><leader>tn :TestNearest<CR>
 nnoremap <silent><leader>tf :TestFile<CR>
 nnoremap <silent><leader>ts :TestSuite<CR>
@@ -296,8 +313,9 @@ nnoremap <silent><leader>tl :TestLast<CR>
 nnoremap <silent><leader>tv :TestVisit<CR>
 nnoremap <silent><leader>tm :make test<CR>
 nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
+
 " Distraction free writing
-nnoremap <leader>d :Goyo<CR>
+nnoremap <silent><leader>d :Goyo<CR>
 
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
