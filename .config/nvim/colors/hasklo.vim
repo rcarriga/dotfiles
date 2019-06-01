@@ -31,18 +31,18 @@ hi Normal guifg=#F8F8F2 guibg=NONE guisp=#1f1f1f gui=NONE ctermfg=230 ctermbg=23
 "hi TabLine -- no settings --
 "hi clear -- no settings --
 hi IncSearch guifg=#C4BE89 guibg=#888888 guisp=#000000 gui=NONE ctermfg=186 ctermbg=NONE cterm=NONE
-hi WildMenu guifg=#00ffff guibg=#000000 guisp=#000000 gui=NONE ctermfg=81 ctermbg=NONE cterm=NONE
+hi WildMenu guifg=#00ffff guibg=NONE guisp=#000000 gui=NONE ctermfg=81 ctermbg=NONE cterm=NONE
 hi SignColumn guifg=#A6E22E guibg=#232526 guisp=#232526 gui=NONE ctermfg=112 ctermbg=235 cterm=NONE
 hi SpecialComment guifg=#465457 guibg=NONE guisp=NONE gui=bold ctermfg=240 ctermbg=NONE cterm=bold
 hi Typedef guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=81 ctermbg=NONE cterm=NONE
 hi Title guifg=#ef5939 guibg=NONE guisp=NONE gui=NONE ctermfg=209 ctermbg=NONE cterm=NONE
-hi Folded guifg=#465457 guibg=#000000 guisp=#000000 gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
+hi Folded guifg=#465457 guibg=NONE guisp=#000000 gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
 hi PreCondit guifg=#A6E22E guibg=NONE guisp=NONE gui=bold ctermfg=112 ctermbg=NONE cterm=bold
 hi Include guifg=#A6E22E guibg=NONE guisp=NONE gui=NONE ctermfg=112 ctermbg=NONE cterm=NONE
-hi StatusLineNC guifg=#808080 guibg=#080808 guisp=#080808 gui=NONE ctermfg=8 ctermbg=232 cterm=NONE
+hi StatusLineNC guifg=#808080 guibg=NONE guisp=#080808 gui=NONE ctermfg=8 ctermbg=232 cterm=NONE
 hi NonText guifg=#BCBCBC guibg=#NONE guisp=#3B3A32 gui=NONE ctermfg=250 ctermbg=237 cterm=NONE
 hi DiffText guifg=NONE guibg=#4C4745 guisp=#4C4745 gui=bold,italic ctermfg=NONE ctermbg=239 cterm=bold
-hi ErrorMsg guifg=#F92672 guibg=#232526 guisp=#232526 gui=bold ctermfg=197 ctermbg=235 cterm=bold
+hi ErrorMsg guifg=#F92672 guibg=NONE guisp=#232526 gui=bold ctermfg=197 ctermbg=235 cterm=bold
 hi Ignore guifg=#808080 guibg=#272822 guisp=#272822 gui=NONE ctermfg=8 ctermbg=235 cterm=NONE
 hi Debug guifg=#BCA3A3 guibg=NONE guisp=NONE gui=bold ctermfg=138 ctermbg=NONE cterm=bold
 hi PMenuSbar guifg=NONE guibg=#080808 guisp=#080808 gui=NONE ctermfg=NONE ctermbg=232 cterm=NONE
@@ -74,7 +74,7 @@ hi ModeMsg guifg=#E6DB74 guibg=NONE guisp=NONE gui=NONE ctermfg=185 ctermbg=NONE
 hi CursorColumn guifg=NONE guibg=#3E3D32 guisp=#3E3D32 gui=NONE ctermfg=NONE ctermbg=237 cterm=NONE
 hi Define guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=81 ctermbg=NONE cterm=NONE
 hi Function guifg=#00ffea guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
-hi FoldColumn guifg=#465457 guibg=#000000 guisp=#000000 gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
+hi FoldColumn guifg=#F8F8F2 guibg=NONE guisp=#000000 gui=NONE ctermfg=240 ctermbg=NONE cterm=NONE
 hi PreProc guifg=#A6E22E guibg=NONE guisp=NONE gui=bold ctermfg=40 ctermbg=NONE cterm=bold
 hi Visual guifg=NONE guibg=#403D3D guisp=#403D3D gui=NONE ctermfg=NONE ctermbg=238 cterm=NONE
 hi MoreMsg guifg=#E6DB74 guibg=NONE guisp=NONE gui=NONE ctermfg=185 ctermbg=NONE cterm=NONE
@@ -108,3 +108,5 @@ hi haskellOperators guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 cter
 hi haskellDelimiter guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
 
 hi jsonKeyword guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
+hi diffRemoved guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
+hi diffAdded guifg=#A6E22E guibg=NONE guisp=NONE gui=bold ctermfg=112 ctermbg=NONE cterm=bold
