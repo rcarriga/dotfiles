@@ -18,19 +18,21 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
 
-    call dein#add('rhysd/git-messenger.vim', { 'lazy' : 1, 'on_cmd' : 'GitMessenger' })
+    call dein#add('rhysd/git-messenger.vim', { 'on_cmd' : 'GitMessenger' })
     " Hopefully temporary to set nicer background for git messenger
     call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdtree', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
-    call dein#add('mbbill/undotree', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
-    call dein#add('ryanoasis/vim-devicons', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'lazy' : 1, 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('scrooloose/nerdtree', { 'on_event' : 'InsertEnter' })
+    call dein#add('mbbill/undotree', { 'on_event' : 'InsertEnter' })
+    call dein#add('ryanoasis/vim-devicons', { 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('liuchengxu/vim-which-key', { 'on_cmd' : 'WhichKey' })
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('honza/vim-snippets')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('numirias/semshi')
-    call dein#add('janko/vim-test', { 'lazy' : 1, 'on_event' : 'InsertEnter' })
+    call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
+    call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
     call dein#add('liuchengxu/eleline.vim')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
@@ -208,6 +210,7 @@ endfunction
 
 " ###################################################################################
 " Plugin Settings
+
 
 " Open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 0
@@ -403,6 +406,8 @@ nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
 " Distraction free writing
 nnoremap <silent><leader>d :Goyo<CR>
 
+noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
 inoremap <silent><expr> <TAB>
@@ -432,5 +437,3 @@ vmap <leader>a :EasyAlign*<Bar><Enter>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-nnoremap <silent> <F9> :!grep -o "leader>.*" ~/.config/nvim/init.vim \| sed "s/leader>//" \| sed "s/.CR>//g" \| sed "s/ /\t\t/" \| sort<CR>
