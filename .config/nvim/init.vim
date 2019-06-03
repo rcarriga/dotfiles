@@ -298,9 +298,6 @@ nnoremap <leader>w :w<CR>
 "Replace the word under cursor
 nnoremap <leader>s :%s/\<<c-r><c-w>\>//g<left><left>
 
-nnoremap <leader>k :m-2<CR>==
-nnoremap <leader>j :m+<CR>==
-
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
 
@@ -435,3 +432,5 @@ vmap <leader>a :EasyAlign*<Bar><Enter>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+nnoremap <silent> <F9> :!grep -o "leader>.*" ~/.config/nvim/init.vim \| sed "s/leader>//" \| sed "s/.CR>//g" \| sed "s/ /\t\t/" \| sort<CR>
