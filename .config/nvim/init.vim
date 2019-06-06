@@ -10,9 +10,6 @@ if empty(glob('~/.cache/dein'))
   silent !rm ./installer.sh
 endif
 
-if &compatible
-  set nocompatible
-endif
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
@@ -60,9 +57,6 @@ endif
 
 " ###################################################################################
 " Native Vim Settings
-
-" Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-au FileType qf call AdjustWindowHeight(3, 50)
 
 " Indents word-wrapped lines as much as the 'parent' line
 set breakindent
@@ -211,7 +205,6 @@ endfunction
 " ###################################################################################
 " Plugin Settings
 
-
 " Open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 0
 " Auto close current preview window when change
@@ -240,14 +233,9 @@ let g:lightline = {
 
 let g:coc_global_extensions = [ "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
-au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
 " Set GoYo width
 let g:goyo_width = 100
 
-" Enable limelight when using GoYo
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
 let g:limelight_conceal_guifg = 'DarkGray'
 
 let g:coc_snippet_next = '<tab>'
@@ -258,9 +246,6 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 
 let g:mkdp_browser = 'firefox'
-
-au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
 
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
@@ -274,7 +259,7 @@ let g:undotree_WindowLayout = 3
 let g:undotree_SplitWidth = 50
 let g:undotree_HighlightChangedText = 0
 " ###################################################################################
-" Custom Syntax Highlighting
+" Autocommands
 
 " Transparent signify background
 au ColorScheme * hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
@@ -284,6 +269,21 @@ au ColorScheme * hi Normal ctermbg=none guibg=none
 au ColorScheme * hi Pmenu guibg=#222222
 " Default error text is too dark to read in floating windows
 au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
+
+" Quit if nerdtree is last open window
+au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Open windows in other buffer from nerdtree
+au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
+
+" Enable limelight when using GoYo
+au! User GoyoEnter Limelight
+au! User GoyoLeave Limelight!
+
+" Show function signatures when calling function
+au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+" Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
+au FileType qf call AdjustWindowHeight(3, 50)
 
 " ###################################################################################
 " Custom Mappings
