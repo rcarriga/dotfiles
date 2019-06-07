@@ -109,4 +109,5 @@ hi haskellDelimiter guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 cter
 
 hi jsonKeyword guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
 hi diffRemoved guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
+hi NERDTreeDir guifg=#F92672 guibg=NONE guisp=NONE gui=NONE ctermfg=50 ctermbg=NONE cterm=NONE
 hi diffAdded guifg=#A6E22E guibg=NONE guisp=NONE gui=bold ctermfg=112 ctermbg=NONE cterm=bold

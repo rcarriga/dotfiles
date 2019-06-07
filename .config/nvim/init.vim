@@ -33,9 +33,10 @@ if dein#load_state('~/.cache/dein')
     call dein#add('numirias/semshi')
     call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
     call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
+    call dein#add('dyng/ctrlsf.vim', { 'on_event' : 'InsertEnter' })
     call dein#add('liuchengxu/eleline.vim')
-    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 }) 
-    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0, 'on_event': 'InsertEnter'}) 
+    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf', 'on_event': 'InsertEnter' })
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
@@ -193,7 +194,7 @@ endfunction
 function! OpenRepl() abort
   let t:curft = &filetype  
   let t:repls = {
-      \ "python": "python",
+      \ "python": "python3",
       \ "haskell": "stack ghci"
     \ }
   if has_key(t:repls, t:curft)
@@ -238,7 +239,7 @@ let g:lightline = {
       \ },
       \ }
 
-let g:coc_global_extensions = [ "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -431,6 +432,9 @@ nnoremap <leader>sg :GrammarousCheck<CR>
 
 " Align GitHub-flavored Markdown tables
 vmap <leader>a :EasyAlign*<Bar><Enter>
+
+" Show leader mappings
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " Disgusting mapping to find highlight group under cursor for changing
 " colorschemes
