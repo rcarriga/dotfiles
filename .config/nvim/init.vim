@@ -29,6 +29,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('numirias/semshi')
     call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
+    " call dein#add('w0rp/ale')
     call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
     call dein#add('dyng/ctrlsf.vim', { 'on_event' : 'InsertEnter' })
     call dein#add('liuchengxu/eleline.vim')
@@ -251,6 +252,7 @@ let g:mkdp_browser = 'firefox'
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
+let NERDTreeIgnore=['__pycache__', '__init__.py', '__main__.py']
 
 let g:eleline_powerline_fonts = 1
 
@@ -406,9 +408,6 @@ nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
 
 " Distraction free writing
 nnoremap <silent><leader>d :Goyo<CR>
-
-noremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-noremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
 inoremap <silent><expr> <TAB>
