@@ -29,6 +29,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0, 'on_event': 'InsertEnter'}) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf', 'on_event': 'InsertEnter' })
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
+    call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
+    call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
@@ -271,6 +273,7 @@ let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
 
+let g:indentLine_char = '▏'
 " ###################################################################################
 " Autocommands
 
