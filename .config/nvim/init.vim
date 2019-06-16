@@ -264,15 +264,6 @@ let g:undotree_HighlightChangedText = 0
 " ###################################################################################
 " Autocommands
 
-" Transparent signify background
-au ColorScheme * hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
-" Transparent Background
-au ColorScheme * hi Normal ctermbg=none guibg=none
-" Slightly different background for popup menu. Easier to see
-au ColorScheme * hi Pmenu guibg=#222222
-" Default error text is too dark to read in floating windows
-au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
-
 " Quit if nerdtree is last open window
 au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Open windows in other buffer from nerdtree
