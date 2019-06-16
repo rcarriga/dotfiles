@@ -197,3 +197,8 @@ call SetHi("zshDeref",              s:haskloViolet,      s:haskloBackground,    
 call SetHi("zshCommands",           s:haskloLightBlue,   s:haskloBackground,      "none")
 call SetHi("zshOperator",           s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("zshRedirect",           s:haskloRed,         s:haskloBackground,      "none")
+
+" INI Files
+call SetHi("dosiniLabel",           s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("dosiniValue",           s:haskloLightBlue,         s:haskloBackground,      "none")
+call SetHi("dosiniHeader",          s:haskloViolet,         s:haskloBackground,      "none")
