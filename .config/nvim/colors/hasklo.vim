@@ -11,10 +11,12 @@ let g:colors_name = "hasklo"
 scriptencoding utf-8
 
 " ==========================
-" Highlighting Function
+" Highlighting Functions
 " ==========================
-"  >> (inspired by https://github.com/tomasiser/vim-code-dark and https://github.com/chriskempson/base16-vim)
-fun! <sid>hi(group, fg, bg, attr)
+" Inspired by https://github.com/jaredgorski/SpaceCamp
+"             https://github.com/tomasiser/vim-code-dark 
+"             https://github.com/chriskempson/base16-vim
+function! SetHi(group, fg, bg, attr)
   if !empty(a:fg)
     exec "hi " . a:group . " guifg=" . a:fg.gui . " ctermfg=" .  a:fg.cterm256
   endif
@@ -26,138 +28,176 @@ fun! <sid>hi(group, fg, bg, attr)
   endif
 endfun
 
+autocmd FileType python call SetSemshi()
+
+function! SetSemshi()
+    call SetHi("semshiLocal",           s:haskloGold,       s:haskloBackground, "none")
+    call SetHi("semshiGlobal",          s:haskloOrange,     s:haskloBackground, "none")
+    call SetHi("semshiImported",        s:haskloOrange,     s:haskloBackground, "none")
+    call SetHi("semshiParameter",       s:haskloBlue,       s:haskloBackground, "none")
+    call SetHi("semshiParameterUnused", s:haskloGray3,      s:haskloBackground, "none")
+    call SetHi("semshiFree",            s:haskloBlue,       s:haskloBackground, "none")
+    call SetHi("semshiBuiltin",         s:haskloViolet,     s:haskloBackground, "none")
+    call SetHi("semshiAttribute",       s:haskloLime,       s:haskloBackground, "none")
+    call SetHi("semshiSelf",            s:haskloSteel,      s:haskloBackground, "none")
+    call SetHi("semshiUnresolved",      s:haskloGray2,      s:haskloBackground, "none")
+    call SetHi("semshiSelected",        s:haskloBackground, s:haskloBackground, "underline")
+    call SetHi("semshiErrorSign",       s:haskloRed,        s:haskloBackground, "none")
+    call SetHi("semshiErrorChar",       s:haskloRed,        s:haskloBackground, "none")
+endfunction
+
 " ==========================
 " Color Variables
 " ==========================
-let s:haskloBlack = {"gui": "#121212", "cterm256": "233"}
-let s:haskloBlack2 = {"gui": "#262626", "cterm256": "235"}
-let s:haskloGray1 = {"gui": "#3E3D32", "cterm256": "237"}
-let s:haskloGray2 = {"gui": "#49483E", "cterm256": "239"}
-let s:haskloGray3 = {"gui": "#8B8B8B", "cterm256": "242"}
-let s:haskloSteel = {"gui": "#DEDEDE", "cterm256": "253"}
-let s:haskloWhite = {"gui": "#F8F8F8", "cterm256": "231"}
-let s:haskloViolet = {"gui": "#DE00F2", "cterm256": "170"}
-let s:haskloBlue = {"gui": "#429ADD", "cterm256": "110"}
-let s:haskloCyan = {"gui": "#00FFFA", "cterm256": "110"}
-let s:haskloLightBlue = {"gui": "#89c6f4", "cterm256": "111"}
-let s:haskloLightGreen = {"gui": "#A9FF68", "cterm256": "71"}
-let s:haskloGreen = {"gui": "#00D122", "cterm256": "71"}
-let s:haskloYellow = {"gui": "#FFF200", "cterm256": "191"}
-let s:haskloGold = {"gui": "#F0D50C", "cterm256": "220"}
-let s:haskloOrange = {"gui": "#FF8716", "cterm256": "202"}
-let s:haskloLightRed = {"gui": "#FF5661", "cterm256": "1"}
-let s:haskloRed = {"gui": "#F70067", "cterm256": "1"}
-let s:none = {"gui": "NONE", "cterm256": "NONE"}
+let s:haskloBlack           = {"gui": "#262626", "cterm256": "235"}
+let s:haskloGray1           = {"gui": "#3E3D32", "cterm256": "237"}
+let s:haskloGray2           = {"gui": "#49483E", "cterm256": "239"}
+let s:haskloGray3           = {"gui": "#8B8B8B", "cterm256": "242"}
+let s:haskloSteel           = {"gui": "#DEDEDE", "cterm256": "253"}
+let s:haskloWhite           = {"gui": "#F8F8F8", "cterm256": "231"}
+let s:haskloViolet          = {"gui": "#D484FF", "cterm256": "170"}
+let s:haskloBlue            = {"gui": "#429ADD", "cterm256": "110"}
+let s:haskloCyan            = {"gui": "#52D3D1", "cterm256": "110"}
+let s:haskloLightBlue       = {"gui": "#89c6f4", "cterm256": "111"}
+let s:haskloLightGreen      = {"gui": "#A9FF68", "cterm256": "71"}
+let s:haskloGreen           = {"gui": "#96F291", "cterm256": "71"}
+let s:haskloLime            = {"gui": "#C4E572", "cterm256": "71"}
+let s:haskloYellow          = {"gui": "#FFEC63", "cterm256": "191"}
+let s:haskloDirtyYellow     = {"gui": "#F2F293", "cterm256": "191"}
+let s:haskloGold            = {"gui": "#F0D50C", "cterm256": "220"}
+let s:haskloOrange          = {"gui": "#FF9F63", "cterm256": "202"}
+let s:haskloLightRed        = {"gui": "#FF5661", "cterm256": "1"}
+let s:haskloRed             = {"gui": "#F70067", "cterm256": "1"}
+let s:haskloFloatBackground = {"gui": "#0D1323", "cterm256": "NONE"}
+let s:haskloBackground      = {"gui": "NONE", "cterm256": "NONE"}
 
 " Vim
-call <sid>hi("Cursor", s:haskloBlack, s:haskloWhite, "none")
-call <sid>hi("CursorLine", s:none, s:haskloGray1, "none")
-call <sid>hi("CursorColumn", s:haskloGray1, s:none, "none")
-call <sid>hi("ColorColumn", s:none, s:haskloGray1, "none")
-call <sid>hi("LineNr", s:haskloGray3, s:haskloBlack2, "none")
-call <sid>hi("CursorLineNr", s:haskloSteel, s:none, "none")
-call <sid>hi("VertSplit", s:haskloGray3, s:haskloGray3, "none")
-call <sid>hi("MatchParen", s:haskloRed, s:none, "bold")
-call <sid>hi("StatusLine", s:haskloGray2, s:haskloSteel, "none")
-call <sid>hi("StatusLineNC", s:haskloGray3, s:none, "none")
-call <sid>hi("Pmenu", s:haskloLightBlue, s:none, "none")
-call <sid>hi("PmenuSel", s:none, s:haskloGray2, "none")
-call <sid>hi("IncSearch", s:haskloBlack, s:haskloGray3, "none")
-call <sid>hi("Search", s:haskloWhite, s:haskloGray2, "none")
-call <sid>hi("Directory", s:haskloGreen, s:none, "none")
-call <sid>hi("Folded", s:haskloGray2, s:none, "none")
+call SetHi("Cursor",                s:haskloBlack,       s:haskloWhite,           "none")
+call SetHi("CursorLine",            s:haskloGray1,       s:haskloBackground,      "none")
+call SetHi("CursorColumn",          s:haskloGray1,       s:haskloBackground,      "none")
+call SetHi("ColorColumn",           s:haskloGray1,       s:haskloBackground,      "none")
+call SetHi("LineNr",                s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("CursorLineNr",          s:haskloSteel,       s:haskloBackground,      "none")
+call SetHi("VertSplit",             s:haskloGray3,       s:haskloGray2,           "none")
+call SetHi("MatchParen",            s:haskloRed,         s:haskloBackground,      "underline")
+call SetHi("StatusLine",            s:haskloGray2,       s:haskloBackground,      "none")
+call SetHi("StatusLineNC",          s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("Pmenu",                 s:haskloLightBlue,   s:haskloFloatBackground, "none")
+call SetHi("PmenuSel",              s:haskloBackground,  s:haskloGray2,           "none")
+call SetHi("IncSearch",             s:haskloBlack,       s:haskloGray3,           "none")
+call SetHi("Search",                s:haskloWhite,       s:haskloGray2,           "none")
+call SetHi("Directory",             s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("Folded",                s:haskloGray2,       s:haskloBackground,      "none")
+call SetHi("WildMenu",              s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("PMenuSbar",             s:haskloBackground,  s:haskloBlack,           "none")
+call SetHi("VisualNOS",             s:haskloGray2,       s:haskloGold,            "none")
+call SetHi("ModeMsg",               s:haskloGold,        s:haskloBackground,      "none")
+call SetHi("FoldColumn",            s:haskloWhite,       s:haskloBackground,      "none")
+call SetHi("MoreMsg",               s:haskloGold,        s:haskloBackground,      "none")
+call SetHi("PMenuThumb",            s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("cursorim",              s:haskloViolet,      s:haskloBackground,      "none")
 
 " General
-call <sid>hi("Normal", s:haskloWhite, s:none, "none")
-call <sid>hi("Visual", s:none, s:haskloGray2, "none")
-call <sid>hi("Boolean", s:haskloViolet, s:none, "none")
-call <sid>hi("Character", s:haskloGold, s:none, "none")
-call <sid>hi("Comment", s:haskloGray3, s:none, "none")
-call <sid>hi("Conditional", s:haskloRed, s:none, "none")
-call <sid>hi("Constant", s:haskloViolet, s:none, "none")
-call <sid>hi("Define", s:haskloCyan, s:none, "none")
-call <sid>hi("DiffAdd", s:none, s:haskloGreen, "none")
-call <sid>hi("DiffChange", s:none, s:haskloGold, "none")
-call <sid>hi("DiffDelete", s:none, s:haskloRed, "none")
-call <sid>hi("DiffText", s:none, s:haskloRed, "none")
-call <sid>hi("ErrorMsg", s:haskloRed, s:none, "none")
-call <sid>hi("WarningMsg", s:haskloOrange, s:none, "none")
-call <sid>hi("Float", s:haskloViolet, s:none, "none")
-call <sid>hi("Function", s:haskloCyan, s:none, "none")
-call <sid>hi("Identifier", s:haskloOrange, s:none, "none")
-call <sid>hi("Keyword", s:haskloRed, s:none, "none")
-call <sid>hi("Label", s:haskloGreen, s:none, "none")
-call <sid>hi("NonText", s:haskloSteel, s:none, "none")
-call <sid>hi("Number", s:haskloViolet, s:none, "none")
-call <sid>hi("Operator", s:haskloOrange, s:none, "none")
-call <sid>hi("PreProc", s:haskloGreen, s:none, "none")
-call <sid>hi("Special", s:haskloCyan, s:none, "none")
-call <sid>hi("SpecialKey", s:haskloCyan, s:none, "none")
-call <sid>hi("Statement", s:haskloRed, s:none, "none")
-call <sid>hi("StorageClass", s:haskloOrange, s:none, "none")
-call <sid>hi("String", s:haskloLightBlue, s:none, "none")
-call <sid>hi("Tag", s:haskloRed, s:none, "none")
-call <sid>hi("Title", s:haskloOrange, s:none, "bold")
-call <sid>hi("Todo", s:haskloWhite, s:none, "inverse,bold")
-call <sid>hi("Type", s:haskloCyan, s:none, "none")
-call <sid>hi("Underlined", s:haskloGray3, s:none, "underline")
-call <sid>hi("SpellBad", s:none, s:none, "undercurl")
-call <sid>hi("SpellCap", s:none, s:none, "undercurl")
-call <sid>hi("SpellLocal", s:none, s:none, "undercurl")
-call <sid>hi("TabLineFill ", s:haskloGray3, s:none,"none")
-call <sid>hi("WildMenu", s:haskloCyan, s:none, "none")
-call <sid>hi("SignColumn", s:haskloGreen, s:none,"none")
-call <sid>hi("SpecialComment", s:haskloGray2, s:none, "none")
-call <sid>hi("Typedef", s:haskloCyan, s:none, "none")
-call <sid>hi("PreCondit", s:haskloGreen, s:none, "none")
-call <sid>hi("Include", s:haskloGreen, s:none, "none")
-call <sid>hi("StatusLineNC", s:haskloGray3, s:none, "none")
-call <sid>hi("Ignore", s:haskloGray3, s:none, "none")
-call <sid>hi("Debug", s:haskloSteel, s:none, "none")
-call <sid>hi("PMenuSbar", s:none, s:haskloBlack2, "none")
-call <sid>hi("SpecialChar", s:haskloRed, s:none, "none") 
-call <sid>hi("Delimiter", s:haskloGray3, s:none, "none") 
-call <sid>hi("Question", s:haskloCyan, s:none, "none") 
-call <sid>hi("VisualNOS", s:haskloGray2, s:haskloGold, "none")
-call <sid>hi("ModeMsg", s:haskloGold, s:none, "none")
-call <sid>hi("CursorColumn", s:none, s:haskloGray2, "none")
-call <sid>hi("FoldColumn", s:haskloWhite, s:none, "none")
-call <sid>hi("MoreMsg", s:haskloGold, s:none, "none")
-call <sid>hi("Exception", s:haskloGreen, s:none, "none")
-call <sid>hi("Error", s:haskloRed, s:none, "none")
-call <sid>hi("PMenuThumb", s:haskloCyan, s:none, "none")
-call <sid>hi("Repeat", s:haskloRed, s:none, "none")
-call <sid>hi("Structure", s:haskloCyan, s:none, "none")
-call <sid>hi("Macro", s:haskloGold, s:none, "none")
-call <sid>hi("cursorim", s:haskloViolet, s:none, "none")
+call SetHi("Normal",                s:haskloWhite,       s:haskloBackground,      "none")
+call SetHi("Visual",                s:haskloBackground,  s:haskloGray2,           "none")
+call SetHi("Boolean",               s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("Character",             s:haskloGold,        s:haskloBackground,      "none")
+call SetHi("Comment",               s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("Conditional",           s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("Constant",              s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("Define",                s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("DiffAdd",               s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("DiffChange",            s:haskloYellow,      s:haskloBackground,      "none")
+call SetHi("DiffDelete",            s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("DiffText",              s:haskloBackground,  s:haskloRed,             "none")
+call SetHi("ErrorMsg",              s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("WarningMsg",            s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("Float",                 s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("Function",              s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("Identifier",            s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("Keyword",               s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("Label",                 s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("NonText",               s:haskloSteel,       s:haskloBackground,      "none")
+call SetHi("Number",                s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("Operator",              s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("PreProc",               s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("Special",               s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("SpecialKey",            s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("Statement",             s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("StorageClass",          s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("String",                s:haskloDirtyYellow, s:haskloBackground,      "none")
+call SetHi("Tag",                   s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("Title",                 s:haskloOrange,      s:haskloBackground,      "bold")
+call SetHi("Todo",                  s:haskloWhite,       s:haskloBackground,      "standout")
+call SetHi("Type",                  s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("Underlined",            s:haskloGray3,       s:haskloBackground,      "underline")
+call SetHi("SpellBad",              s:haskloBackground,  s:haskloBackground,      "undercurl")
+call SetHi("SpellCap",              s:haskloBackground,  s:haskloBackground,      "undercurl")
+call SetHi("SpellLocal",            s:haskloBackground,  s:haskloBackground,      "undercurl")
+call SetHi("SignColumn",            s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("SpecialComment",        s:haskloGray2,       s:haskloBackground,      "none")
+call SetHi("Typedef",               s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("PreCondit",             s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("Include",               s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("Ignore",                s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("Debug",                 s:haskloSteel,       s:haskloBackground,      "none")
+call SetHi("SpecialChar",           s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("Delimiter",             s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("Question",              s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("Exception",             s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("Error",                 s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("Repeat",                s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("Structure",             s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("Macro",                 s:haskloGold,        s:haskloBackground,      "none")
+call SetHi("TabLineFill ",          s:haskloGray3,       s:haskloBackground,      "none")
 
 " Viml
-call <sid>hi("vimOption", s:haskloCyan, s:none, "none")
-call <sid>hi("vimCommand", s:haskloRed, s:none, "none")
-
+call SetHi("vimOption",             s:haskloLightBlue,   s:haskloBackground,      "none")
+call SetHi("vimCommand",            s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("vimVar",                s:haskloLightGreen,  s:haskloBackground,      "none")
 
 " Haskell - Used with haskell-vim: https://github.com/neovimhaskell/haskell-vim
-call <sid>hi("haskellIdentifier", s:haskloViolet, s:none, "none")
-call <sid>hi("haskellType", s:haskloOrange, s:none, "none")
-call <sid>hi("haskellImportKeywords", s:haskloViolet, s:none, "none")
-call <sid>hi("haskellDecl", s:haskloCyan, s:none, "none")
-call <sid>hi("haskellOperators", s:haskloRed, s:none, "none")
-call <sid>hi("haskellDelimiter", s:haskloRed, s:none, "none")
+call SetHi("haskellIdentifier",     s:haskloLightBlue,   s:haskloBackground,      "none")
+call SetHi("haskellType",           s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("haskellImportKeywords", s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("haskellDecl",           s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("haskellOperators",      s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("haskellDelimiter",      s:haskloRed,         s:haskloBackground,      "none")
 
 " JSON
-call <sid>hi("jsonKeyword", s:haskloRed, s:none, "none")
+call SetHi("jsonKeyword",           s:haskloRed,         s:haskloBackground,      "none")
 
 " Vim Fugitive
-call <sid>hi("diffRemoved", s:haskloRed, s:none, "none")
-call <sid>hi("diffAdded", s:haskloGreen, s:none, "none")
+call SetHi("diffRemoved",           s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("diffAdded",             s:haskloGreen,       s:haskloBackground,      "none")
 
 " HTML
-call <sid>hi("htmlTagN", s:haskloGreen, s:none, "none")
+call SetHi("htmlTagN",              s:haskloGreen,       s:haskloBackground,      "none")
 
 " Vim Signify
-call <sid>hi("SignifySignAdd", s:haskloGreen, s:none, "bold")
-call <sid>hi("SignifySignDelete", s:haskloRed, s:none, "bold")
-call <sid>hi("SignifySignChange", s:haskloYellow, s:none, "bold")
+call SetHi("SignifySignAdd",        s:haskloGreen,       s:haskloBackground,      "bold")
+call SetHi("SignifySignDelete",     s:haskloRed,         s:haskloBackground,      "bold")
+call SetHi("SignifySignChange",     s:haskloYellow,      s:haskloBackground,      "bold")
 
-" Semshi
-call <sid>hi("semshiSelected", s:haskloWhite, s:haskloSteel, "none")
+" Coc.nvim
+call SetHi("CocErrorSign",          s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("CocWarningSign",        s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("CocInfoSign",           s:haskloYellow,      s:haskloBackground,      "none")
+call SetHi("CocHintSign",           s:haskloCyan,        s:haskloBackground,      "none")
+
+" Python
+call SetHi("pythonDecoratorName",   s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("pythonStatement",       s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("pythonFunction",        s:haskloLightBlue,   s:haskloBackground,      "none")
+call SetHi("pythonOperator",        s:haskloRed,         s:haskloBackground,      "none")
+
+" ZSH
+call SetHi("zshDeref",              s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("zshCommands",           s:haskloLightBlue,   s:haskloBackground,      "none")
+call SetHi("zshOperator",           s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("zshRedirect",           s:haskloRed,         s:haskloBackground,      "none")
+
+" INI Files
+call SetHi("dosiniLabel",           s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("dosiniValue",           s:haskloLightBlue,   s:haskloBackground,      "none")
+call SetHi("dosiniHeader",          s:haskloViolet,      s:haskloBackground,      "none")

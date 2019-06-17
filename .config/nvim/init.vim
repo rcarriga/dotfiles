@@ -18,38 +18,41 @@ if dein#load_state('~/.cache/dein')
     call dein#add('rhysd/git-messenger.vim', { 'on_cmd' : 'GitMessenger' })
     " Hopefully temporary to set nicer background for git messenger
     call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
-    call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdtree', { 'on_event' : 'InsertEnter' })
-    call dein#add('mbbill/undotree', { 'on_event' : 'InsertEnter' })
-    call dein#add('ryanoasis/vim-devicons', { 'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('liuchengxu/vim-which-key', { 'on_cmd' : 'WhichKey' })
-    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('honza/vim-snippets')
-    call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
-    call dein#add('numirias/semshi')
-    call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
     " call dein#add('w0rp/ale')
-    call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
+    call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
+    call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
+    call dein#add('amix/vim-zenroom2', {'on_event': 'InsertEnter'})
     call dein#add('dyng/ctrlsf.vim', { 'on_event' : 'InsertEnter' })
-    call dein#add('liuchengxu/eleline.vim')
+    call dein#add('heavenshell/vim-pydocstring', {'on_ft': 'python', 'on_event': 'InsertEnter'})
+    call dein#add('honza/vim-snippets')
+    call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0, 'on_event': 'InsertEnter'}) 
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf', 'on_event': 'InsertEnter' })
+    call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
+    call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
+    call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
+    call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
-    call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
-    call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
-    call dein#add('heavenshell/vim-pydocstring', {'on_ft': 'python', 'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
-    call dein#add('shumphrey/fugitive-gitlab.vim')
-    call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
-    call dein#add('tpope/vim-fugitive', { 'on_event': 'InsertEnter' })
+    call dein#add('rcarriga/eleline.vim')
+    call dein#add('liuchengxu/vista.vim')
+    call dein#add('liuchengxu/vim-which-key', { 'on_cmd' : 'WhichKey' })
     call dein#add('machakann/vim-sandwich', { 'on_event': 'InsertEnter' })
-    call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
+    call dein#add('mbbill/undotree', { 'on_event' : 'InsertEnter' })
+    call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
     call dein#add('neoclide/coc.nvim', {'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
-    call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
-    call dein#add('amix/vim-zenroom2', {'on_event': 'InsertEnter'})
+    call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
+    call dein#add('numirias/semshi')
+    call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
+    call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
+    call dein#add('ryanoasis/vim-devicons', { 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
+    call dein#add('scrooloose/nerdtree', { 'on_event' : 'InsertEnter' })
+    call dein#add('shumphrey/fugitive-gitlab.vim')
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('tpope/vim-fugitive', { 'on_event': 'InsertEnter' })
+    call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
 					\ 'build': 'cd app & yarn install' })
     call dein#remote_plugins()
@@ -255,23 +258,24 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeIgnore=['__pycache__', '__main__.py']
 
 let g:eleline_powerline_fonts = 1
+let g:eleline_background = "NONE"
 
 let test#strategy = "neovim"
 
 let g:undotree_WindowLayout = 3
 let g:undotree_SplitWidth = 50
 let g:undotree_HighlightChangedText = 0
+
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#enable_icon = 1
+let g:vista_sidebar_width = 50
+
+let g:indentLine_char = '▏'
 " ###################################################################################
 " Autocommands
-
-" Transparent signify background
-au ColorScheme * hi SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
-" Transparent Background
-au ColorScheme * hi Normal ctermbg=none guibg=none
-" Slightly different background for popup menu. Easier to see
-au ColorScheme * hi Pmenu guibg=#222222
-" Default error text is too dark to read in floating windows
-au ColorScheme * hi CocErrorFloat ctermfg=9 guifg=#FFFFFF guibg=#333333
 
 " Quit if nerdtree is last open window
 au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -401,6 +405,11 @@ nnoremap <silent><leader>ts :TestSuite<CR>
 nnoremap <silent><leader>tl :TestLast<CR>
 nnoremap <silent><leader>tv :TestVisit<CR>
 nnoremap <silent><leader>tm :make test<CR>
+nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
+
+" Ctags and LSP symbol finding
+nnoremap <silent><leader>vv :Vista!!<CR>
+nnoremap <silent><leader>vf :Vista finder<CR>
 nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
 
 " Distraction free writing
