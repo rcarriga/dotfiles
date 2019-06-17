@@ -252,7 +252,7 @@ let g:mkdp_browser = 'firefox'
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
-let NERDTreeIgnore=['__pycache__', '__init__.py', '__main__.py']
+let NERDTreeIgnore=['__pycache__', '__main__.py']
 
 let g:eleline_powerline_fonts = 1
 
@@ -300,9 +300,6 @@ nnoremap L $
 
 "Save current buffer
 nnoremap <leader>w :w<CR>
-
-"Replace the word under cursor
-nnoremap <leader>s :%s/\<<c-r><c-w>\>//g<left><left>
 
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
@@ -428,6 +425,9 @@ inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() :
 nnoremap <leader>st :ThesaurusQueryReplaceCurrentWord<CR>
 " Some lovely grammar checking
 nnoremap <leader>sg :GrammarousCheck<CR>
+"Replace the word under cursor
+nnoremap <leader>ss :%s/\<<c-r><c-w>\>//g<left><left>
+
 
 " Align GitHub-flavored Markdown tables
 vmap <leader>a :EasyAlign*<Bar><Enter>
