@@ -1,29 +1,41 @@
 {
-  "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
+    "languageserver": {
+        "clangd": {
+            "command": "clangd",
+            "rootPatterns": [
+                "compile_flags.txt",
+                "compile_commands.json",
+                ".vim/",
+                ".git/",
+                ".hg/"
+            ],
+            "filetypes": [
+                "c",
+                "cpp",
+                "objc",
+                "objcpp"
+            ]
+        },
+        "haskell": {
+            "command": "hie-wrapper",
+            "rootPatterns": [
+                ".stack.yaml",
+                "cabal.config",
+                "package.yaml"
+            ],
+            "filetypes": [
+                "hs",
+                "lhs",
+                "haskell"
+            ],
+            "initializationOptions": {}
+        }
     },
-    "haskell": {
-      "command": "hie-wrapper",
-      "rootPatterns": [
-        ".stack.yaml",
-        "cabal.config",
-        "package.yaml"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell"
-      ],
-      "initializationOptions": {}
-    }
-  },
-  "tslint.jsEnable": true,
-  "tslint.enable": true,
-  "tsserver.npm": "/usr/local/bin/npm",
-  "tsserver.log": "verbose",
-  "python.linting.mypyEnabled": true,
-  "python.linting.pydocstyleEnabled": true
+    "tslint.jsEnable": true,
+    "tslint.enable": true,
+    "tsserver.npm": "/usr/local/bin/npm",
+    "tsserver.log": "verbose",
+    "python.jediEnabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pydocstyleEnabled": true
 }
