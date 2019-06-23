@@ -38,7 +38,7 @@ function! SetSemshi()
     call SetHi("semshiParameterUnused", s:haskloGray3,      s:haskloBackground, "none")
     call SetHi("semshiFree",            s:haskloBlue,       s:haskloBackground, "none")
     call SetHi("semshiBuiltin",         s:haskloViolet,     s:haskloBackground, "none")
-    call SetHi("semshiAttribute",       s:haskloLime,       s:haskloBackground, "none")
+    call SetHi("semshiAttribute",       s:haskloCyan,       s:haskloBackground, "none")
     call SetHi("semshiSelf",            s:haskloSteel,      s:haskloBackground, "none")
     call SetHi("semshiUnresolved",      s:haskloGray2,      s:haskloBackground, "none")
     call SetHi("semshiSelected",        s:haskloBackground, s:haskloBackground, "underline")
@@ -68,7 +68,7 @@ let s:haskloGold            = {"gui": "#F0D50C", "cterm256": "220"}
 let s:haskloOrange          = {"gui": "#FF9F63", "cterm256": "202"}
 let s:haskloLightRed        = {"gui": "#FF5661", "cterm256": "1"}
 let s:haskloRed             = {"gui": "#F70067", "cterm256": "1"}
-let s:haskloFloatBackground = {"gui": "#0D1323", "cterm256": "NONE"}
+let s:haskloFloatBackground = {"gui": "#2D3343", "cterm256": "NONE"}
 let s:haskloBackground      = {"gui": "NONE", "cterm256": "NONE"}
 
 " Vim
@@ -87,7 +87,7 @@ call SetHi("PmenuSel",              s:haskloBackground,  s:haskloGray2,         
 call SetHi("IncSearch",             s:haskloBlack,       s:haskloGray3,           "none")
 call SetHi("Search",                s:haskloWhite,       s:haskloGray2,           "none")
 call SetHi("Directory",             s:haskloGreen,       s:haskloBackground,      "none")
-call SetHi("Folded",                s:haskloGray2,       s:haskloBackground,      "none")
+call SetHi("Folded",                s:haskloGray3,       s:haskloBackground,      "none")
 call SetHi("WildMenu",              s:haskloCyan,        s:haskloBackground,      "none")
 call SetHi("PMenuSbar",             s:haskloBackground,  s:haskloBlack,           "none")
 call SetHi("VisualNOS",             s:haskloGray2,       s:haskloGold,            "none")

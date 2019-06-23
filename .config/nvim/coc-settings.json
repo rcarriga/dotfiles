@@ -35,7 +35,10 @@
     "tslint.enable": true,
     "tsserver.npm": "/usr/local/bin/npm",
     "tsserver.log": "verbose",
-    "python.jediEnabled": true,
     "python.linting.mypyEnabled": true,
-    "python.linting.pydocstyleEnabled": true
+    "python.linting.pydocstyleEnabled": true,
+    "coc.preferences.jumpCommand": "vsplit",
+    "coc.preferences.codeLens.enable": true,
+    "suggest.noselect": true,
+    "suggest.enablePreview": true
 }

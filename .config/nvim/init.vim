@@ -5,7 +5,7 @@
 
 " Auto install dein
 if empty(glob('~/.cache/dein'))
-  silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh 
+  silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
   silent !sh ./installer.sh ~/.cache/dein
   silent !rm ./installer.sh
 endif
@@ -14,45 +14,42 @@ endif
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
-
-    call dein#add('rhysd/git-messenger.vim', { 'on_cmd' : 'GitMessenger' })
-    " Hopefully temporary to set nicer background for git messenger
-    call dein#set_hook('git-messenger.vim', 'hook_source', 'hi gitmessengerPopupNormal term=None guifg=#eeeeee guibg=#222222 ctermfg=255 ctermbg=234')
-    " call dein#add('w0rp/ale')
-    call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
-    call dein#add('amix/vim-zenroom2', {'on_event': 'InsertEnter'})
-    call dein#add('dyng/ctrlsf.vim', { 'on_event' : 'InsertEnter' })
-    call dein#add('heavenshell/vim-pydocstring', {'on_ft': 'python', 'on_event': 'InsertEnter'})
+    call dein#add('Konfekt/FastFold', {'lazy': 1, 'on_event': 'InsertEnter'})
+    call dein#add('Ron89/thesaurus_query.vim', {'lazy': 1, 'on_ft': ['tex', 'markdown']})
+    call dein#add('Shougo/denite.nvim', {'lazy': 1, 'on_cmd': 'Denite'})
+    call dein#add('Yggdroot/indentLine', {'lazy': 1, 'on_event': 'InsertEnter'})
+    call dein#add('alvan/vim-closetag', {'lazy': 1, 'on_ft': 'html'})
+    call dein#add('heavenshell/vim-pydocstring', {'lazy': 1, 'on_event': 'InsertEnter'})
     call dein#add('honza/vim-snippets')
-    call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
-    call dein#add('Shougo/denite.nvim', { 'on_cmd': 'Denite'})
-    call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
-    call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
-    call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
-    call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
-    call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
-    call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
-    call dein#add('lervag/vimtex', {'on_ft': 'tex'})
-    call dein#add('vim-airline/vim-airline', {"lazy": 1, "on_event": "InsertEnter"})
-    call dein#add('liuchengxu/vista.vim')
-    call dein#add('liuchengxu/vim-which-key', { 'on_cmd' : 'WhichKey' })
-    call dein#add('machakann/vim-sandwich', { 'on_event': 'InsertEnter' })
-    call dein#add('mbbill/undotree', { 'on_event' : 'InsertEnter' })
-    call dein#add('mhinz/vim-signify', { 'on_event': 'InsertEnter'})
-    call dein#add('neoclide/coc.nvim', {'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
-    call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
+    call dein#add('iamcco/markdown-preview.nvim', {'lazy': 1, 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
+    call dein#add('jamessan/vim-gnupg')
+    call dein#add('janko/vim-test', {'lazy': 1,  'on_event' : 'InsertEnter' })
+    call dein#add('junegunn/goyo.vim', {'lazy': 1, 'on_cmd': 'Goyo'})
+    call dein#add('junegunn/limelight.vim', {'lazy': 1, 'on_event': 'InsertEnter'})
+    call dein#add('junegunn/vim-easy-align', {'lazy': 1, 'on_ft': 'markdown'})
+    call dein#add('leafgarland/typescript-vim', {'lazy': 1, 'on_ft': 'typescript'})
+    call dein#add('lervag/vimtex', {'lazy': 1, 'on_ft': 'tex'})
+    call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
+    call dein#add('machakann/vim-sandwich', {'lazy': 1,  'on_event': 'InsertEnter' })
+    call dein#add('mbbill/undotree', {'lazy': 1,  'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
+    call dein#add('mhinz/vim-signify', {'lazy': 1,  'on_event': 'InsertEnter'})
+    call dein#add('neoclide/coc.nvim', {'lazy': 1, 'on_func': 'CocActionAsync','on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
+    call dein#add('neovimhaskell/haskell-vim', {'lazy': 1, 'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
-    call dein#add('patstockwell/vim-monokai-tasty', {'style': 'colors'})
-    call dein#add('rhysd/vim-grammarous', {'on_ft': ['markdown', 'tex']})
-    call dein#add('ryanoasis/vim-devicons', { 'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdtree', { 'on_event' : 'InsertEnter' })
+    call dein#add('rhysd/git-messenger.vim', {'lazy': 1,  'on_cmd' : 'GitMessenger' })
+    call dein#add('rhysd/vim-grammarous', {'lazy': 1, 'on_cmd': 'GrammarousCheck'})
+    call dein#add('ryanoasis/vim-devicons', {'lazy': 1,  'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('scrooloose/nerdcommenter', {'lazy': 1, 'on_event': 'InsertEnter'})
+    call dein#add('scrooloose/nerdtree', {'lazy': 1,  'on_cmd' : 'NERDTreeToggle' })
     call dein#add('shumphrey/fugitive-gitlab.vim')
-    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('tpope/vim-fugitive', { 'on_event': 'InsertEnter' })
-    call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
-    call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', {'lazy': 1,  'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('tmhedberg/SimpylFold', {'lazy': 1, 'on_ft': 'python'})
+    call dein#add('tpope/vim-fugitive', {'lazy': 1,  'on_event': 'InsertEnter' })
+    call dein#add('vim-airline/vim-airline', {"lazy": 1, "on_event": "InsertEnter"})
+    call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
+    call dein#add('whiteinge/diffconflicts', {'lazy': 1,  'on_cmd' : 'DiffConflicts' })
+    call dein#add('zhimsel/vim-stay')
+    call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
   call dein#save_state()
@@ -142,9 +139,6 @@ set mouse=nvi
 " Preview changes when using search and replace
 set inccommand=nosplit
 
-" Show folding levels in a column beside buffer
-set foldcolumn=1
-
 " Dont wrap lines
 set nowrap
 
@@ -152,8 +146,17 @@ set nowrap
 set switchbuf=useopen
 " Space as leader key
 let mapleader="\<Space>"
+
+" Save state when using :mkview
+set viewoptions=cursor,folds,slash,unix
+
+" set statusline=%!MyStatusLine()
 " ###################################################################################
 " Functions
+
+function! MyStatusLine() abort
+    return "%-t %-M | %-{StatusDiagnostic()}"
+endfunction
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -188,7 +191,7 @@ function! WinMove(key)
 endfunction
 
 function! OpenRepl() abort
-  let t:curft = &filetype  
+  let t:curft = &filetype
   let t:repls = {
       \ "python": "python3",
       \ "haskell": "stack ghci"
@@ -205,6 +208,31 @@ function! OpenRepl() abort
   endif
 endfunction
 
+function! StatusDiagnostic() abort
+  let info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info) | return '' | endif
+  let msgs = []
+  if get(info, 'error', 0)
+    call add(msgs, 'E' . info['error'])
+  endif
+  if get(info, 'warning', 0)
+    call add(msgs, 'W' . info['warning'])
+  endif
+  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
+endfunction
+
+function! LargeFile()
+ " no syntax highlighting etc
+ set eventignore+=FileType
+ " save memory when other file is viewed
+ setlocal bufhidden=unload
+ " is read-only (write with :w new_filename)
+ setlocal buftype=nowrite
+ " no undo possible
+ setlocal undolevels=-1
+ " display message
+ autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
+endfunction
 " ###################################################################################
 " Plugin Settings
 
@@ -221,18 +249,7 @@ let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://git
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-let g:vim_monokai_tasty_italic = 1
-color hasklo " vim-monokai-tasty
-let g:lightline = {
-      \ 'colorscheme': 'monokai_tasty',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ }
+color hasklo
 
 let g:coc_global_extensions = [ "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
@@ -272,6 +289,19 @@ let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
 
 let g:indentLine_char = '▏'
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline_extensions= ['branch', 'coc', 'denite', 'vimtex', 'undotree', 'fugitiveline', 'hunks']
+let g:airline#extensions#hunks#non_zero_only = 1
+let g:airline_theme = 'molokai'
+let airline#extensions#coc#error_symbol = ' '
+let airline#extensions#coc#warning_symbol = ' '
+let g:airline#extensions#tabline#enabled = 1
+
+" Any file larger than 10mb has certain features disabled to speed up load times
+let g:LargeFile = 1024 * 1024 * 10
 
 call denite#custom#option('_', 'statusline', v:false)
 call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -284,10 +314,6 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
 
-let g:airline#extensions#coc#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions= ['branch', 'coc', 'denite', 'vimtex', 'undotree']
 " ###################################################################################
 " Autocommands
 
@@ -308,6 +334,20 @@ au FileType qf call AdjustWindowHeight(3, 50)
 
 " Define denite window mappings
 autocmd FileType denite call s:denite_my_settings()
+
+" Disable indent lines for certain files.
+au FileType help IndentLinesDisable
+au FileType markdown IndentLinesDisable
+
+au InsertEnter call AirlineSettings()
+
+augroup LargeFile 
+  au!
+  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+augroup END
+
+
+
 " ###################################################################################
 " Custom Mappings
 
@@ -406,8 +446,7 @@ nnoremap <silent><leader>m :GitMessenger<CR>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 
 " Language server functions
-nnoremap <silent><leader>ld :vs<CR>:call CocActionAsync('jumpDefinition')<CR>
-nmap <silent><leader>lD <Plug>(coc-definition)
+nmap <silent><leader>ld <Plug>(coc-definition)
 nmap <silent><leader>lr <Plug>(coc-rename)
 nmap <silent><leader>lf <Plug>(coc-format)
 nmap <silent><leader>lt <Plug>(coc-type-definition)
@@ -429,12 +468,12 @@ nnoremap <silent><leader>ts :TestSuite<CR>
 nnoremap <silent><leader>tl :TestLast<CR>
 nnoremap <silent><leader>tv :TestVisit<CR>
 nnoremap <silent><leader>tm :make test<CR>
-nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
+nnoremap <silent><leader>to :!open coverage/index.html<CR>
 
 " Ctags and LSP symbol finding
 nnoremap <silent><leader>vv :Vista!!<CR>
 nnoremap <silent><leader>vf :Vista finder<CR>
-nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
+nnoremap <silent><leader>to :!open coverage/index.html<CR>
 
 " Distraction free writing
 nnoremap <silent><leader>z :Goyo<CR>
@@ -451,7 +490,7 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 " Use <CR> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : 
+inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() :
                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Who doesn't like a good thesauras
@@ -464,9 +503,6 @@ nnoremap <leader>ss :%s/\<<c-r><c-w>\>//g<left><left>
 
 " Align GitHub-flavored Markdown tables
 vmap <leader>a :EasyAlign*<Bar><Enter>
-
-" Show leader mappings
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " Disgusting mapping to find highlight group under cursor for changing
 " colorschemes
