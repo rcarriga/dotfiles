@@ -26,8 +26,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('heavenshell/vim-pydocstring', {'on_ft': 'python', 'on_event': 'InsertEnter'})
     call dein#add('honza/vim-snippets')
     call dein#add('janko/vim-test', { 'on_event' : 'InsertEnter' })
-    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0, 'on_event': 'InsertEnter'}) 
-    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf', 'on_event': 'InsertEnter' })
+    call dein#add('Shougo/denite.nvim', { 'on_cmd': 'Denite'})
     call dein#add('junegunn/goyo.vim', {'on_event': 'InsertEnter'})
     call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
@@ -35,7 +34,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
-    call dein#add('rcarriga/eleline.vim')
+    call dein#add('vim-airline/vim-airline', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('liuchengxu/vista.vim')
     call dein#add('liuchengxu/vim-which-key', { 'on_cmd' : 'WhichKey' })
     call dein#add('machakann/vim-sandwich', { 'on_event': 'InsertEnter' })
@@ -53,8 +52,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', { 'on_cmd' : 'NERDTreeToggle' })
     call dein#add('tpope/vim-fugitive', { 'on_event': 'InsertEnter' })
     call dein#add('yuttie/comfortable-motion.vim', { 'on_event' : 'InsertEnter' })
-    call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'],
-					\ 'build': 'cd app & yarn install' })
+    call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
     call dein#remote_plugins()
   call dein#end()
   call dein#save_state()
@@ -274,6 +272,22 @@ let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
 
 let g:indentLine_char = '▏'
+
+call denite#custom#option('_', 'statusline', v:false)
+call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#var('file/rec', 'default_action', 'switch')
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+
+let g:airline#extensions#coc#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline_extensions= ['branch', 'coc', 'denite', 'vimtex', 'undotree']
 " ###################################################################################
 " Autocommands
 
@@ -292,6 +306,8 @@ au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(3, 50)
 
+" Define denite window mappings
+autocmd FileType denite call s:denite_my_settings()
 " ###################################################################################
 " Custom Mappings
 
@@ -318,18 +334,18 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 " Switch windows with Ctrl + regular direction keys
-nnoremap <silent> <C-h> :call WinMove('h')<CR>
-nnoremap <silent> <C-j> :call WinMove('j')<CR>
-nnoremap <silent> <C-k> :call WinMove('k')<CR>
-nnoremap <silent> <C-l> :call WinMove('l')<CR>
-tnoremap <silent><C-h> <C-\><C-N>:call WinMove('h')<CR>
-tnoremap <silent><C-h> <C-\><C-N>:call WinMove('h')<CR>
-tnoremap <silent><C-j> <C-\><C-N>:call WinMove('j')<CR>
-tnoremap <silent><C-k> <C-\><C-N>:call WinMove('k')<CR>
-inoremap <silent><C-l> <C-\><C-N>:call WinMove('l')<CR>
-inoremap <silent><C-j> <C-\><C-N>:call WinMove('j')<CR>
-inoremap <silent><C-k> <C-\><C-N>:call WinMove('k')<CR>
-inoremap <silent><C-l> <C-\><C-N>:call WinMove('l')<CR>
+nnoremap <silent> <C-h> <C-w><C-h>
+nnoremap <silent> <C-j> <C-w><C-j>
+nnoremap <silent> <C-k> <C-w><C-k>
+nnoremap <silent> <C-l> <C-w><C-l>
+tnoremap <silent><C-h> <C-\><C-N><C-w><C-h>
+tnoremap <silent><C-h> <C-\><C-N><C-w><C-j>
+tnoremap <silent><C-j> <C-\><C-N><C-w><C-k>
+tnoremap <silent><C-k> <C-\><C-N><C-w><C-l>
+inoremap <silent><C-l> <C-\><C-N><C-w><C-h>
+inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
+inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
+inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
 "REPL Support
 nnoremap <silent> <leader>r :call OpenRepl()<CR>
@@ -347,10 +363,6 @@ nnoremap <leader>hd :CocCommand post.do<CR>
 nnoremap <leader>hn :CocCommand post.new<CR>
 nnoremap <leader>hl :CocList post<CR>
 
-" FZF and Ag mappings
-nnoremap <silent><leader>f :Files<CR>
-nnoremap <silent><leader>ag :Ag .<CR>
-
 " Git functions with vim-fugitive and git messenger
 nnoremap <silent><leader>gs :Gstatus<CR>
 nnoremap <silent><leader>gd :Gdiff<CR>
@@ -367,9 +379,21 @@ nnoremap <leader>hd :CocCommand post.do<CR>
 nnoremap <leader>hn :CocCommand post.new<CR>
 nnoremap <leader>hl :CocList post<CR>
 
-" FZF and Ag mappings
-nnoremap <silent><leader>f :Files<CR>
-nnoremap <silent><leader>ag :Ag .<CR>
+" Denite Mappings
+nnoremap <silent><leader>df :Denite file/rec<CR>
+nnoremap <silent><leader>da :Denite grep<CR>
+nnoremap <silent><leader>db :Denite buffer<CR>
+" For denite windows only
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
+  nnoremap <silent><buffer><expr> x denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> t denite#do_map('do_action', 'tabswitch')
+  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+endfunction
 
 " Git functions with vim-fugitive and git messenger
 nnoremap <silent><leader>gs :Gstatus<CR>
@@ -413,7 +437,7 @@ nnoremap <silent><leader>vf :Vista finder<CR>
 nnoremap <silent><silent> <leader>to :!open coverage/index.html<CR>
 
 " Distraction free writing
-nnoremap <silent><leader>d :Goyo<CR>
+nnoremap <silent><leader>z :Goyo<CR>
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
 inoremap <silent><expr> <TAB>
@@ -449,3 +473,4 @@ nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
