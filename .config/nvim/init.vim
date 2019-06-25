@@ -334,6 +334,11 @@ let g:ale_linters = {
     \ "ruby": ["rubocop"]
   \ }
 
+let g:odi#interpreters = {
+   \ 'haskell': {
+        \ 'bin': ['stack','ghci']
+        \ },
+   \ }
 au InsertEnter * let g:airline_section_x = airline#section#create(["readonly"])." %{get(b:, 'coc_git_blame', '')}" | AirlineRefresh
 " ###################################################################################
 " Autocommands
@@ -407,8 +412,6 @@ inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
-"REPL Support
-nnoremap <silent> <leader>r :call OpenRepl()<CR>
 
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
@@ -471,8 +474,10 @@ nnoremap <silent><leader>m :GitMessenger<CR>
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 
 " Toggle Codi window for current buffer
-nmap <silent><leader>cf :Codi!!<CR>
-nmap <silent><leader>cs :call CodiSplit()<CR>
+nmap <silent><leader>rf :Codi!!<CR>
+nmap <silent><leader>rs :call CodiSplit()<CR>
+"REPL Support
+nnoremap <silent> <leader>r :call OpenRepl()<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
