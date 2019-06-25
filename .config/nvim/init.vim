@@ -15,6 +15,7 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
     call dein#add('Konfekt/FastFold', {'lazy': 1, 'on_event': 'InsertEnter'})
+    call dein#add('w0rp/ale', {'lazy': 1, 'on_event': 'InsertEnter'})
     call dein#add('Ron89/thesaurus_query.vim', {'lazy': 1, 'on_ft': ['tex', 'markdown']})
     call dein#add('Shougo/denite.nvim', {'lazy': 1, 'on_cmd': 'Denite'})
     call dein#add('Yggdroot/indentLine', {'lazy': 1, 'on_event': 'InsertEnter'})
@@ -251,7 +252,7 @@ let g:echodoc#type = 'signature'
 
 color hasklo
 
-let g:coc_global_extensions = [ "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -304,7 +305,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:LargeFile = 1024 * 1024 * 10
 
 call denite#custom#option('_', 'statusline', v:false)
-call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+" call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 call denite#custom#var('file/rec', 'default_action', 'switch')
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
@@ -313,7 +314,7 @@ call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
-
+let g:ale_virtualtext_cursor = 1
 " ###################################################################################
 " Autocommands
 
@@ -425,7 +426,7 @@ nnoremap <silent><leader>db :Denite buffer<CR>
 function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
   nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
-  nnoremap <silent><buffer><expr> x denite#do_map('do_action', 'vsplit')
+  nnoremap <silent><buffer><expr> v denite#do_map('do_action', 'vsplit')
   nnoremap <silent><buffer><expr> t denite#do_map('do_action', 'tabswitch')
   nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
   nnoremap <silent><buffer><expr> q denite#do_map('quit')
@@ -453,6 +454,8 @@ nmap <silent><leader>lg <Plug>(coc-diagnostic-info)
 nmap <silent><leader>ln <Plug>(coc-diagnostic-next)
 nmap <silent><leader>lp <Plug>(coc-diagnostic-prev)
 nmap <silent><leader>la <Plug>(coc-codeaction)
+nmap <silent><leader>ls <Plug>(coc-codelens-action)
+nmap <silent><leader>lt <Plug>(coc-float-jump)
 nmap <silent><leader>lk :call CocActionAsync('doHover')<CR>
 nmap <silent><leader>ls :call CocActionAsync('documentSymbols')<CR>
 nmap <silent><leader>lh :call CocActionAsync('highlight')<CR>
