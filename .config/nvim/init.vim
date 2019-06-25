@@ -422,6 +422,10 @@ nnoremap <leader>hl :CocList post<CR>
 nnoremap <silent><leader>df :Denite file/rec<CR>
 nnoremap <silent><leader>da :Denite grep<CR>
 nnoremap <silent><leader>db :Denite buffer<CR>
+nnoremap <silent><leader>db :Denite grammarous<CR>
+nnoremap <silent><leader>do :Denite outline<CR>
+nnoremap <silent><leader>dh :Denite help<CR>
+
 " For denite windows only
 function! s:denite_my_settings() abort
   nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
