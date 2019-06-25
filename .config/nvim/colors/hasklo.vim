@@ -73,15 +73,15 @@ let s:haskloBackground      = {"gui": "NONE", "cterm256": "NONE"}
 
 " Vim
 call SetHi("Cursor",                s:haskloBlack,       s:haskloWhite,           "none")
-call SetHi("CursorLine",            s:haskloGray1,       s:haskloBackground,      "none")
+call SetHi("CursorLine",            s:haskloBackground,  s:haskloGray2,           "none")
 call SetHi("CursorColumn",          s:haskloGray1,       s:haskloBackground,      "none")
 call SetHi("ColorColumn",           s:haskloGray1,       s:haskloBackground,      "none")
 call SetHi("LineNr",                s:haskloGray3,       s:haskloBackground,      "none")
 call SetHi("CursorLineNr",          s:haskloSteel,       s:haskloBackground,      "none")
 call SetHi("VertSplit",             s:haskloGray3,       s:haskloGray2,           "none")
 call SetHi("MatchParen",            s:haskloRed,         s:haskloBackground,      "underline")
-call SetHi("StatusLine",            s:haskloSteel,       s:haskloGray1,      "none")
-call SetHi("StatusLineNC",          s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("StatusLine",            s:haskloGray3,       s:haskloBackground,      "none")
+call SetHi("StatusLineNC",          s:haskloGray2,       s:haskloBackground,      "none")
 call SetHi("Pmenu",                 s:haskloLightBlue,   s:haskloFloatBackground, "none")
 call SetHi("PmenuSel",              s:haskloBackground,  s:haskloGray2,           "none")
 call SetHi("IncSearch",             s:haskloBlack,       s:haskloGray3,           "none")
@@ -201,3 +201,9 @@ call SetHi("zshRedirect",           s:haskloRed,         s:haskloBackground,    
 call SetHi("dosiniLabel",           s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("dosiniValue",           s:haskloLightBlue,   s:haskloBackground,      "none")
 call SetHi("dosiniHeader",          s:haskloViolet,      s:haskloBackground,      "none")
+
+" ALE
+call SetHi("ALEWarningSign",        s:haskloYellow,      s:haskloBackground,      "none")
+call SetHi("ALEVirtualTextError",   s:haskloRed,         s:haskloBackground,      "none")
+call SetHi("ALEVirtualTextWarning", s:haskloYellow,      s:haskloBackground,      "none")
+call SetHi("ALEVirtualTextInfo",    s:haskloCyan,        s:haskloBackground,      "none")

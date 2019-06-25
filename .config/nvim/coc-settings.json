@@ -35,6 +35,8 @@
     "tslint.enable": true,
     "tsserver.npm": "/usr/local/bin/npm",
     "tsserver.log": "verbose",
+    "git.addGlameToVirtualText": true,
+    "git.enableGutters": false,
     "python.linting.mypyEnabled": true,
     "python.linting.pydocstyleEnabled": true,
     "coc.preferences.jumpCommand": "vsplit",
