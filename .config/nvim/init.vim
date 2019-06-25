@@ -50,6 +50,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('whiteinge/diffconflicts', {'lazy': 1,  'on_cmd' : 'DiffConflicts' })
     call dein#add('zhimsel/vim-stay')
+    call dein#add('metakirby5/codi.vim', {'lazy': '1', 'on_cmd': 'Codi!!'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -151,7 +152,6 @@ let mapleader="\<Space>"
 " Save state when using :mkview
 set viewoptions=cursor,folds,slash,unix
 
-" set statusline=%!MyStatusLine()
 " ###################################################################################
 " Functions
 
@@ -234,6 +234,16 @@ function! LargeFile()
  " display message
  autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
 endfunction
+
+function! CodiSplit()
+    let l:ft = &filetype
+    vnew
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal noswapfile
+    exe "setlocal filetype=".l:ft
+    :Codi
+endfunction
 " ###################################################################################
 " Plugin Settings
 
@@ -268,16 +278,16 @@ let g:NERDSpaceDelims = 1
 
 let g:mkdp_browser = 'firefox'
 
+" Make NERDTree nicer looking
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeIgnore=['__pycache__', '__main__.py']
 
-let g:eleline_powerline_fonts = 1
-let g:eleline_background = "NONE"
-
+" Use terminal windows for running tests
 let test#strategy = "neovim"
 
+" Put UndoTree at left of window, width 50, and disable highlighting changes.
 let g:undotree_WindowLayout = 3
 let g:undotree_SplitWidth = 50
 let g:undotree_HighlightChangedText = 0
@@ -290,9 +300,10 @@ let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
 
 let g:indentLine_char = '▏'
-let g:airline_powerline_fonts = 1
 
-let g:airline#extensions#coc#enabled = 1
+" Pretty icons for airline
+let g:airline_powerline_fonts = 1
+" Use manual loading of extensions
 let g:airline#extensions#disable_rtp_load = 1
 let g:airline_extensions= ['branch', 'coc', 'denite', 'vimtex', 'undotree', 'fugitiveline', 'hunks']
 let g:airline#extensions#hunks#non_zero_only = 1
@@ -315,6 +326,15 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
 let g:ale_virtualtext_cursor = 1
+let g:ale_linters = {
+    \ "python": [],
+    \ "haskell": [],
+    \ "javascript": [],
+    \ "typescript": [],
+    \ "ruby": ["rubocop"]
+  \ }
+
+au InsertEnter * let g:airline_section_x = airline#section#create(["readonly"])." %{get(b:, 'coc_git_blame', '')}" | AirlineRefresh
 " ###################################################################################
 " Autocommands
 
@@ -339,6 +359,7 @@ autocmd FileType denite call s:denite_my_settings()
 " Disable indent lines for certain files.
 au FileType help IndentLinesDisable
 au FileType markdown IndentLinesDisable
+au FileType codi IndentLinesDisable
 
 au InsertEnter call AirlineSettings()
 
@@ -446,7 +467,12 @@ nnoremap <silent><leader>gb :Gbrowse<CR>
 nnoremap <silent><leader>gl :Gblame<CR>
 nnoremap <silent><leader>m :GitMessenger<CR>
 
+" Toggle UndoTree window
 nnoremap <silent><leader>u :UndotreeToggle<CR>
+
+" Toggle Codi window for current buffer
+nmap <silent><leader>cf :Codi!!<CR>
+nmap <silent><leader>cs :call CodiSplit()<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
