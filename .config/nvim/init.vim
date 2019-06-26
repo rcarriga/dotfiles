@@ -334,7 +334,8 @@ let g:ale_linters = {
     \ "ruby": ["rubocop"]
   \ }
 
-au InsertEnter * let g:airline_section_x = airline#section#create(["readonly"])." %{get(b:, 'coc_git_blame', '')}" | AirlineRefresh
+au User AirlineAfterInit let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
+
 " ###################################################################################
 " Autocommands
 
