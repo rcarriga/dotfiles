@@ -68,7 +68,7 @@ let s:haskloGold            = {"gui": "#F0D50C", "cterm256": "220"}
 let s:haskloOrange          = {"gui": "#FF9F63", "cterm256": "202"}
 let s:haskloLightRed        = {"gui": "#FF5661", "cterm256": "1"}
 let s:haskloRed             = {"gui": "#F70067", "cterm256": "1"}
-let s:haskloFloatBackground = {"gui": "#2D3343", "cterm256": "NONE"}
+let s:haskloFloatBackground = {"gui": "#262626", "cterm256": "NONE"}
 let s:haskloBackground      = {"gui": "NONE", "cterm256": "NONE"}
 
 " Vim
@@ -207,3 +207,9 @@ call SetHi("ALEWarningSign",        s:haskloYellow,      s:haskloBackground,    
 call SetHi("ALEVirtualTextError",   s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("ALEVirtualTextWarning", s:haskloYellow,      s:haskloBackground,      "none")
 call SetHi("ALEVirtualTextInfo",    s:haskloCyan,        s:haskloBackground,      "none")
+
+" Denite
+call SetHi("deniteSource_grepFile", s:haskloViolet, s:haskloBackground, "none")
+call SetHi("deniteSource_grep", s:haskloWhite, s:haskloBackground, "none")
+call SetHi("deniteSource_file_rec", s:haskloViolet, s:haskloBackground, "none")
+call SetHi("deniteMatchedChar", s:haskloOrange, s:haskloBackground, "bold")
