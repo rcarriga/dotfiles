@@ -1,5 +1,3 @@
-
-source ~/Downloads/javascript.vim
 " ###################################################################################
 " Install Plugins
 " See README for links (Or just paste each plugin to https://github.com/)
@@ -427,12 +425,12 @@ nnoremap <leader>hn :CocCommand post.new<CR>
 nnoremap <leader>hl :CocList post<CR>
 
 " Denite Mappings
-nnoremap <silent><leader>df :Denite file/rec<CR>
-nnoremap <silent><leader>da :Denite grep<CR>
-nnoremap <silent><leader>db :Denite buffer<CR>
-nnoremap <silent><leader>dg :Denite grammarous<CR>
-nnoremap <silent><leader>do :Denite outline<CR>
-nnoremap <silent><leader>dh :Denite help<CR>
+nnoremap <silent><leader>df :Denite -split=floating -start-filter file/rec<CR>
+nnoremap <silent><leader>da :Denite -split=floating -start-filter grep:::!<CR>
+nnoremap <silent><leader>db :Denite -split=floating buffer<CR>
+nnoremap <silent><leader>dg :Denite -split=floating grammarous<CR>
+nnoremap <silent><leader>do :Denite -split=floating outline<CR>
+nnoremap <silent><leader>dh :Denite -split=floating help<CR>
 
 " For denite windows only
 function! s:denite_my_settings() abort
