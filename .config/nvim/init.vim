@@ -1,4 +1,5 @@
 
+source ~/Downloads/javascript.vim
 " ###################################################################################
 " Install Plugins
 " See README for links (Or just paste each plugin to https://github.com/)
@@ -49,7 +50,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('vim-airline/vim-airline', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('whiteinge/diffconflicts', {'lazy': 1,  'on_cmd' : 'DiffConflicts' })
-    call dein#add('zhimsel/vim-stay')
     call dein#add('metakirby5/codi.vim', {'lazy': '1', 'on_cmd': 'Codi!!'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
@@ -191,24 +191,6 @@ function! WinMove(key)
   endif
 endfunction
 
-function! OpenRepl() abort
-  let t:curft = &filetype
-  let t:repls = {
-      \ "python": "python3",
-      \ "haskell": "stack ghci"
-    \ }
-  if has_key(t:repls, t:curft)
-      let t:command = t:repls[t:curft]
-      if (bufname(t:command) != "")
-          exe ":sbuffer" t:command
-      else
-          :split /tmp/term
-          call termopen(t:command)
-          :startinsert
-      endif
-  endif
-endfunction
-
 function! StatusDiagnostic() abort
   let info = get(b:, 'coc_diagnostic_info', {})
   if empty(info) | return '' | endif
@@ -311,13 +293,15 @@ let g:airline_theme = 'molokai'
 let airline#extensions#coc#error_symbol = ' '
 let airline#extensions#coc#warning_symbol = ' '
 let g:airline#extensions#tabline#enabled = 1
+au User AirlineAfterInit let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
 
 " Any file larger than 10mb has certain features disabled to speed up load times
 let g:LargeFile = 1024 * 1024 * 10
 
 call denite#custom#option('_', 'statusline', v:false)
-" call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-call denite#custom#var('file/rec', 'default_action', 'switch')
+call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#kind('file/rec', 'default_action', 'switch')
+call denite#custom#kind('buffer', 'default_action', 'switch')
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
 call denite#custom#var('grep', 'recursive_opts', [])
@@ -334,8 +318,12 @@ let g:ale_linters = {
     \ "ruby": ["rubocop"]
   \ }
 
-au User AirlineAfterInit let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
 
+let g:codi#interpreters = {
+   \ 'haskell': {
+        \ 'bin': ['stack','ghci']
+        \ },
+   \ }
 " ###################################################################################
 " Autocommands
 
@@ -408,8 +396,6 @@ inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
-"REPL Support
-nnoremap <silent> <leader>r :call OpenRepl()<CR>
 
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
@@ -444,7 +430,7 @@ nnoremap <leader>hl :CocList post<CR>
 nnoremap <silent><leader>df :Denite file/rec<CR>
 nnoremap <silent><leader>da :Denite grep<CR>
 nnoremap <silent><leader>db :Denite buffer<CR>
-nnoremap <silent><leader>db :Denite grammarous<CR>
+nnoremap <silent><leader>dg :Denite grammarous<CR>
 nnoremap <silent><leader>do :Denite outline<CR>
 nnoremap <silent><leader>dh :Denite help<CR>
 
@@ -470,10 +456,6 @@ nnoremap <silent><leader>m :GitMessenger<CR>
 
 " Toggle UndoTree window
 nnoremap <silent><leader>u :UndotreeToggle<CR>
-
-" Toggle Codi window for current buffer
-nmap <silent><leader>cf :Codi!!<CR>
-nmap <silent><leader>cs :call CodiSplit()<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
