@@ -43,5 +43,29 @@
     "coc.preferences.jumpCommand": "vsplit",
     "coc.preferences.codeLens.enable": true,
     "suggest.noselect": true,
-    "suggest.enablePreview": true
+    "suggest.enablePreview": true,
+    "list.source.grep.command": "ag",
+    "list.source.files.defaultOptions": [
+        "--ignore-case"
+    ],
+    "list.source.grep.defaultOptions": [
+        "--ignore-case",
+        "--interactive",
+        "--auto-preview"
+    ],
+    "list.source.helptags.defaultOptions": [
+        "--ignore-case",
+        "--interactive",
+        "--auto-preview"
+    ],
+    "list.source.words.defaultOptions": [
+        "--ignore-case",
+        "--interactive"
+    ],
+    "list.source.buffers.defaultOptions": [
+        "--normal"
+    ]
+    "list.source.commits.defaultOptions": [
+        "--normal"
+    ]
 }
