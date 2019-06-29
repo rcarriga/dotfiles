@@ -40,7 +40,7 @@
     "python.linting.mypyEnabled": true,
     "python.jediEnabled": false,
     "python.linting.pydocstyleEnabled": true,
-    "coc.preferences.jumpCommand": "vsplit",
+    "coc.preferences.jumpCommand": "drop",
     "coc.preferences.codeLens.enable": true,
     "suggest.noselect": true,
     "suggest.enablePreview": true,
@@ -55,7 +55,6 @@
     ],
     "list.source.helptags.defaultOptions": [
         "--ignore-case",
-        "--interactive",
         "--auto-preview"
     ],
     "list.source.words.defaultOptions": [
@@ -64,7 +63,7 @@
     ],
     "list.source.buffers.defaultOptions": [
         "--normal"
-    ]
+    ],
     "list.source.commits.defaultOptions": [
         "--normal"
     ]
