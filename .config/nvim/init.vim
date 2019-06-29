@@ -15,7 +15,6 @@ if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
     call dein#add('Konfekt/FastFold', {'on_event': 'InsertEnter'})
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add('Shougo/denite.nvim', {'on_cmd': 'Denite'})
     call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('heavenshell/vim-pydocstring', {'on_event': 'InsertEnter'})
@@ -24,7 +23,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('jamessan/vim-gnupg')
     call dein#add('janko/vim-test', {'on_event' : 'InsertEnter' })
     call dein#add('junegunn/goyo.vim', {'on_cmd': 'Goyo'})
-    call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
     call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
@@ -33,10 +31,9 @@ if dein#load_state('~/.cache/dein')
     call dein#add('mbbill/undotree', {'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
     call dein#add('metakirby5/codi.vim', {'lazy': '1', 'on_cmd': 'Codi!!'})
     call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
-    call dein#add('neoclide/coc.nvim', {'on_func': 'CocActionAsync','on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
+    call dein#add('neoclide/coc.nvim', {'on_func':[ 'CocActionAsync', 'CocList'],'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
-    call dein#add('rhysd/git-messenger.vim', {'on_cmd' : 'GitMessenger' })
     call dein#add('rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck'})
     call dein#add('ryanoasis/vim-devicons', {'lazy': 1})
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
@@ -150,12 +147,10 @@ let mapleader="\<Space>"
 " Save state when using :mkview
 set viewoptions=cursor,folds,slash,unix
 
+color hasklo
+
 " ###################################################################################
 " Functions
-
-function! MyStatusLine() abort
-    return "%-t %-M | %-{StatusDiagnostic()}"
-endfunction
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -176,19 +171,6 @@ function! AdjustWindowHeight(minheight, maxheight)
  exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-function! WinMove(key)
-  let t:curwin = winnr()
-  exec "wincmd ".a:key
-  if (t:curwin == winnr())
-    if (match(a:key,'[jk]'))
-      wincmd v
-    else
-      wincmd s
-    endif
-    exec "wincmd ".a:key
-  endif
-endfunction
-
 function! StatusDiagnostic() abort
   let info = get(b:, 'coc_diagnostic_info', {})
   if empty(info) | return '' | endif
@@ -200,19 +182,6 @@ function! StatusDiagnostic() abort
     call add(msgs, 'W' . info['warning'])
   endif
   return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-endfunction
-
-function! LargeFile()
- " no syntax highlighting etc
- set eventignore+=FileType
- " save memory when other file is viewed
- setlocal bufhidden=unload
- " is read-only (write with :w new_filename)
- setlocal buftype=nowrite
- " no undo possible
- setlocal undolevels=-1
- " display message
- autocmd VimEnter *  echo "The file is larger than " . (g:LargeFile / 1024 / 1024) . " MB, so some options are changed (see .vimrc for details)."
 endfunction
 
 function! CodiSplit()
@@ -227,8 +196,8 @@ endfunction
 " ###################################################################################
 " Plugin Settings
 
-" Open preview window after entering the markdown buffer
-let g:mkdp_auto_start = 0
+" Don't open preview window after entering the markdown buffer
+let g:mkdp_auto_start = 1
 " Auto close current preview window when change
 let g:mkdp_auto_close = 1
 
@@ -240,9 +209,7 @@ let g:fugitive_gitlab_domains = ['***REMOVED***', 'https://github.com', '***REMO
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-color hasklo
-
-let g:coc_global_extensions = [ "coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-yank","coc-lists","coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -288,27 +255,15 @@ let g:indentLine_char = '▏'
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
 let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions= ['branch', 'coc', 'denite', 'vimtex', 'undotree', 'fugitiveline', 'hunks']
+let g:airline_extensions= ['branch', 'coc', 'vimtex', 'undotree', 'fugitiveline', 'hunks']
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_theme = 'molokai'
 let airline#extensions#coc#error_symbol = ' '
 let airline#extensions#coc#warning_symbol = ' '
 let g:airline#extensions#tabline#enabled = 1
-au User AirlineAfterInit let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
 
 " Any file larger than 10mb has certain features disabled to speed up load times
 let g:LargeFile = 1024 * 1024 * 10
-
-call denite#custom#option('_', 'statusline', v:false)
-call denite#custom#var('file/rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-call denite#custom#kind('file/rec', 'default_action', 'switch')
-call denite#custom#kind('buffer', 'default_action', 'switch')
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
 
 let g:ale_virtualtext_cursor = 1
 let g:ale_linters = {
@@ -361,6 +316,7 @@ augroup LargeFile
   autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
 augroup END
 
+au User AirlineAfterInit let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
 " ###################################################################################
 " Custom Mappings
 
@@ -420,7 +376,6 @@ nnoremap <silent><leader>gd :Gdiff<CR>
 nnoremap <silent><leader>gp :Gpush<CR>
 nnoremap <silent><leader>gb :Gbrowse<CR>
 nnoremap <silent><leader>gl :Gblame<CR>
-nnoremap <silent><leader>m :GitMessenger<CR>
 
 " Auto docstring
 nmap <leader>p <Plug>(pydocstring)
@@ -430,33 +385,18 @@ nnoremap <leader>hd :CocCommand post.do<CR>
 nnoremap <leader>hn :CocCommand post.new<CR>
 nnoremap <leader>hl :CocList post<CR>
 
-" Denite Mappings
-nnoremap <silent><leader>df :Denite -split=floating -start-filter file/rec<CR>
-nnoremap <silent><leader>da :Denite -split=floating -start-filter grep:::!<CR>
-nnoremap <silent><leader>db :Denite -split=floating buffer<CR>
-nnoremap <silent><leader>dg :Denite -split=floating grammarous<CR>
-nnoremap <silent><leader>do :Denite -split=floating outline<CR>
-nnoremap <silent><leader>dh :Denite -split=floating help<CR>
-
-" For denite windows only
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> s denite#do_map('do_action', 'split')
-  nnoremap <silent><buffer><expr> v denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> t denite#do_map('do_action', 'tabswitch')
-  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-endfunction
-
-" Git functions with vim-fugitive and git messenger
-nnoremap <silent><leader>gs :Gstatus<CR>
-nnoremap <silent><leader>gd :Gdiff<CR>
-nnoremap <silent><leader>gp :Gpush<CR>
-nnoremap <silent><leader>gb :Gbrowse<CR>
-nnoremap <silent><leader>gl :Gblame<CR>
-nnoremap <silent><leader>m :GitMessenger<CR>
+" Coc List Mappings
+nnoremap <silent><leader>df :CocList files<CR>
+nnoremap <silent><leader>dm :CocList mru<CR>
+nnoremap <silent><leader>da :CocList grep<CR>
+nnoremap <silent><leader>db :CocList buffers<CR>
+nnoremap <silent><leader>do :CocList outline<CR>
+nnoremap <silent><leader>dh :CocList helptags<CR>
+nnoremap <silent><leader>dq :CocList quickfix<CR>
+nnoremap <silent><leader>ds :CocList symbols<CR>
+nnoremap <silent><leader>dc :CocList commits<CR>
+nnoremap <silent><leader>dy :CocList yank<CR>
+nnoremap <silent><leader>dw :CocList words<CR>
 
 " Toggle UndoTree window
 nnoremap <silent><leader>u :UndotreeToggle<CR>
