@@ -29,13 +29,13 @@ if dein#load_state('~/.cache/dein')
     call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
     call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter' })
     call dein#add('mbbill/undotree', {'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
-    call dein#add('metakirby5/codi.vim', {'lazy': '1', 'on_cmd': 'Codi!!'})
+    call dein#add('metakirby5/codi.vim', {'on_cmd': 'Codi!!'})
     call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
-    call dein#add('neoclide/coc.nvim', {'on_func':[ 'CocActionAsync', 'CocList'],'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
+    call dein#add('neoclide/coc.nvim', {'on_func': 'CocActionAsync', 'on_cmd':['CocCommand', 'CocList'],'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
     call dein#add('rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck'})
-    call dein#add('ryanoasis/vim-devicons', {'lazy': 1})
+    call dein#add('ryanoasis/vim-devicons')
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdtree', {'on_cmd' : 'NERDTreeToggle' })
     call dein#add('shumphrey/fugitive-gitlab.vim')
@@ -45,6 +45,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('vim-airline/vim-airline', {"lazy": 1, 'depends': ['vim-airline-themes'], 'on_event': "InsertEnter"})
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
+    call dein#add('mhinz/vim-startify')
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
@@ -196,13 +197,20 @@ endfunction
 " ###################################################################################
 " Plugin Settings
 
+let entry_format = "'   ['. index .']'. repeat(' ', (3 - strlen(index)))"
+
+if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
+    let entry_format .= ". WebDevIconsGetFileTypeSymbol(entry_path) .' '.  entry_path"
+else
+    let entry_format .= '. entry_path'
+endif
+
 " Don't open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 1
 " Auto close current preview window when change
 let g:mkdp_auto_close = 1
-
-let g:vimtex_compiler_progname = 'nvr'
-"Add private repo urls to this list to use Gbrowse(Opens file in browser)"
+let g:vimtex_compiler_progname = 'nvr' 
+"Add private repo urls to this list to use Gbrowse(Opens file in browser) 
 let g:fugitive_gitlab_domains = ['***REMOVED***', 'https://github.com', '***REMOVED***']
 
 " Shows function signature above commandline instead of opening new window
@@ -213,8 +221,6 @@ let g:coc_global_extensions = [ "coc-yank","coc-lists","coc-git", "coc-solargrap
 
 " Set GoYo width
 let g:goyo_width = 100
-
-let g:limelight_conceal_guifg = 'DarkGray'
 
 let g:coc_snippet_next = '<tab>'
 
@@ -291,10 +297,6 @@ au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTre
 " Open windows in other buffer from nerdtree
 au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
 
-" Enable limelight when using GoYo
-au! User GoyoEnter Limelight
-au! User GoyoLeave Limelight!
-
 " Show function signatures when calling function
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -356,19 +358,10 @@ inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
-
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
 " Exit program without signal message
-tnoremap <silent> <C-d> <C-\><C-N>:q<CR>
-
-" Auto docstring
-nmap <leader>p <Plug>(pydocstring)
-
-" HTTP requests - coc-post
-nnoremap <leader>hd :CocCommand post.do<CR>
-nnoremap <leader>hn :CocCommand post.new<CR>
-nnoremap <leader>hl :CocList post<CR>
+tnoremap <silent> <C-d> <C-d><C-\><C-N>:q<CR>
 
 " Git functions with vim-fugitive and git messenger
 nnoremap <silent><leader>gs :Gstatus<CR>
@@ -380,6 +373,9 @@ nnoremap <silent><leader>gl :Gblame<CR>
 " Auto docstring
 nmap <leader>p <Plug>(pydocstring)
 
+" Toggle UndoTree window
+nnoremap <silent><leader>u :UndotreeToggle<CR>
+
 " HTTP requests - coc-post
 nnoremap <leader>hd :CocCommand post.do<CR>
 nnoremap <leader>hn :CocCommand post.new<CR>
@@ -388,7 +384,7 @@ nnoremap <leader>hl :CocList post<CR>
 " Coc List Mappings
 nnoremap <silent><leader>df :CocList files<CR>
 nnoremap <silent><leader>dm :CocList mru<CR>
-nnoremap <silent><leader>da :CocList grep<CR>
+nnoremap <silent><leader>dg :CocList grep<CR>
 nnoremap <silent><leader>db :CocList buffers<CR>
 nnoremap <silent><leader>do :CocList outline<CR>
 nnoremap <silent><leader>dh :CocList helptags<CR>
@@ -397,9 +393,6 @@ nnoremap <silent><leader>ds :CocList symbols<CR>
 nnoremap <silent><leader>dc :CocList commits<CR>
 nnoremap <silent><leader>dy :CocList yank<CR>
 nnoremap <silent><leader>dw :CocList words<CR>
-
-" Toggle UndoTree window
-nnoremap <silent><leader>u :UndotreeToggle<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
@@ -419,6 +412,11 @@ nmap <silent><leader>lh :call CocActionAsync('highlight')<CR>
 nmap <silent><leader>lq :call CocActionAsync('quickfixes')<CR>
 nmap <silent><leader>li :CocList<CR>
 
+nnoremap <silent><leader>sc :CocCommand session.save<CR>
+nnoremap <silent><leader>so :CocCommand session.open<CR>
+nnoremap <silent><leader>sr :CocCommand session.restart<CR>
+nnoremap <silent><leader>sl :CocList sessions<CR>
+
 " Testing functions
 nnoremap <silent><leader>tn :TestNearest<CR>
 nnoremap <silent><leader>tf :TestFile<CR>
@@ -431,7 +429,6 @@ nnoremap <silent><leader>to :!open coverage/index.html<CR>
 " Ctags and LSP symbol finding
 nnoremap <silent><leader>vv :Vista!!<CR>
 nnoremap <silent><leader>vf :Vista finder<CR>
-nnoremap <silent><leader>to :!open coverage/index.html<CR>
 
 " Distraction free writing
 nnoremap <silent><leader>z :Goyo<CR>
@@ -452,11 +449,11 @@ inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() :
                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Who doesn't like a good thesauras
-nnoremap <leader>st :ThesaurusQueryReplaceCurrentWord<CR>
+nnoremap <leader>ut :ThesaurusQueryReplaceCurrentWord<CR>
 " Some lovely grammar checking
-nnoremap <leader>sg :GrammarousCheck<CR>
+nnoremap <leader>ug :GrammarousCheck<CR>
 "Replace the word under cursor
-nnoremap <leader>ss :%s/\<<c-r><c-w>\>//g<left><left>
+nnoremap <leader>us :%s/\<<c-r><c-w>\>//g<left><left>
 
 
 " Align GitHub-flavored Markdown tables
