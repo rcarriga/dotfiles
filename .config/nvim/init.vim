@@ -13,42 +13,42 @@ endif
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
-    call dein#add('Konfekt/FastFold', {'lazy': 1, 'on_event': 'InsertEnter'})
-    call dein#add('w0rp/ale', {'lazy': 1, 'on_event': 'InsertEnter'})
-    call dein#add('Ron89/thesaurus_query.vim', {'lazy': 1, 'on_ft': ['tex', 'markdown']})
-    call dein#add('Shougo/denite.nvim', {'lazy': 1, 'on_cmd': 'Denite'})
-    call dein#add('Yggdroot/indentLine', {'lazy': 1, 'on_event': 'InsertEnter'})
-    call dein#add('alvan/vim-closetag', {'lazy': 1, 'on_ft': 'html'})
-    call dein#add('heavenshell/vim-pydocstring', {'lazy': 1, 'on_event': 'InsertEnter'})
+    call dein#add('Konfekt/FastFold', {'on_event': 'InsertEnter'})
+    call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
+    call dein#add('Shougo/denite.nvim', {'on_cmd': 'Denite'})
+    call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
+    call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
+    call dein#add('heavenshell/vim-pydocstring', {'on_event': 'InsertEnter'})
     call dein#add('honza/vim-snippets')
-    call dein#add('iamcco/markdown-preview.nvim', {'lazy': 1, 'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
+    call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
     call dein#add('jamessan/vim-gnupg')
-    call dein#add('janko/vim-test', {'lazy': 1,  'on_event' : 'InsertEnter' })
-    call dein#add('junegunn/goyo.vim', {'lazy': 1, 'on_cmd': 'Goyo'})
-    call dein#add('junegunn/limelight.vim', {'lazy': 1, 'on_event': 'InsertEnter'})
-    call dein#add('junegunn/vim-easy-align', {'lazy': 1, 'on_ft': 'markdown'})
-    call dein#add('leafgarland/typescript-vim', {'lazy': 1, 'on_ft': 'typescript'})
-    call dein#add('lervag/vimtex', {'lazy': 1, 'on_ft': 'tex'})
+    call dein#add('janko/vim-test', {'on_event' : 'InsertEnter' })
+    call dein#add('junegunn/goyo.vim', {'on_cmd': 'Goyo'})
+    call dein#add('junegunn/limelight.vim', {'on_event': 'InsertEnter'})
+    call dein#add('junegunn/vim-easy-align', {'on_ft': 'markdown'})
+    call dein#add('leafgarland/typescript-vim', {'on_ft': 'typescript'})
+    call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
-    call dein#add('machakann/vim-sandwich', {'lazy': 1,  'on_event': 'InsertEnter' })
-    call dein#add('mbbill/undotree', {'lazy': 1,  'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
-    call dein#add('mhinz/vim-signify', {'lazy': 1,  'on_event': 'InsertEnter'})
-    call dein#add('neoclide/coc.nvim', {'lazy': 1, 'on_func': 'CocActionAsync','on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
-    call dein#add('neovimhaskell/haskell-vim', {'lazy': 1, 'on_ft': 'haskell'})
-    call dein#add('numirias/semshi')
-    call dein#add('rhysd/git-messenger.vim', {'lazy': 1,  'on_cmd' : 'GitMessenger' })
-    call dein#add('rhysd/vim-grammarous', {'lazy': 1, 'on_cmd': 'GrammarousCheck'})
-    call dein#add('ryanoasis/vim-devicons', {'lazy': 1,  'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('scrooloose/nerdcommenter', {'lazy': 1, 'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdtree', {'lazy': 1,  'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('shumphrey/fugitive-gitlab.vim')
-    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', {'lazy': 1,  'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('tmhedberg/SimpylFold', {'lazy': 1, 'on_ft': 'python'})
-    call dein#add('tpope/vim-fugitive', {'lazy': 1,  'on_event': 'InsertEnter' })
-    call dein#add('vim-airline/vim-airline', {"lazy": 1, "on_event": "InsertEnter"})
-    call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
-    call dein#add('whiteinge/diffconflicts', {'lazy': 1,  'on_cmd' : 'DiffConflicts' })
+    call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter' })
+    call dein#add('mbbill/undotree', {'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
     call dein#add('metakirby5/codi.vim', {'lazy': '1', 'on_cmd': 'Codi!!'})
+    call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
+    call dein#add('neoclide/coc.nvim', {'on_func': 'CocActionAsync','on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
+    call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
+    call dein#add('numirias/semshi')
+    call dein#add('rhysd/git-messenger.vim', {'on_cmd' : 'GitMessenger' })
+    call dein#add('rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck'})
+    call dein#add('ryanoasis/vim-devicons', {'lazy': 1})
+    call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
+    call dein#add('scrooloose/nerdtree', {'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('shumphrey/fugitive-gitlab.vim')
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', {'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+    call dein#add('tpope/vim-fugitive', {'on_event': 'InsertEnter' })
+    call dein#add('vim-airline/vim-airline', {"lazy": 1, 'depends': ['vim-airline-themes'], 'on_event': "InsertEnter"})
+    call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
+    call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
+    call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -264,6 +264,9 @@ let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeIgnore=['__pycache__', '__main__.py']
 
+" Enable devicons for other plugins
+let g:webdevicons_enable_denite = 1
+let g:webdevicons_enable_airline_statusline = 1
 " Use terminal windows for running tests
 let test#strategy = "neovim"
 
@@ -322,6 +325,9 @@ let g:codi#interpreters = {
         \ 'bin': ['stack','ghci']
         \ },
    \ }
+
+" Disable thesauras default mappings
+let g:tq_map_keys=0
 " ###################################################################################
 " Autocommands
 
