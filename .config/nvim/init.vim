@@ -142,6 +142,7 @@ set nowrap
 
 " Jump to existing window when opening buffer already opened
 set switchbuf=useopen
+
 " Space as leader key
 let mapleader="\<Space>"
 
@@ -459,8 +460,7 @@ nnoremap <leader>us :%s/\<<c-r><c-w>\>//g<left><left>
 " Align GitHub-flavored Markdown tables
 vmap <leader>a :EasyAlign*<Bar><Enter>
 
-" Disgusting mapping to find highlight group under cursor for changing
-" colorschemes
+" Find highlight group under cursor for changing colorschemes
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
