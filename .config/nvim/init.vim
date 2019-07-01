@@ -137,9 +137,6 @@ set mouse=nvi
 " Preview changes when using search and replace
 set inccommand=nosplit
 
-" Dont wrap lines
-set nowrap
-
 " Jump to existing window when opening buffer already opened
 set switchbuf=useopen
 
@@ -308,9 +305,14 @@ au FileType qf call AdjustWindowHeight(3, 50)
 autocmd FileType denite call s:denite_my_settings()
 
 " Disable indent lines for certain files.
-au FileType help IndentLinesDisable
-au FileType markdown IndentLinesDisable
-au FileType codi IndentLinesDisable
+augroup IndentLinesDisabled
+    au!
+    au FileType help IndentLinesDisable
+    au FileType markdown IndentLinesDisable
+    au FileType codi IndentLinesDisable
+    au FileType tex IndentLinesDisable
+    au FileType plaintex IndentLinesDisable
+augroup END
 
 au InsertEnter call AirlineSettings()
 
