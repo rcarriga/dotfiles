@@ -72,5 +72,8 @@
     ],
     "list.source.yank.defaultOptions": [
         "--normal"
+    ],
+    "list.source.sessions.defaultOptions": [
+        "--normal"
     ]
 }
