@@ -109,7 +109,7 @@ call SetHi("Define",                s:haskloCyan,        s:haskloBackground,    
 call SetHi("DiffAdd",               s:haskloGreen,       s:haskloBackground,      "none")
 call SetHi("DiffChange",            s:haskloYellow,      s:haskloBackground,      "none")
 call SetHi("DiffDelete",            s:haskloRed,         s:haskloBackground,      "none")
-call SetHi("DiffText",              s:haskloBackground,  s:haskloRed,             "none")
+call SetHi("DiffText",              s:haskloRed,         s:haskloBackground,             "none")
 call SetHi("ErrorMsg",              s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("WarningMsg",            s:haskloOrange,      s:haskloBackground,      "none")
 call SetHi("Float",                 s:haskloViolet,      s:haskloBackground,      "none")
