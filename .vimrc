@@ -131,7 +131,7 @@ endfunction
 " Plugin Settings Section
 
 "Add private repo urls to this list to use Gbrowse(Opens file in browser)"
-let g:fugitive_gitlab_domains = ['https://gitlab-app.eng.qops.net', 'https://github.com', 'https://gitlab.engservices.qops.net']
+let g:fugitive_gitlab_domains = []
 
 " Shows function signature above commandline instead of opening new window
 let g:echodoc#enable_at_startup = 1
