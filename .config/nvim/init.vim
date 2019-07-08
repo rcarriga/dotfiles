@@ -18,6 +18,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('heavenshell/vim-pydocstring', {'on_event': 'InsertEnter'})
+    call dein#add('tpope/vim-eunuch', {'on_event': 'InsertEnter'})
     call dein#add('honza/vim-snippets')
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
     call dein#add('jamessan/vim-gnupg')
@@ -204,7 +205,7 @@ else
 endif
 
 " Don't open preview window after entering the markdown buffer
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 1
 let g:vimtex_compiler_progname = 'nvr' 
@@ -444,8 +445,6 @@ inoremap <silent><expr> <TAB>
 imap <silent> <CR> <Plug>(coc-snippets-expand)
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
 " Use <CR> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() :
