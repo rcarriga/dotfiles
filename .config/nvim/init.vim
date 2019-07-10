@@ -215,7 +215,7 @@ let g:fugitive_gitlab_domains = []
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-let g:coc_global_extensions = [ "coc-yank","coc-lists","coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-emmet", "coc-yank","coc-lists","coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 " Set GoYo width
 let g:goyo_width = 100
