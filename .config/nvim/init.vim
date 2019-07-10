@@ -40,7 +40,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdtree', {'on_cmd' : 'NERDTreeToggle' })
     call dein#add('shumphrey/fugitive-gitlab.vim')
-    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight', {'on_cmd' : 'NERDTreeToggle' })
     call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
     call dein#add('tpope/vim-fugitive', {'on_event': 'InsertEnter' })
     call dein#add('vim-airline/vim-airline', {"lazy": 1, 'depends': ['vim-airline-themes'], 'on_event': "InsertEnter"})
@@ -48,6 +47,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('mhinz/vim-startify')
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
+    call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -62,7 +62,7 @@ set breakindent
 
 " Ensures word-wrap does not split words
 set formatoptions=l
-set lbr
+set linebreak
 
 " Allow filetype specific plugins and indenting
 filetype plugin indent on
@@ -79,17 +79,14 @@ set updatetime=100
 " Turn on 24 bit color. Delete this line if colors are weird
 set termguicolors
 
-" Reduce delay between switchin mode
+" Delay to wait for next key in combo
 set ttimeoutlen=50
-
-" Show line numbers
-set number
 
 " Show numbers relative to current line
 set relativenumber
 
-" Fix backspace issue
-set bs=2
+" Make backspace work as expected
+set set backspace=indent,eol,start
 
 " Make vim command autocomplete better
 set wildmode=longest,list,full
@@ -157,7 +154,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-function! AdjustWindowHeight(minheight, maxheight)
+function! AdjustWindowHeight(minheight, maxheight) abort
  let l = 1
  let n_lines = 0
  let w_width = winwidth(0)
@@ -216,7 +213,7 @@ let g:fugitive_gitlab_domains = []
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-let g:coc_global_extensions = [ "coc-yank","coc-lists","coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-tabnine", "coc-yank","coc-lists","coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -237,7 +234,6 @@ let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeIgnore=['__pycache__', '__main__.py']
 
 " Enable devicons for other plugins
-let g:webdevicons_enable_denite = 1
 let g:webdevicons_enable_airline_statusline = 1
 " Use terminal windows for running tests
 let test#strategy = "neovim"
@@ -288,6 +284,10 @@ let g:codi#interpreters = {
 
 " Disable thesauras default mappings
 let g:tq_map_keys=0
+
+" Doge config
+let g:doge_mapping_comment_jump_forward="<C->>"
+let g:doge_mapping_comment_jump_backward="<C-<>"
 " ###################################################################################
 " Autocommands
 
@@ -300,7 +300,7 @@ au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0]
 au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-au FileType qf call AdjustWindowHeight(3, 50)
+" au FileType qf call AdjustWindowHeight(3, 50)
 
 " Define denite window mappings
 autocmd FileType denite call s:denite_my_settings()
