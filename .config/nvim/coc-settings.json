@@ -76,5 +76,6 @@
     ],
     "list.source.sessions.defaultOptions": [
         "--normal"
-    ]
+    ],
+    "suggest.preferCompleteThanJumpPlaceholder": true
 }
