@@ -117,7 +117,7 @@ call SetHi("Function",              s:haskloCyan,        s:haskloBackground,    
 call SetHi("Identifier",            s:haskloOrange,      s:haskloBackground,      "none")
 call SetHi("Keyword",               s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("Label",                 s:haskloGreen,       s:haskloBackground,      "none")
-call SetHi("NonText",               s:haskloSteel,       s:haskloBackground,      "none")
+call SetHi("NonText",               s:haskloGray3,       s:haskloBackground,      "none")
 call SetHi("Number",                s:haskloViolet,      s:haskloBackground,      "none")
 call SetHi("Operator",              s:haskloOrange,      s:haskloBackground,      "none")
 call SetHi("PreProc",               s:haskloGreen,       s:haskloBackground,      "none")

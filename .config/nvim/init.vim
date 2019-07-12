@@ -144,6 +144,10 @@ let mapleader="\<Space>"
 " Save state when using :mkview
 set viewoptions=cursor,folds,slash,unix
 
+" Show unwanted characters
+exec "set listchars=tab:\uBB\uBB,nbsp:_,trail:\uB7"
+set list
+
 color hasklo
 
 " ###################################################################################
