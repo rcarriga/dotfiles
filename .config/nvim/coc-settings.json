@@ -77,5 +77,6 @@
     "list.source.sessions.defaultOptions": [
         "--normal"
     ],
-    "suggest.preferCompleteThanJumpPlaceholder": true
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "tabnine.priority": 1
 }

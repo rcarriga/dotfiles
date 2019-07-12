@@ -81,7 +81,7 @@ call SetHi("CursorLineNr",          s:haskloSteel,       s:haskloBackground,    
 call SetHi("VertSplit",             s:haskloGray3,       s:haskloGray2,           "none")
 call SetHi("MatchParen",            s:haskloRed,         s:haskloBackground,      "underline")
 call SetHi("StatusLine",            s:haskloGray3,       s:haskloBackground,      "none")
-call SetHi("StatusLineNC",          s:haskloGray2,       s:haskloBackground,      "none")
+call SetHi("StatusLineNC",          s:haskloSteel,       s:haskloBackground,      "none")
 call SetHi("Pmenu",                 s:haskloLightBlue,   s:haskloFloatBackground, "none")
 call SetHi("PmenuSel",              s:haskloBackground,  s:haskloGray2,           "none")
 call SetHi("IncSearch",             s:haskloBlack,       s:haskloGray3,           "none")

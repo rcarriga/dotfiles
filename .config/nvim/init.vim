@@ -84,6 +84,7 @@ set ttimeoutlen=50
 
 " Show numbers relative to current line
 set relativenumber
+set number
 
 " Make backspace work as expected
 set backspace=indent,eol,start
