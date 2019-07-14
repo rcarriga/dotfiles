@@ -50,6 +50,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
+    call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -283,6 +284,9 @@ let g:tq_map_keys=0
 " Doge config
 let g:doge_mapping_comment_jump_forward="<C->>"
 let g:doge_mapping_comment_jump_backward="<C-<>"
+
+let g:sneak#label = 1
+let g:sneak#s_next = 1
 " ###################################################################################
 " Autocommands
 
@@ -358,6 +362,12 @@ inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
+" Vim sneak commands
+nmap x <Plug>Sneak_s
+nmap X <Plug>Sneak_S
+xmap x <Plug>Sneak_s
+xmap X <Plug>Sneak_S
+
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
 
@@ -414,7 +424,6 @@ nmap <silent><leader>ls :call CocActionAsync('codeLensAction')<CR>
 nmap <silent><leader>lk :call CocActionAsync('doHover')<CR>
 nmap <silent><leader>ls :call CocActionAsync('documentSymbols')<CR>
 nmap <silent><leader>lq :call CocActionAsync('quickfixes')<CR>
-nmap <silent> <TAB> <Plug>(coc-range-select)
 
 " Session Management
 nmap <silent><leader>sc :CocCommand session.save<CR>
