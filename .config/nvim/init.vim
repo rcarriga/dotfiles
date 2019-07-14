@@ -13,6 +13,7 @@ endif
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
+    call dein#add('rhysd/reply.vim', {'on_event': 'InsertEnter'})
     call dein#add('Konfekt/FastFold', {'on_event': 'InsertEnter'})
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('Yggdroot/indentLine', {'on_event': 'InsertEnter'})
@@ -30,7 +31,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
     call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter' })
     call dein#add('mbbill/undotree', {'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
-    call dein#add('metakirby5/codi.vim', {'on_cmd': 'Codi!!'})
     call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
     call dein#add('neoclide/coc.nvim', {'on_func': 'CocActionAsync', 'on_cmd':['CocCommand', 'CocList'],'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
@@ -188,16 +188,6 @@ function! StatusDiagnostic() abort
   return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
-function! CodiSplit() abort
-    let l:ft = &filetype
-    vnew
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal noswapfile
-    exe "setlocal filetype=".l:ft
-    :Codi
-endfunction
-
 function! AirlineSections() abort
     let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
 endfunction
@@ -287,12 +277,6 @@ let g:ale_linters = {
   \ }
 
 
-let g:codi#interpreters = {
-   \ 'haskell': {
-        \ 'bin': ['stack','ghci']
-        \ },
-   \ }
-
 " Disable thesauras default mappings
 let g:tq_map_keys=0
 
@@ -321,7 +305,6 @@ augroup IndentLinesDisabled
     au!
     au FileType help IndentLinesDisable
     au FileType markdown IndentLinesDisable
-    au FileType codi IndentLinesDisable
     au FileType tex IndentLinesDisable
     au FileType plaintex IndentLinesDisable
 augroup END
@@ -377,8 +360,6 @@ inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
-" Exit program without signal message
-tnoremap <silent> <C-d> <C-d><C-\><C-N>:q<CR>
 
 " Git functions with vim-fugitive and git messenger
 nmap <silent><leader>gs :Gstatus<CR>
@@ -435,10 +416,17 @@ nmap <silent><leader>ls :call CocActionAsync('documentSymbols')<CR>
 nmap <silent><leader>lq :call CocActionAsync('quickfixes')<CR>
 nmap <silent> <TAB> <Plug>(coc-range-select)
 
+" Session Management
 nmap <silent><leader>sc :CocCommand session.save<CR>
 nmap <silent><leader>so :CocCommand session.open<CR>
 nmap <silent><leader>sr :CocCommand session.restart<CR>
 nmap <silent><leader>sl :CocList sessions<CR>
+
+" Repl Commands
+nmap <silent><leader>ro :Repl<CR>
+nmap <silent><leader>rc :ReplStop<CR>
+nmap <silent><leader>rs :ReplSend<CR>
+vmap <silent><leader>rs :ReplSend<CR>
 
 " Testing functions
 nmap <silent><leader>tn :TestNearest<CR>
