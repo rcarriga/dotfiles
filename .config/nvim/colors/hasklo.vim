@@ -184,6 +184,7 @@ call SetHi("CocErrorSign",          s:haskloRed,         s:haskloBackground,    
 call SetHi("CocWarningSign",        s:haskloOrange,      s:haskloBackground,      "none")
 call SetHi("CocInfoSign",           s:haskloYellow,      s:haskloBackground,      "none")
 call SetHi("CocHintSign",           s:haskloCyan,        s:haskloBackground,      "none")
+call SetHi("CocHighlightText",      s:haskloBackground,  s:haskloBackground,      "underline")
 
 " Python
 call SetHi("pythonDecoratorName",   s:haskloViolet,      s:haskloBackground,      "none")

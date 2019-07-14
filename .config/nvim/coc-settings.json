@@ -35,10 +35,10 @@
     "tslint.enable": true,
     "tsserver.npm": "/usr/local/bin/npm",
     "tsserver.log": "verbose",
-    "git.enableGutters": false,
+    "git.enableGutters": true,
     "git.addGlameToBufferVar": true,
     "python.linting.mypyEnabled": true,
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
     "python.formatting.provider": "yapf",
     "python.linting.pydocstyleEnabled": true,
     "coc.preferences.jumpCommand": "drop",
@@ -77,6 +77,5 @@
     "list.source.sessions.defaultOptions": [
         "--normal"
     ],
-    "suggest.preferCompleteThanJumpPlaceholder": true,
-    "tabnine.priority": 1
+    "suggest.preferCompleteThanJumpPlaceholder": true
 }

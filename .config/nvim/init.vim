@@ -48,6 +48,8 @@ if dein#load_state('~/.cache/dein')
     call dein#add('mhinz/vim-startify')
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
     call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
+    call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
+    call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -74,7 +76,7 @@ set laststatus=2
 set noshowmode
 
 " Set file update time in milliseconds
-set updatetime=100
+set updatetime=300
 
 " Turn on 24 bit color. Delete this line if colors are weird
 set termguicolors
@@ -186,7 +188,7 @@ function! StatusDiagnostic() abort
   return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
-function! CodiSplit()
+function! CodiSplit() abort
     let l:ft = &filetype
     vnew
     setlocal buftype=nofile
@@ -194,6 +196,10 @@ function! CodiSplit()
     setlocal noswapfile
     exe "setlocal filetype=".l:ft
     :Codi
+endfunction
+
+function! AirlineSections() abort
+    let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
 endfunction
 " ###################################################################################
 " Plugin Settings
@@ -218,7 +224,7 @@ let g:fugitive_gitlab_domains = []
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#type = 'signature'
 
-let g:coc_global_extensions = [ "coc-tabnine", "coc-emmet", "coc-yank","coc-lists","coc-git", "coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
+let g:coc_global_extensions = [ "coc-tabnine", "coc-emmet", "coc-yank","coc-lists","coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -322,12 +328,14 @@ augroup END
 
 au InsertEnter call AirlineSettings()
 
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 augroup LargeFile 
   au!
   autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
 augroup END
 
-au User AirlineAfterInit let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
+au User AirlineAfterInit call AirlineSections()
 " ###################################################################################
 " Custom Mappings
 
@@ -373,22 +381,28 @@ tnoremap <silent> <ESC> <C-\><C-N>
 tnoremap <silent> <C-d> <C-d><C-\><C-N>:q<CR>
 
 " Git functions with vim-fugitive and git messenger
-nnoremap <silent><leader>gs :Gstatus<CR>
-nnoremap <silent><leader>gd :Gdiff<CR>
-nnoremap <silent><leader>gp :Gpush<CR>
-nnoremap <silent><leader>gb :Gbrowse<CR>
-nnoremap <silent><leader>gl :Gblame<CR>
+nmap <silent><leader>gs :Gstatus<CR>
+nmap <silent><leader>gd :Gdiff<CR>
+nmap <silent><leader>gp :Gpush<CR>
+nmap <silent><leader>gb :Gbrowse<CR>
+nmap <silent><leader>gl :Gblame<CR>
+nmap <silent><leader>gf :CocCommand git.foldUnchanged<CR>
+nmap <silent><leader>gu :CocCommand git.undoChunk<CR>
+nmap <silent><leader>gp <Plug>(coc-git-prevchunk)
+nmap <silent><leader>gn <Plug>(coc-git-nextchunk)
+nmap <silent><leader>gi <Plug>(coc-git-chunkinfo)
+nmap <silent><leader>gc <Plug>(coc-git-commit)
 
 " Auto docstring
-nmap <leader>p <Plug>(pydocstring)
+nmap <silent><leader>p <Plug>(pydocstring)
 
 " Toggle UndoTree window
 nnoremap <silent><leader>u :UndotreeToggle<CR>
 
 " HTTP requests - coc-post
-nnoremap <leader>hd :CocCommand post.do<CR>
-nnoremap <leader>hn :CocCommand post.new<CR>
-nnoremap <leader>hl :CocList post<CR>
+nnoremap <silent><leader>hd :CocCommand post.do<CR>
+nnoremap <silent><leader>hn :CocCommand post.new<CR>
+nnoremap <silent><leader>hl :CocList post<CR>
 
 " Coc List Mappings
 nnoremap <silent><leader>df :CocList files<CR>
@@ -407,40 +421,50 @@ nnoremap <silent><leader>dw :CocList words<CR>
 nmap <silent><leader>ld <Plug>(coc-definition)
 nmap <silent><leader>lr <Plug>(coc-rename)
 nmap <silent><leader>lf <Plug>(coc-format)
+vmap <silent><leader>lf <Plug>(coc-format-selected)
 nmap <silent><leader>lt <Plug>(coc-type-definition)
 nmap <silent><leader>lx <Plug>(coc-references)
 nmap <silent><leader>lg <Plug>(coc-diagnostic-info)
-nmap <silent><leader>ln <Plug>(coc-diagnostic-next)
-nmap <silent><leader>lp <Plug>(coc-diagnostic-prev)
+nmap <silent><leader>ln <Plug>(coc-diagnostic-next-error)
+nmap <silent><leader>lp <Plug>(coc-diagnostic-prev-error)
 nmap <silent><leader>la <Plug>(coc-codeaction)
-nmap <silent><leader>ls <Plug>(coc-codelens-action)
-nmap <silent><leader>lt <Plug>(coc-float-jump)
+nmap <silent><leader>lj <Plug>(coc-float-jump)
+nmap <silent><leader>ls :call CocActionAsync('codeLensAction')<CR>
 nmap <silent><leader>lk :call CocActionAsync('doHover')<CR>
 nmap <silent><leader>ls :call CocActionAsync('documentSymbols')<CR>
-nmap <silent><leader>lh :call CocActionAsync('highlight')<CR>
 nmap <silent><leader>lq :call CocActionAsync('quickfixes')<CR>
-nmap <silent><leader>li :CocList<CR>
+nmap <silent> <TAB> <Plug>(coc-range-select)
 
-nnoremap <silent><leader>sc :CocCommand session.save<CR>
-nnoremap <silent><leader>so :CocCommand session.open<CR>
-nnoremap <silent><leader>sr :CocCommand session.restart<CR>
-nnoremap <silent><leader>sl :CocList sessions<CR>
+nmap <silent><leader>sc :CocCommand session.save<CR>
+nmap <silent><leader>so :CocCommand session.open<CR>
+nmap <silent><leader>sr :CocCommand session.restart<CR>
+nmap <silent><leader>sl :CocList sessions<CR>
 
 " Testing functions
-nnoremap <silent><leader>tn :TestNearest<CR>
-nnoremap <silent><leader>tf :TestFile<CR>
-nnoremap <silent><leader>ts :TestSuite<CR>
-nnoremap <silent><leader>tl :TestLast<CR>
-nnoremap <silent><leader>tv :TestVisit<CR>
-nnoremap <silent><leader>tm :make test<CR>
-nnoremap <silent><leader>to :!open coverage/index.html<CR>
+nmap <silent><leader>tn :TestNearest<CR>
+nmap <silent><leader>tf :TestFile<CR>
+nmap <silent><leader>ts :TestSuite<CR>
+nmap <silent><leader>tl :TestLast<CR>
+nmap <silent><leader>tv :TestVisit<CR>
+nmap <silent><leader>tm :make test<CR>
+nmap <silent><leader>to :!open coverage/index.html<CR>
 
 " Ctags and LSP symbol finding
-nnoremap <silent><leader>vv :Vista!!<CR>
-nnoremap <silent><leader>vf :Vista finder<CR>
+nmap <silent><leader>vv :Vista!!<CR>
+nmap <silent><leader>vf :Vista finder<CR>
+
+" Who doesn't like a good thesauras
+nmap <leader>ut :ThesaurusQueryReplaceCurrentWord<CR>
+" Some lovely grammar checking
+nmap <leader>ug :GrammarousCheck<CR>
+"Replace the word under cursor
+nmap <leader>us :%s/\<<c-r><c-w>\>//g<left><left>
+
+" Align GitHub-flavored Markdown tables
+vmap <leader>a :EasyAlign*<Bar><Enter>
 
 " Distraction free writing
-nnoremap <silent><leader>z :Goyo<CR>
+nmap <silent><leader>z :Goyo<CR>
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
 inoremap <silent><expr> <TAB>
@@ -454,17 +478,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " Coc only does snippet and additional edit on confirm.
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() :
                                            \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Who doesn't like a good thesauras
-nnoremap <leader>ut :ThesaurusQueryReplaceCurrentWord<CR>
-" Some lovely grammar checking
-nnoremap <leader>ug :GrammarousCheck<CR>
-"Replace the word under cursor
-nnoremap <leader>us :%s/\<<c-r><c-w>\>//g<left><left>
-
-
-" Align GitHub-flavored Markdown tables
-vmap <leader>a :EasyAlign*<Bar><Enter>
 
 " Find highlight group under cursor for changing colorschemes
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
