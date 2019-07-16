@@ -214,3 +214,6 @@ call SetHi("deniteSource_grepFile", s:haskloViolet, s:haskloBackground, "none")
 call SetHi("deniteSource_grep", s:haskloWhite, s:haskloBackground, "none")
 call SetHi("deniteSource_file_rec", s:haskloViolet, s:haskloBackground, "none")
 call SetHi("deniteMatchedChar", s:haskloOrange, s:haskloBackground, "bold")
+
+" Spelunker
+call SetHi("SpelunkerSpellBad", s:haskloBackground,       s:haskloBackground,      "undercurl")

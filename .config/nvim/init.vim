@@ -51,6 +51,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
+    call dein#add('kamykn/spelunker.vim', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -287,6 +288,11 @@ let g:doge_mapping_comment_jump_backward="<C-<>"
 
 let g:sneak#label = 1
 let g:sneak#s_next = 1
+
+let g:signify_sign_add               = "\u2503"
+let g:signify_sign_delete            = "\u2503"
+let g:signify_sign_delete_first_line = "\u2503"
+let g:signify_sign_change            = "\u2503"
 " ###################################################################################
 " Autocommands
 
