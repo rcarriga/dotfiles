@@ -30,7 +30,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
     call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter' })
-    call dein#add('mbbill/undotree', {'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
+    call dein#add('simnalamburt/vim-mundo', {'on_event': 'InsertEnter','on_cmd' : 'MundoToggle' })
     call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
     call dein#add('neoclide/coc.nvim', {'on_func': 'CocActionAsync', 'on_cmd':['CocCommand', 'CocList'],'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
@@ -52,6 +52,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
     call dein#add('kamykn/spelunker.vim', {'on_event': 'InsertEnter'})
+    call dein#add('junegunn/vim-peekaboo', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -241,10 +242,8 @@ let g:webdevicons_enable_airline_statusline = 1
 " Use terminal windows for running tests
 let test#strategy = "neovim"
 
-" Put UndoTree at left of window, width 50, and disable highlighting changes.
-let g:undotree_WindowLayout = 3
-let g:undotree_SplitWidth = 50
-let g:undotree_HighlightChangedText = 0
+let g:mundo_right = 1
+let g:mundo_auto_preview = 0
 
 let g:vista_ctags_cmd = {
       \ 'haskell': 'hasktags -x -o - -c',
@@ -259,7 +258,7 @@ let g:indentLine_char = '▏'
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
 let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions= ['branch', 'coc', 'vimtex', 'undotree', 'fugitiveline', 'hunks']
+let g:airline_extensions= ['branch', 'coc', 'vimtex', 'fugitiveline', 'hunks']
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_theme = 'molokai'
 let airline#extensions#coc#error_symbol = ' '
@@ -394,7 +393,7 @@ nmap <silent><leader>gc <Plug>(coc-git-commit)
 nmap <silent><leader>p <Plug>(pydocstring)
 
 " Toggle UndoTree window
-nnoremap <silent><leader>u :UndotreeToggle<CR>
+nnoremap <silent><leader>u :MundoToggle<CR>
 
 " HTTP requests - coc-post
 nnoremap <silent><leader>hd :CocCommand post.do<CR>
