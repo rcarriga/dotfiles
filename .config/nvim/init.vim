@@ -51,6 +51,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
+    call dein#add('wikitopian/hardmode', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -77,7 +78,7 @@ set laststatus=2
 set noshowmode
 
 " Set file update time in milliseconds
-set updatetime=300
+set updatetime=100
 
 " Turn on 24 bit color. Delete this line if colors are weird
 set termguicolors
@@ -367,6 +368,8 @@ nmap x <Plug>Sneak_s
 nmap X <Plug>Sneak_S
 xmap x <Plug>Sneak_s
 xmap X <Plug>Sneak_S
+omap x <Plug>Sneak_s
+omap X <Plug>Sneak_S
 
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
@@ -449,6 +452,9 @@ nmap <silent><leader>to :!open coverage/index.html<CR>
 " Ctags and LSP symbol finding
 nmap <silent><leader>vv :Vista!!<CR>
 nmap <silent><leader>vf :Vista finder<CR>
+
+" Use Vim the way it was meant to be used.
+map <F5> :call ToggleHardMode()
 
 " Who doesn't like a good thesauras
 nmap <leader>ut :ThesaurusQueryReplaceCurrentWord<CR>
