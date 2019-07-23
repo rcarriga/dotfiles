@@ -152,6 +152,9 @@ set list
 
 color hasklo
 
+set scrolloff=10
+set sidescrolloff=10
+
 " ###################################################################################
 " Functions
 
