@@ -58,7 +58,7 @@ let s:haskloWhite           = {"gui": "#F8F8F8", "cterm256": "231"}
 let s:haskloViolet          = {"gui": "#D484FF", "cterm256": "170"}
 let s:haskloBlue            = {"gui": "#429ADD", "cterm256": "110"}
 let s:haskloCyan            = {"gui": "#52D3D1", "cterm256": "110"}
-let s:haskloLightBlue       = {"gui": "#89c6f4", "cterm256": "111"}
+let s:haskloLightBlue       = {"gui": "#68DEFF", "cterm256": "111"}
 let s:haskloLightGreen      = {"gui": "#A9FF68", "cterm256": "71"}
 let s:haskloGreen           = {"gui": "#96F291", "cterm256": "71"}
 let s:haskloLime            = {"gui": "#C4E572", "cterm256": "71"}
@@ -109,7 +109,7 @@ call SetHi("Define",                s:haskloCyan,        s:haskloBackground,    
 call SetHi("DiffAdd",               s:haskloGreen,       s:haskloBackground,      "none")
 call SetHi("DiffChange",            s:haskloYellow,      s:haskloBackground,      "none")
 call SetHi("DiffDelete",            s:haskloRed,         s:haskloBackground,      "none")
-call SetHi("DiffText",              s:haskloRed,         s:haskloBackground,             "none")
+call SetHi("DiffText",              s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("ErrorMsg",              s:haskloRed,         s:haskloBackground,      "none")
 call SetHi("WarningMsg",            s:haskloOrange,      s:haskloBackground,      "none")
 call SetHi("Float",                 s:haskloViolet,      s:haskloBackground,      "none")
@@ -210,7 +210,17 @@ call SetHi("ALEVirtualTextWarning", s:haskloYellow,      s:haskloBackground,    
 call SetHi("ALEVirtualTextInfo",    s:haskloCyan,        s:haskloBackground,      "none")
 
 " Denite
-call SetHi("deniteSource_grepFile", s:haskloViolet, s:haskloBackground, "none")
-call SetHi("deniteSource_grep", s:haskloWhite, s:haskloBackground, "none")
-call SetHi("deniteSource_file_rec", s:haskloViolet, s:haskloBackground, "none")
-call SetHi("deniteMatchedChar", s:haskloOrange, s:haskloBackground, "bold")
+call SetHi("deniteSource_grepFile", s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("deniteSource_grep",     s:haskloWhite,       s:haskloBackground,      "none")
+call SetHi("deniteSource_file_rec", s:haskloViolet,      s:haskloBackground,      "none")
+call SetHi("deniteMatchedChar",     s:haskloOrange,      s:haskloBackground,      "bold")
+
+" Spelunker
+call SetHi("SpelunkerSpellBad",     s:haskloBackground,  s:haskloBackground,      "undercurl")
+
+" NERDTree
+call SetHi("NERDTreeFile",          s:haskloSteel,       s:haskloBackground,      "none")
+call SetHi("NERDTreeDir",           s:haskloLightBlue,   s:haskloBackground,      "none")
+call SetHi("NERDTreeFlags",         s:haskloOrange,      s:haskloBackground,      "none")
+call SetHi("NERDTreeCWD",           s:haskloDirtyYellow, s:haskloBackground,      "none")
+call SetHi("NERDTreeUp",            s:haskloGray2,       s:haskloBackground,      "none")

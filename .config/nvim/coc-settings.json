@@ -77,5 +77,8 @@
     "list.source.sessions.defaultOptions": [
         "--normal"
     ],
-    "suggest.preferCompleteThanJumpPlaceholder": true
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "git.addedSign.text": "\u2503",
+    "git.changedSign.text": "\u2503",
+    "git.removedSign.text": "\u2503"
 }

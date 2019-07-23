@@ -30,8 +30,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('lervag/vimtex', {'on_ft': 'tex'})
     call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
     call dein#add('machakann/vim-sandwich', {'on_event': 'InsertEnter' })
-    call dein#add('mbbill/undotree', {'on_event': 'InsertEnter','on_cmd' : 'UndotreeToggle' })
-    call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
+    call dein#add('simnalamburt/vim-mundo', {'on_event': 'InsertEnter','on_cmd' : 'MundoToggle' })
     call dein#add('neoclide/coc.nvim', {'on_func': 'CocActionAsync', 'on_cmd':['CocCommand', 'CocList'],'on_event': 'InsertEnter', 'merge':0, 'build': './install.sh nightly'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
@@ -39,19 +38,17 @@ if dein#load_state('~/.cache/dein')
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
     call dein#add('scrooloose/nerdtree', {'on_cmd' : 'NERDTreeToggle' })
-    call dein#add('shumphrey/fugitive-gitlab.vim')
     call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
     call dein#add('tpope/vim-fugitive', {'on_event': 'InsertEnter' })
     call dein#add('vim-airline/vim-airline', {"lazy": 1, 'depends': ['vim-airline-themes'], 'on_event': "InsertEnter"})
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
-    call dein#add('mhinz/vim-startify')
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
     call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
-    call dein#add('wikitopian/hardmode', {'on_event': 'InsertEnter'})
+    call dein#add('junegunn/vim-peekaboo')
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -98,7 +95,7 @@ set wildmode=longest,list,full
 set wildmenu
 
 " Setup tabs to be 4 spaces
-set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=4 softtabstop=0 expandtab shiftwidth=0 smarttab
 
 " Opens new panes below and to right of current
 set splitbelow
@@ -192,6 +189,7 @@ endfunction
 
 function! AirlineSections() abort
     let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
+    let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 " ###################################################################################
 " Plugin Settings
@@ -241,10 +239,7 @@ let g:webdevicons_enable_airline_statusline = 1
 " Use terminal windows for running tests
 let test#strategy = "neovim"
 
-" Put UndoTree at left of window, width 50, and disable highlighting changes.
-let g:undotree_WindowLayout = 3
-let g:undotree_SplitWidth = 50
-let g:undotree_HighlightChangedText = 0
+let g:mundo_right = 1
 
 let g:vista_ctags_cmd = {
       \ 'haskell': 'hasktags -x -o - -c',
@@ -259,7 +254,7 @@ let g:indentLine_char = '▏'
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
 let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions= ['branch', 'coc', 'vimtex', 'undotree', 'fugitiveline', 'hunks']
+let g:airline_extensions= ['coc', 'vimtex']
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_theme = 'molokai'
 let airline#extensions#coc#error_symbol = ' '
@@ -288,6 +283,11 @@ let g:doge_mapping_comment_jump_backward="<C-<>"
 
 let g:sneak#label = 1
 let g:sneak#s_next = 1
+
+let g:signify_sign_add               = "\u2503"
+let g:signify_sign_delete            = "\u2503"
+let g:signify_sign_delete_first_line = "\u2503"
+let g:signify_sign_change            = "\u2503"
 " ###################################################################################
 " Autocommands
 
@@ -316,7 +316,7 @@ augroup END
 
 au InsertEnter call AirlineSettings()
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 augroup LargeFile 
   au!
@@ -381,7 +381,7 @@ nmap <silent><leader>gp :Gpush<CR>
 nmap <silent><leader>gb :Gbrowse<CR>
 nmap <silent><leader>gl :Gblame<CR>
 nmap <silent><leader>gf :CocCommand git.foldUnchanged<CR>
-nmap <silent><leader>gu :CocCommand git.undoChunk<CR>
+nmap <silent><leader>gu :CocCommand git.chunkUndo<CR>
 nmap <silent><leader>gp <Plug>(coc-git-prevchunk)
 nmap <silent><leader>gn <Plug>(coc-git-nextchunk)
 nmap <silent><leader>gi <Plug>(coc-git-chunkinfo)
@@ -391,25 +391,25 @@ nmap <silent><leader>gc <Plug>(coc-git-commit)
 nmap <silent><leader>p <Plug>(pydocstring)
 
 " Toggle UndoTree window
-nnoremap <silent><leader>u :UndotreeToggle<CR>
+nmap <silent><leader>u :MundoToggle<CR>
 
 " HTTP requests - coc-post
-nnoremap <silent><leader>hd :CocCommand post.do<CR>
-nnoremap <silent><leader>hn :CocCommand post.new<CR>
-nnoremap <silent><leader>hl :CocList post<CR>
+nmap <silent><leader>hd :CocCommand post.do<CR>
+nmap <silent><leader>hn :CocCommand post.new<CR>
+nmap <silent><leader>hl :CocList post<CR>
 
 " Coc List Mappings
-nnoremap <silent><leader>df :CocList files<CR>
-nnoremap <silent><leader>dm :CocList mru<CR>
-nnoremap <silent><leader>dg :CocList grep<CR>
-nnoremap <silent><leader>db :CocList buffers<CR>
-nnoremap <silent><leader>do :CocList outline<CR>
-nnoremap <silent><leader>dh :CocList helptags<CR>
-nnoremap <silent><leader>dq :CocList quickfix<CR>
-nnoremap <silent><leader>ds :CocList symbols<CR>
-nnoremap <silent><leader>dc :CocList commits<CR>
-nnoremap <silent><leader>dy :CocList yank<CR>
-nnoremap <silent><leader>dw :CocList words<CR>
+nmap <silent><leader>df :CocList files<CR>
+nmap <silent><leader>dm :CocList mru<CR>
+nmap <silent><leader>dg :CocList grep<CR>
+nmap <silent><leader>db :CocList buffers<CR>
+nmap <silent><leader>do :CocList outline<CR>
+nmap <silent><leader>dh :CocList helptags<CR>
+nmap <silent><leader>dq :CocList quickfix<CR>
+nmap <silent><leader>ds :CocList symbols<CR>
+nmap <silent><leader>dc :CocList commits<CR>
+nmap <silent><leader>dy :CocList yank<CR>
+nmap <silent><leader>dw :CocList words<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
@@ -453,15 +453,12 @@ nmap <silent><leader>to :!open coverage/index.html<CR>
 nmap <silent><leader>vv :Vista!!<CR>
 nmap <silent><leader>vf :Vista finder<CR>
 
-" Use Vim the way it was meant to be used.
-map <F5> :call ToggleHardMode()
-
 " Who doesn't like a good thesauras
-nmap <leader>ut :ThesaurusQueryReplaceCurrentWord<CR>
+nmap <leader>ot :ThesaurusQueryReplaceCurrentWord<CR>
 " Some lovely grammar checking
-nmap <leader>ug :GrammarousCheck<CR>
+nmap <leader>og :GrammarousCheck<CR>
 "Replace the word under cursor
-nmap <leader>us :%s/\<<c-r><c-w>\>//g<left><left>
+nmap <leader>os :%s/\<<c-r><c-w>\>//g<left><left>
 
 " Align GitHub-flavored Markdown tables
 vmap <leader>a :EasyAlign*<Bar><Enter>
