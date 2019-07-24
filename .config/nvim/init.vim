@@ -49,6 +49,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/vim-peekaboo')
+    call dein#add('tpope/vim-unimpaired', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -177,19 +178,6 @@ function! AdjustWindowHeight(minheight, maxheight) abort
  exe max([min([n_lines, a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
-function! StatusDiagnostic() abort
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info) | return '' | endif
-  let msgs = []
-  if get(info, 'error', 0)
-    call add(msgs, 'E' . info['error'])
-  endif
-  if get(info, 'warning', 0)
-    call add(msgs, 'W' . info['warning'])
-  endif
-  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-endfunction
-
 function! AirlineSections() abort
     let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
@@ -197,25 +185,13 @@ endfunction
 " ###################################################################################
 " Plugin Settings
 
-let entry_format = "'   ['. index .']'. repeat(' ', (3 - strlen(index)))"
-
-if exists('*WebDevIconsGetFileTypeSymbol')  " support for vim-devicons
-    let entry_format .= ". WebDevIconsGetFileTypeSymbol(entry_path) .' '.  entry_path"
-else
-    let entry_format .= '. entry_path'
-endif
-
+" Markdown preview default browser
+let g:mkdp_browser = 'firefox'
 " Don't open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 1
 let g:vimtex_compiler_progname = 'nvr' 
-"Add private repo urls to this list to use Gbrowse(Opens file in browser) 
-let g:fugitive_gitlab_domains = []
-
-" Shows function signature above commandline instead of opening new window
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
 
 let g:coc_global_extensions = [ "coc-tabnine", "coc-emmet", "coc-yank","coc-lists","coc-solargraph", "coc-eslint", "coc-json", 'coc-post', 'coc-python', 'coc-snippets', 'coc-docker', 'coc-java', 'coc-pairs', 'coc-vimtex', 'coc-ccls', 'coc-css', 'coc-highlight', 'coc-html', 'coc-tsserver', 'coc-yaml', 'coc-word', 'coc-emoji', 'coc-vimlsp' ]
 
@@ -229,19 +205,18 @@ let g:NERDDefaultAlign = 'left'
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
-let g:mkdp_browser = 'firefox'
-
 " Make NERDTree nicer looking
 let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
 let g:NERDTreeDirArrowExpandable = "\u00a0"
 let g:NERDTreeDirArrowCollapsible = "\u00a0"
 let NERDTreeIgnore=['__pycache__', '__main__.py']
 
-" Enable devicons for other plugins
 let g:webdevicons_enable_airline_statusline = 1
+
 " Use terminal windows for running tests
 let test#strategy = "neovim"
 
+" Open undo tree on right
 let g:mundo_right = 1
 
 let g:vista_ctags_cmd = {
@@ -264,9 +239,6 @@ let airline#extensions#coc#error_symbol = ' '
 let airline#extensions#coc#warning_symbol = ' '
 let g:airline#extensions#tabline#enabled = 1
 
-" Any file larger than 10mb has certain features disabled to speed up load times
-let g:LargeFile = 1024 * 1024 * 10
-
 let g:ale_virtualtext_cursor = 1
 let g:ale_linters = {
     \ "python": [],
@@ -276,37 +248,26 @@ let g:ale_linters = {
     \ "ruby": ["rubocop"]
   \ }
 
-
 " Disable thesauras default mappings
 let g:tq_map_keys=0
-
-" Doge config
-let g:doge_mapping_comment_jump_forward="<C->>"
-let g:doge_mapping_comment_jump_backward="<C-<>"
 
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
-let g:signify_sign_add               = "\u2503"
-let g:signify_sign_delete            = "\u2503"
-let g:signify_sign_delete_first_line = "\u2503"
-let g:signify_sign_change            = "\u2503"
+let g:doge_mapping = "<leader>ii"
+let g:doge_mapping_comment_jump_forward = "<leader>in"
+let g:doge_mapping_comment_jump_backward = "<leader>ip"
 " ###################################################################################
 " Autocommands
 
-" Quit if nerdtree is last open window
-au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Open windows in other buffer from nerdtree
-au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
+au FileType qf call AdjustWindowHeight(3, 50)
 
-" Show function signatures when calling function
-au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-
-" Adjust quickfix size to contents: http://vim.wikia.com/wiki/Automatically_fitting_a_quickfix_window_height
-" au FileType qf call AdjustWindowHeight(3, 50)
-
-" Define denite window mappings
-autocmd FileType denite call s:denite_my_settings()
+augroup NERDTreeSetup
+    " Quit if nerdtree is last open window
+    au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+    " Open windows in other buffer from nerdtree
+    au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
+augroup END
 
 " Disable indent lines for certain files.
 augroup IndentLinesDisabled
@@ -317,16 +278,17 @@ augroup IndentLinesDisabled
     au FileType plaintex IndentLinesDisable
 augroup END
 
-au InsertEnter call AirlineSettings()
-
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-
-augroup LargeFile 
-  au!
-  autocmd BufReadPre * let f=getfsize(expand("<afile>")) | if f > g:LargeFile || f == -2 | call LargeFile() | endif
+augroup AirlineSetup
+    au!
+    au User AirlineAfterInit call AirlineSections()
 augroup END
 
-au User AirlineAfterInit call AirlineSections()
+augroup CocSetup
+    " Show function signatures when calling function
+    au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
 " ###################################################################################
 " Custom Mappings
 
@@ -339,6 +301,7 @@ nnoremap L $
 
 "Save current buffer
 nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
 
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
@@ -413,6 +376,7 @@ nmap <silent><leader>ds :CocList symbols<CR>
 nmap <silent><leader>dc :CocList commits<CR>
 nmap <silent><leader>dy :CocList yank<CR>
 nmap <silent><leader>dw :CocList words<CR>
+nmap <silent><leader>dk :CocList marks<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
@@ -454,7 +418,6 @@ nmap <silent><leader>to :!open coverage/index.html<CR>
 
 " Ctags and LSP symbol finding
 nmap <silent><leader>vv :Vista!!<CR>
-nmap <silent><leader>vf :Vista finder<CR>
 
 " Who doesn't like a good thesauras
 nmap <leader>ot :ThesaurusQueryReplaceCurrentWord<CR>
