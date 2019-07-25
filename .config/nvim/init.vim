@@ -35,16 +35,17 @@ if dein#load_state('~/.cache/dein')
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
     call dein#add('rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck'})
-    call dein#add('ryanoasis/vim-devicons')
     call dein#add('scrooloose/nerdcommenter', {'on_event': 'InsertEnter'})
-    call dein#add('scrooloose/nerdtree', {'on_cmd' : 'NERDTreeToggle' })
+    call dein#add('Shougo/defx.nvim', {'on_event': 'InsertEnter'})
+    call dein#add('kristijanhusak/defx-icons', {'on_event': 'InsertEnter'})
+    call dein#add('kristijanhusak/defx-git', {'on_event': 'InsertEnter'})
     call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
     call dein#add('tpope/vim-fugitive', {'on_event': 'InsertEnter' })
     call dein#add('vim-airline/vim-airline', {"lazy": 1, 'depends': ['vim-airline-themes'], 'on_event': "InsertEnter"})
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
-    call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
+    " call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
@@ -182,6 +183,8 @@ function! AirlineSections() abort
     let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
+
+autocmd FileType defx call s:defx_my_settings()
 " ###################################################################################
 " Plugin Settings
 
@@ -204,14 +207,6 @@ let g:coc_snippet_next = '<tab>'
 let g:NERDDefaultAlign = 'left'
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
-
-" Make NERDTree nicer looking
-let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
-let g:NERDTreeDirArrowExpandable = "\u00a0"
-let g:NERDTreeDirArrowCollapsible = "\u00a0"
-let NERDTreeIgnore=['__pycache__', '__main__.py']
-
-let g:webdevicons_enable_airline_statusline = 1
 
 " Use terminal windows for running tests
 let test#strategy = "neovim"
@@ -260,14 +255,14 @@ let g:doge_mapping_comment_jump_backward = "<leader>ip"
 " ###################################################################################
 " Autocommands
 
-au FileType qf call AdjustWindowHeight(3, 50)
+" au FileType qf call AdjustWindowHeight(3, 50)
 
-augroup NERDTreeSetup
-    " Quit if nerdtree is last open window
-    au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    " Open windows in other buffer from nerdtree
-    au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
-augroup END
+" augroup NERDTreeSetup
+"     " Quit if nerdtree is last open window
+"     au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"     " Open windows in other buffer from nerdtree
+"     au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
+" augroup END
 
 " Disable indent lines for certain files.
 augroup IndentLinesDisabled
@@ -306,8 +301,39 @@ nnoremap <leader>q :q<CR>
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
 
-" Netrw mappings
-nnoremap <leader>x :NERDTreeToggle<CR>
+nnoremap <leader>x :Defx -toggle -split=floating -columns=indent:git:icons:mark:filename:type<CR>
+function! s:defx_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'pedit')
+    nnoremap <silent><buffer><expr> c defx#do_action('copy')
+    nnoremap <silent><buffer><expr> m defx#do_action('move')
+    nnoremap <silent><buffer><expr> p defx#do_action('paste')
+    nnoremap <silent><buffer><expr> l defx#do_action('open_tree')
+    nnoremap <silent><buffer><expr> h defx#do_action('close_tree')
+    nnoremap <silent><buffer><expr> L defx#do_action('open_tree_recursive')
+    nnoremap <silent><buffer><expr> v defx#do_action('open', 'vsplit')
+    nnoremap <silent><buffer><expr> s defx#do_action('open', 'split')
+    nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
+    nnoremap <silent><buffer><expr> M defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> N defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'indent:filename:type:size:time')
+    nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
+    nnoremap <silent><buffer><expr> d defx#do_action('remove')
+    nnoremap <silent><buffer><expr> r defx#do_action('rename')
+    nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
+    nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> ; defx#do_action('repeat')
+    nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+    nnoremap <silent><buffer><expr> q defx#do_action('quit')
+    nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+    nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
+endfunction
 
 " Disable arrow keys (Just throw yourself into it trust me...)
 noremap <Up> <NOP>
