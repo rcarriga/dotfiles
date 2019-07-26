@@ -51,6 +51,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('tpope/vim-unimpaired', {'on_event': 'InsertEnter'})
+    call dein#add('tpope/vim-dadbod', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -301,9 +302,9 @@ nnoremap <leader>q :q<CR>
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
 
-nnoremap <leader>x :Defx -toggle -split=floating -columns=indent:git:icons:mark:filename:type<CR>
+nnoremap <silent> <leader>x :Defx -toggle -split=vertical -direction=topleft -columns=indent:git:icons:mark:filename:type<CR>
 function! s:defx_my_settings() abort
-    nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'pedit')
+    nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'edit')
     nnoremap <silent><buffer><expr> c defx#do_action('copy')
     nnoremap <silent><buffer><expr> m defx#do_action('move')
     nnoremap <silent><buffer><expr> p defx#do_action('paste')
@@ -330,7 +331,6 @@ function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
     nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
     nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
     nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
 endfunction
