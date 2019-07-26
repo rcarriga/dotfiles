@@ -38,9 +38,8 @@
     "git.enableGutters": true,
     "git.addGlameToBufferVar": true,
     "python.linting.mypyEnabled": true,
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
     "python.formatting.provider": "yapf",
-    "python.linting.pydocstyleEnabled": true,
     "coc.preferences.jumpCommand": "drop",
     "coc.preferences.codeLens.enable": true,
     "codeLens.enable": true,
@@ -80,5 +79,7 @@
     "suggest.preferCompleteThanJumpPlaceholder": true,
     "git.addedSign.text": "\u2503",
     "git.changedSign.text": "\u2503",
-    "git.removedSign.text": "\u2503"
+    "git.removedSign.text": "\u2503",
+    "git.changeRemovedSign.text": "\u2503",
+    "git.topRemovedSign.text": "\u2503"
 }

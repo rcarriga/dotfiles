@@ -44,7 +44,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
-    call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
+    " call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
@@ -255,8 +255,8 @@ let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 let g:doge_mapping = "<leader>ii"
-let g:doge_mapping_comment_jump_forward = "<leader>in"
-let g:doge_mapping_comment_jump_backward = "<leader>ip"
+let g:doge_mapping_comment_jump_forward = "<C-i><C-n>"
+let g:doge_mapping_comment_jump_backward = "<C-i><C-p>"
 " ###################################################################################
 " Autocommands
 
