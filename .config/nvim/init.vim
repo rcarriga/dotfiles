@@ -250,8 +250,8 @@ let g:sneak#label = 1
 let g:sneak#s_next = 1
 
 let g:doge_mapping = "<leader>ii"
-let g:doge_mapping_comment_jump_forward = "<leader>in"
-let g:doge_mapping_comment_jump_backward = "<leader>ip"
+let g:doge_mapping_comment_jump_forward = "<C-i><C-n>"
+let g:doge_mapping_comment_jump_backward = "<C-i><C-p>"
 " ###################################################################################
 " Autocommands
 
