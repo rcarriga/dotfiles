@@ -89,7 +89,7 @@ call SetHi("Pmenu",                 s:haskloLightBlue,   s:haskloFloatBackground
 call SetHi("PmenuSel",              s:haskloBackground,  s:haskloGray2,           "none")
 call SetHi("IncSearch",             s:haskloBlack,       s:haskloGray3,           "none")
 call SetHi("Search",                s:haskloWhite,       s:haskloGray2,           "none")
-call SetHi("Directory",             s:haskloGreen,       s:haskloBackground,      "none")
+call SetHi("Directory",             s:haskloBlue,        s:haskloBackground,      "none")
 call SetHi("Folded",                s:haskloGray3,       s:haskloBackground,      "none")
 call SetHi("WildMenu",              s:haskloCyan,        s:haskloBackground,      "none")
 call SetHi("PMenuSbar",             s:haskloBackground,  s:haskloBlack,           "none")
@@ -227,3 +227,7 @@ call SetHi("NERDTreeDir",           s:haskloLightBlue,   s:haskloBackground,    
 call SetHi("NERDTreeFlags",         s:haskloOrange,      s:haskloBackground,      "none")
 call SetHi("NERDTreeCWD",           s:haskloDirtyYellow, s:haskloBackground,      "none")
 call SetHi("NERDTreeUp",            s:haskloGray2,       s:haskloBackground,      "none")
+
+" Defx
+" call SetHi("DefxIconsOpenedTreeIcon", s:haskloRed, s:haskloBackground, "none")
+hi link DefxIconsOpenedTreeIcon Error

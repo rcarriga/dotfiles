@@ -9,4 +9,5 @@ export SCRIPT_DIR=$HOME/.config/scripts
 export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=1000
 export HISTSIZE="1000"
+export MANPAGER="nvim -c 'set ft=man nomod nonumber' -"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh
