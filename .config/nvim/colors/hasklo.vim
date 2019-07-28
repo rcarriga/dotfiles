@@ -1,10 +1,10 @@
 " Vim color file - hasklo
 set background=dark
 if version > 580
-	hi clear
-	if exists("syntax_on")
-		syntax reset
-	endif
+    hi clear
+    if exists("syntax_on")
+        syntax reset
+    endif
 endif
 
 let g:colors_name = "hasklo"
@@ -28,7 +28,10 @@ function! SetHi(group, fg, bg, attr)
   endif
 endfun
 
-autocmd FileType python call SetSemshi()
+augroup PluginOverrides
+    au!
+    au FileType python call SetSemshi()
+augroup END
 
 function! SetSemshi()
     call SetHi("semshiLocal",           s:haskloGold,       s:haskloBackground, "none")

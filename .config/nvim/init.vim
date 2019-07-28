@@ -185,7 +185,6 @@ function! AirlineSections() abort
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
-autocmd FileType defx call s:defx_my_settings()
 " ###################################################################################
 " Plugin Settings
 
@@ -281,8 +280,14 @@ augroup END
 
 augroup CocSetup
     " Show function signatures when calling function
+    au!
     au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup END
+
+augroup DefxSetup
+    au!
+    autocmd FileType defx call s:defx_my_settings()
 augroup END
 
 " ###################################################################################
