@@ -185,7 +185,6 @@ function! AirlineSections() abort
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
-autocmd FileType defx call s:defx_my_settings()
 " ###################################################################################
 " Plugin Settings
 
@@ -258,13 +257,6 @@ let g:doge_mapping_comment_jump_backward = "<C-i><C-p>"
 
 " au FileType qf call AdjustWindowHeight(3, 50)
 
-" augroup NERDTreeSetup
-"     " Quit if nerdtree is last open window
-"     au BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-"     " Open windows in other buffer from nerdtree
-"     au BufEnter * let t:ft = split(expand("%"), ":") | if (len(t:ft) != 0 && t:ft[0] == "term") | :startinsert | endif
-" augroup END
-
 " Disable indent lines for certain files.
 augroup IndentLinesDisabled
     au!
@@ -284,6 +276,8 @@ augroup CocSetup
     au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
+
+autocmd FileType defx call s:defx_my_settings()
 
 " ###################################################################################
 " Custom Mappings
