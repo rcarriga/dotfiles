@@ -273,11 +273,15 @@ augroup END
 
 augroup CocSetup
     " Show function signatures when calling function
+    au!
     au User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
-autocmd FileType defx call s:defx_my_settings()
+augroup DefxSetup
+    au!
+    autocmd FileType defx call s:defx_my_settings()
+augroup END
 
 " ###################################################################################
 " Custom Mappings
