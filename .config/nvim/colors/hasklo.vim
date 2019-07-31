@@ -228,6 +228,6 @@ call SetHi("NERDTreeFlags",         s:haskloOrange,      s:haskloBackground,    
 call SetHi("NERDTreeCWD",           s:haskloDirtyYellow, s:haskloBackground,      "none")
 call SetHi("NERDTreeUp",            s:haskloGray2,       s:haskloBackground,      "none")
 
-" Defx
-" call SetHi("DefxIconsOpenedTreeIcon", s:haskloRed, s:haskloBackground, "none")
-hi link DefxIconsOpenedTreeIcon Error
+" Vim Sneak
+call SetHi("Sneak", s:haskloRed, s:haskloBackground, "undercurl")
+call SetHi("SneakLabel", s:haskloRed, s:haskloSteel, "undercurl")

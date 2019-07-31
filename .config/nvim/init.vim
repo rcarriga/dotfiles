@@ -283,6 +283,13 @@ augroup DefxSetup
     autocmd FileType defx call s:defx_my_settings()
 augroup END
 
+command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
+
+function! OpenFileInPreviousWindow(file) abort
+    normal p 
+    exec "edit ".a:file
+endfunction
+
 " ###################################################################################
 " Custom Mappings
 
@@ -302,7 +309,7 @@ nnoremap <leader><leader> <c-^>
 
 nnoremap <silent> <leader>x :Defx -toggle -split=vertical -direction=topleft -columns=indent:git:icons:mark:filename:type<CR>
 function! s:defx_my_settings() abort
-    nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'edit')
+    nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'OpenPrevious')
     nnoremap <silent><buffer><expr> c defx#do_action('copy')
     nnoremap <silent><buffer><expr> m defx#do_action('move')
     nnoremap <silent><buffer><expr> p defx#do_action('paste')

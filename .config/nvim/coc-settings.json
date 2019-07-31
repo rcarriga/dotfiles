@@ -81,5 +81,8 @@
     "git.changedSign.text": "\u2503",
     "git.removedSign.text": "\u2503",
     "git.changeRemovedSign.text": "\u2503",
-    "git.topRemovedSign.text": "\u2503"
+    "git.topRemovedSign.text": "\u2503",
+    "tabnine.priority": 50,
+    "yank.priority": 40
+
 }
