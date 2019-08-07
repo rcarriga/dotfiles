@@ -38,7 +38,7 @@
     "git.enableGutters": true,
     "git.addGlameToBufferVar": true,
     "python.linting.mypyEnabled": true,
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
     "python.formatting.provider": "yapf",
     "coc.preferences.jumpCommand": "drop",
     "coc.preferences.codeLens.enable": true,
