@@ -9,6 +9,7 @@ if empty(glob('~/.cache/dein'))
   silent !rm ./installer.sh
 endif
 
+set runtimepath+=~/Repos/vim-test-status
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state('~/.cache/dein')
@@ -53,12 +54,12 @@ if dein#load_state('~/.cache/dein')
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('rcarriga/haslo-vim')
     call dein#add('tpope/vim-unimpaired', {'on_event': 'InsertEnter'})
-    call dein#add('tpope/vim-dadbod', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
   call dein#save_state()
 endif
+
 
 " ###################################################################################
 " Native Vim Settings
@@ -96,8 +97,8 @@ set number
 set backspace=indent,eol,start
 
 " Make vim command autocomplete better
-set wildmode=longest,list,full
-set wildmenu
+" set wildmode=longest,list,full
+" set wildmenu
 
 " Setup tabs to be 4 spaces
 set tabstop=4 softtabstop=0 expandtab shiftwidth=0 smarttab
@@ -183,7 +184,7 @@ function! AdjustWindowHeight(minheight, maxheight) abort
 endfunction
 
 function! AirlineSections() abort
-    let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
+    let g:airline_section_x = airline#section#create(["readonly","%{GetTestResults()}", "%{get(b:, 'coc_git_blame', ' ')}"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
@@ -192,6 +193,10 @@ function! OpenFileInPreviousWindow(file) abort
     exec "edit ".a:file
 endfunction
 
+function! GetTestResults() abort
+    return get(b:, "test_status_total") ?
+                \ b:test_status_passed."/".b:test_status_total : ""
+endfunction
 " ###################################################################################
 " Plugin Settings
 
@@ -267,6 +272,7 @@ let g:signify_sign_add               = "\u2503"
 let g:signify_sign_delete            = "\u2503"
 let g:signify_sign_delete_first_line = "\u2503"
 let g:signify_sign_change            = "\u2503"
+
 " ###################################################################################
 " Autocommands
 
@@ -323,7 +329,7 @@ nnoremap <leader>q :q<CR>
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
 
-nnoremap <silent> <leader>x :Defx -toggle -split=vertical -direction=topleft -columns=indent:git:icons:mark:filename:type<CR>
+nnoremap <silent> <leader>x :Defx -toggle -split=vertical -direction=topleft -winwidth=30 -columns=indent:git:icons:mark:filename:type<CR>
 function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'OpenPrevious')
     nnoremap <silent><buffer><expr> c defx#do_action('copy')
