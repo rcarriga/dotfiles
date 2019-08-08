@@ -40,17 +40,18 @@ if dein#load_state('~/.cache/dein')
     call dein#add('kristijanhusak/defx-icons', {'on_event': 'InsertEnter'})
     call dein#add('kristijanhusak/defx-git', {'on_event': 'InsertEnter'})
     call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+    call dein#add('mhinz/vim-signify', {'on_event': 'InsertEnter'})
     call dein#add('tpope/vim-fugitive', {'on_event': 'InsertEnter' })
     call dein#add('vim-airline/vim-airline', {"lazy": 1, 'depends': ['vim-airline-themes'], 'on_event': "InsertEnter"})
     call dein#add('vim-airline/vim-airline-themes', {"lazy": 1, "on_event": "InsertEnter"})
     call dein#add('w0rp/ale', {'on_event': 'InsertEnter'})
     call dein#add('whiteinge/diffconflicts', {'on_cmd' : 'DiffConflicts' })
-    " call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
+    call dein#add('kkoomen/vim-doge', {'on_event': 'InsertEnter' })
     call dein#add('machakann/vim-swap', {'on_event': 'InsertEnter'})
     call dein#add('rhysd/clever-f.vim', {'on_event': 'InsertEnter'})
     call dein#add('justinmk/vim-sneak', {'on_event': 'InsertEnter'})
     call dein#add('junegunn/vim-peekaboo')
-    call dein#add('rcarriga/vim-test-sidebar')
+    call dein#add('rcarriga/haslo-vim')
     call dein#add('tpope/vim-unimpaired', {'on_event': 'InsertEnter'})
     call dein#add('tpope/vim-dadbod', {'on_event': 'InsertEnter'})
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
@@ -154,7 +155,7 @@ set viewoptions=cursor,folds,slash,unix
 exec "set listchars=tab:\uBB\uBB,nbsp:_,trail:\uB7"
 set list
 
-color hasklo
+color haslo
 
 set scrolloff=10
 set sidescrolloff=10
@@ -184,6 +185,11 @@ endfunction
 function! AirlineSections() abort
     let g:airline_section_x = airline#section#create(["readonly", "%{get(b:, 'coc_git_blame', ' ')}"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
+endfunction
+
+function! OpenFileInPreviousWindow(file) abort
+    normal p 
+    exec "edit ".a:file
 endfunction
 
 " ###################################################################################
@@ -250,9 +256,17 @@ let g:tq_map_keys=0
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
-let g:doge_mapping = "<leader>ii"
-let g:doge_mapping_comment_jump_forward = "<C-i><C-n>"
-let g:doge_mapping_comment_jump_backward = "<C-i><C-p>"
+let g:doge_mapping = "\<leader\>ii"
+let g:doge_mapping_comment_jump_forward = "\<C-n\>"
+let g:doge_mapping_comment_jump_backward = "\<C-p\>"
+
+let g:test_status#icons = 1
+let g:test_status#virtual_text = 1
+
+let g:signify_sign_add               = "\u2503"
+let g:signify_sign_delete            = "\u2503"
+let g:signify_sign_delete_first_line = "\u2503"
+let g:signify_sign_change            = "\u2503"
 " ###################################################################################
 " Autocommands
 
@@ -284,12 +298,13 @@ augroup DefxSetup
     autocmd FileType defx call s:defx_my_settings()
 augroup END
 
-command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
+augroup SneakSetup
+    au!
+    au User SneakEnter IndentLinesDisable
+    au User SneakLeave IndentLinesEnable
+augroup END
 
-function! OpenFileInPreviousWindow(file) abort
-    normal p 
-    exec "edit ".a:file
-endfunction
+command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
 
 " ###################################################################################
 " Custom Mappings
