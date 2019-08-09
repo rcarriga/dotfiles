@@ -1,5 +1,11 @@
 {
     "languageserver": {
+        "kotlin": {
+            "command": "~/kotlin-language-server/server/build/scripts/kotlin-language-server",
+            "filetypes": [
+                "kotlin"
+            ]
+        },
         "clangd": {
             "command": "clangd",
             "rootPatterns": [
@@ -38,7 +44,7 @@
     "git.enableGutters": false,
     "git.addGlameToBufferVar": true,
     "python.linting.mypyEnabled": true,
-    "python.jediEnabled": false,
+    "python.jediEnabled": true,
     "python.formatting.provider": "yapf",
     "coc.preferences.jumpCommand": "drop",
     "coc.preferences.codeLens.enable": true,
@@ -84,5 +90,4 @@
     "git.topRemovedSign.text": "\u2503",
     "tabnine.priority": 50,
     "yank.priority": 40
-
 }
