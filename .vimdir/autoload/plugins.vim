@@ -57,7 +57,11 @@ if dein#load_state('~/.cache/dein')
     call dein#add('udalov/kotlin-vim', {'on_ft': 'kotlin'})
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('tpope/vim-unimpaired')
-    call dein#add('rcarriga/vim-test-status', {"lazy": 1, "depends": "vim-test"})
+    " call dein#add('rcarriga/vim-test-status', {"lazy": 1, "depends": "vim-test"})
+    if !has("nvim")
+        call dein#add('roxma/nvim-yarp')
+        call dein#add('roxma/vim-hug-neovim-rpc')
+    endif
     call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
@@ -98,7 +102,7 @@ endfunction
 
 function! GetTestResults() abort
     return get(b:, "test_status_total") ?
-                \ b:test_status_passed."/".b:test_status_total : ""
+                \ b:test_status_passed." Pass ".b:test_status_total." Fail" : ""
 endfunction
 
 " ###################################################################################
@@ -205,10 +209,7 @@ endfunction
 " Disable indent lines for certain files.
 augroup IndentLinesDisabled
     au!
-    au FileType help IndentLinesDisable
-    au FileType markdown IndentLinesDisable
-    au FileType tex IndentLinesDisable
-    au FileType plaintex IndentLinesDisable
+    au FileType help,markdown,tex,plaintex IndentLinesDisable
 augroup END
 
 augroup AirlineSetup
@@ -234,13 +235,9 @@ augroup SneakSetup
     au User SneakLeave IndentLinesEnable
 augroup END
 
-augroup TestStatusNearestRunner
+augroup TestStatusRunner
     au!
-    au BufWritePost * call test#status#base#run_nearest()
-augroup END
-
-augroup TestStatusNearestRunner
-    au!
+    au VimEnter,WinNew * TestStatus
     au BufWritePost * TestStatusNearest
 augroup END
 
