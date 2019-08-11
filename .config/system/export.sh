@@ -10,4 +10,5 @@ export HISTFILE="$HOME/.zhistory"
 export SAVEHIST=1000
 export HISTSIZE="1000"
 export MANPAGER="nvim -c 'set ft=man nomod nonumber' -"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh
