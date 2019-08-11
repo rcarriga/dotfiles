@@ -1,6 +1,9 @@
 " ###################################################################################
 " Native Vim Settings
 
+set rtp+=~/.vimdir
+set rtp+=~/.vimdir/haslo-vim
+
 " Turn on syntax highlighting
 syn on
 
