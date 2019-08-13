@@ -1,10 +1,6 @@
 " ###################################################################################
 " Install Plugins
 "
-function plugins#init()
-    echo "Loading plugins"
-    syn on
-endfunction
 
 " Auto install dein
 if empty(glob('~/.cache/dein'))
@@ -68,6 +64,10 @@ if dein#load_state('~/.cache/dein')
   call dein#save_state()
 endif
 
+filetype plugin on
+syn on
+echo ""
+
 " ###################################################################################
 " Functions
 
@@ -102,7 +102,7 @@ endfunction
 
 function! GetTestResults() abort
     return get(b:, "test_status_total") ?
-                \ b:test_status_passed." Pass ".b:test_status_total." Fail" : ""
+                \ get(b:, "test_status_passed")." Pass ".get(b:, "test_status_total")." Fail" : ""
 endfunction
 
 " ###################################################################################

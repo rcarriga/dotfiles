@@ -1,4 +1,11 @@
 " ###################################################################################
+" Load plugins file after loading to reduce startup time.
+augroup PluginInit
+    au!
+    au CursorHold * ++once source ~/.vimdir/plugins.vim
+augroup END
+
+" ###################################################################################
 " Native Vim Settings
 
 set rtp+=~/.vimdir
@@ -119,7 +126,6 @@ set pyxversion=3
 " Custom Mappings
 
 inoremap <TAB> <C-n>
-nnoremap <leader>k :call plugins#init()<CR>
 
 " Replace word with yanked text
 nnoremap S "_dwP
