@@ -31,7 +31,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('liuchengxu/vista.vim', {'on_cmd': 'Vista'})
     call dein#add('machakann/vim-sandwich')
     call dein#add('simnalamburt/vim-mundo',{'lazy':1})
-    call dein#add('neoclide/coc.nvim', {'merge':0, 'build': './install.sh nightly'})
+    call dein#add('neoclide/coc.nvim', {'merge': 0, 'rev': 'release'})
     call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
     call dein#add('rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck'})
@@ -237,7 +237,7 @@ augroup END
 
 augroup TestStatusRunner
     au!
-    au VimEnter,WinNew * TestStatus
+    au CursorMoved * ++once TestStatus
     au BufWritePost * TestStatusNearest
 augroup END
 
@@ -364,7 +364,9 @@ nmap <silent><leader>tl :TestLast<CR>
 nmap <silent><leader>tv :TestVisit<CR>
 nmap <silent><leader>tm :make test<CR>
 nmap <silent><leader>to :!open coverage/index.html<CR>
-nmap <silent><leader>ts :TestStatus<CR>
+nmap <silent><leader>ts <Plug>(test-status-run-all)
+nmap <silent><leader>tj <Plug>(test-status-next-fail)
+nmap <silent><leader>tk <Plug>(test-status-prev-fail)
 
 " Ctags and LSP symbol finding
 nmap <silent><leader>vv :Vista!!<CR>
