@@ -11,6 +11,7 @@ endif
 
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+let g:dein#install_progress_type = "none"
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
     call dein#add('rhysd/reply.vim')
@@ -91,7 +92,7 @@ function! AdjustWindowHeight(minheight, maxheight) abort
 endfunction
 
 function! AirlineSections() abort
-    let g:airline_section_x = airline#section#create(["readonly","%{GetTestResults()}", "%{get(b:, 'coc_git_blame', ' ')}"])
+    let g:airline_section_x = airline#section#create(["readonly","%{dein#get_progress()}", "readonly","%{GetTestResults()}"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
