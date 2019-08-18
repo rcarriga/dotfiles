@@ -17,7 +17,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('rhysd/reply.vim')
     call dein#add('Konfekt/FastFold')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
-    call dein#add('Yggdroot/indentLine')
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('heavenshell/vim-pydocstring')
     call dein#add('tpope/vim-eunuch')
@@ -59,7 +58,6 @@ if dein#load_state('~/.cache/dein')
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
     endif
-    call dein#set_hook('indentLine', 'hook_post_source', 'IndentLinesEnable')
     call dein#remote_plugins()
   call dein#end()
   call dein#save_state()
@@ -142,8 +140,6 @@ let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
 
-let g:indentLine_char = '▏'
-
 " Pretty icons for airline
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
@@ -207,12 +203,6 @@ function! s:SemshiInit()
     augroup END
 endfunction
 
-" Disable indent lines for certain files.
-augroup IndentLinesDisabled
-    au!
-    au FileType help,markdown,tex,plaintex IndentLinesDisable
-augroup END
-
 augroup AirlineSetup
     au!
     au User AirlineAfterInit call AirlineSections()
@@ -228,12 +218,6 @@ augroup END
 augroup DefxSetup
     au!
     autocmd FileType defx call s:defx_my_settings()
-augroup END
-
-augroup SneakSetup
-    au!
-    au User SneakEnter IndentLinesDisable
-    au User SneakLeave IndentLinesEnable
 augroup END
 
 augroup TestStatusRunner
