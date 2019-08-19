@@ -43,6 +43,7 @@
     "tsserver.log": "verbose",
     "git.enableGutters": true,
     "git.addGlameToBufferVar": true,
+    "git.addGlameToVirtualText": true,
     "python.linting.mypyEnabled": true,
     "python.jediEnabled": true,
     "python.formatting.provider": "yapf",

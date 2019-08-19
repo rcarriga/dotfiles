@@ -2,7 +2,7 @@
 " Load plugins file after loading to reduce startup time.
 augroup PluginInit
     au!
-    au CursorHold * ++once source ~/.vimdir/plugins.vim
+    au CursorHold * ++once silent source ~/.vimdir/plugins.vim
 augroup END
 
 " ###################################################################################
