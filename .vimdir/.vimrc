@@ -10,7 +10,7 @@ augroup END
 
 set rtp+=~/.vimdir
 set rtp+=~/.vimdir/haslo-vim
-set rtp+=~/Repos/vim-test-status
+set rtp+=/Volumes/Repos/vim-test-status
 
 " Turn on syntax highlighting
 syn on

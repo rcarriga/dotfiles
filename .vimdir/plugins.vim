@@ -101,7 +101,7 @@ endfunction
 
 function! GetTestResults() abort
     return get(b:, "test_status_total") ?
-                \ get(b:, "test_status_passed")." Pass ".get(b:, "test_status_total")." Fail" : ""
+                \ get(b:, "test_status_passed")." Pass ".get(b:, "test_status_failed")." Fail" : ""
 endfunction
 
 " ###################################################################################
@@ -127,8 +127,10 @@ let g:NERDDefaultAlign = 'left'
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
-" Use terminal windows for running tests
-let test#strategy = "neovim"
+if has("nvim")
+    " Use terminal windows for running tests
+    let test#strategy = "neovim"
+endif
 
 " Open undo tree on right
 let g:mundo_right = 1
@@ -171,7 +173,8 @@ let g:doge_mapping_comment_jump_forward = "\<C-n\>"
 let g:doge_mapping_comment_jump_backward = "\<C-p\>"
 
 let g:test_status#icons = 1
-let g:test_status#virtual_text = 1
+let g:test_status#virtual_text = 0
+let g:test_status#output_style = 0
 
 let g:signify_sign_add               = "\u2503"
 let g:signify_sign_delete            = "\u2503"
