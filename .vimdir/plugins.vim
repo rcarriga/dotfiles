@@ -301,6 +301,10 @@ nmap <silent><leader>gp <Plug>(coc-git-prevchunk)
 nmap <silent><leader>gn <Plug>(coc-git-nextchunk)
 nmap <silent><leader>gi <Plug>(coc-git-chunkinfo)
 nmap <silent><leader>gc <Plug>(coc-git-commit)
+nmap <silent><leader>gg :diffget<CR>
+nmap <silent><leader>gp :diffput<CR>
+vmap <silent><leader>gg :diffget<CR>
+vmap <silent><leader>gp :diffput<CR>
 
 " Auto docstring
 nmap <silent><leader>p <Plug>(pydocstring)
