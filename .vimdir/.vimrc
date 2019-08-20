@@ -68,10 +68,6 @@ set autoread
 set undofile
 set undodir=~/.vim/undodir
 
-" Don't waste time holding shift for commands
-map ; :
-noremap ;; ;
-
 " Don't unload buffers when left
 set hidden
 
@@ -89,7 +85,7 @@ set smartcase
 set conceallevel=3
 
 " Enable mouse so people don't get angry when using my editor...
-set mouse=nvi
+set mouse=a
 
 if has("nvim")
     " Preview changes when using search and replace
@@ -110,7 +106,7 @@ let mapleader="\<Space>"
 set viewoptions=cursor,folds,slash,unix
 
 " Show unwanted characters
-exec "set listchars=tab:\uBB\uBB,nbsp:_,trail:\uB7"
+exec "set listchars=tab:\u254D\u254D,nbsp:_,trail:\uB7"
 set list
 
 color haslo
@@ -120,12 +116,18 @@ set sidescrolloff=10
 
 filetype plugin indent on
 
+set wildcharm=<Tab>
+
 set pyxversion=3
 
 " ###################################################################################
 " Custom Mappings
 
 inoremap <TAB> <C-n>
+
+" Don't waste time holding shift for commands
+map ; :
+noremap ;; ;
 
 " Replace word with yanked text
 nnoremap S "_dwP

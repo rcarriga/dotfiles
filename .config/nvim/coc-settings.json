@@ -45,7 +45,7 @@
     "git.addGlameToBufferVar": true,
     "git.addGlameToVirtualText": true,
     "python.linting.mypyEnabled": true,
-    "python.jediEnabled": true,
+    "python.jediEnabled": false,
     "python.formatting.provider": "yapf",
     "coc.preferences.codeLens.enable": true,
     "codeLens.enable": true,

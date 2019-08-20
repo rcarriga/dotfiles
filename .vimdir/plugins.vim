@@ -19,7 +19,9 @@ if dein#load_state('~/.cache/dein')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('heavenshell/vim-pydocstring')
+    call dein#add('gelguy/wilder.nvim', {'lazy': 1})
     call dein#add('tpope/vim-eunuch')
+    call dein#add('sheerun/vim-polyglot')
     call dein#add('honza/vim-snippets')
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
     call dein#add('jamessan/vim-gnupg')
@@ -180,6 +182,27 @@ let g:signify_sign_add               = "\u2503"
 let g:signify_sign_delete            = "\u2503"
 let g:signify_sign_delete_first_line = "\u2503"
 let g:signify_sign_change            = "\u2503"
+
+call wilder#set_option("modes", ["/", "?", ":"])
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     [
+      \       wilder#check({_, x -> empty(x)}),
+      \       wilder#history(100),
+      \     ],
+      \     wilder#cmdline_pipeline(),
+      \     [
+      \       wilder#python_fuzzy_delimiter(),
+      \       wilder#python_search({'engine': 're2'}),
+      \       wilder#result_output_escape('^$,*~[]/\'),
+      \     ],
+      \   ),
+      \ ])
+call wilder#enable_cmdline_enter()
+" for vim-airline
+let s:status_hl = wilder#make_hl('WilderStatus', 'airline_c')
+let s:mode_hl = wilder#make_hl('WilderMode', 'airline_a')
+let s:index_hl = wilder#make_hl('WilderIndex', 'airline_z')
 
 " ###################################################################################
 " Autocommands
@@ -367,6 +390,10 @@ nmap <silent><leader>vv :Vista!!<CR>
 nmap <leader>ot :ThesaurusQueryReplaceCurrentWord<CR>
 " Some lovely grammar checking
 nmap <leader>og :GrammarousCheck<CR>
+
+" Better command and search completion
+cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
