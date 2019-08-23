@@ -207,27 +207,21 @@ let s:index_hl = wilder#make_hl('WilderIndex', 'airline_z')
 " ###################################################################################
 " Autocommands
 
-augroup AirlineInit
-    au CursorMoved * call s:AirlineInit()
-augroup END
 
-function! s:AirlineInit()
-    AirlineRefresh 
-    augroup AirlineInit
-        au!
-    augroup END
-endfunction
+augroup PolyglotInit
+    au!
+    au CursorMoved *[jJ]enkins* ++once set ft=Jenkinsfile
+    au BufNew *[jJ]enkins* set ft=Jenkinsfile
+augroup END
+augroup AirlineInit
+    au!
+    au CursorMoved * ++once AirlineRefresh
+augroup END
 
 augroup SemshiInit
-    au CursorMoved python call s:SemshiInit()
+    au!
+    au CursorMoved python ++ once Semshi
 augroup END
-
-function! s:SemshiInit()
-    Semshi 
-    augroup SemshiInit
-        au!
-    augroup END
-endfunction
 
 augroup AirlineSetup
     au!
@@ -246,11 +240,14 @@ augroup DefxSetup
     autocmd FileType defx call s:defx_my_settings()
 augroup END
 
-augroup TestStatusRunner
-    au!
-    au CursorMoved * ++once TestStatus
-    au BufWritePost * TestStatusNearest
-augroup END
+" augroup TestStatusRunner
+"     au!
+"     au CursorMoved * ++once TestStatus
+"     au BufWritePost * TestStatusNearest
+" augroup END
+
+" ###################################################################################
+" Custom Commands
 
 command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
 
@@ -395,6 +392,7 @@ nmap <leader>og :GrammarousCheck<CR>
 cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
 cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
 
+inoremap <silent><expr> <C-n> pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :

@@ -10,7 +10,7 @@ augroup END
 
 set rtp+=~/.vimdir
 set rtp+=~/.vimdir/haslo-vim
-set rtp+=/Volumes/Repos/vim-test-status
+" set rtp+=/Volumes/Repos/vim-test-status
 
 " Turn on syntax highlighting
 syn on
@@ -143,6 +143,7 @@ nnoremap <leader>q :q<CR>
 "Cycle between last two open buffers
 nnoremap <leader><leader> <c-^>
 
+nnoremap <BS> X
 " Disable arrow keys (Just throw yourself into it trust me...)
 noremap <Up> <NOP>
 noremap <Down> <NOP>
