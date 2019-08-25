@@ -55,7 +55,7 @@ if dein#load_state('~/.cache/dein')
     call dein#add('udalov/kotlin-vim', {'on_ft': 'kotlin'})
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('tpope/vim-unimpaired')
-    " call dein#add('rcarriga/vim-test-status', {"lazy": 1, "depends": "vim-test"})
+    " call dein#add('rcarriga/vim-vitest', {"lazy": 1, "depends": "vim-test"})
     if !has("nvim")
         call dein#add('roxma/nvim-yarp')
         call dein#add('roxma/vim-hug-neovim-rpc')
@@ -102,8 +102,8 @@ function! OpenFileInPreviousWindow(file) abort
 endfunction
 
 function! GetTestResults() abort
-    return get(b:, "test_status_total") ?
-                \ get(b:, "test_status_passed")." Pass ".get(b:, "test_status_failed")." Fail" : ""
+    return get(b:, "vitest_total") ?
+                \ get(b:, "vitest_passed")." Pass ".get(b:, "vitest_failed")." Fail" : ""
 endfunction
 
 " ###################################################################################
@@ -173,10 +173,11 @@ let g:sneak#s_next = 1
 let g:doge_mapping = "\<leader\>ii"
 let g:doge_mapping_comment_jump_forward = "\<C-n\>"
 let g:doge_mapping_comment_jump_backward = "\<C-p\>"
+let g:doge_doc_standard_python = 'sphinx'
 
-let g:test_status#icons = 1
-let g:test_status#virtual_text = 0
-let g:test_status#output_style = 0
+let g:vitest#icons = 1
+let g:vitest#virtual_text = 0
+let g:vitest#output_style = 0
 
 let g:signify_sign_add               = "\u2503"
 let g:signify_sign_delete            = "\u2503"
@@ -246,10 +247,9 @@ augroup DefxSetup
     autocmd FileType defx call s:defx_my_settings()
 augroup END
 
-augroup TestStatusRunner
+augroup ViTestStatusRunner
     au!
-    au CursorMoved * ++once TestStatus
-    au BufWritePost * TestStatusNearest
+    au BufWritePost * ViTest
 augroup END
 
 command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
@@ -258,7 +258,7 @@ command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
 " Plugin Mappings
 
 " Defx file explorer commands
-nnoremap <silent> <leader>x :Defx -toggle -split=vertical -direction=topleft -winwidth=30 -columns=indent:git:icons:mark:filename:type<CR>
+nnoremap <silent> <leader>x :Defx -ignored-files=__pycache__ -toggle -split=vertical -direction=topleft -winwidth=30 -columns=indent:git:icons:mark:filename:type<CR>
 function! s:defx_my_settings() abort
     nnoremap <silent><buffer><expr> <CR> defx#do_action('open', 'OpenPrevious')
     nnoremap <silent><buffer><expr> c defx#do_action('copy')
@@ -372,16 +372,16 @@ nmap <silent><leader>rs :ReplSend<CR>
 vmap <silent><leader>rs :ReplSend<CR>
 
 " Testing functions
-nmap <silent><leader>tn :TestNearest<CR>
+nmap <silent><leader>tn :ViTestNearest<CR>
 nmap <silent><leader>tf :TestFile<CR>
 nmap <silent><leader>tt :TestSuite<CR>
 nmap <silent><leader>tl :TestLast<CR>
 nmap <silent><leader>tv :TestVisit<CR>
 nmap <silent><leader>tm :make test<CR>
 nmap <silent><leader>to :!open coverage/index.html<CR>
-nmap <silent><leader>ts <Plug>(test-status-run-all)
-nmap <silent><leader>tj <Plug>(test-status-next-fail)
-nmap <silent><leader>tk <Plug>(test-status-prev-fail)
+nmap <silent><leader>ts <Plug>(vitest-run-all)
+nmap <silent><leader>tj <Plug>(vitest-next-fail)
+nmap <silent><leader>tk <Plug>(vitest-prev-fail)
 
 " Ctags and LSP symbol finding
 nmap <silent><leader>vv :Vista!!<CR>
