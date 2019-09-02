@@ -34,7 +34,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('machakann/vim-sandwich')
     call dein#add('simnalamburt/vim-mundo',{'lazy':1})
     call dein#add('neoclide/coc.nvim', {'merge': 0, 'rev': 'release'})
-    call dein#add('neovimhaskell/haskell-vim', {'on_ft': 'haskell'})
     call dein#add('numirias/semshi')
     call dein#add('rhysd/vim-grammarous', {'on_cmd': 'GrammarousCheck'})
     call dein#add('scrooloose/nerdcommenter', )
@@ -52,7 +51,6 @@ if dein#load_state('~/.cache/dein')
     call dein#add('machakann/vim-swap')
     call dein#add('rhysd/clever-f.vim')
     call dein#add('justinmk/vim-sneak')
-    call dein#add('udalov/kotlin-vim', {'on_ft': 'kotlin'})
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('tpope/vim-unimpaired')
     " call dein#add('rcarriga/vim-vitest', {"lazy": 1, "depends": "vim-test"})
@@ -241,10 +239,10 @@ augroup DefxSetup
     autocmd FileType defx call s:defx_my_settings()
 augroup END
 
-augroup ViTestStatusRunner
-    au!
-    au BufWritePost * ViTest
-augroup END
+" augroup ViTestStatusRunner
+"     au!
+"     au BufWritePost * ViTest
+" augroup END
 
 " ###################################################################################
 " Custom Commands
