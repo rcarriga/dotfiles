@@ -46,7 +46,7 @@
     "git.addGlameToVirtualText": true,
     "python.linting.pydocstyleEnabled": false,
     "python.linting.mypyEnabled": true,
-    "python.jediEnabled": false,
+    "python.jediEnabled": true,
     "pyls.plugins.pycodestyle.enabled": false,
     "python.formatting.provider": "yapf",
     "coc.preferences.codeLens.enable": true,

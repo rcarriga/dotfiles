@@ -1,1 +1,1 @@
-source ~/.vimdir/.vimrc
+set rtp+=~/.vimdir
