@@ -17,7 +17,6 @@
 ([[ -f "$HOME/.zgen/zgen.zsh" ]] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen") && source "$HOME/.zgen/zgen.zsh" 
 
 if ! zgen saved; then
-
     zgen load "zsh-users/zsh-autosuggestions"
     zgen load "zdharma/fast-syntax-highlighting"
     zgen load "zsh-users/zsh-completions" src

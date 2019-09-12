@@ -26,5 +26,6 @@ alias yr="yadm rebase"
 alias yl="yadm pull"
 alias v=nvim
 alias d="kitty +kitten diff"
-alias k="colorls -1 --tree=3 --gs --sf"
+alias t="tree -DhvC"
+alias tl="tree -DhvC -L"
 [[ -f "$HOME/.config/system/local.alias.sh" ]] && source "$HOME/.config/system/local.alias.sh"
