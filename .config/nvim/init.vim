@@ -1,2 +1,2 @@
 set rtp+=~/.vimdir
-set rtp+=~/dev/repos/vitest
+" set rtp+=~/dev/repos/vitest
