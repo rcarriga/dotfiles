@@ -11,8 +11,6 @@ _README might be out of date._
 Recommend using [NeoVim](https://neovim.io/) over Vim for better plugin support and faster updates.
 For dependencies run `:checkhealth`.
 
-![](.resources/output.gif)
-
 <details><summary>Language Support</summary>
 <p>
 
@@ -34,51 +32,78 @@ For dependencies run `:checkhealth`.
 <details><summary>Plugins</summary>
 <p>
 
-Most plugins are loaded after entering insert mode so that startup time is ~100ms
+Plugins are loaded after Vim starts so startup time should be ~50ms.
 
 **General**
 
-  - [dein.vim](https://github.com/Shougo/dein.vim)
-        Plugin manager for vim which allows for lazy loading.
-  - [coc.nvim](https://github.com/neoclide/coc.nvim/)
-        Fast and powerful language server client.
-  - [git-messenger.vim](https://github.com/rhysd/git-messenger.vim)
-        Provides descriptive git history for any line in a file.
-  - [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
-        Multi-lingual commenting plugin.
-  - [FZF](https://github.com/junegunn/fzf.vim)
-        Fuzzy file finding to open files from child directories.
-  - [vim-sandwich](https://github.com/machakann/vim-sandwich)
-        Allows for surrounding text objects with any character.
-  - [vim-gitgutter](https://github.com/airblade/vim-gitgutter)
-        Shows git status for  each line in gutter (Left side of buffer).
-  - [lightline](https://github.com/itchyny/lightline.vim)
-        Prettier statusbar.
-  - [vim-fugitive](https://github.com/tpope/vim-fugitive)
-        Better git integration.
-  - [NERDTree](https://github.com/scrooloose/nerdtree)
-        Nice directory tree. Recommend using FZF over this generally.
-
-**Haskell Specific**:
-
-  - [haskell-vim](https://github.com/neovimhaskell/haskell-vim)
-        Better haskell syntax highlighting.
-
-**Typescript Specific**
-
-  - [typescript-vim](https://github.com/leafgarland/typescript-vim)
-        Better typescript syntax highlighting.
-
-**Markdown and LaTex Specific**
-
-  - [vim-easy-align](https://github.com/junegunn/vim-easy-align)
-        Auto align markdown tables
-  - [vimtex](https://github.com/lervag/vimtex)
-        Integrated latex compiler, viewer and other features
-  - [Thesauras Query](https://github.com/Ron89/thesaurus_query.vim)
-        Built in thesauras
-  - [vim-grammarous](https://github.com/rhysd/vim-grammarous)
-        Grammar checking (Requires Java to be installed)
+- [rhysd/reply.vim](https://github.com/rhysd/reply.vim)
+    - REPL support.
+- [Konfekt/FastFold](https://github.com/Konfekt/FastFold)
+    - Faster folding.
+- [Ron89/thesaurus_query.vim](https://github.com/Ron89/thesaurus_query.vim)
+    - Thesaurus in Vim.
+- [alvan/vim-closetag](https://github.com/alvan/vim-closetag)
+    - Better HTML tag creation.
+- [tpope/vim-eunuch](https://github.com/tpope/vim-eunuch)
+    - Common shell commands for files in Vim.
+- [sheerun/vim-polyglot](https://github.com/sheerun/vim-polyglot)
+    - Huge language support plugin collection.
+- [honza/vim-snippets](https://github.com/honza/vim-snippets)
+    - Collection of common snippets (Used with coc.nvim).
+- [iamcco/markdown-preview.nvim](https://github.com/iamcco/markdown-preview.nvim)
+    - Live markdown previewing.
+- [jamessan/vim-gnupg](https://github.com/jamessan/vim-gnupg)
+    - Edit GPG encrypted files.
+- [janko/vim-test](https://github.com/janko/vim-test)
+    - Run tests for multiple languages.
+- [junegunn/goyo.vim](https://github.com/junegunn/goyo.vim)
+    - Zen mode for Vim.
+- [junegunn/vim-easy-align](https://github.com/junegunn/vim-easy-align)
+    - Align text easily.
+- [lervag/vimtex](https://github.com/lervag/vimtex)
+    - Latex compiling and viewing.
+- [liuchengxu/vista.vim](https://github.com/liuchengxu/vista.vim)
+    - Tag manager for code.
+- [machakann/vim-sandwich](https://github.com/machakann/vim-sandwich)
+    - Manipulate text between pairs of characters.
+- [simnalamburt/vim-mundo'](https://github.com/simnalamburt/vim-mundo')
+    - Manage the undo tree for files.
+- [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim)
+    - Support for language servers, snippets and other extensions.
+- [numirias/semshi](https://github.com/numirias/semshi)
+    - Python semantic highlighting (Better than syntax highlighting!).
+- [rhysd/vim-grammarous](https://github.com/rhysd/vim-grammarous)
+    - Grammar checking in Vim.
+- [scrooloose/nerdcommenter](https://github.com/scrooloose/nerdcommenter)
+    - Manage code blocks for multiple languages.
+- [Shougo/defx.nvim](https://github.com/Shougo/defx.nvim)
+    - Directory tree plugin.
+    - Also uses these addons:
+        - [kristijanhusak/defx-icons](https://github.com/kristijanhusak/defx-icons)
+        - [kristijanhusak/defx-git](https://github.com/kristijanhusak/defx-git)
+- [mhinz/vim-signify](https://github.com/mhinz/vim-signify)
+    - VC markers in files.
+- [tpope/vim-fugitive](https://github.com/tpope/vim-fugitive)
+    - Best Git plugin ever.
+- [vim-airline/vim-airline](https://github.com/vim-airline/vim-airline)
+    - Extensible and pretty statusline.
+    - Also uses: [vim-airline/vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
+- [w0rp/ale](https://github.com/w0rp/ale)
+    - Linting and fixing tool support for nearly everything.
+- [whiteinge/diffconflicts](https://github.com/whiteinge/diffconflicts)
+    - Nice Git diff fixing.
+- [kkoomen/vim-doge](https://github.com/kkoomen/vim-doge)
+    - Multi language docstring support.
+- [machakann/vim-swap](https://github.com/machakann/vim-swap)
+    - Manipulate lists of items (List contents, function arguments etc...)
+- [rhysd/clever-f.vim](https://github.com/rhysd/clever-f.vim)
+    - Better `f` and `t` keys.
+- [justinmk/vim-sneak](https://github.com/justinmk/vim-sneak)
+    - Quick navigation commands.
+- [junegunn/vim-peekaboo](https://github.com/junegunn/vim-peekaboo)
+    - Preview register contents.
+- [tpope/vim-unimpaired](https://github.com/tpope/vim-unimpaired)
+    - Common useful commands bound to keys.
 
 <p>
 </details>
@@ -100,6 +125,8 @@ Most plugins are loaded after entering insert mode so that startup time is ~100m
 #### Langage Server Commands
 
 My leader key is set to default "\\" key.
+These are only some of my mappings and are likely out of date.
+Check [here](./.vimdir/autoload/plugins.vim) for all mappings.
 
 *Prefix*: `<Leader>l` (Lower case L)
 
@@ -132,13 +159,6 @@ My leader key is set to default "\\" key.
 
   - *NB* Type "cc" in status window to commit changes.
 
-#### FZF Commands
-
-| Suffix           | Command                               |
-| :----------:     | :------------------------------------ |
-| `<Leader>f`      | Fuzzy File Finder                     |
-| `<Leader>ag`     | Fuzzy File Contents Search (Using Ag) |
-
 #### LaTex Commands
 
 *Prefix*: `<Leader>l`
@@ -166,10 +186,8 @@ _Arrow keys are disabled in normal mode._
 
 ## Shell - Zsh
 
-![](.resources/zshdemo.gif)
-
 Plugin Manager: [Zgen](https://github.com/tarjoilija/zgen).\
-Theme:          [Powerlevel10k](https://github.com/romkatv/powerlevel10k) with [PurePower](https://github.com/romkatv/dotfiles-public/blob/master/.purepower) config file.
+Theme:          [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 
 <details><summary>Plugins</summary>
 <p>
@@ -177,14 +195,13 @@ Theme:          [Powerlevel10k](https://github.com/romkatv/powerlevel10k) with [
   - [zsh-completions](https://github.com/zsh-users/zsh-completions)
   - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
   - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
-  - [autojump](https://github.com/wting/autojump)
 
 </p>
 </details>
 
 ## Terminal - Kitty 
 
-[Kitty](https://sw.kovidgoyal.net/kitty/)
+[Kitty](https://sw.kovidgoyal.net/kitty/#quickstart)
 
 <details><summary>Features</summary>
 <p>
@@ -207,8 +224,6 @@ Kitty is highly powerful out of the box. I can't list all of the features these 
 
 
 [XMonad](https://xmonad.org/)
-
-<img src=".resources/xmonad.png" alt="drawing" width="780"/>
 
 <details><summary>Features</summary>
 <p>
@@ -247,6 +262,7 @@ The ones listed here are the ones I am currently using.
 - Temperature Monitoring: [lm-sensors](https://github.com/lm-sensors/lm-sensors)
 - Screen Compositor: [compton](https://github.com/chjj/compton)
 - Terminal file browser: [vifm](https://vifm.info/)
+- Fast directory navigation: [z.lua](https://github.com/skywind3000/z.lua)
 
 </p>
 </details>
