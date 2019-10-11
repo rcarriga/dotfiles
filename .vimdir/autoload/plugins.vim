@@ -19,12 +19,14 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 let g:dein#install_progress_type = "none"
 if dein#load_state('~/.cache/dein')
   call dein#begin('~/.cache/dein')
+    call dein#add('puremourning/vimspector', {'lazy': 1})
     call dein#add('rhysd/reply.vim')
     call dein#add('Konfekt/FastFold')
     call dein#add('Ron89/thesaurus_query.vim', {'on_ft': ['tex', 'markdown']})
     call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
     call dein#add('tpope/vim-eunuch')
-    call dein#add('sheerun/vim-polyglot')
+    call dein#add('godlygeek/tabular')
+    call dein#add('sheerun/vim-polyglot', {'depends': 'tabular'})
     call dein#add('honza/vim-snippets')
     call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'cd app & yarn install' })
     call dein#add('jamessan/vim-gnupg')
@@ -167,11 +169,13 @@ let g:doge_doc_standard_python = 'sphinx'
 let g:vitest#icons = 1
 let g:vitest#virtual_text = 1
 
-let g:signify_sign_add               = "\u2503"
-let g:signify_sign_delete            = "\u2503"
-let g:signify_sign_delete_first_line = "\u2503"
-let g:signify_sign_change            = "\u2503"
+let g:signify_sign_add               = "\u258B"
+let g:signify_sign_delete            = "\u258B"
+let g:signify_sign_delete_first_line = "\u258B"
+let g:signify_sign_change            = "\u258B"
 
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 0
 " ###################################################################################
 " Autocommands
 

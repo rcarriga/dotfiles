@@ -20,5 +20,9 @@ if ! zgen saved; then
     zgen load "zsh-users/zsh-autosuggestions"
     zgen load "zdharma/fast-syntax-highlighting"
     zgen load "zsh-users/zsh-completions" src
+    zgen load "chisui/zsh-nix-shell"
+    zgen load "spwhitt/nix-zsh-completions"
     zgen save 
 fi
+
+prompt_nix_shell_setup

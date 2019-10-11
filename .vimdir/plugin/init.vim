@@ -13,6 +13,10 @@ augroup FileTypeInit
     au BufNew,VimEnter *\.dhall set ft=dhall
 augroup END
 
+augroup NicerTerminal
+    au!
+    au BufEnter term://* normal i
+
 " ###################################################################################
 " Native Vim Settings
 
@@ -164,15 +168,15 @@ nnoremap <silent> <C-j> <C-w><C-j>
 nnoremap <silent> <C-k> <C-w><C-k>
 nnoremap <silent> <C-l> <C-w><C-l>
 tnoremap <silent><C-h> <C-\><C-N><C-w><C-h>
-tnoremap <silent><C-h> <C-\><C-N><C-w><C-j>
-tnoremap <silent><C-j> <C-\><C-N><C-w><C-k>
-tnoremap <silent><C-k> <C-\><C-N><C-w><C-l>
-inoremap <silent><C-l> <C-\><C-N><C-w><C-h>
+tnoremap <silent><C-j> <C-\><C-N><C-w><C-j>
+tnoremap <silent><C-k> <C-\><C-N><C-w><C-k>
+tnoremap <silent><C-l> <C-\><C-N><C-w><C-l>
+inoremap <silent><C-h> <C-\><C-N><C-w><C-h>
 inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
-nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o out.pdf && (pkill zathura;  zathura out.pdf) &"<CR>
+nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
 
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
