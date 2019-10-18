@@ -19,43 +19,46 @@ set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 let g:dein#install_progress_type = "none"
 if dein#load_state("~/.cache/dein")
   call dein#begin("~/.cache/dein")
-    call dein#add("rhysd/reply.vim")
+    call dein#add("KabbAmine/vCoolor.vim")
     call dein#add("Konfekt/FastFold")
     call dein#add("Ron89/thesaurus_query.vim", {"on_ft": ["tex", "markdown"]})
     call dein#add("alvan/vim-closetag", {"on_ft": "html"})
-    call dein#add("tpope/vim-eunuch")
     call dein#add("godlygeek/tabular")
-    call dein#add("sheerun/vim-polyglot", {"depends": "tabular"})
     call dein#add("honza/vim-snippets")
     call dein#add("iamcco/markdown-preview.nvim", {"on_ft": ["markdown", "pandoc.markdown", "rmd"], "build": "cd app & yarn install" })
     call dein#add("jamessan/vim-gnupg")
     call dein#add("janko/vim-test", {"lazy": 1})
     call dein#add("junegunn/goyo.vim", {"on_cmd": "Goyo"})
     call dein#add("junegunn/vim-easy-align", {"on_ft": "markdown"})
+    call dein#add("junegunn/vim-peekaboo")
+    call dein#add("justinmk/vim-sneak")
+    call dein#add("kkoomen/vim-doge",{"lazy":1})
+    call dein#add("kshenoy/vim-signature")
     call dein#add("lervag/vimtex", {"on_ft": "tex"})
     call dein#add("liuchengxu/vista.vim", {"on_cmd": "Vista"})
     call dein#add("machakann/vim-sandwich")
-    call dein#add("simnalamburt/vim-mundo",{"lazy":1})
+    call dein#add("machakann/vim-swap")
+    call dein#add("mhinz/vim-signify")
     call dein#add("neoclide/coc.nvim", {"merge": 0, "rev": "release"})
     call dein#add("numirias/semshi")
+    call dein#add("rhysd/clever-f.vim")
+    call dein#add("rhysd/reply.vim")
     call dein#add("rhysd/vim-grammarous", {"on_cmd": "GrammarousCheck"})
     call dein#add("scrooloose/nerdcommenter", )
-    call dein#add("mhinz/vim-signify")
+    call dein#add("sheerun/vim-polyglot", {"depends": "tabular"})
+    call dein#add("simnalamburt/vim-mundo",{"lazy":1})
+    call dein#add("tpope/vim-abolish")
+    call dein#add("tpope/vim-endwise")
+    call dein#add("tpope/vim-eunuch")
     call dein#add("tpope/vim-fugitive")
+    call dein#add("tpope/vim-sleuth", {"hook_post_source": "Sleuth"})
+    call dein#add("tpope/vim-unimpaired")
     call dein#add("vim-airline/vim-airline", {"lazy": 1, "depends": "vim-airline-themes"})
     call dein#add("vim-airline/vim-airline-themes")
-    call dein#add("w0rp/ale", {"lazy": 1})
-    call dein#add("whiteinge/diffconflicts", {"on_cmd" : "DiffConflicts" })
-    call dein#add("kkoomen/vim-doge",{"lazy":1})
-    call dein#add("machakann/vim-swap")
-    call dein#add("rhysd/clever-f.vim")
-    call dein#add("justinmk/vim-sneak")
-    call dein#add("junegunn/vim-peekaboo")
-    call dein#add("tpope/vim-unimpaired")
-    call dein#add("roryokane/detectindent")
-    call dein#add("KabbAmine/vCoolor.vim")
-    call dein#add("kshenoy/vim-signature")
     call dein#add("vim-scripts/ReplaceWithRegister")
+    call dein#add("w0rp/ale", {"lazy": 1})
+    call dein#add("wellle/targets.vim")
+    call dein#add("whiteinge/diffconflicts", {"on_cmd" : "DiffConflicts" })
     if !has("nvim")
         call dein#add("roxma/nvim-yarp")
         call dein#add("roxma/vim-hug-neovim-rpc")
@@ -119,7 +122,7 @@ let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:vimtex_compiler_progname = "nvr" 
 
-let g:coc_global_extensions = [ "coc-explorer", "coc-sh", "coc-gitignore", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-post", "coc-python", "coc-snippets", "coc-docker", "coc-pairs", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
+let g:coc_global_extensions = [ "coc-explorer", "coc-sh", "coc-gitignore", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-post", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -189,11 +192,7 @@ let g:signify_sign_change            = "\u258B"
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
 
-
-" let g:swap#rules = [{
-"   \   "delimiter": [" "],
-"   \   "body": "\h*\( \+\h\*\)\+",
-"   \ }]
+let g:sleuth_automatic = 1
 " ###################################################################################
 " Autocommands
 
