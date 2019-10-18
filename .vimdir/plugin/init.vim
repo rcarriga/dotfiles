@@ -16,6 +16,7 @@ augroup END
 augroup NicerTerminal
     au!
     au BufEnter term://* normal i
+augroup END
 
 " ###################################################################################
 " Native Vim Settings
@@ -141,9 +142,6 @@ inoremap <TAB> <C-n>
 map ; :
 noremap ;; ;
 
-" Replace word with yanked text
-nnoremap S "_dwP
-
 " Jump to start and end of line easier
 nnoremap H ^
 nnoremap L $
@@ -156,11 +154,12 @@ nnoremap <leader>q :q<CR>
 nnoremap <leader><leader> <c-^>
 
 nnoremap <BS> X
-" Disable arrow keys (Just throw yourself into it trust me...)
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+
+" Use arrow keys for scrolling
+noremap <Up> <C-y>
+noremap <Down> <C-e>
+noremap <Left> zh
+noremap <Right> zl
 
 " Switch windows with Ctrl + regular direction keys
 nnoremap <silent> <C-h> <C-w><C-h>

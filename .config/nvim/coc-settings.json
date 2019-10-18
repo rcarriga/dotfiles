@@ -65,7 +65,6 @@
     "python.jediEnabled": true,
     "pyls.plugins.pycodestyle.enabled": false,
     "python.formatting.provider": "yapf",
-    "coc.preferences.codeLens.enable": true,
     "codeLens.enable": true,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.virtualTextLines": 4,
@@ -101,11 +100,17 @@
         "--normal"
     ],
     "suggest.preferCompleteThanJumpPlaceholder": true,
-    "git.addedSign.text": "\u258B",
-    "git.changedSign.text": "\u258B",
-    "git.removedSign.text": "\u258B",
-    "git.changeRemovedSign.text": "\u258B",
-    "git.topRemovedSign.text": "\u258B",
     "tabnine.priority": 50,
-    "yank.priority": 40
+    "yank.priority": 40,
+    "explorer.icon.enableNerdfont": true,
+    "explorer.file.columns": [
+        "git",
+        "selection",
+        "clip",
+        "diagnosticWarning",
+        "diagnosticError",
+        "indent",
+        "icon",
+        "filename"
+    ]
 }
