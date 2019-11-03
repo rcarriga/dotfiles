@@ -3,7 +3,7 @@ if exists("g:plugins_loaded")
 endif
 let g:plugins_loaded = 1
 " ###################################################################################
-" Install Plugins
+" Install Plugins {{{1
 "
 
 " Auto install dein
@@ -16,9 +16,9 @@ endif
 
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-let g:dein#install_progress_type = "none"
 if dein#load_state("~/.cache/dein")
   call dein#begin("~/.cache/dein")
+
     call dein#add("KabbAmine/vCoolor.vim")
     call dein#add("Konfekt/FastFold")
     call dein#add("Ron89/thesaurus_query.vim", {"on_ft": ["tex", "markdown"]})
@@ -30,13 +30,13 @@ if dein#load_state("~/.cache/dein")
     call dein#add("janko/vim-test", {"lazy": 1})
     call dein#add("junegunn/goyo.vim", {"on_cmd": "Goyo"})
     call dein#add("junegunn/vim-easy-align", {"on_ft": "markdown"})
-    call dein#add("junegunn/vim-peekaboo")
+    " call dein#add("junegunn/vim-peekaboo")
     call dein#add("justinmk/vim-sneak")
-    call dein#add("kkoomen/vim-doge",{"lazy":1})
+    call dein#add("kkoomen/vim-doge",{"lazy":1, "hook_post_source": "DogeGenerate"})
     call dein#add("kshenoy/vim-signature")
-    call dein#add("lervag/vimtex", {"on_ft": "tex"})
     call dein#add("liuchengxu/vista.vim", {"on_cmd": "Vista"})
     call dein#add("machakann/vim-sandwich")
+    call dein#add("neovimhaskell/nvim-hs.vim")
     call dein#add("machakann/vim-swap")
     call dein#add("mhinz/vim-signify")
     call dein#add("neoclide/coc.nvim", {"merge": 0, "rev": "release"})
@@ -54,11 +54,15 @@ if dein#load_state("~/.cache/dein")
     call dein#add("tpope/vim-sleuth", {"hook_post_source": "Sleuth"})
     call dein#add("tpope/vim-unimpaired")
     call dein#add("vim-airline/vim-airline", {"lazy": 1, "depends": "vim-airline-themes"})
-    call dein#add("vim-airline/vim-airline-themes")
+    call dein#add("vim-airline/vim-airline-themes", {"lazy": 1})
     call dein#add("vim-scripts/ReplaceWithRegister")
     call dein#add("w0rp/ale", {"lazy": 1})
     call dein#add("wellle/targets.vim")
     call dein#add("whiteinge/diffconflicts", {"on_cmd" : "DiffConflicts" })
+    call dein#add("reedes/vim-wordy")
+    call dein#add("reedes/vim-litecorrect")
+    call dein#add("keith/investigate.vim")
+
     if !has("nvim")
         call dein#add("roxma/nvim-yarp")
         call dein#add("roxma/vim-hug-neovim-rpc")
@@ -74,17 +78,18 @@ if exists("g:needs_reload")
 endif
 filetype plugin indent on
 syn on
-
+" }}}1
 " ###################################################################################
-" Functions
+" Functions {{{1
 
 function! s:isOverWhitespace() abort
   let col = col(".") - 1
-  return !col || getline(".")[col - 1]  =~# "\s"
+  " return !col || getline(".")[col - 1]  =~# "\s"
+  return 1
 endfunction
 
 function! AirlineSections() abort
-    let g:airline_section_x = airline#section#create(["readonly","%{dein#get_progress()}", "readonly","%{GetTestResults()}"])
+    let g:airline_section_x = airline#section#create(["readonly", "readonly","%{GetTestResults()}"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
@@ -100,19 +105,17 @@ endfunction
 
 function! OpenInFloating(params) abort
     let [_, curs, filename] = split(a:params)
-    let out_buffer = bufnr(filename) > -1 ? bufnr(filename) : bufadd(filename)
+    let out_buffer = bufadd(filename)
     call bufload(out_buffer)
     let height = nvim_buf_line_count(out_buffer)
-    if height > 1
-        let window_params = {"relative": "cursor", "width": 100, "height": height < 20 ? height : 20, "row": 1, "col": 1, "anchor": "SW", "style": "minimal"}
-        let created_window = nvim_open_win(out_buffer, v:true, window_params)
-        exec "call ".curs
-        exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
-    endif
+    let window_params = {"relative": "cursor", "width": 100, "height": height < 20 ? height : 20, "row": 1, "col": 1, "anchor": "SW", "style": "minimal"}
+    let created_window = nvim_open_win(out_buffer, v:true, window_params)
+    exec "call ".curs
+    exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
 endfunction
-
+" }}}1
 " ###################################################################################
-" Plugin Settings
+" Plugin Settings {{{1
 
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
@@ -154,11 +157,13 @@ let g:vista_sidebar_width = 50
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
 let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions= ["coc", "vimtex"]
+let g:airline_extensions= ["coc", "vimtex", "tabline"]
+let g:airline#extensions#tabline#show_splits = 1
 let g:airline#extensions#hunks#non_zero_only = 1
-let g:airline_theme = "molokai"
-let airline#extensions#coc#error_symbol = " "
-let airline#extensions#coc#warning_symbol = " "
+let g:airline_theme = "night_owl"
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#coc#error_symbol = " "
+let g:airline#extensions#coc#warning_symbol = " "
 let g:airline#extensions#tabline#enabled = 1
 
 let g:ale_virtualtext_cursor = 1
@@ -193,9 +198,10 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
 
 let g:sleuth_automatic = 1
+let g:investigate_url_for_python = "https://docs.python.org/3.7/search.html?q=^s"
+" }}}1
 " ###################################################################################
-" Autocommands
-
+" Autocommands {{{1
 
 augroup AirlineInit
     au!
@@ -204,7 +210,7 @@ augroup END
 
 augroup SemshiInit
     au!
-    au CursorMoved python ++ once Semshi
+    au CursorMoved python ++once Semshi
 augroup END
 
 augroup AirlineSetup
@@ -219,23 +225,20 @@ augroup CocSetup
     autocmd CursorHold * silent call CocActionAsync("highlight")
 augroup END
 
-" augroup HardModeConfig
-"     au!
-"     autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-" augroup END
 " augroup ViTestStatusRunner
 "     au!
 "     au BufWritePost * ViTest
 " augroup END
-
+" }}}1
 " ###################################################################################
-" Custom Commands
+" Custom Commands {{{1
 
 command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
 command! -nargs=1 OpenPeek call OpenInFloating(<f-args>)
 
+" }}}1
 " ###################################################################################
-" Plugin Mappings
+" Plugin Mappings {{{1
 
 " Vim sneak commands
 nmap x <Plug>Sneak_s
@@ -316,9 +319,9 @@ nmap <silent><leader>sl :CocList sessions<CR>
 
 " Repl Commands
 nmap <silent><leader>ro :Repl<CR>
-nmap <silent><leader>rc :ReplStop<CR>
 nmap <silent><leader>rs :ReplSend<CR>
 vmap <silent><leader>rs :ReplSend<CR>
+vmap <silent><leader>rr :ReplRecv<CR>
 
 " Testing functions
 nmap <silent><leader>tn :ViTestNearest<CR>
@@ -344,3 +347,4 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 " Use <CR> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" }}}1

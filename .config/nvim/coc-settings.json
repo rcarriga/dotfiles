@@ -70,14 +70,19 @@
     "diagnostic.virtualTextLines": 4,
     "suggest.noselect": true,
     "suggest.enablePreview": true,
-    "list.source.grep.command": "ag",
+    "list.source.files.command": "rg",
+    "list.source.files.args": ["--files"],
+    "list.source.grep.command": "rg",
+    "list.source.grep.args": ["--max-depth=10", "--hidden", "--color", "always", "--follow"],
     "list.source.files.defaultOptions": [
-        "--ignore-case"
+        "--ignore-case",
+        "--no-sort"
     ],
     "list.source.grep.defaultOptions": [
         "--ignore-case",
         "--interactive",
-        "--auto-preview"
+        "--auto-preview",
+        "--no-sort"
     ],
     "list.source.helptags.defaultOptions": [
         "--ignore-case",
@@ -99,6 +104,9 @@
     "list.source.sessions.defaultOptions": [
         "--normal"
     ],
+    "list.source.colors.defaultOptions": [
+        "--auto-preview"
+    ],
     "suggest.preferCompleteThanJumpPlaceholder": true,
     "tabnine.priority": 50,
     "yank.priority": 40,
@@ -112,5 +120,7 @@
         "indent",
         "icon",
         "filename"
-    ]
+    ],
+    "latex.forwardSearch.executable": "zathura",
+    "latex.forwardSearch.args": ["--synctex-forward", "%l:1:%f", "%p"]
 }

@@ -1,3 +1,4 @@
-git/.gitconfig
+__pycache__/*
+.mypy_cache/*
 local*
 .stack-work/

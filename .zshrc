@@ -6,15 +6,19 @@
 
 [[ -f "$HOME/.local.zshrc" ]] && source "$HOME/.local.zshrc"
 
-([[ -d "$HOME/powerlevel10k" ]] || git clone https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k) && source ~/powerlevel10k/powerlevel10k.zsh-theme
-
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 ([[ -f "$HOME/.fzf.zsh" ]] || (git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install)) && source "$HOME/.fzf.zsh"
 
-([[ -f "$HOME/z.lua" ]] || (cd && curl -fsSLO https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua)) && eval "$(lua ~/z.lua --init zsh once enhanced)"
+([[ -f "$HOME/.cache/z.lua" ]] || (cd ~/.cache && curl -fsSLO https://raw.githubusercontent.com/skywind3000/z.lua/master/z.lua)) && eval "$(lua ~/.cache/z.lua --init zsh once enhanced)"
 
 ([[ -f "$HOME/.zgen/zgen.zsh" ]] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen") && source "$HOME/.zgen/zgen.zsh" 
+
+if [[ -x "$(command -v go)" ]]; then
+    ([[ -f "$GOPATH/bin/pmy" ]] || go get -u gitub.com/relastle/pmy) && eval "$(pmy init)"
+    [[ -f "$GOPATH/bin/taggo" ]] || go get -u github.com/relastle/taggo
+fi
+
 
 if ! zgen saved; then
     zgen load "zsh-users/zsh-autosuggestions"
@@ -22,6 +26,8 @@ if ! zgen saved; then
     zgen load "zsh-users/zsh-completions" src
     zgen load "chisui/zsh-nix-shell"
     zgen load "spwhitt/nix-zsh-completions"
+    zgen load "zsh-users/zaw"
+    zgen load "romkatv/powerlevel10k" powerlevel10k
     zgen save 
 fi
 

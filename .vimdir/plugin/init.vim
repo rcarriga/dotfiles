@@ -1,4 +1,5 @@
 " ###################################################################################
+" Plugins Init {{{1
 " Load plugins file after loading to reduce startup time.
 augroup PluginInit
     au!
@@ -17,10 +18,9 @@ augroup NicerTerminal
     au!
     au BufEnter term://* normal i
 augroup END
-
+" }}}1
 " ###################################################################################
-" Native Vim Settings
-
+" Native Vim Settings {{{1
 let g:python3_host_prog="/usr/bin/python3.7"
 
 " Disable modelines (Vim commands in files)
@@ -132,10 +132,9 @@ set pyxversion=3
 
 " Disable line wrapping
 set nowrap
-
+" }}}1
 " ###################################################################################
-" Custom Mappings
-
+" Custom Mappings{{{1
 inoremap <TAB> <C-n>
 
 " Don't waste time holding shift for commands
@@ -192,7 +191,18 @@ nmap <silent><leader>z :Goyo<CR>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Custom Commands
+"}}}1
 " ###################################################################################
+" Custom Commands {{{1
 command! RunR exec "!Rscript "expand("%")
+command! RunP exec '!python' shellescape(@%, 1)
+
+"}}}1
+" ###################################################################################
+" Autocommands {{{1
+
+augroup VimInit
+    au!
+   au BufAdd,VimEnter *.vim setlocal foldmethod=marker
+   au BufAdd,VimEnter *.vim setlocal foldlevel=0
+" }}}1
