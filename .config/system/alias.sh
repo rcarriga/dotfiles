@@ -29,4 +29,5 @@ alias v=nvim
 alias d="kitty +kitten diff"
 alias t="tree -DhvC"
 alias tl="tree -DhvC -L"
+alias r="rg --max-depth=10 --hidden --pretty --follow"
 [[ -f "$HOME/.config/system/local.alias.sh" ]] && source "$HOME/.config/system/local.alias.sh"
