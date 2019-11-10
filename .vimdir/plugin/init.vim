@@ -132,6 +132,11 @@ set pyxversion=3
 
 " Disable line wrapping
 set nowrap
+
+set foldtext=MyFoldText()
+
+set fillchars=fold:\ 
+
 " }}}1
 " ###################################################################################
 " Custom Mappings{{{1
@@ -196,13 +201,18 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 " Custom Commands {{{1
 command! RunR exec "!Rscript "expand("%")
 command! RunP exec '!python' shellescape(@%, 1)
-
 "}}}1
 " ###################################################################################
+" Functions {{{1
+function! MyFoldText() abort
+    let line = getline(v:foldstart)
+    return substitute(line,"\s*{{{[0-9]\s*$","","")." ▶"
+endfunction
+" }}}1
+" ###################################################################################
 " Autocommands {{{1
-
 augroup VimInit
     au!
-   au BufAdd,VimEnter *.vim setlocal foldmethod=marker
-   au BufAdd,VimEnter *.vim setlocal foldlevel=0
+    au FileType vim setlocal foldmethod=marker
+augroup END
 " }}}1

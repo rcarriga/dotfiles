@@ -57,9 +57,8 @@
     "tslint.enable": true,
     "tsserver.npm": "/usr/local/bin/npm",
     "tsserver.log": "verbose",
-    "git.enableGutters": true,
-    "git.addGlameToBufferVar": true,
-    "git.addGlameToVirtualText": true,
+    "git.enableGutters": false,
+    "git.addGBlameToVirtualText": true,
     "python.linting.pydocstyleEnabled": false,
     "python.linting.mypyEnabled": true,
     "python.jediEnabled": true,
@@ -70,10 +69,24 @@
     "diagnostic.virtualTextLines": 4,
     "suggest.noselect": true,
     "suggest.enablePreview": true,
-    "list.source.files.command": "rg",
-    "list.source.files.args": ["--files"],
     "list.source.grep.command": "rg",
-    "list.source.grep.args": ["--max-depth=10", "--hidden", "--color", "always", "--follow"],
+    "list.source.grep.args": [
+        "--max-depth=10",
+        "--hidden",
+        "--no-heading",
+        "--color",
+        "always",
+        "--follow"
+    ],
+    "list.source.files.command": "rg",
+    "list.source.files.args": [
+        "--files",
+        "--max-depth=10",
+        "--hidden",
+        "--color",
+        "never",
+        "--follow"
+    ],
     "list.source.files.defaultOptions": [
         "--ignore-case",
         "--no-sort"
@@ -113,14 +126,18 @@
     "explorer.icon.enableNerdfont": true,
     "explorer.file.columns": [
         "git",
-        "selection",
         "clip",
         "diagnosticWarning",
         "diagnosticError",
         "indent",
         "icon",
-        "filename"
+        "filename",
+        "selection"
     ],
     "latex.forwardSearch.executable": "zathura",
-    "latex.forwardSearch.args": ["--synctex-forward", "%l:1:%f", "%p"]
+    "latex.forwardSearch.args": [
+        "--synctex-forward",
+        "%l:1:%f",
+        "%p"
+    ]
 }

@@ -3,7 +3,8 @@ export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export PATH=$PATH:$M2_HOME/bin
-export FZF_DEFAULT_COMMAND="rg --max-depth 10 --hidden --ignore .git -L"
+export FZF_DEFAULT_COMMAND="rg --max-depth=10 --hidden --color never --follow"
+export FZF_COMPLETION_TRIGGER="#"
 export PATH=$HOME/.local/bin:$PATH
 export SCRIPT_DIR=$HOME/.config/scripts
 export HISTFILE="$HOME/.zhistory"

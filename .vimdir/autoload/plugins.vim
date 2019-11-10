@@ -89,7 +89,7 @@ function! s:isOverWhitespace() abort
 endfunction
 
 function! AirlineSections() abort
-    let g:airline_section_x = airline#section#create(["readonly", "readonly","%{GetTestResults()}"])
+    " let g:airline_section_x = airline#section#create(["readonly"])
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
