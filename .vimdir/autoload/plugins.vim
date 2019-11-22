@@ -22,7 +22,7 @@ if dein#load_state("~/.cache/dein")
     call dein#add("KabbAmine/vCoolor.vim")
     call dein#add("Konfekt/FastFold")
     call dein#add("Ron89/thesaurus_query.vim", {"on_ft": ["tex", "markdown"]})
-    call dein#add("alvan/vim-closetag", {"on_ft": "html"})
+    call dein#add("alvan/vim-closetag")
     call dein#add("godlygeek/tabular")
     call dein#add("honza/vim-snippets")
     call dein#add("iamcco/markdown-preview.nvim", {"on_ft": ["markdown", "pandoc.markdown", "rmd"], "build": "cd app & yarn install" })
@@ -93,6 +93,13 @@ function! AirlineSections() abort
     let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
+function! ReactSetup() abort
+    " Due to lazy loading some plugins in polyglot need to force started.
+    let ft = &filetype
+    set filetype=html
+    exec "set filetype=".ft
+endfunction
+
 function! OpenFileInPreviousWindow(file) abort
     normal p 
     exec "edit ".a:file
@@ -113,6 +120,7 @@ function! OpenInFloating(params) abort
     exec "call ".curs
     exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
 endfunction
+
 " }}}1
 " ###################################################################################
 " Plugin Settings {{{1
@@ -149,7 +157,7 @@ let g:mundo_right = 1
 let g:vista_ctags_cmd = {
       \ "haskell": "hasktags -x -o - -c",
       \ }
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_icon_indent = ["╰─▸", "├─▸"]
 let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
 
@@ -199,6 +207,15 @@ let g:vim_markdown_new_list_item_indent = 0
 
 let g:sleuth_automatic = 1
 let g:investigate_url_for_python = "https://docs.python.org/3.7/search.html?q=^s"
+
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
+let g:closetag_emptyTags_caseSensitive = 1
+" let g:closetag_regions = {
+"     \ 'typescriptreact': 'jsxRegion,tsxRegion',
+"     \ 'javascriptreact': 'jsxRegion',
+"     \ }
+
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
@@ -223,6 +240,11 @@ augroup CocSetup
     au!
     au User CocJumpPlaceholder call CocActionAsync("showSignatureHelp")
     autocmd CursorHold * silent call CocActionAsync("highlight")
+augroup END
+
+augroup ReactInit
+    au!
+    au Filetype javascriptreact,typescriptreact ++once call ReactSetup()
 augroup END
 
 " augroup ViTestStatusRunner
@@ -277,6 +299,11 @@ nmap <silent><leader>x :CocCommand explorer<CR>
 " Ctags and LSP symbol finding
 nmap <silent><leader>v :Vista!!<CR>
 
+" General Coc Commands
+nmap <silent><leader>cc :CocCommand<CR>
+nmap <silent><leader>cp :CocCommand python.setInterpreter<CR>
+
+
 " HTTP requests - coc-post
 nmap <silent><leader>hd :CocCommand post.do<CR>
 nmap <silent><leader>hn :CocCommand post.new<CR>
@@ -319,9 +346,9 @@ nmap <silent><leader>sl :CocList sessions<CR>
 
 " Repl Commands
 nmap <silent><leader>ro :Repl<CR>
-nmap <silent><leader>rs :ReplSend<CR>
-vmap <silent><leader>rs :ReplSend<CR>
-vmap <silent><leader>rr :ReplRecv<CR>
+nmap <silent><leader>rs :ReplSend<CR><Esc>
+vmap <silent><leader>rs :ReplSend<CR><Esc>
+vmap <silent><leader>rr :ReplRecv<CR><Esc>
 
 " Testing functions
 nmap <silent><leader>tn :ViTestNearest<CR>

@@ -139,5 +139,6 @@
         "--synctex-forward",
         "%l:1:%f",
         "%p"
-    ]
+    ],
+    "explorer.file.column.git.icon.modified": "\uf044"
 }

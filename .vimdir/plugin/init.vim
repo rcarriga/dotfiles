@@ -21,7 +21,7 @@ augroup END
 " }}}1
 " ###################################################################################
 " Native Vim Settings {{{1
-let g:python3_host_prog="/usr/bin/python3.7"
+let g:python3_host_prog = system("which python3")
 
 " Disable modelines (Vim commands in files)
 set nomodeline
@@ -133,9 +133,14 @@ set pyxversion=3
 " Disable line wrapping
 set nowrap
 
+" Text to appear on folded line
 set foldtext=MyFoldText()
 
+" Disable trailing characters after foldtext
 set fillchars=fold:\ 
+
+" Syntactic folding (Good for html, jsx, json etc)
+set foldmethod=syntax
 
 " }}}1
 " ###################################################################################
@@ -164,6 +169,12 @@ noremap <Up> <C-y>
 noremap <Down> <C-e>
 noremap <Left> zh
 noremap <Right> zl
+
+" Use Tab to control indent
+nnoremap <Tab> >>
+vnoremap <Tab> >>
+nnoremap <S-Tab> <<
+vnoremap <S-Tab> <<
 
 " Switch windows with Ctrl + regular direction keys
 nnoremap <silent> <C-h> <C-w><C-h>

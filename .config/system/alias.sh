@@ -1,5 +1,5 @@
 alias pip=pip3
-alias python=python3.7
+alias python=python3
 alias tmux="TERM=screen-256color-bce tmux"
 alias icat="kitty +kitten icat"
 alias weather="curl http://wttr.in/"
@@ -26,7 +26,9 @@ alias yd="yadm diff"
 alias yr="yadm rebase"
 alias yl="yadm pull"
 alias v=nvim
+alias sv="sudo edit"
 alias d="kitty +kitten diff"
+alias l="tree -DhvC -L 1"
 alias t="tree -DhvC"
 alias tl="tree -DhvC -L"
 alias r="rg --max-depth=10 --hidden --pretty --follow"
