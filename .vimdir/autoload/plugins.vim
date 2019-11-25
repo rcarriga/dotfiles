@@ -16,6 +16,7 @@ endif
 
 " Add the dein installation directory into runtimepath
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+let g:dein#auto_recache = 1
 if dein#load_state("~/.cache/dein")
   call dein#begin("~/.cache/dein")
 
@@ -48,7 +49,6 @@ if dein#load_state("~/.cache/dein")
     call dein#add("sheerun/vim-polyglot", {"depends": "tabular"})
     call dein#add("simnalamburt/vim-mundo",{"lazy":1})
     call dein#add("tpope/vim-abolish")
-    call dein#add("tpope/vim-endwise")
     call dein#add("tpope/vim-eunuch")
     call dein#add("tpope/vim-fugitive")
     call dein#add("tpope/vim-sleuth", {"hook_post_source": "Sleuth"})
@@ -125,6 +125,7 @@ endfunction
 " ###################################################################################
 " Plugin Settings {{{1
 
+let g:polyglot_disabled = ['jsx']
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
 " Don"t open preview window after entering the markdown buffer
@@ -211,10 +212,10 @@ let g:investigate_url_for_python = "https://docs.python.org/3.7/search.html?q=^s
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
 let g:closetag_emptyTags_caseSensitive = 1
-" let g:closetag_regions = {
-"     \ 'typescriptreact': 'jsxRegion,tsxRegion',
-"     \ 'javascriptreact': 'jsxRegion',
-"     \ }
+let g:closetag_regions = {
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
 
 " }}}1
 " ###################################################################################

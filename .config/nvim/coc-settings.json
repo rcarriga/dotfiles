@@ -64,7 +64,7 @@
     "python.jediEnabled": true,
     "pyls.plugins.pycodestyle.enabled": false,
     "python.formatting.provider": "yapf",
-    "codeLens.enable": true,
+    "codeLens.enable": false,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.virtualTextLines": 4,
     "suggest.noselect": true,
