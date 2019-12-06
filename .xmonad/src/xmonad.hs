@@ -88,7 +88,6 @@ myLayoutHook =
 myStartupHook :: X ()
 myStartupHook = do
     setWMName "XMonad"
-    startScript "xsettings"
     mapM_
         spawn
         [ "pkill polybar; polybar xmonad"
@@ -98,9 +97,10 @@ myStartupHook = do
         , "pgrep picom || picom -f -D 3"
         , "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "light -N 1"
-        , "feh -z --bg-fill ~/.config/images/moon.png"
+        , "feh --bg-fill ~/.config/images/moon.png"
         , "wal -s --theme monokai"
         ]
+    startScript "xsettings"
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -114,7 +114,7 @@ myKeys =
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
     , ("M-S-t"                  , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
     , ("M-S-p"                  , spawn "polybar-msg cmd toggle")
-    , ("M-n"                    , namedScratchpadAction myScratchpads "htop")
+    , ("M-S-n"                  , namedScratchpadAction myScratchpads "htop")
     , ("M-C-S-j"                , decScreenSpacing 10)
     , ("M-C-S-k"                , incScreenSpacing 10)
     , ("M-C-j"                  , decWindowSpacing 10)
@@ -127,6 +127,7 @@ myKeys =
     , ("M-C-s"                  , startScript "screen HDMIABOVE" >> startScript "wallpaper")
     , ("M-i"                    , startScript "lock")
     , ("M-S-b"                  , withFocused toggleBorder)
+    , ("M-n"                    , spawn "kill -s USR1 $(pidof deadd-notification-center)")
     ]
 
 -- ######################################################################################
