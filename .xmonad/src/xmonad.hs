@@ -88,6 +88,7 @@ myLayoutHook =
 myStartupHook :: X ()
 myStartupHook = do
     setWMName "XMonad"
+    setWallpaper
     mapM_
         spawn
         [ "pkill polybar; polybar xmonad"
@@ -97,10 +98,12 @@ myStartupHook = do
         , "pgrep picom || picom -f -D 3"
         , "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "light -N 1"
-        , "feh --bg-fill ~/.config/images/moon.png"
         , "wal -s --theme monokai"
         ]
     startScript "xsettings"
+
+setWallpaper :: X ()
+setWallpaper = spawn "feh -z --bg-fill ~/.config/images"
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -122,9 +125,9 @@ myKeys =
     , ("M-g"                    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
     , ("M-f"                    , spawn "firefox")
     , ("M-S-r"                  , withFocused $ \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
-    , ("M-s"                    , startScript "screen EDPI" >> startScript "wallpaper")
-    , ("M-S-s"                  , startScript "screen HDMI" >> startScript "wallpaper")
-    , ("M-C-s"                  , startScript "screen HDMIABOVE" >> startScript "wallpaper")
+    , ("M-s"                    , startScript "screen EDPI" >> setWallpaper)
+    , ("M-S-s"                  , startScript "screen HDMI" >> setWallpaper)
+    , ("M-C-s"                  , startScript "screen HDMIABOVE" >> setWallpaper)
     , ("M-i"                    , startScript "lock")
     , ("M-S-b"                  , withFocused toggleBorder)
     , ("M-n"                    , spawn "kill -s USR1 $(pidof deadd-notification-center)")
