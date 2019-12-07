@@ -32,3 +32,5 @@ if ! zgen saved; then
 fi
 
 prompt_nix_shell_setup
+
+kitty + complete setup zsh | source /dev/stdin

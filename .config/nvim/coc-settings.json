@@ -125,13 +125,13 @@
     "yank.priority": 40,
     "explorer.icon.enableNerdfont": true,
     "explorer.file.columns": [
-        "git",
         "clip",
         "diagnosticWarning",
         "diagnosticError",
         "indent",
         "icon",
         "filename",
+        "git",
         "selection"
     ],
     "latex.forwardSearch.executable": "zathura",
@@ -140,5 +140,6 @@
         "%l:1:%f",
         "%p"
     ],
-    "explorer.file.column.git.icon.modified": "\uf044"
+    "explorer.file.column.git.icon.modified": "\uf044",
+    "explorer.file.column.filename.paddingEnd": false
 }

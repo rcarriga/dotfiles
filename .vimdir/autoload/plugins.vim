@@ -5,7 +5,6 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Install Plugins {{{1
 "
-
 " Auto install dein
 if empty(glob("~/.cache/dein"))
   let g:needs_reload = 1
@@ -30,20 +29,19 @@ if dein#load_state("~/.cache/dein")
     call dein#add("jamessan/vim-gnupg")
     call dein#add("janko/vim-test", {"lazy": 1})
     call dein#add("junegunn/goyo.vim", {"on_cmd": "Goyo"})
-    call dein#add("junegunn/vim-easy-align", {"on_ft": "markdown"})
     " call dein#add("junegunn/vim-peekaboo")
+    call dein#add("vim-pandoc/vim-pandoc")
+    call dein#add("vim-pandoc/vim-pandoc-syntax")
     call dein#add("justinmk/vim-sneak")
     call dein#add("kkoomen/vim-doge",{"lazy":1, "hook_post_source": "DogeGenerate"})
     call dein#add("kshenoy/vim-signature")
     call dein#add("liuchengxu/vista.vim", {"on_cmd": "Vista"})
     call dein#add("machakann/vim-sandwich")
-    call dein#add("neovimhaskell/nvim-hs.vim")
     call dein#add("machakann/vim-swap")
     call dein#add("mhinz/vim-signify")
     call dein#add("neoclide/coc.nvim", {"merge": 0, "rev": "release"})
     call dein#add("numirias/semshi")
     call dein#add("rhysd/clever-f.vim")
-    call dein#add("rhysd/reply.vim")
     call dein#add("rhysd/vim-grammarous", {"on_cmd": "GrammarousCheck"})
     call dein#add("scrooloose/nerdcommenter", )
     call dein#add("sheerun/vim-polyglot", {"depends": "tabular"})
@@ -58,10 +56,10 @@ if dein#load_state("~/.cache/dein")
     call dein#add("vim-scripts/ReplaceWithRegister")
     call dein#add("w0rp/ale", {"lazy": 1})
     call dein#add("wellle/targets.vim")
+    call dein#add("Vigemus/iron.nvim")
+    call dein#add("Yggdroot/LeaderF", {"build": "./install.sh"})
     call dein#add("whiteinge/diffconflicts", {"on_cmd" : "DiffConflicts" })
-    call dein#add("reedes/vim-wordy")
-    call dein#add("reedes/vim-litecorrect")
-    call dein#add("keith/investigate.vim")
+    call dein#add("takac/vim-hardtime", {"hook_post_source": "HardTimeOn"})
 
     if !has("nvim")
         call dein#add("roxma/nvim-yarp")
@@ -90,7 +88,7 @@ endfunction
 
 function! AirlineSections() abort
     " let g:airline_section_x = airline#section#create(["readonly"])
-    let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
+    " let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
 endfunction
 
 function! ReactSetup() abort
@@ -101,7 +99,7 @@ function! ReactSetup() abort
 endfunction
 
 function! OpenFileInPreviousWindow(file) abort
-    normal p 
+    normal p
     exec "edit ".a:file
 endfunction
 
@@ -125,16 +123,18 @@ endfunction
 " ###################################################################################
 " Plugin Settings {{{1
 
+let g:hardtime_default_on = 1
+
+let g:pandoc#folding#fdc = 0
 let g:polyglot_disabled = ['jsx']
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
 " Don"t open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 0
 " Auto close current preview window when change
-let g:mkdp_auto_close = 1
-let g:vimtex_compiler_progname = "nvr" 
+let g:mkdp_auto_close = 0
 
-let g:coc_global_extensions = [ "coc-explorer", "coc-sh", "coc-gitignore", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-post", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
+let g:coc_global_extensions = [ "coc-sh", "coc-gitignore", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-post", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -165,8 +165,6 @@ let g:vista_sidebar_width = 50
 " Pretty icons for airline
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
-let g:airline#extensions#disable_rtp_load = 1
-let g:airline_extensions= ["coc", "vimtex", "tabline"]
 let g:airline#extensions#tabline#show_splits = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_theme = "night_owl"
@@ -190,9 +188,9 @@ let g:tq_map_keys=0
 let g:sneak#label = 1
 let g:sneak#s_next = 1
 
-let g:doge_mapping = "\<leader\>ii"
-let g:doge_mapping_comment_jump_forward = "\<C-n\>"
-let g:doge_mapping_comment_jump_backward = "\<C-p\>"
+let g:doge_mapping = "\<leader\>i"
+let g:doge_mapping_comment_jump_forward = "\<C-\]>"
+let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
 let g:vitest#icons = 1
@@ -207,7 +205,6 @@ let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
 
 let g:sleuth_automatic = 1
-let g:investigate_url_for_python = "https://docs.python.org/3.7/search.html?q=^s"
 
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
@@ -217,6 +214,13 @@ let g:closetag_regions = {
     \ 'javascriptreact': 'jsxRegion',
     \ }
 
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+let g:Lf_PopupWidth = &columns * 1/2
+let g:Lf_PopupShowStatusline = 0
+
+let g:pandoc#modules#disabled = ["formatting", "command", "menu", "keyboard", "bibliographies", "completion", "toc", "spell", "hypertext"]
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
@@ -246,6 +250,11 @@ augroup END
 augroup ReactInit
     au!
     au Filetype javascriptreact,typescriptreact ++once call ReactSetup()
+augroup END
+
+augroup LeaderFInit
+  au!
+  au Filetype leaderf set nocul nornu nonu
 augroup END
 
 " augroup ViTestStatusRunner
@@ -288,8 +297,6 @@ xmap ac <plug>(signify-motion-outer-visual)
 nmap <silent><leader>ms :Gdiffsplit!<CR>
 nmap <silent><leader>ml :diffget //2<CR>
 nmap <silent><leader>mr :diffget //3<CR>
-nmap <silent><leader>mg :diffget<CR>
-nmap <silent><leader>mp :diffput<CR>
 vmap <silent><leader>mg :diffget<CR>
 vmap <silent><leader>mp :diffput<CR>
 
@@ -300,29 +307,18 @@ nmap <silent><leader>x :CocCommand explorer<CR>
 " Ctags and LSP symbol finding
 nmap <silent><leader>v :Vista!!<CR>
 
-" General Coc Commands
-nmap <silent><leader>cc :CocCommand<CR>
-nmap <silent><leader>cp :CocCommand python.setInterpreter<CR>
-
-
 " HTTP requests - coc-post
 nmap <silent><leader>hd :CocCommand post.do<CR>
 nmap <silent><leader>hn :CocCommand post.new<CR>
 nmap <silent><leader>hl :CocList post<CR>
 
 " Coc List Mappings
-nmap <silent><leader>df :CocList files<CR>
-nmap <silent><leader>dm :CocList mru<CR>
-nmap <silent><leader>dg :CocList grep<CR>
-nmap <silent><leader>db :CocList buffers<CR>
-nmap <silent><leader>do :CocList outline<CR>
-nmap <silent><leader>dh :CocList helptags<CR>
-nmap <silent><leader>dq :CocList quickfix<CR>
-nmap <silent><leader>ds :CocList symbols<CR>
-nmap <silent><leader>dc :CocList commits<CR>
-nmap <silent><leader>dy :CocList yank<CR>
-nmap <silent><leader>dw :CocList words<CR>
-nmap <silent><leader>dk :CocList marks<CR>
+nmap <silent><leader>df :Leaderf file<CR>
+nmap <silent><leader>dg :Leaderf rg<CR>
+nmap <silent><leader>db :Leaderf buffer<CR>
+nmap <silent><leader>dt :Leaderf bufTag<CR>
+nmap <silent><leader>dh :Leaderf help<CR>
+nmap <silent><leader>dw :Leaderf line<CR>
 
 " Language server functions
 nmap <silent><leader>ld <Plug>(coc-definition)
@@ -368,10 +364,10 @@ nmap <leader>ot :ThesaurusQueryReplaceCurrentWord<CR>
 " Some lovely grammar checking
 nmap <leader>og :GrammarousCheck<CR>
 
-inoremap <silent><expr> <C-n> pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
-
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <C-n> pumvisible() ? "\<C-n>" : coc#refresh()
+
 " Use <CR> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"

@@ -21,7 +21,7 @@ augroup END
 " }}}1
 " ###################################################################################
 " Native Vim Settings {{{1
-let g:python3_host_prog = system("which python3")
+let g:python3_host_prog = "/usr/bin/python3"
 
 " Disable modelines (Vim commands in files)
 set nomodeline
@@ -171,10 +171,10 @@ noremap <Left> zh
 noremap <Right> zl
 
 " Use Tab to control indent
-nnoremap <Tab> >>
-vnoremap <Tab> >>
-nnoremap <S-Tab> <<
-vnoremap <S-Tab> <<
+" nnoremap <Tab> >>
+" vnoremap <Tab> >>
+" nnoremap <S-Tab> <<
+" vnoremap <S-Tab> <<
 
 " Switch windows with Ctrl + regular direction keys
 nnoremap <silent> <C-h> <C-w><C-h>
