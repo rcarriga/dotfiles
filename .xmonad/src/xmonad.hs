@@ -95,10 +95,9 @@ myStartupHook = do
         , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
-        , "pgrep picom || picom -f -D 3"
+        , "pgrep picom || picom -f -D 3 --experimental-backends --backend glx"
         , "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "light -N 1"
-        , "wal -s --theme monokai"
         ]
     startScript "xsettings"
 
@@ -159,6 +158,9 @@ myWindowIcons = M.fromList
     , ("okular"                 , "\xf1c1")
     , ("Spotify"                , "\xf1bc")
     , ("Inkscape"               , "\xf6fc")
+    , ("Kodi"                   , "\xf03d")
+    , ("transmission"           , "\xf019")
+    , ("Zotero"                 , "\xf02d")
     ]
 
 -- | Store the given workspace's name in given and return.

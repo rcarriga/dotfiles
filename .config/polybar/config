@@ -57,7 +57,7 @@ font-3 = "Font Awesome 5 Free Regular:style=Regular:size=11;1"
 
 modules-left = workspaces-xmonad
 modules-center = date battery light pulseaudio 
-modules-right = root nix home memory cpu temperature 
+modules-right = root nix home media memory cpu temperature 
 
 enable-ipc = true
 
@@ -87,6 +87,12 @@ format = " <label>%"
 type = internal/fs
 mount-0 = /home
 label-mounted = "   %free%  "
+label-mounted-background = ${colors.fs}
+
+[module/media]
+type = internal/fs
+mount-0 = /media
+label-mounted = "   %free%  "
 label-mounted-background = ${colors.fs}
 
 [module/root]
