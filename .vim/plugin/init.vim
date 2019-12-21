@@ -8,7 +8,7 @@ augroup END
 
 augroup FileTypeInit
     au!
-    au BufNew,VimEnter *[jJ]enkins* set ft=Jenkinsfile
+    " au BufNew,VimEnter *[jJ]enkins* set ft=Jenkinsfile
     au BufNew,VimEnter *\.nix set ft=nix
     au BufNew,VimEnter *\.purs set ft=purescript
     au BufNew,VimEnter *\.dhall set ft=dhall
@@ -22,6 +22,8 @@ augroup END
 " ###################################################################################
 " Native Vim Settings {{{1
 let g:python3_host_prog = "/usr/bin/python3"
+
+let g:tex_flavor = "latex"
 
 " Disable modelines (Vim commands in files)
 set nomodeline
@@ -82,7 +84,7 @@ set autoread
 
 " Save edit history between sessions
 set undofile
-set undodir=~/.vim/undodir
+set undodir=~/.config/nvim/undodir
 
 " Don't unload buffers when left
 set hidden

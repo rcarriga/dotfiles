@@ -14,11 +14,6 @@
 
 ([[ -f "$HOME/.zgen/zgen.zsh" ]] || git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen") && source "$HOME/.zgen/zgen.zsh" 
 
-if [[ -x "$(command -v go)" ]]; then
-    ([[ -f "$GOPATH/bin/pmy" ]] || go get -u gitub.com/relastle/pmy) && eval "$(pmy init)"
-    [[ -f "$GOPATH/bin/taggo" ]] || go get -u github.com/relastle/taggo
-fi
-
 
 if ! zgen saved; then
     zgen load "zsh-users/zsh-autosuggestions"
@@ -34,3 +29,6 @@ fi
 prompt_nix_shell_setup
 
 kitty + complete setup zsh | source /dev/stdin
+
+# added by travis gem
+[ -f /home/ronan/.travis/travis.sh ] && source /home/ronan/.travis/travis.sh

@@ -141,5 +141,6 @@
         "%p"
     ],
     "explorer.file.column.git.icon.modified": "\uf044",
-    "explorer.file.column.filename.paddingEnd": false
+    "explorer.file.column.filename.paddingEnd": false,
+    "r.lsp.debug": true
 }

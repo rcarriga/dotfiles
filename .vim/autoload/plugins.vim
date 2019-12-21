@@ -1,132 +1,82 @@
 if exists("g:plugins_loaded")
     finish
 endif
+
+let plugins = {
+      \ "lervag/vimtex": {"lazy": 1},
+      \ "KabbAmine/vCoolor.vim": {},
+      \ "Konfekt/FastFold": {},
+      \ "Ron89/thesaurus_query.vim": {"on_ft": ["tex", "markdown"]},
+      \ "Vigemus/iron.nvim": {},
+      \ "Yggdroot/LeaderF": {"build": "./install.sh"},
+      \ "alvan/vim-closetag": {},
+      \ "godlygeek/tabular": {},
+      \ "honza/vim-snippets": {},
+      \ "iamcco/markdown-preview.nvim": {"on_ft": ["markdown", "pandoc.markdown", "rmd"], "build": "cd app & yarn install" },
+      \ "jalvesaq/Nvim-R": {},
+      \ "jamessan/vim-gnupg": {},
+      \ "janko/vim-test": {"lazy": 1},
+      \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
+      \ "justinmk/vim-sneak": {},
+      \ "kkoomen/vim-doge": {"lazy":1, "hook_post_source": "DogeGenerate"},
+      \ "liuchengxu/vista.vim": {"on_cmd": "Vista"},
+      \ "machakann/vim-sandwich": {},
+      \ "machakann/vim-swap": {},
+      \ "mhinz/vim-signify": {},
+      \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
+      \ "numirias/semshi": {},
+      \ "rhysd/clever-f.vim": {},
+      \ "rhysd/vim-grammarous": {"on_cmd": "GrammarousCheck"},
+      \ "scrooloose/nerdcommenter": {},
+      \ "sheerun/vim-polyglot": {"depends": "tabular"},
+      \ "simnalamburt/vim-mundo": {"lazy":1},
+      \ "takac/vim-hardtime": {},
+      \ "tpope/vim-abolish": {},
+      \ "tpope/vim-eunuch": {},
+      \ "tpope/vim-fugitive": {},
+      \ "tpope/vim-sleuth": {"hook_post_source": "Sleuth"},
+      \ "tpope/vim-unimpaired": {},
+      \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
+      \ "vim-airline/vim-airline-themes": {"lazy": 1},
+      \ "vim-pandoc/vim-pandoc": {},
+      \ "vim-pandoc/vim-pandoc-syntax": {},
+      \ "vim-scripts/ReplaceWithRegister": {},
+      \ "w0rp/ale": {"lazy": 1},
+      \ "wellle/targets.vim": {},
+      \ "whiteinge/diffconflicts": {"on_cmd" : "DiffConflicts" },
+      \ "junegunn/gv.vim": {}
+\ }
+
+if !has("nvim")
+  let plugins = extend(plugins,
+  \ {"roxma/nvim-yarp": {},
+  \ "roxma/vim-hug-neovim-rpc": {}})
+endif
+
 let g:plugins_loaded = 1
 " ###################################################################################
-" Install Plugins {{{1
-"
-" Auto install dein
-if empty(glob("~/.cache/dein"))
-  let g:needs_reload = 1
-  silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-  silent !sh ./installer.sh ~/.cache/dein
-  silent !rm ./installer.sh
-endif
-
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-let g:dein#auto_recache = 1
-if dein#load_state("~/.cache/dein")
-  call dein#begin("~/.cache/dein")
-
-    call dein#add("KabbAmine/vCoolor.vim")
-    call dein#add("Konfekt/FastFold")
-    call dein#add("Ron89/thesaurus_query.vim", {"on_ft": ["tex", "markdown"]})
-    call dein#add("alvan/vim-closetag")
-    call dein#add("godlygeek/tabular")
-    call dein#add("honza/vim-snippets")
-    call dein#add("iamcco/markdown-preview.nvim", {"on_ft": ["markdown", "pandoc.markdown", "rmd"], "build": "cd app & yarn install" })
-    call dein#add("jamessan/vim-gnupg")
-    call dein#add("janko/vim-test", {"lazy": 1})
-    call dein#add("junegunn/goyo.vim", {"on_cmd": "Goyo"})
-    " call dein#add("junegunn/vim-peekaboo")
-    call dein#add("vim-pandoc/vim-pandoc")
-    call dein#add("vim-pandoc/vim-pandoc-syntax")
-    call dein#add("justinmk/vim-sneak")
-    call dein#add("kkoomen/vim-doge",{"lazy":1, "hook_post_source": "DogeGenerate"})
-    call dein#add("kshenoy/vim-signature")
-    call dein#add("liuchengxu/vista.vim", {"on_cmd": "Vista"})
-    call dein#add("machakann/vim-sandwich")
-    call dein#add("machakann/vim-swap")
-    call dein#add("mhinz/vim-signify")
-    call dein#add("neoclide/coc.nvim", {"merge": 0, "rev": "release"})
-    call dein#add("numirias/semshi")
-    call dein#add("rhysd/clever-f.vim")
-    call dein#add("rhysd/vim-grammarous", {"on_cmd": "GrammarousCheck"})
-    call dein#add("scrooloose/nerdcommenter", )
-    call dein#add("sheerun/vim-polyglot", {"depends": "tabular"})
-    call dein#add("simnalamburt/vim-mundo",{"lazy":1})
-    call dein#add("tpope/vim-abolish")
-    call dein#add("tpope/vim-eunuch")
-    call dein#add("tpope/vim-fugitive")
-    call dein#add("tpope/vim-sleuth", {"hook_post_source": "Sleuth"})
-    call dein#add("tpope/vim-unimpaired")
-    call dein#add("vim-airline/vim-airline", {"lazy": 1, "depends": "vim-airline-themes"})
-    call dein#add("vim-airline/vim-airline-themes", {"lazy": 1})
-    call dein#add("vim-scripts/ReplaceWithRegister")
-    call dein#add("w0rp/ale", {"lazy": 1})
-    call dein#add("wellle/targets.vim")
-    call dein#add("Vigemus/iron.nvim")
-    call dein#add("Yggdroot/LeaderF", {"build": "./install.sh"})
-    call dein#add("whiteinge/diffconflicts", {"on_cmd" : "DiffConflicts" })
-    call dein#add("takac/vim-hardtime", {"hook_post_source": "HardTimeOn"})
-
-    if !has("nvim")
-        call dein#add("roxma/nvim-yarp")
-        call dein#add("roxma/vim-hug-neovim-rpc")
-    endif
-    call dein#remote_plugins()
-  call dein#end()
-  call dein#save_state()
-endif
-if exists("g:needs_reload")
-  echom "Restart needed"
-  call dein#update()
-  finish
-endif
-filetype plugin indent on
-syn on
-" }}}1
-" ###################################################################################
-" Functions {{{1
-
-function! s:isOverWhitespace() abort
-  let col = col(".") - 1
-  " return !col || getline(".")[col - 1]  =~# "\s"
-  return 1
-endfunction
-
-function! AirlineSections() abort
-    " let g:airline_section_x = airline#section#create(["readonly"])
-    " let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
-endfunction
-
-function! ReactSetup() abort
-    " Due to lazy loading some plugins in polyglot need to force started.
-    let ft = &filetype
-    set filetype=html
-    exec "set filetype=".ft
-endfunction
-
-function! OpenFileInPreviousWindow(file) abort
-    normal p
-    exec "edit ".a:file
-endfunction
-
-function! GetTestResults() abort
-    return " " + get(b:, "vitest_total") ?
-                \ get(b:, "vitest_passed")." Pass ".get(b:, "vitest_failed")." Fail" : ""
-endfunction
-
-function! OpenInFloating(params) abort
-    let [_, curs, filename] = split(a:params)
-    let out_buffer = bufadd(filename)
-    call bufload(out_buffer)
-    let height = nvim_buf_line_count(out_buffer)
-    let window_params = {"relative": "cursor", "width": 100, "height": height < 20 ? height : 20, "row": 1, "col": 1, "anchor": "SW", "style": "minimal"}
-    let created_window = nvim_open_win(out_buffer, v:true, window_params)
-    exec "call ".curs
-    exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
-endfunction
-
-" }}}1
-" ###################################################################################
 " Plugin Settings {{{1
+"
+let g:vimtex_quickfix_enabled = 0
+let g:vimtex_compiler_progname = "nvr"
+let g:vimtex_view_method = "zathura"
 
-let g:hardtime_default_on = 1
+" Store compiled latex files in "build" dir
+let g:vimtex_compiler_latexmk = {"build_dir": "build"}
+
+" Ignore files for  fuzzy searching
+let g:Lf_WildIgnore = {
+        \ 'dir': [".env", "__pycache__", ".mypy_cache", ".stack"],
+        \ 'file': []
+        \}
+
+" Vim hardtime keys
+let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
 
 let g:pandoc#folding#fdc = 0
-let g:polyglot_disabled = ['jsx']
+
+let g:polyglot_disabled = ['jsx', "latex"]
+
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
 " Don"t open preview window after entering the markdown buffer
@@ -179,7 +129,8 @@ let g:ale_linters = {
     \ "haskell": [],
     \ "javascript": [],
     \ "typescript": [],
-    \ "ruby": ["rubocop"]
+    \ "ruby": ["rubocop"],
+    \ "r": []
   \ }
 
 " Disable thesauras default mappings
@@ -221,9 +172,100 @@ let g:Lf_PopupWidth = &columns * 1/2
 let g:Lf_PopupShowStatusline = 0
 
 let g:pandoc#modules#disabled = ["formatting", "command", "menu", "keyboard", "bibliographies", "completion", "toc", "spell", "hypertext"]
+
+" }}}1
+" ###################################################################################
+" Install Plugins {{{1
+"
+" Auto install dein
+if empty(glob("~/.cache/dein"))
+  let g:needs_reload = 1
+  silent !curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+  silent !sh ./installer.sh ~/.cache/dein
+  silent !rm ./installer.sh
+endif
+
+" Add the dein installation directory into runtimepath
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+let g:dein#auto_recache = 1
+if dein#load_state("~/.cache/dein")
+  call dein#begin("~/.cache/dein")
+
+    for [plugin, options] in items(plugins)
+      call dein#add(plugin, options)
+    endfor
+
+
+    call dein#remote_plugins()
+  call dein#end()
+  call dein#save_state()
+endif
+if exists("g:needs_reload")
+  echom "Restart needed"
+  call dein#update()
+  finish
+endif
+
+filetype plugin indent on
+syn on
+
+" }}}1
+" ###################################################################################
+" Functions {{{1
+"
+function! s:isOverWhitespace() abort
+  let col = col(".") - 1
+  " return !col || getline(".")[col - 1]  =~# "\s"
+  return 1
+endfunction
+
+function! AirlineSections() abort
+    " let g:airline_section_x = airline#section#create(["readonly"])
+    " let g:airline_section_b =  airline#section#create(["%{get(g:, 'coc_git_status', ' ')}", "%{get(b:, 'coc_git_status', ' ')}"])
+endfunction
+
+function! OpenFileInPreviousWindow(file) abort
+    normal p
+    exec "edit ".a:file
+endfunction
+
+function! GetTestResults() abort
+    return " " + get(b:, "vitest_total") ?
+                \ get(b:, "vitest_passed")." Pass ".get(b:, "vitest_failed")." Fail" : ""
+endfunction
+
+function! OpenInFloating(params) abort
+    let [_, curs, filename] = split(a:params)
+    let out_buffer = bufadd(filename)
+    call bufload(out_buffer)
+    let height = nvim_buf_line_count(out_buffer)
+    let window_params = {"relative": "cursor", "width": 100, "height": height < 20 ? height : 20, "row": 1, "col": 1, "anchor": "SW", "style": "minimal"}
+    let created_window = nvim_open_win(out_buffer, v:true, window_params)
+    exec "call ".curs
+    exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
+endfunction
+
+" }}}1
+" ###################################################################################
+" NeoVim Specific {{{1
+
+lua << EOF
+local iron = require("iron")
+
+iron.core.set_config{
+  repl_open_cmd = "vsplit"
+}
+
+EOF
+
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
+
+augroup VimtexInit
+    au!
+    au BufReadPre *.tex let b:vimtex_main = 'main.tex'
+augroup END
 
 augroup AirlineInit
     au!
@@ -247,16 +289,6 @@ augroup CocSetup
     autocmd CursorHold * silent call CocActionAsync("highlight")
 augroup END
 
-augroup ReactInit
-    au!
-    au Filetype javascriptreact,typescriptreact ++once call ReactSetup()
-augroup END
-
-augroup LeaderFInit
-  au!
-  au Filetype leaderf set nocul nornu nonu
-augroup END
-
 " augroup ViTestStatusRunner
 "     au!
 "     au BufWritePost * ViTest
@@ -267,10 +299,14 @@ augroup END
 
 command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
 command! -nargs=1 OpenPeek call OpenInFloating(<f-args>)
+command CC CocCommand
 
 " }}}1
 " ###################################################################################
 " Plugin Mappings {{{1
+
+" Open config directory
+nnoremap <silent>` :CocCommand explorer ~/.vim<CR>
 
 " Vim sneak commands
 nmap x <Plug>Sneak_s
@@ -342,10 +378,10 @@ nmap <silent><leader>sr :CocCommand session.restart<CR>
 nmap <silent><leader>sl :CocList sessions<CR>
 
 " Repl Commands
-nmap <silent><leader>ro :Repl<CR>
-nmap <silent><leader>rs :ReplSend<CR><Esc>
-vmap <silent><leader>rs :ReplSend<CR><Esc>
-vmap <silent><leader>rr :ReplRecv<CR><Esc>
+nmap <silent><leader>ro :IronFocus<CR>
+nmap <silent><leader>rw :IronWatchCurrentFile
+nmap <silent><leader>ru :IronUnwatchCurrentFile<CR>
+
 
 " Testing functions
 nmap <silent><leader>tn :ViTestNearest<CR>
@@ -359,10 +395,9 @@ nmap <silent><leader>ts <Plug>(vitest-run-all)
 nmap <silent><leader>tj <Plug>(vitest-next-fail)
 nmap <silent><leader>tk <Plug>(vitest-prev-fail)
 
-" Who doesn"t like a good thesauras
-nmap <leader>ot :ThesaurusQueryReplaceCurrentWord<CR>
-" Some lovely grammar checking
-nmap <leader>og :GrammarousCheck<CR>
+" LaTex Bindings
+nnoremap <silent><leader>tb :CocCommand latex.Build<CR>
+nnoremap <silent><leader>tv :CocCommand latex.ForwardSearch<CR>
 
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
