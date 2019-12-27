@@ -8,10 +8,11 @@ augroup END
 
 augroup FileTypeInit
     au!
-    " au BufNew,VimEnter *[jJ]enkins* set ft=Jenkinsfile
+    au BufNew,VimEnter *[jJ]enkins* set ft=Jenkinsfile
     au BufNew,VimEnter *\.nix set ft=nix
     au BufNew,VimEnter *\.purs set ft=purescript
     au BufNew,VimEnter *\.dhall set ft=dhall
+    au BufNew,VimEnter \.babelrc set ft=json
 augroup END
 
 augroup NicerTerminal
@@ -60,7 +61,7 @@ set updatetime=100
 set termguicolors
 
 " Delay to wait for next key in combo
-set ttimeoutlen=50
+set timeoutlen=100
 
 " Show numbers relative to current line
 set relativenumber
@@ -157,12 +158,6 @@ noremap ;; ;
 nnoremap H ^
 nnoremap L $
 
-"Save current buffer
-nnoremap <leader>w :w<CR>
-nnoremap <leader>q :q<CR>
-
-"Cycle between last two open buffers
-nnoremap <leader><leader> <c-^>
 
 nnoremap <BS> X
 
@@ -192,16 +187,9 @@ inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
-nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
-
 " Enter normal mode with escape in terminal
 tnoremap <silent> <ESC> <C-\><C-N>
 
-"Replace the word under cursor
-nmap <leader>os :%s/\<<c-r><c-w>\>//g<left><left>
-
-" Distraction free writing
-nmap <silent><leader>z :Goyo<CR>
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
 

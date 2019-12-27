@@ -1,5 +1,3 @@
-
-
 " Vim color file - haslo
 set background=dark
 if version > 580
@@ -16,7 +14,7 @@ scriptencoding utf-8
 " Highlighting Functions
 " ==========================
 " Inspired by https://github.com/jaredgorski/SpaceCamp
-"             https://github.com/tomasiser/vim-code-dark 
+"             https://github.com/tomasiser/vim-code-dark
 "             https://github.com/chriskempson/base16-vim
 function! s:SetHi(group, fg, bg, attr)
   if !empty(a:fg)
@@ -303,3 +301,9 @@ call s:SetHi("Lf_hl_cursorline"          , s:hasloYellow      , s:hasloFloatBack
 call s:SetHi("routNormal"         , s:hasloWhite  , s:hasloBackground , "none")
 call s:SetHi("routFloat"          , s:hasloCyan  , s:hasloBackground , "none")
 call s:SetHi("routNumber"         , s:hasloCyan  , s:hasloBackground , "none")
+
+" vim-which-key
+call s:SetHi("WhichKeySeperator"    , s:hasloRed  , s:hasloBackground , "none")
+call s:SetHi("WhichKeyFloating"     , s:hasloGreen  , s:hasloFloatBackground , "bold")
+call s:SetHi("WhichKeyDesc"         , s:hasloYellow  , s:hasloBackground , "none")
+
