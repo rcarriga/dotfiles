@@ -102,7 +102,7 @@ myStartupHook = do
     startScript "xsettings"
 
 setWallpaper :: X ()
-setWallpaper = spawn "feh -z --bg-fill ~/.config/images"
+setWallpaper = spawn "feh -z --bg-fill ~/.config/images/moon.png"
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -161,6 +161,7 @@ myWindowIcons = M.fromList
     , ("Kodi"                   , "\xf03d")
     , ("transmission"           , "\xf019")
     , ("Zotero"                 , "\xf02d")
+    , ("Signal", "\xf0e0")
     ]
 
 -- | Store the given workspace's name in given and return.
