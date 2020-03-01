@@ -95,7 +95,7 @@ call s:SetHi("Folded"                    , s:hasloGrey3       , s:hasloBackgroun
 call s:SetHi("WildMenu"                  , s:hasloCyan        , s:hasloBackground      , "none")
 call s:SetHi("VisualNOS"                 , s:hasloGrey2       , s:hasloLightYellow     , "none")
 call s:SetHi("ModeMsg"                   , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("FoldColumn"                , s:hasloWhite       , s:hasloBackground      , "none")
+call s:SetHi("FoldColumn"                , s:hasloSteel       , s:hasloBackground      , "none")
 call s:SetHi("MoreMsg"                   , s:hasloLightYellow , s:hasloBackground      , "none")
 call s:SetHi("cursorim"                  , s:hasloViolet      , s:hasloBackground      , "none")
 call s:SetHi("Pmenu"                     , s:hasloSteel       , s:hasloFloatBackground , "none")
@@ -156,8 +156,8 @@ call s:SetHi("Error"                     , s:hasloRed         , s:hasloBackgroun
 call s:SetHi("Repeat"                    , s:hasloRed         , s:hasloBackground      , "none")
 call s:SetHi("Structure"                 , s:hasloCyan        , s:hasloBackground      , "none")
 call s:SetHi("Macro"                     , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("TabLineFill "              , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("Conceal "                  , s:hasloGrey3       , s:hasloBackground      , "none")
+call s:SetHi("TabLineFill"               , s:hasloGrey3       , s:hasloBackground      , "none")
+call s:SetHi("Conceal"                   , s:hasloGrey3       , s:hasloBackground      , "none")
 
 " Viml
 call s:SetHi("vimOption"                 , s:hasloLightBlue   , s:hasloBackground      , "none")
@@ -168,7 +168,7 @@ call s:SetHi("vimFunction"               , s:hasloLightBlue   , s:hasloBackgroun
 " Haskell
 call s:SetHi("haskellIdentifier"         , s:hasloLightBlue   , s:hasloBackground      , "none")
 call s:SetHi("haskellType"               , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("haskellImportKeywords"     , s:hasloBlue      , s:hasloBackground      , "none")
+call s:SetHi("haskellImportKeywords"     , s:hasloBlue        , s:hasloBackground      , "none")
 call s:SetHi("haskellDecl"               , s:hasloOrange      , s:hasloBackground      , "none")
 call s:SetHi("haskellOperators"          , s:hasloRed         , s:hasloBackground      , "none")
 call s:SetHi("haskellDelimiter"          , s:hasloRed         , s:hasloBackground      , "none")
@@ -181,7 +181,7 @@ call s:SetHi("diffRemoved"               , s:hasloRed         , s:hasloBackgroun
 call s:SetHi("diffAdded"                 , s:hasloGreen       , s:hasloBackground      , "none")
 
 " HTML
-call s:SetHi("htmlTagN"                  , s:hasloGreen       , s:hasloBackground      , "none")
+call s:SetHi("htmlSpecialTagName"               , s:hasloLightBlue       , s:hasloBackground      , "none")
 
 " Vim Signify
 call s:SetHi("SignifySignAdd"            , s:hasloGreen       , s:hasloBackground      , "bold")
@@ -295,15 +295,42 @@ call s:SetHi("Lf_hl_popup_window"        , s:hasloWhite       , s:hasloFloatBack
 call s:SetHi("Lf_hl_popup_blank"         , s:hasloSteel       , s:hasloFloatBackground , "none")
 call s:SetHi("Lf_hl_popup_inputText"     , s:hasloSteel       , s:hasloFloatBackground , "none")
 call s:SetHi("Lf_hl_cursorline"          , s:hasloYellow      , s:hasloFloatBackground , "bold")
-" call s:SetHi("Lf_hl_popup_total"         , s:hasloBackground  , s:hasloBackground , "bold")
+" call s:SetHi("Lf_hl_popup_total"       , s:hasloBackground  , s:hasloBackground      , "bold")
 
 " Nvim-R
-call s:SetHi("routNormal"         , s:hasloWhite  , s:hasloBackground , "none")
-call s:SetHi("routFloat"          , s:hasloCyan  , s:hasloBackground , "none")
-call s:SetHi("routNumber"         , s:hasloCyan  , s:hasloBackground , "none")
+call s:SetHi("routNormal"                , s:hasloWhite       , s:hasloBackground      , "none")
+call s:SetHi("routFloat"                 , s:hasloCyan        , s:hasloBackground      , "none")
+call s:SetHi("routNumber"                , s:hasloCyan        , s:hasloBackground      , "none")
 
 " vim-which-key
-call s:SetHi("WhichKeySeperator"    , s:hasloRed  , s:hasloBackground , "none")
-call s:SetHi("WhichKeyFloating"     , s:hasloGreen  , s:hasloFloatBackground , "bold")
-call s:SetHi("WhichKeyDesc"         , s:hasloYellow  , s:hasloBackground , "none")
+call s:SetHi("WhichKeySeperator"         , s:hasloRed         , s:hasloBackground      , "none")
+call s:SetHi("WhichKeyFloating"          , s:hasloGreen       , s:hasloFloatBackground , "bold")
+call s:SetHi("WhichKeyDesc"              , s:hasloYellow      , s:hasloBackground      , "none")
 
+" TypeScript
+call s:SetHi("typescriptVariable"        , s:hasloRed   , s:hasloBackground      , "none")
+call s:SetHi("typescriptTypeReference"   , s:hasloViolet      , s:hasloBackground      , "none")
+call s:SetHi("typescriptMember"          , s:hasloGreen       , s:hasloBackground      , "none")
+call s:SetHi("typescriptObjectLabel"     , s:hasloCyan        , s:hasloBackground      , "none")
+call s:SetHi("typescriptNumber"          , s:hasloWhite       , s:hasloBackground      , "none")
+call s:SetHi("typescriptBraces"          , s:hasloRed         , s:hasloBackground      , "none")
+call s:SetHi("typescriptArrowFunc"       , s:hasloRed         , s:hasloBackground      , "none")
+call s:SetHi("typescriptImport"          , s:hasloRed        , s:hasloBackground      , "none")
+call s:SetHi("typescriptExport"          , s:hasloBlue        , s:hasloBackground      , "none")
+call s:SetHi("typescriptStringLiteralType" , s:hasloCyan        , s:hasloBackground      , "none")
+
+" TSX
+call s:SetHi("tsxTag"                    , s:hasloSteel       , s:hasloBackground      , "none")
+call s:SetHi("tsxTagName"                , s:hasloCyan         , s:hasloBackground      , "none")
+call s:SetHi("tsxIntrinsicTagName"       , s:hasloLightBlue   , s:hasloBackground      , "none")
+call s:SetHi("tsxAttrib"                 , s:hasloGreen       , s:hasloBackground      , "none")
+
+" JSX
+call s:SetHi("jsxTag"                    , s:hasloSteel       , s:hasloBackground      , "none")
+call s:SetHi("jsxTagName"                , s:hasloOrange      , s:hasloBackground      , "none")
+call s:SetHi("jsxComponentName"          , s:hasloViolet         , s:hasloBackground      , "none")
+call s:SetHi("jsxAttrib"                 , s:hasloGreen       , s:hasloBackground      , "none")
+
+" Javascript
+call s:SetHi("jsImport"                  , s:hasloRed       , s:hasloBackground      , "none")
+call s:SetHi("jsExport"                  , s:hasloRed       , s:hasloBackground      , "none")

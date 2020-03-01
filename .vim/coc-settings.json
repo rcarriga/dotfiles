@@ -1,0 +1,251 @@
+{
+  "codeLens": {
+    "enable": false
+  },
+  "diagnostic": {
+    "checkCurrentLine": true,
+    "virtualTextLines": 4
+  },
+  "eslint": {
+    "autoFixOnSave": true,
+    "filetypes": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue"
+    ]
+  },
+  "explorer": {
+    "file": {
+      "column": {
+        "filename": {
+          "paddingEnd": false
+        },
+        "git": {
+          "icon": {
+            "modified": "⛥"
+          }
+        }
+      },
+      "columns": [
+        "clip",
+        "diagnosticWarning",
+        "diagnosticError",
+        "indent",
+        "icon",
+        "filename",
+        "git",
+        "selection"
+      ]
+    },
+    "icon": {
+      "enableNerdfont": true
+    }
+  },
+  "javascript": {
+    "suggestionActions": {
+      "enabled": false
+    },
+    "format": {
+      "enabled": false
+    }
+  },
+  "git": {
+    "addGBlameToVirtualText": true,
+    "enableGutters": false
+  },
+  "languageserver": {
+    "vls": {
+      "command": "vls",
+      "filetypes": ["vue"],
+      "initializationOptions": {
+        "config": {
+          "vetur": {
+            "experimental": {
+              "templateInterpolationService": true
+            },
+            "useWorkspaceDependencies": false,
+            "validation": {
+              "template": true,
+              "style": true,
+              "script": true
+            },
+            "completion": {
+              "autoImport": false,
+              "useScaffoldSnippets": false,
+              "tagCasing": "kebab"
+            },
+            "format": {
+              "defaultFormatter": {
+                "js": "prettier",
+                "ts": "prettier"
+              },
+              "defaultFormatterOptions": {},
+              "scriptInitialIndent": false,
+              "styleInitialIndent": false
+            }
+          },
+          "css": {},
+          "html": {
+            "suggest": {}
+          },
+          "javascript": {
+            "format": {}
+          },
+          "typescript": {
+            "format": {}
+          },
+          "emmet": {},
+          "stylusSupremacy": {}
+        }
+      }
+    },
+    "clangd": {
+      "command": "clangd",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        "compile_flags.txt",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ]
+    },
+    "haskell": {
+      "command": "hie-wrapper",
+      "filetypes": ["hs", "lhs", "haskell"],
+      "initializationOptions": {
+        "languageServerHaskell": {}
+      },
+      "rootPatterns": [".stack.yaml", "cabal.config", "package.yaml"]
+    },
+    "kotlin": {
+      "command": "~/kotlin-language-server/server/build/scripts/kotlin-language-server",
+      "filetypes": ["kotlin"]
+    },
+    "purescript": {
+      "args": ["--stdio"],
+      "command": "purescript-language-server",
+      "filetypes": ["purescript"],
+      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+    }
+  },
+  "latex": {
+    "forwardSearch": {
+      "args": ["--synctex-forward", "%l:1:%f", "%p"],
+      "executable": "zathura"
+    }
+  },
+  "list": {
+    "source": {
+      "buffers": {
+        "defaultOptions": ["--normal"]
+      },
+      "colors": {
+        "defaultOptions": ["--auto-preview"]
+      },
+      "commits": {
+        "defaultOptions": ["--normal"]
+      },
+      "files": {
+        "args": [
+          "--files",
+          "--max-depth=10",
+          "--hidden",
+          "--color",
+          "never",
+          "--follow"
+        ],
+        "command": "rg",
+        "defaultOptions": ["--ignore-case", "--no-sort"]
+      },
+      "grep": {
+        "args": [
+          "--max-depth=10",
+          "--hidden",
+          "--no-heading",
+          "--color",
+          "always",
+          "--follow"
+        ],
+        "command": "rg",
+        "defaultOptions": [
+          "--ignore-case",
+          "--interactive",
+          "--auto-preview",
+          "--no-sort"
+        ]
+      },
+      "helptags": {
+        "defaultOptions": ["--ignore-case", "--auto-preview"]
+      },
+      "sessions": {
+        "defaultOptions": ["--normal"]
+      },
+      "words": {
+        "defaultOptions": ["--ignore-case", "--interactive"]
+      },
+      "yank": {
+        "defaultOptions": ["--normal"]
+      }
+    }
+  },
+  "pyls": {
+    "plugins": {
+      "pycodestyle": {
+        "enabled": false
+      }
+    }
+  },
+  "python": {
+    "formatting": {
+      "provider": "yapf"
+    },
+    "jediEnabled": true,
+    "linting": {
+      "mypyEnabled": true,
+      "pydocstyleEnabled": false
+    }
+  },
+  "r": {
+    "lsp": {
+      "debug": true
+    }
+  },
+  "suggest": {
+    "enablePreview": true,
+    "noselect": true,
+    "preferCompleteThanJumpPlaceholder": true
+  },
+  "tsserver": {
+    "npm": "/usr/local/bin/npm"
+  },
+  "yank": {
+    "priority": 40
+  },
+  "vetur": {
+    "experimental": {
+      "templateInterpolationService": true
+    }
+  },
+  "emmet": {
+    "priority": 100
+  },
+  "typescript": {
+    "format": {
+      "enabled": false
+    }
+  },
+  "coc": {
+    "preferences": {
+      "formatOnSaveFiletypes": [
+        "typescript",
+        "javascript",
+        "typescriptreact",
+        "javascriptreact",
+        "vue"
+      ]
+    }
+  }
+}

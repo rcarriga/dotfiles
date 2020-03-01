@@ -1,11 +1,3 @@
-" ###################################################################################
-" Plugins Init {{{1
-" Load plugins file after loading to reduce startup time.
-augroup PluginInit
-    au!
-    au CursorHold * ++once silent runtime autoload/plugins.vim
-augroup END
-
 augroup FileTypeInit
     au!
     au BufNew,VimEnter *[jJ]enkins* set ft=Jenkinsfile
@@ -22,8 +14,10 @@ augroup END
 " }}}1
 " ###################################################################################
 " Native Vim Settings {{{1
+" Tell neovim which python to use
 let g:python3_host_prog = "/usr/bin/python3"
 
+" Disable plaintex filetype
 let g:tex_flavor = "latex"
 
 " Disable modelines (Vim commands in files)
@@ -61,7 +55,7 @@ set updatetime=100
 set termguicolors
 
 " Delay to wait for next key in combo
-set timeoutlen=100
+set timeoutlen=300
 
 " Show numbers relative to current line
 set relativenumber
@@ -106,10 +100,15 @@ set mouse=a
 if has("nvim")
     " Preview changes when using search and replace
     set inccommand=nosplit
+    " Set characters for after foldtext, eof, foldcolumn
+    set fillchars=fold:\ ,foldclose:,foldopen:,foldsep:\ ,eob:\ 
+
+    set foldcolumn=1
 else
     " Make vim command autocomplete better
     set wildmode=longest,list,full
     set wildmenu
+    set fillchars=fold:\ 
 endif
 
 " Jump to existing window when opening buffer already opened
@@ -139,9 +138,6 @@ set nowrap
 " Text to appear on folded line
 set foldtext=MyFoldText()
 
-" Disable trailing characters after foldtext
-set fillchars=fold:\ 
-
 " Syntactic folding (Good for html, jsx, json etc)
 set foldmethod=syntax
 
@@ -167,28 +163,22 @@ noremap <Down> <C-e>
 noremap <Left> zh
 noremap <Right> zl
 
-" Use Tab to control indent
-" nnoremap <Tab> >>
-" vnoremap <Tab> >>
-" nnoremap <S-Tab> <<
-" vnoremap <S-Tab> <<
-
 " Switch windows with Ctrl + regular direction keys
 nnoremap <silent> <C-h> <C-w><C-h>
 nnoremap <silent> <C-j> <C-w><C-j>
 nnoremap <silent> <C-k> <C-w><C-k>
 nnoremap <silent> <C-l> <C-w><C-l>
-tnoremap <silent><C-h> <C-\><C-N><C-w><C-h>
-tnoremap <silent><C-j> <C-\><C-N><C-w><C-j>
-tnoremap <silent><C-k> <C-\><C-N><C-w><C-k>
-tnoremap <silent><C-l> <C-\><C-N><C-w><C-l>
+" tnoremap <silent><C-h> <C-\><C-N><C-w><C-h>
+" tnoremap <silent><C-j> <C-\><C-N><C-w><C-j>
+" tnoremap <silent><C-k> <C-\><C-N><C-w><C-k>
+" tnoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 inoremap <silent><C-h> <C-\><C-N><C-w><C-h>
 inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
 " Enter normal mode with escape in terminal
-tnoremap <silent> <ESC> <C-\><C-N>
+" tnoremap <silent> <ESC> <C-\><C-N>
 
 " Use Tab for cycling through completions.
 " Use Enter to expand a snippet.
@@ -217,3 +207,15 @@ augroup VimInit
     au FileType vim setlocal foldmethod=marker
 augroup END
 " }}}1
+
+" ###################################################################################
+" Plugins Init {{{1
+" Load plugins file after loading to reduce startup time.
+augroup PluginInit
+    au!
+    au InsertEnter,CursorHold * ++once silent runtime autoload/plugins.vim
+augroup END
+if exists('g:started_by_firenvim')
+    set laststatus=0
+endif
+

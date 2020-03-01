@@ -3,7 +3,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" --hidden --color never --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--height 96% --reverse --preview \"[[ -f \"{}\" ]] && head -\$LINES {}\""
+export FZF_DEFAULT_OPTS="--height 96% --reverse --preview \"source ~/.config/system/function.sh && fuzzy_preview {}\""
 export FZF_COMPLETION_TRIGGER="#"
 export SCRIPT_DIR=$HOME/.config/scripts
 export HISTFILE="$HOME/.zhistory"

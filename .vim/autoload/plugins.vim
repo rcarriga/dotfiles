@@ -2,23 +2,28 @@ if exists("g:plugins_loaded")
     finish
 endif
 
+
+" ,"jiangmiao/auto-pairs": {},
 let plugins = {
-      \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
-      \ "lervag/vimtex": {"lazy": 1},
-      \ "KabbAmine/vCoolor.vim": {},
+      \ "segeljakt/vim-isotope": {},
+      \ "tmhedberg/SimpylFold": {"lazy": 1},
+      \ "tomtom/tcomment_vim": {},
+      \ "moll/vim-bbye": {},
+      \ "dstein64/vim-win": {},
+      \ "tpope/vim-rhubarb": {},
       \ "Konfekt/FastFold": {},
-      \ "Ron89/thesaurus_query.vim": {"on_ft": ["tex", "markdown"]},
+      \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
       \ "Yggdroot/LeaderF": {"build": "./install.sh"},
       \ "alvan/vim-closetag": {},
       \ "godlygeek/tabular": {},
       \ "honza/vim-snippets": {},
       \ "iamcco/markdown-preview.nvim": {"on_ft": ["markdown", "pandoc.markdown", "rmd"], "build": "cd app & yarn install" },
-      \ "jalvesaq/Nvim-R": {},
-      \ "jamessan/vim-gnupg": {},
       \ "janko/vim-test": {"lazy": 1},
       \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
+      \ "junegunn/gv.vim": {},
       \ "justinmk/vim-sneak": {},
-      \ "kkoomen/vim-doge": {"lazy":1, "hook_post_source": "DogeGenerate"},
+      \ "lervag/vimtex": {"lazy": 1},
+      \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
       \ "liuchengxu/vista.vim": {"on_cmd": "Vista"},
       \ "machakann/vim-sandwich": {},
       \ "machakann/vim-swap": {},
@@ -26,7 +31,6 @@ let plugins = {
       \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
       \ "rhysd/clever-f.vim": {},
       \ "rhysd/vim-grammarous": {"on_cmd": "GrammarousCheck"},
-      \ "scrooloose/nerdcommenter": {},
       \ "sheerun/vim-polyglot": {"depends": "tabular"},
       \ "simnalamburt/vim-mundo": {"lazy":1},
       \ "takac/vim-hardtime": {},
@@ -34,16 +38,15 @@ let plugins = {
       \ "tpope/vim-eunuch": {},
       \ "tpope/vim-fugitive": {},
       \ "tpope/vim-sleuth": {"hook_post_source": "Sleuth"},
-      \ "tpope/vim-unimpaired": {},
       \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
       \ "vim-airline/vim-airline-themes": {"lazy": 1},
+      \ "tpope/vim-unimpaired": {},
       \ "vim-pandoc/vim-pandoc": {},
       \ "vim-pandoc/vim-pandoc-syntax": {},
       \ "vim-scripts/ReplaceWithRegister": {},
       \ "w0rp/ale": {"lazy": 1},
       \ "wellle/targets.vim": {},
       \ "whiteinge/diffconflicts": {"on_cmd" : "DiffConflicts" },
-      \ "junegunn/gv.vim": {}
 \ }
 
 if !has("nvim")
@@ -60,6 +63,20 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+let g:AutoPairsFlyMode = 1
+
+let g:tcomment_maps = 0
+
+let g:vue_pre_processors = ["typescript"]
+
+let g:caw_operator_keymappings = 1
+
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+" Disable default windowswap mappings
+let g:windowswap_map_keys = 0
+
 let g:coc_config_home = trim(system("echo $HOME"))."/.vim"
 
 let g:vimtex_quickfix_enabled = 0
@@ -74,7 +91,7 @@ let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
 
 let g:pandoc#folding#fdc = 0
 
-let g:polyglot_disabled = ['jsx', "latex"]
+let g:polyglot_disabled = ["latex"]
 
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
@@ -83,7 +100,7 @@ let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 0
 
-let g:coc_global_extensions = [ "coc-sh", "coc-gitignore", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-post", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
+let g:coc_global_extensions = [ "coc-sh", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -110,20 +127,29 @@ let g:vista_ctags_cmd = {
 let g:vista_icon_indent = ["╰─▸", "├─▸"]
 let g:vista#renderer#enable_icon = 1
 let g:vista_sidebar_width = 50
+let g:vista_echo_cursor_strategy = "floating_win"
+let g:vista_executive_for = {
+  \ "javascript": "coc",
+  \ "typescript": "coc",
+  \ "javascriptreact": "coc",
+  \ "typescriptreact": "coc"
+  \ }
 
 " Pretty icons for airline
 let g:airline_powerline_fonts = 1
 " Use manual loading of extensions
 let g:airline#extensions#tabline#show_splits = 1
 let g:airline#extensions#hunks#non_zero_only = 1
-let g:airline_theme = "night_owl"
+let g:airline_theme = "molokai"
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#coc#error_symbol = " "
 let g:airline#extensions#coc#warning_symbol = " "
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 
 let g:ale_virtualtext_cursor = 1
 let g:ale_linters = {
+    \ "vue": [],
     \ "python": [],
     \ "haskell": [],
     \ "javascript": [],
@@ -156,10 +182,9 @@ let g:signify_sign_change            = "\u258B"
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
 
-let g:sleuth_automatic = 1
-
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
+let g:closetag_filetypes = 'jsx,tsx,typescriptreact'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_regions = {
     \ 'typescriptreact': 'jsxRegion,tsxRegion',
@@ -175,17 +200,18 @@ let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:Lf_PopupWidth = &columns * 1/2
-let g:Lf_PopupShowStatusline = 0
 let g:Lf_ShortcutB = ""
 let g:Lf_ShortcutF = ""
+let g:Lf_AutoResize = 1
 
 let g:pandoc#modules#disabled = ["formatting", "command", "menu", "keyboard", "bibliographies", "completion", "toc", "spell", "hypertext"]
 
-let g:which_key_hspace = 100
 let g:which_key_position = 'topleft'
 let g:which_key_max_size = 20
- let g:which_key_floating_opts = { "width": "-80", "col": "+30"}
+let g:which_key_floating_opts = { "col": "+30"}
 
+let g:spaceline_seperate_style= "curve"
+let g:spaceline_colorscheme = "space"
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -218,9 +244,27 @@ function! OpenInFloating(params) abort
     exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
 endfunction
 
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
+
+augroup WhichKeyInit
+  au!
+  au  FileType which_key set laststatus=0 noshowmode noruler
+    \| au BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+augroup SleuthInit
+  au!
+  au FileType * Sleuth
+augroup END
 
 augroup ReactInit
     au!
@@ -253,6 +297,9 @@ endif
 " }}}1
 " ###################################################################################
 " Custom Commands {{{1
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? RG call RipgrepFzf(<q-args>, <bang>0)
 
 command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
 command! -nargs=1 OpenPeek call OpenInFloating(<f-args>)
@@ -263,12 +310,25 @@ command CC CocCommand
 " Plugin Mappings {{{1
 let g:which_key_map = {}
 
-let g:which_key_map.c = {"name": "Comments"}
+" Doge Mapping
+let g:which_key_map.i = "Generate Documentation"
+
+let g:which_key_map.c = {"name": "Comments",
+      \ "c": "Comment Line",
+      \ "b": "Comment as Block"
+      \ }
+nmap <silent><leader>cc :TComment<CR>
+vmap <silent><leader>cc :TComment<CR>
+nmap <silent><leader>cb :TCommentBlock<CR>
+vmap <silent><leader>cb :TCommentBlock<CR>
 
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <localleader> :<c-u>WhichKey  '\'<CR>
 vnoremap <localleader> :<c-u>WhichKeyVisual  '\'<CR>
+
+let g:which_key_map.e = "Manage Windows"
+nmap <silent><leader>e <plug>WinWin
 
 "Replace the word under cursor
 let g:which_key_map.o = "Replace Current Word"
@@ -282,10 +342,10 @@ nmap <silent><leader>z :Goyo<CR>
 let g:which_key_map.w = "Write File"
 nnoremap <leader>w :w<CR>
 let g:which_key_map.q = "Quit Buffer"
-nnoremap <leader>q :q<CR>
+nnoremap <silent><leader>q :Bdelete<CR>
 
 "Cycle between last two open buffers
-let g:which_key_map["<Space>"] = {"name": "Switch to Previous Buffer"}
+let g:which_key_map["<Space>"] = "Switch to Previous Buffer"
 nnoremap <leader><leader> <c-^>
 let g:which_key_map.n = "Compile to PDF"
 nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
@@ -422,6 +482,32 @@ nmap <silent><leader>rw :IronWatchCurrentFile
 nmap <silent><leader>ru :IronUnwatchCurrentFile<CR>
 
 
+let g:which_key_map.b = {
+      \ "name": "Debugging Controls",
+      \ "g": "Start Debugger",
+      \ "c": "Continue",
+      \ "s": "Stop",
+      \ "r": "Restart",
+      \ "p": "Pause",
+      \ "b": "ToggleBreakpoint",
+      \ "f": "AddFunctionBreakpoint",
+      \ "o": "StepOver",
+      \ "i": "StepInto",
+      \ "x": "StepOut"
+      \ }
+nmap <silent><leader>bg :call vimspector#Launch()<CR>
+nmap <silent><leader>bc <Plug>VimspectorContinue
+nmap <silent><leader>bs <Plug>VimspectorStop
+nmap <silent><leader>br <Plug>VimspectorRestart
+nmap <silent><leader>bp <Plug>VimspectorPause
+nmap <silent><leader>bb <Plug>VimspectorToggleBreakpoint
+nmap <silent><leader>bf <Plug>VimspectorAddFunctionBreakpoint
+nmap <silent><leader>bo <Plug>VimspectorStepOver
+nmap <silent><leader>bi <Plug>VimspectorStepInto
+nmap <silent><leader>bx <Plug>VimspectorStepOut
+
+
+
 let g:which_key_map.t = {
   \ "name": "Tests",
   \ "n": "Run Nearest",
@@ -447,7 +533,8 @@ nmap <silent><leader>ts <Plug>(vitest-run-all)
 nmap <silent><leader>tj <Plug>(vitest-next-fail)
 nmap <silent><leader>tk <Plug>(vitest-prev-fail)
 
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
+" inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <C-n> pumvisible() ? "\<C-n>" : coc#refresh()
 
@@ -503,7 +590,13 @@ iron.core.set_config{
 }
 
 EOF
+nnoremap cl cl
 
 endif
 
 " }}}1
+if get(g:, 'started_by_firenvim')
+  redir! > ~/testecho
+  mes
+  redir END
+endif

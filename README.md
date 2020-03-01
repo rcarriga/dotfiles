@@ -122,64 +122,10 @@ Plugins are loaded after Vim starts so startup time should be ~50ms.
 <details><summary>Key Mappings</summary>
 <p>
 
-#### Langage Server Commands
 
-My leader key is set to default "\\" key.
-These are only some of my mappings and are likely out of date.
+My leader key is set to the space key.
+`vim-which-key` will display info for leader mappings
 Check [here](./.vimdir/autoload/plugins.vim) for all mappings.
-
-*Prefix*: `<Leader>l` (Lower case L)
-
-| Suffix           | Command                               |
-| :----:           | :-----------------------------------  |
-| `d`              | Definition (In vertical split)        |
-| `D`              | Definition (In current buffer)        |
-| `r`              | Rename                                |
-| `f`              | Format Document                       |
-| `t`              | Type Definition                       |
-| `x`              | References                            |
-| `a`              | Code Actions Menu                     |
-| `k`              | Hover (Loo**k**up)                    |
-| `h`              | Hightlight                            |
-| `g`              | Diagnostic Info at Cursor             |
-| `i`              | Diagnostic List for Document          |
-
-#### Git Commands
-
-*Prefix*: `<Leader>g`
-
-| Suffix           | Command                               |
-| :----:           | :----------------------------         |
-| `s`              | Status                                |
-| `p`              | Push                                  |
-| `d`              | Diff                                  |
-| `b`              | Browse (Open repo in browser)         |
-| `l`              | Blame                                 |
-| `m`              | Messenger *NB Does not use `g` prefix*|
-
-  - *NB* Type "cc" in status window to commit changes.
-
-#### LaTex Commands
-
-*Prefix*: `<Leader>l`
-
-| Suffix           | Command                               |
-| :----:           | :------------------------------------ |
-| `l`              | Run compile server for LaTex document |
-| `v`              | View compiled document                |
-
-#### Misc:
-
-| Suffix           | Command                               |
-| :------:         | :-------------------------------      |
-| `<Leader>x`      | Open NERDTree                         |
-| `Tab`            | Next Completion                       |
-| `Ctrl+(h/j/k/l)` | Switch Window in Direction            |
-| `<Leader>st`     | Open thesauras for selected word      |
-| `<Leader>sg`     | Run grammarous check                  |
-| `<Leader>a`      | Align highlighted markdown table      |
-
-_Arrow keys are disabled in normal mode._
 
 </p>
 </details>
