@@ -8,6 +8,6 @@ xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enab
 setxkbmap -layout gb
 setxkbmap -option caps:escape
 xset r rate 150 40
-xsetroot -cursor_name left_ptr 16
+xsetroot -cursor_name left_ptr
 
 exec xmonad

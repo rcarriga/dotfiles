@@ -92,14 +92,15 @@ myStartupHook = do
     mapM_
         spawn
         [ "pkill polybar; polybar xmonad"
-        , "pkill redshift; sleep 5s && redshift -l 53:-6 -t 6500:2500"
+        , "pkill ulauncher; ulauncher --no-window-shadow"
+        , "pkill deadd-notification-center; deadd-notification-center"
+        , "pkill redshift-gtk; sleep 5s && redshift-gtk -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
         , "pgrep blueman-applet || blueman-applet"
         , "pgrep picom || picom -f -D 3 --experimental-backends --backend glx"
         , "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
         , "light -N 1"
         ]
-    startScript "xsettings"
 
 setWallpaper :: X ()
 setWallpaper = spawn "feh -z --bg-fill ~/.config/images/moon.png"
