@@ -3,7 +3,6 @@ if exists("g:plugins_loaded")
 endif
 
 
-" ,"jiangmiao/auto-pairs": {},
 let plugins = {
       \ "segeljakt/vim-isotope": {},
       \ "tmhedberg/SimpylFold": {"lazy": 1},
@@ -14,6 +13,7 @@ let plugins = {
       \ "Konfekt/FastFold": {},
       \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
       \ "Yggdroot/LeaderF": {"build": "./install.sh"},
+      \ "Yggdroot/hiPairs": {},
       \ "alvan/vim-closetag": {},
       \ "godlygeek/tabular": {},
       \ "honza/vim-snippets": {},
@@ -63,16 +63,14 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
-let g:AutoPairsFlyMode = 1
+"
+let g:hiPairs_enable_matchParen = 1
 
 let g:tcomment_maps = 0
 
 let g:vue_pre_processors = ["typescript"]
 
 let g:caw_operator_keymappings = 1
-
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
 
 " Disable default windowswap mappings
 let g:windowswap_map_keys = 0
@@ -361,6 +359,7 @@ xmap x <Plug>Sneak_s
 xmap X <Plug>Sneak_S
 omap x <Plug>Sneak_s
 omap X <Plug>Sneak_S
+
 
 let g:which_key_map.g = {
       \ "name": "Git Control",
