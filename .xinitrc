@@ -9,5 +9,6 @@ setxkbmap -layout gb
 setxkbmap -option caps:escape
 xset r rate 150 40
 xsetroot -cursor_name left_ptr
+xrdb -merge ~/.Xresources
 
 exec xmonad
