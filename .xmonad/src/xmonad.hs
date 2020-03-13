@@ -13,6 +13,7 @@ import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import qualified Data.Map as M
+import Data.Monoid
 import qualified XMonad.StackSet as W
 
 startScript :: String -> X ()
@@ -23,22 +24,19 @@ main = do
     safeSpawn "mkfifo" ["/tmp/xmonad"]
     xmonad
         $                 docks def
-                              { terminal           = myTerminal
-                              , modMask            = myModMask
+                              { terminal           = "kitty"
+                              , modMask            = mod4Mask
                               , workspaces         = myWorkspaces
-                              , normalBorderColor  = myNormalBorderColor
-                              , focusedBorderColor = myFocusedBorderColor
-                              , manageHook         = myManageHook
+                              , normalBorderColor  = "#3E3D32"
+                              , focusedBorderColor = "#bdbdbd"
+                              , manageHook         = composeAll [manageDocks, def manageHook]
                               , layoutHook         = myLayoutHook
-                              , handleEventHook    = docksEventHook <+> def handleEventHook
+                              , handleEventHook    = docksEventHook <+> (\e -> io $ appendFile "/home/ronan/event" (show e <> "\n") >> return (All True)) <+> def handleEventHook
                               , startupHook        = myStartupHook
-                              , logHook            = myLogHook
-                              , borderWidth        = myBorderWidth
+                              , logHook            = sendWorkspaceNames "/tmp/xmonad"
+                              , borderWidth        = 2
                               }
         `additionalKeysP` myKeys
-
-myBorderWidth :: Dimension
-myBorderWidth = 2
 
 myScratchpads :: [NamedScratchpad]
 myScratchpads =
@@ -46,27 +44,8 @@ myScratchpads =
     , NS "Blueman-manager" "blueman-manager" (className =? "Blueman-manager") defaultFloating
     ]
 
-myTerminal :: String
-myTerminal = "kitty"
-
 myWorkspaces :: [String]
 myWorkspaces = map show [1 .. 9] ++ ["NSP"]
-
-myNormalBorderColor :: String
-myNormalBorderColor = "#3E3D32"
-
-myFocusedBorderColor :: String
-myFocusedBorderColor = "#bdbdbd"
-
-myModMask :: KeyMask
-myModMask = mod4Mask
-
-myManageHook :: ManageHook
-myManageHook = composeAll [manageDocks, def manageHook]
-
-myLogHook :: X ()
-myLogHook = do
-    sendWorkspaceNames "/tmp/xmonad"
 
 sendWorkspaceNames :: String -> X ()
 sendWorkspaceNames file = do
@@ -92,7 +71,7 @@ myStartupHook = do
     mapM_
         spawn
         [ "pkill polybar; polybar xmonad"
-        , "pkill ulauncher; ulauncher --no-window-shadow"
+        , "prgep ulauncher; ulauncher --no-window-shadow"
         , "pkill deadd-notification-center; deadd-notification-center"
         , "pkill redshift-gtk; sleep 5s && redshift-gtk -l 53:-6 -t 6500:2500"
         , "pgrep nm-applet || nm-applet"
@@ -115,7 +94,7 @@ myKeys =
     , ("M-p"                    , spawn "rofi -z -show run -opacity \"86\" ")
     , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
-    , ("M-S-t"                  , sendMessage ToggleStruts >> spawn "polybar-msg cmd toggle")
+    , ("M-S-t"                  , spawn "pkill polybar || polybar xmonad")
     , ("M-S-p"                  , spawn "polybar-msg cmd toggle")
     , ("M-S-n"                  , namedScratchpadAction myScratchpads "htop")
     , ("M-C-S-j"                , decScreenSpacing 10)
@@ -148,6 +127,7 @@ parseWorkspaceId icons cur i = case M.lookup i icons of
 type WindowClass = String
 type WorkspaceIcons = M.Map WorkspaceId String
 
+myWindowIcons :: M.Map String String
 myWindowIcons = M.fromList
     [ ("kitty"                  , "\xf120")
     , ("firefox"                , "\xf269")
@@ -162,7 +142,7 @@ myWindowIcons = M.fromList
     , ("Kodi"                   , "\xf03d")
     , ("transmission"           , "\xf019")
     , ("Zotero"                 , "\xf02d")
-    , ("Signal", "\xf0e0")
+    , ("Signal"                 , "\xf0e0")
     ]
 
 -- | Store the given workspace's name in given and return.
