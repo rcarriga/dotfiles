@@ -1,4 +1,16 @@
 {
+  "coc": {
+    "preferences": {
+      "useQuickfixForLocations": true,
+      "formatOnSaveFiletypes": [
+        "typescript",
+        "javascript",
+        "typescriptreact",
+        "javascriptreact",
+        "vue"
+      ]
+    }
+  },
   "codeLens": {
     "enable": false
   },
@@ -114,11 +126,17 @@
     },
     "haskell": {
       "command": "hie-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml"
+      ],
       "filetypes": ["hs", "lhs", "haskell"],
       "initializationOptions": {
         "languageServerHaskell": {}
-      },
-      "rootPatterns": [".stack.yaml", "cabal.config", "package.yaml"]
+      }
     },
     "kotlin": {
       "command": "~/kotlin-language-server/server/build/scripts/kotlin-language-server",
@@ -235,17 +253,6 @@
   "typescript": {
     "format": {
       "enabled": false
-    }
-  },
-  "coc": {
-    "preferences": {
-      "formatOnSaveFiletypes": [
-        "typescript",
-        "javascript",
-        "typescriptreact",
-        "javascriptreact",
-        "vue"
-      ]
     }
   }
 }

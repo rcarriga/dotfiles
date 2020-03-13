@@ -86,14 +86,14 @@
     vim_shell               # vim shell indicator (:sh)
     midnight_commander      # midnight commander shell (https://midnight-commander.org/)
     vpn_ip                # virtual private network indicator
-    ram                   # free RAM
-    load                  # CPU load
+    # ram                   # free RAM
+    # load                  # CPU load
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     # time                  # current time
     # =========================[ Line #2 ]=========================
     newline
     # public_ip             # public IP address
-    # proxy                 # system-wide http/https/ftp proxy
+    proxy                 # system-wide http/https/ftp proxy
     # battery               # internal battery
     # example               # example user-defined segment (see prompt_example function below)
   )

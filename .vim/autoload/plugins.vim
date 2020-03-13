@@ -64,7 +64,7 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 "
-let g:hiPairs_enable_matchParen = 1
+let g:hiPairs_enable_matchParen = 0
 
 let g:tcomment_maps = 0
 
@@ -454,6 +454,8 @@ let g:which_key_map.l = {
   \ "s": "Code Lens Action",
   \ "k": "Hover Information",
   \ "q": "Quickfixes",
+  \ "n": "Jump to next diagnostic",
+  \ "b": "Jump to previous diagnostic"
   \ }
 nmap <silent><leader>ld <Plug>(coc-definition)
 nnoremap <silent><leader>lp :call CocAction('jumpDefinition', "OpenPeek")<CR>
@@ -465,6 +467,8 @@ nmap <silent><leader>lx <Plug>(coc-references)
 nmap <silent><leader>lg <Plug>(coc-diagnostic-info)
 nmap <silent><leader>la <Plug>(coc-codeaction)
 nmap <silent><leader>lj <Plug>(coc-float-jump)
+nmap <silent><leader>ln <Plug>(coc-diagnostic-next)
+nmap <silent><leader>lb <Plug>(coc-diagnostic-prev)
 nmap <silent><leader>ls :call CocActionAsync("codeLensAction")<CR>
 nmap <silent><leader>lk :call CocActionAsync("doHover")<CR>
 nmap <silent><leader>lq :call CocActionAsync("quickfixes")<CR>
