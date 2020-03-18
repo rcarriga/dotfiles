@@ -71,7 +71,7 @@ sendWorkspaceNames file = do
         outTags = foldr1 (\a b -> a <> "      " <> b) $ filter (/= "") $ mapMaybe
             (parseWorkspaceId workspaceIcons curWs)
             tags
-    io $ appendFile file $ outTags ++ "\n"
+    io $ appendFile file $ outTags ++ "  \n"
 
 myLayoutHook =
     avoidStruts

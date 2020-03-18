@@ -89,10 +89,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = NotoSans-Regular:size=10;0
-font-1 = "Font Awesome 5 Brands Regular:style=Regular:size=11;1"
-font-2 = "Font Awesome 5 Free Solid:style=Solid:size=11;1"
-font-3 = "Font Awesome 5 Free Regular:style=Regular:size=11;1"
+font-0 = Roboto:style=Regular:size=10
+font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonad
 modules-center = date battery light pulseaudio 
@@ -126,24 +124,24 @@ format-background = ${colors.background}
 type = custom/script
 exec = light | grep -o '^[0-9]*'
 format-background=${colors.light}
-format = " <label>%"
+format = "  <label>%"
 
 [module/home]
 type = internal/fs
 mount-0 = /home
-label-mounted = "   %free%  "
+label-mounted = "    %free%  "
 label-mounted-background = ${colors.fs}
 
 [module/media]
 type = internal/fs
 mount-0 = /media
-label-mounted = "   %free%  "
+label-mounted = "     %free%  "
 label-mounted-background = ${colors.fs}
 
 [module/root]
 type = internal/fs
 mount-0 = /
-label-mounted = "   %free%  "
+label-mounted = "    %free%  "
 label-mounted-background = ${colors.fs}
 
 [module/cpu]
@@ -156,7 +154,7 @@ label = "   %percentage-sum%%  "
 type = internal/memory
 interval = 2
 format-background = ${colors.memory}
-label = "    %percentage_used%%  "
+label = "    %percentage_used%%  "
 
 [module/date]
 type = internal/date
@@ -171,11 +169,11 @@ label = %date%
 type = internal/pulseaudio
 
 format-volume = <label-volume>
-label-volume = "  %percentage%% "
+label-volume = "  %percentage%% "
 label-volume-foreground = ${root.foreground}
 label-volume-background = ${colors.volume}
 
-label-muted = "        "
+label-muted = "  "
 label-muted-foreground = ${root.foreground}
 label-muted-background = ${colors.volume}
 
@@ -187,9 +185,9 @@ full-at = 98
 poll-interval = 10
 
 format-charging-background = ${colors.battery}
-format-charging = "  <animation-charging> <label-charging>  "
+format-charging = "  <animation-charging>    <label-charging>  "
 
-format-discharging = <ramp-capacity> <label-discharging>
+format-discharging = <ramp-capacity>    <label-discharging>
 
 format-full = 
 format-full-underline = ${colors.battery}
