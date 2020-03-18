@@ -141,6 +141,9 @@ set foldtext=MyFoldText()
 " Syntactic folding (Good for html, jsx, json etc)
 set foldmethod=syntax
 
+" Use patience algorithm for diffs
+set diffopt+=internal,algorithm:patience
+
 " }}}1
 " ###################################################################################
 " Custom Mappings{{{1

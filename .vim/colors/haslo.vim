@@ -74,7 +74,7 @@ let s:hasloLightYellow     = s:ConstructColour("#FFF59D")
 let s:hasloOrange          = s:ConstructColour("#F57C00")
 let s:hasloLightRed        = s:ConstructColour("#ef9a9a")
 let s:hasloRed             = s:ConstructColour("#F70067")
-let s:hasloFloatBackground = s:ConstructColour("#263238")
+let s:hasloFloatBackground = s:ConstructColour("#162228")
 let s:hasloBackground      = {"gui": "NONE", "cterm256": "NONE"}
 
 " Vim

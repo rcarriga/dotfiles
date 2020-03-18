@@ -30,6 +30,9 @@
   },
   "explorer": {
     "file": {
+      "child": {
+        "template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][readonly][git] [linkIcon & 1][link]"
+      },
       "column": {
         "filename": {
           "paddingEnd": false
