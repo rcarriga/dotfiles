@@ -31,6 +31,45 @@ memory = ${colors.background}
 volume = ${colors.background}
 battery = ${colors.background}
 
+[bar/xmonadGameMode]
+;monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 40
+align = bottom
+bottom = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #f00
+
+padding-left = 5
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = NotoSans-Regular:size=10;0
+font-1 = "Font Awesome 5 Brands Regular:style=Regular:size=11;1"
+font-2 = "Font Awesome 5 Free Solid:style=Solid:size=11;1"
+font-3 = "Font Awesome 5 Free Regular:style=Regular:size=11;1"
+
+modules-left = workspaces-xmonadGameMode
+modules-center = date battery light pulseaudio 
+modules-right = root home media memory cpu temperature 
+
+enable-ipc = true
+
+tray-offset-x = 0
+tray-offset-y = 0
+tray-detached = false
+tray-position = right
+
+override-redirect = true
+
+cursor-click = pointer
+cursor-scroll = ns-resize
 [bar/xmonad]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
@@ -70,6 +109,12 @@ override-redirect = true
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+[module/workspaces-xmonadGameMode]
+type = custom/script
+exec = tail -F /tmp/xmonadGameMode
+tail = true
+format-background = ${colors.background}
 
 [module/workspaces-xmonad]
 type = custom/script

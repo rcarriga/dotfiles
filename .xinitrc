@@ -11,4 +11,5 @@ xset r rate 150 40
 xsetroot -cursor_name left_ptr
 xrdb -merge ~/.Xresources
 
+export XMONAD_MODE=""
 exec xmonad

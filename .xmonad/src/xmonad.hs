@@ -15,13 +15,20 @@ import XMonad.Util.Run
 import qualified Data.Map as M
 import Data.Monoid
 import qualified XMonad.StackSet as W
+import System.Environment
+import XMonad.Hooks.Place
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
 
 main :: IO ()
 main = do
-    safeSpawn "mkfifo" ["/tmp/xmonad"]
+    args <- getEnv "XMONAD_MODE"
+    let gameMode = case args of
+            "game" -> True
+            _      -> False
+        workspaceNameFile = if gameMode then "/tmp/xmonadGameMode" else "/tmp/xmonad"
+    safeSpawn "mkfifo" [workspaceNameFile]
     xmonad
         $                 docks def
                               { terminal           = "kitty"
@@ -29,11 +36,14 @@ main = do
                               , workspaces         = myWorkspaces
                               , normalBorderColor  = "#3E3D32"
                               , focusedBorderColor = "#bdbdbd"
-                              , manageHook         = composeAll [manageDocks, def manageHook]
+                              , manageHook         = myManageHook
                               , layoutHook         = myLayoutHook
-                              , handleEventHook    = docksEventHook <+> (\e -> io $ appendFile "/home/ronan/event" (show e <> "\n") >> return (All True)) <+> def handleEventHook
-                              , startupHook        = myStartupHook
-                              , logHook            = sendWorkspaceNames "/tmp/xmonad"
+                              , handleEventHook    =
+                                  docksEventHook
+                                  <+> (\e -> io $ appendFile "/home/ronan/event" (show e <> "\n") >> return (All True))
+                                  <+> def handleEventHook
+                              , startupHook        = myStartupHook gameMode
+                              , logHook            = sendWorkspaceNames workspaceNameFile
                               , borderWidth        = 2
                               }
         `additionalKeysP` myKeys
@@ -45,7 +55,11 @@ myScratchpads =
     ]
 
 myWorkspaces :: [String]
-myWorkspaces = map show [1 .. 9] ++ ["NSP"]
+myWorkspaces = map show ([1 .. 9] :: [Int]) ++ ["NSP"]
+
+myManageHook :: ManageHook
+myManageHook =
+    composeAll [manageDocks, className =? "Transmission-gtk" --> doFloat, placeHook simpleSmart, def manageHook]
 
 sendWorkspaceNames :: String -> X ()
 sendWorkspaceNames file = do
@@ -64,25 +78,39 @@ myLayoutHook =
         $ spacingRaw False (Border 0 10 10 10) True (Border 10 10 10 10) True (smartBorders (Tall 1 (3 / 100) (1 / 2)))
         ||| noBorders Full
 
-myStartupHook :: X ()
-myStartupHook = do
+myStartupHook :: Bool -> X ()
+myStartupHook gamingMode = do
     setWMName "XMonad"
     setWallpaper
+    startCompositor False
     mapM_
         spawn
-        [ "pkill polybar; polybar xmonad"
-        , "prgep ulauncher; ulauncher --no-window-shadow"
-        , "pkill deadd-notification-center; deadd-notification-center"
-        , "pkill redshift-gtk; sleep 5s && redshift-gtk -l 53:-6 -t 6500:2500"
-        , "pgrep nm-applet || nm-applet"
-        , "pgrep blueman-applet || blueman-applet"
-        , "pgrep picom || picom -f -D 3 --experimental-backends --backend glx"
-        , "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
-        , "light -N 1"
-        ]
+        (if gamingMode
+            then
+                [ "pkill polybar; polybar xmonadGameMode"
+                , "pgrep nm-applet || nm-applet"
+                , "pgrep blueman-applet || blueman-applet"
+                , "light -N 1"
+                ]
+            else
+                [ "pkill polybar; polybar xmonad"
+                , "pgrep ulauncher || ulauncher --no-window-shadow"
+                , "pkill deadd-notification-center; deadd-notification-center"
+                , "pkill redshift-gtk; sleep 5s && redshift-gtk -l 53:-6 -t 6500:2500"
+                , "pgrep nm-applet || nm-applet"
+                , "pgrep blueman-applet || blueman-applet"
+                , "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""
+                , "light -N 1"
+                ]
+        )
 
 setWallpaper :: X ()
 setWallpaper = spawn "feh -z --bg-fill ~/.config/images/moon.png"
+
+startCompositor :: Bool -> X ()
+startCompositor force = spawn $ if force
+    then "pkill picom; picom -f -D 3 --experimental-backends --backend glx"
+    else "pgrep picom || picom -f -D 3 --experimental-backends --backend glx"
 
 myKeys :: [(String, X ())]
 myKeys =
@@ -104,9 +132,9 @@ myKeys =
     , ("M-g"                    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
     , ("M-f"                    , spawn "firefox")
     , ("M-S-r"                  , withFocused $ \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
-    , ("M-s"                    , startScript "screen EDPI" >> setWallpaper)
-    , ("M-S-s"                  , startScript "screen HDMI" >> setWallpaper)
-    , ("M-C-s"                  , startScript "screen HDMIABOVE" >> setWallpaper)
+    , ("M-s"                    , startScript "screen EDPI" >> setWallpaper >> startCompositor True)
+    , ("M-S-s"                  , startScript "screen HDMI" >> setWallpaper >> startCompositor True)
+    , ("M-C-s"                  , startScript "screen HDMIABOVE" >> setWallpaper >> startCompositor True)
     , ("M-i"                    , startScript "lock")
     , ("M-S-b"                  , withFocused toggleBorder)
     , ("M-n"                    , spawn "kill -s USR1 $(pidof deadd-notification-center)")
