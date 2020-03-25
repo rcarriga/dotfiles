@@ -4,6 +4,8 @@ endif
 
 
 let plugins = {
+      \ "tpope/vim-dispatch": {},
+      \ "zsugabubus/vim-jumpmotion": {},
       \ "segeljakt/vim-isotope": {},
       \ "tmhedberg/SimpylFold": {"lazy": 1},
       \ "tomtom/tcomment_vim": {},
@@ -21,7 +23,6 @@ let plugins = {
       \ "janko/vim-test": {"lazy": 1},
       \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
       \ "junegunn/gv.vim": {},
-      \ "justinmk/vim-sneak": {},
       \ "lervag/vimtex": {"lazy": 1},
       \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
       \ "liuchengxu/vista.vim": {"on_cmd": "Vista"},
@@ -64,6 +65,8 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 "
+let g:Lf_CacheDirectory = environ()["HOME"].'/.cache/leaderf'
+
 let g:hiPairs_enable_matchParen = 0
 
 let g:tcomment_maps = 0
@@ -160,9 +163,6 @@ let g:ale_linters = {
 
 " Disable thesauras default mappings
 let g:tq_map_keys = 0
-
-let g:sneak#label = 1
-let g:sneak#s_next = 1
 
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
@@ -325,6 +325,8 @@ vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <localleader> :<c-u>WhichKey  '\'<CR>
 vnoremap <localleader> :<c-u>WhichKeyVisual  '\'<CR>
 
+nmap x <Plug>(JumpMotion)
+
 let g:which_key_map.e = "Manage Windows"
 nmap <silent><leader>e <plug>WinWin
 
@@ -343,23 +345,13 @@ let g:which_key_map.q = "Quit Buffer"
 nnoremap <silent><leader>q :Bdelete<CR>
 
 "Cycle between last two open buffers
-let g:which_key_map["<Space>"] = "Switch to Previous Buffer"
-nnoremap <leader><leader> <c-^>
+" let g:which_key_map["<Space>"] = "Switch to Previous Buffer"
+" nnoremap <leader><leader> <c-^>
 let g:which_key_map.n = "Compile to PDF"
 nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
 
-
 " Open config directory
 nnoremap <silent>` :CocCommand explorer ~/.vim<CR>
-
-" Vim sneak commands
-nmap x <Plug>Sneak_s
-nmap X <Plug>Sneak_S
-xmap x <Plug>Sneak_s
-xmap X <Plug>Sneak_S
-omap x <Plug>Sneak_s
-omap X <Plug>Sneak_S
-
 
 let g:which_key_map.g = {
       \ "name": "Git Control",
