@@ -8,8 +8,25 @@ export FZF_COMPLETION_TRIGGER="#"
 export SCRIPT_DIR=$HOME/.config/scripts
 export HISTFILE="$HOME/.zhistory"
 export HISTSIZE="4000"
+export SAVEHIST="4000"
 export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
 export PMY_FUZZY_FINDER_DEFAULT_CMD="fzf -0 -1 --height 20 --reverse --border --inline-info --ansi --color=dark"
 export GOPATH="$HOME/.go"
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin"
+
+# Handling config and cache files
+
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_DATA_HOME="${XDG_CACHE_HOME:-$HOME/.local/share}"
+if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
+    echo "\$XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) not writable. Setting to /tmp." >&2
+    XDG_RUNTIME_DIR=/tmp
+fi
+export XDG_RUNTIME_DIR
+
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
+export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
+export NPM_CONFIG_TMP=$XDG_RUNTIME_DIR/npm
+export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh

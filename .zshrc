@@ -1,3 +1,5 @@
+zmodload zsh/zpty
+
 [[ -f "$HOME/.config/system/function.sh" ]] && source "$HOME/.config/system/function.sh"
 
 [[ -f "$HOME/.config/system/alias.sh" ]] && source "$HOME/.config/system/alias.sh"
@@ -17,9 +19,6 @@ if ! zgen saved; then
     zgen load "zsh-users/zsh-autosuggestions"
     zgen load "zdharma/fast-syntax-highlighting"
     zgen load "zsh-users/zsh-completions" src
-    zgen load "chisui/zsh-nix-shell"
-    zgen load "spwhitt/nix-zsh-completions"
-    zgen load "zsh-users/zaw"
     zgen load "romkatv/powerlevel10k" powerlevel10k
     zgen save 
 fi
@@ -36,4 +35,6 @@ kitty + complete setup zsh | source /dev/stdin
 # added by travis gem
 [ -f /home/ronan/.travis/travis.sh ] && source /home/ronan/.travis/travis.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+setopt -o shareHistory
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+ZSH_AUTOSUGGEST_USE_ASYNC=1
