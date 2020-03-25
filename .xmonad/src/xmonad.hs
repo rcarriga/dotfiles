@@ -16,7 +16,6 @@ import qualified Data.Map as M
 import Data.Monoid
 import qualified XMonad.StackSet as W
 import System.Environment
-import XMonad.Hooks.Place
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
@@ -38,10 +37,7 @@ main = do
                               , focusedBorderColor = "#bdbdbd"
                               , manageHook         = myManageHook
                               , layoutHook         = myLayoutHook
-                              , handleEventHook    =
-                                  docksEventHook
-                                  <+> (\e -> io $ appendFile "/home/ronan/event" (show e <> "\n") >> return (All True))
-                                  <+> def handleEventHook
+                              , handleEventHook    = docksEventHook <+> def handleEventHook
                               , startupHook        = myStartupHook gameMode
                               , logHook            = sendWorkspaceNames workspaceNameFile
                               , borderWidth        = 2
@@ -58,8 +54,10 @@ myWorkspaces :: [String]
 myWorkspaces = map show ([1 .. 9] :: [Int]) ++ ["NSP"]
 
 myManageHook :: ManageHook
-myManageHook =
-    composeAll [manageDocks, className =? "Transmission-gtk" --> doFloat, placeHook simpleSmart, def manageHook]
+myManageHook = composeAll
+    [ manageDocks
+    , def manageHook
+    ]
 
 sendWorkspaceNames :: String -> X ()
 sendWorkspaceNames file = do
@@ -149,28 +147,29 @@ parseWorkspaceId icons cur i = case M.lookup i icons of
     Nothing | i == cur   -> Just $ "  " <> i <> "  "
     Nothing              -> Nothing
     Just _ | i == "NSP"  -> Nothing
-    Just icon | i == cur -> Just $ "%{F#FFFFFF}" ++ i ++ "  " ++ icon ++ "%{F-}"
-    Just icon            -> Just $ "%{F#777777}" ++ i ++ "  " ++ icon ++ "%{F-}"
+    Just icon | i == cur -> Just $ "%{F#FFFFFF}" ++ i ++ "  " ++ [icon] ++ "%{F-}"
+    Just icon            -> Just $ "%{F#777777}" ++ i ++ "  " ++ [icon] ++ "%{F-}"
 
 type WindowClass = String
-type WorkspaceIcons = M.Map WorkspaceId String
+type WorkspaceIcons = M.Map WorkspaceId Char
 
-myWindowIcons :: M.Map String String
+myWindowIcons :: M.Map String Char
 myWindowIcons = M.fromList
-    [ ("kitty"                  , "\xf120")
-    , ("firefox"                , "\xf269")
-    , ("Blueman-manager"        , "\xf294")
-    , ("libreoffice-startcenter", "\xf15c")
-    , ("libreoffice-draw"       , "\xf15c")
-    , ("Steam"                  , "\xf1b6")
-    , ("Zathura"                , "\xf1c1")
-    , ("okular"                 , "\xf1c1")
-    , ("Spotify"                , "\xf1bc")
-    , ("Inkscape"               , "\xf6fc")
-    , ("Kodi"                   , "\xf03d")
-    , ("transmission"           , "\xf019")
-    , ("Zotero"                 , "\xf02d")
-    , ("Signal"                 , "\xf0e0")
+    [ ("kitty"                  , '\xf120')
+    , ("firefox"                , '\xf269')
+    , ("Blueman-manager"        , '\xf294')
+    , ("libreoffice-startcenter", '\xf15c')
+    , ("libreoffice-draw"       , '\xf15c')
+    , ("Steam"                  , '\xf1b6')
+    , ("Zathura"                , '\xf1c1')
+    , ("okular"                 , '\xf1c1')
+    , ("Spotify"                , '\xf1bc')
+    , ("Inkscape"               , '\xf6fc')
+    , ("Kodi"                   , '\xf03d')
+    , ("Transmission-gtk"       , '\xf019')
+    , ("Zotero"                 , '\xf02d')
+    , ("Signal"                 , '\xf0e0')
+    , ("Thunderbird"            , '\xf6ed')
     ]
 
 -- | Store the given workspace's name in given and return.
@@ -182,7 +181,7 @@ storeIcon ws aliases = do
         Nothing -> return aliases
         Just a  -> do
             focused <- io $ resClass <$> getClassHint dis (W.focus a)        -- Get focused window in given workspace
-            let wsName = fromMaybe "\xf2d0" (M.lookup focused myWindowIcons) -- Create name to give workspace (i.e. Append icon to tag)
+            let wsName = fromMaybe '\xf2d0' (M.lookup focused myWindowIcons) -- Create name to give workspace (i.e. Append icon to tag)
             return $ M.insert (W.tag ws) wsName aliases                    -- Store name in Map
 
 -- ######################################################################################
@@ -193,4 +192,5 @@ toggleBorder w = do
     withDisplay $ \d -> io $ do
         cw <- wa_border_width `fmap` getWindowAttributes d w
         if cw == 0 then setWindowBorderWidth d w bw else setWindowBorderWidth d w 0
+
 
