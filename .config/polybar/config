@@ -17,10 +17,10 @@
 ;==========================================================
 
 [colors]
-background = #DD0B0B14
+background = #212121
 background-alt = #444
-foreground = #dfdfdf
-foreground-alt = #555
+foreground = #F5F5F5
+foreground-alt = #212121
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
@@ -50,10 +50,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = NotoSans-Regular:size=10;0
-font-1 = "Font Awesome 5 Brands Regular:style=Regular:size=11;1"
-font-2 = "Font Awesome 5 Free Solid:style=Solid:size=11;1"
-font-3 = "Font Awesome 5 Free Regular:style=Regular:size=11;1"
+font-0 = Roboto:style=Regular:size=10
+font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonadGameMode
 modules-center = date battery light pulseaudio 
