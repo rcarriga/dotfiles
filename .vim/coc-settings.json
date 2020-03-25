@@ -1,7 +1,6 @@
 {
   "coc": {
     "preferences": {
-      "useQuickfixForLocations": true,
       "formatOnSaveFiletypes": [
         "typescript",
         "javascript",
