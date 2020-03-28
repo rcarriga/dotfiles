@@ -239,6 +239,9 @@
     "preferCompleteThanJumpPlaceholder": true
   },
   "tsserver": {
+    "implicitProjectConfig": {
+      "checkJs": true
+    },
     "npm": "/usr/local/bin/npm"
   },
   "yank": {

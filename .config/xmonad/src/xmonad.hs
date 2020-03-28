@@ -13,7 +13,6 @@ import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import qualified Data.Map as M
-import Data.Monoid
 import qualified XMonad.StackSet as W
 import System.Environment
 
@@ -22,8 +21,8 @@ startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
 
 main :: IO ()
 main = do
-    args <- getEnv "XMONAD_MODE"
-    let gameMode = case args of
+    mode <- getEnv "XMONAD_MODE"
+    let gameMode = case mode of
             "game" -> True
             _      -> False
         workspaceNameFile = if gameMode then "/tmp/xmonadGameMode" else "/tmp/xmonad"
@@ -42,7 +41,7 @@ main = do
                               , logHook            = sendWorkspaceNames workspaceNameFile
                               , borderWidth        = 2
                               }
-        `additionalKeysP` myKeys
+        `additionalKeysP` myKeys gameMode
 
 myScratchpads :: [NamedScratchpad]
 myScratchpads =
@@ -110,17 +109,17 @@ startCompositor force = spawn $ if force
     then "pkill picom; picom -f -D 3 --experimental-backends --backend glx"
     else "pgrep picom || picom -f -D 3 --experimental-backends --backend glx"
 
-myKeys :: [(String, X ())]
-myKeys =
+myKeys :: Bool -> [(String, X ())]
+myKeys gameMode =
     [ ("<XF86MonBrightnessUp>"  , startScript "brightness UP")
     , ("<XF86MonBrightnessDown>", startScript "brightness DOWN")
     , ("<XF86AudioRaiseVolume>" , startScript "volume UP")
     , ("<XF86AudioLowerVolume>" , startScript "volume DOWN")
     , ("<XF86AudioMute>"        , startScript "volume MUTE")
-    , ("M-p"                    , spawn "rofi -z -show run -opacity \"86\" ")
+    , ("M-p"                    , spawn "rofi -show drun")
     , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
-    , ("M-S-t"                  , spawn "pkill polybar || polybar xmonad")
+    , ("M-S-t"                  , spawn $ "pkill polybar || polybar " ++ (if gameMode then "xmonadGameMode" else "xmonad"))
     , ("M-S-p"                  , spawn "polybar-msg cmd toggle")
     , ("M-S-n"                  , namedScratchpadAction myScratchpads "htop")
     , ("M-C-S-j"                , decScreenSpacing 10)

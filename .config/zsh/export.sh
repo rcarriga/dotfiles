@@ -1,3 +1,4 @@
+export QT_STYLE_OVERRIDE="gtk2"
 export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
@@ -6,7 +7,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--height 96% --reverse --preview \"source ~/.config/system/function.sh && fuzzy_preview {}\""
 export FZF_COMPLETION_TRIGGER="#"
 export SCRIPT_DIR=$HOME/.config/scripts
-export HISTFILE="$HOME/.zhistory"
+export HISTFILE="$ZDOTDIR/.zhistory"
 export HISTSIZE="4000"
 export SAVEHIST="4000"
 export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
@@ -25,8 +26,12 @@ if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
 fi
 export XDG_RUNTIME_DIR
 
+export _ZL_DATA="$XDG_DATA_HOME/zlua"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm
 export NPM_CONFIG_TMP=$XDG_RUNTIME_DIR/npm
 export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
+export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
+export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
+export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh

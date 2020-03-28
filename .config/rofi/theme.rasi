@@ -1,0 +1,72 @@
+configuration {
+  drun-display-format: "{icon} {name}";
+  display-drun: "";
+  display-ssh: "";
+  display-run: "";
+  show-icons: true;
+  terminal: "kitty";
+}
+
+* {
+  selected:         #F8F8F8;
+  background-dark:  #161616;
+  background:       #262626;
+  foreground:       #bdbdbd;
+  background-color: #00000000;
+}
+
+#window {
+  location: north;
+  y-offset: 15%;
+  width: 40%;
+}
+
+#inputbar {
+  background-color: @background-dark;
+  border-color: @selected;
+  border: 1px;
+  border-radius: 20px;
+  margin: 20px 0px;
+}
+
+#prompt {
+  str: "";
+  expand: false;
+  padding: 5px 20px;
+  font: "DejaVuSansMono 40";
+  text-color: @foreground;
+  background-color: @background-dark;
+}
+
+#entry {
+  font: "Roboto 20";
+  background-color: @background-dark;
+  text-color: @foreground;
+  padding: 20px 0px;
+}
+
+#listview {
+  background-color: @background;
+  border: 1px;
+  border-color: @foreground;
+  layout: vertical;
+  margin: 0px 50px;
+  scrollbar: false;
+  border-radius: 20px;
+  lines: 5;
+  fixed-height: false;
+  dynamic: true;
+}
+
+#element {
+  font: "Roboto 16";
+  background-color: @background;
+  text-color: @foreground;
+  padding: 15px;
+}
+
+#element.selected {
+  background-color: @background-dark;
+  text-color: @selected;
+  highlight: bold;
+}

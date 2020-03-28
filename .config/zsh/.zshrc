@@ -1,12 +1,6 @@
 zmodload zsh/zpty
 
-[[ -f "$HOME/.config/system/function.sh" ]] && source "$HOME/.config/system/function.sh"
-
-[[ -f "$HOME/.config/system/alias.sh" ]] && source "$HOME/.config/system/alias.sh"
-
-[[ -f "$HOME/.config/system/export.sh" ]] && source "$HOME/.config/system/export.sh"
-
-[[ -f "$HOME/.local.zshrc" ]] && source "$HOME/.local.zshrc"
+[[ -f "$HOME/.config/zsh/base.sh" ]] && source "$HOME/.config/zsh/base.sh"
 
 [[ -d "$HOME/.local/bin" ]] || mkdir -p $HOME/.local/bin
 
@@ -38,3 +32,8 @@ kitty + complete setup zsh | source /dev/stdin
 setopt -o shareHistory
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+# Autosuggestion Mappings
+bindkey '^k' autosuggest-accept
+bindkey '^h' autosuggest-fetch
+bindkey '^j' autosuggest-execute
