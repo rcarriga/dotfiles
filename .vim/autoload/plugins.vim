@@ -32,7 +32,6 @@ let plugins = {
       \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
       \ "rhysd/clever-f.vim": {},
       \ "rhysd/vim-grammarous": {"on_cmd": "GrammarousCheck"},
-      \ "sheerun/vim-polyglot": {"depends": "tabular"},
       \ "simnalamburt/vim-mundo": {"lazy":1},
       \ "takac/vim-hardtime": {},
       \ "tpope/vim-abolish": {},

@@ -91,7 +91,6 @@ myStartupHook gamingMode = do
                 ]
             else
                 [ "pkill polybar; polybar xmonad"
-                , "pgrep ulauncher || ulauncher --no-window-shadow"
                 , "pkill deadd-notification-center; deadd-notification-center"
                 , "pkill redshift-gtk; sleep 5s && redshift-gtk -l 53:-6 -t 6500:2500"
                 , "pgrep nm-applet || nm-applet"
@@ -116,7 +115,7 @@ myKeys gameMode =
     , ("<XF86AudioRaiseVolume>" , startScript "volume UP")
     , ("<XF86AudioLowerVolume>" , startScript "volume DOWN")
     , ("<XF86AudioMute>"        , startScript "volume MUTE")
-    , ("M-p"                    , spawn "rofi -show drun")
+    , ("C-<Space>"              , spawn "rofi -show drun")
     , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
     , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
     , ("M-S-t"                  , spawn $ "pkill polybar || polybar " ++ (if gameMode then "xmonadGameMode" else "xmonad"))
@@ -129,9 +128,9 @@ myKeys gameMode =
     , ("M-g"                    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
     , ("M-f"                    , spawn "firefox")
     , ("M-S-r"                  , withFocused $ \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
-    , ("M-s"                    , startScript "screen EDPI" >> setWallpaper >> startCompositor True)
-    , ("M-S-s"                  , startScript "screen HDMI" >> setWallpaper >> startCompositor True)
-    , ("M-C-s"                  , startScript "screen HDMIABOVE" >> setWallpaper >> startCompositor True)
+    , ("M-s"                    , startScript "screen EDPI" >> startCompositor True >> setWallpaper)
+    , ("M-S-s"                  , startScript "screen HDMI" >> startCompositor True >> setWallpaper)
+    , ("M-C-s"                  , startScript "screen HDMIABOVE" >> startCompositor True >> setWallpaper)
     , ("M-i"                    , startScript "lock")
     , ("M-S-b"                  , withFocused toggleBorder)
     , ("M-n"                    , spawn "kill -s USR1 $(pidof deadd-notification-center)")

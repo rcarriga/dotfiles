@@ -1,10 +1,11 @@
+export FPATH="$ZDOTDIR/functions:${FPATH}" 
 export QT_STYLE_OVERRIDE="gtk2"
 export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" --hidden --color never --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_DEFAULT_OPTS="--height 96% --reverse --preview \"source ~/.config/system/function.sh && fuzzy_preview {}\""
+export FZF_DEFAULT_OPTS="--height 96% --reverse --preview \". $ZDOTDIR/functions/fuzzy_preview {}\""
 export FZF_COMPLETION_TRIGGER="#"
 export SCRIPT_DIR=$HOME/.config/scripts
 export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
