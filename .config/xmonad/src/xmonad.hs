@@ -106,8 +106,8 @@ setWallpaper = spawn "feh -z --bg-fill ~/.config/images/moon.png"
 
 startCompositor :: Bool -> X ()
 startCompositor force = spawn $ if force
-    then "pkill picom; picom -f -D 3 --experimental-backends --backend glx"
-    else "pgrep picom || picom -f -D 3 --experimental-backends --backend glx"
+    then "pkill picom; picom --experimental-backends"
+    else "pgrep picom || picom --experimental-backends"
 
 myKeys :: Bool -> [(String, X ())]
 myKeys gameMode =
