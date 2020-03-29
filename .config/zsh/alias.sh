@@ -1,5 +1,5 @@
-alias pip=pip3
-alias python=python3
+alias pip="pip3"
+alias python="python3"
 alias tmux="TERM=screen-256color-bce tmux"
 alias icat="kitty +kitten icat"
 alias weather="curl http://wttr.in/"
@@ -25,7 +25,8 @@ alias yar="yadm checkout arch"
 alias yd="yadm diff"
 alias yr="yadm rebase"
 alias yl="yadm pull"
-alias v=nvim
+alias v="nvim"
+alias za="zathura"
 alias sv="sudo edit"
 alias d="kitty +kitten diff"
 alias l="tree -DhvC -L 1"
@@ -34,4 +35,5 @@ alias tl="tree -DhvC -L"
 alias r="rg --max-depth=10 --hidden --pretty --follow"
 alias x="z -I"
 alias sd="sudo docker"
+alias sa="sudo aura"
 [[ -f "$HOME/.config/system/local.alias.sh" ]] && source "$HOME/.config/system/local.alias.sh"

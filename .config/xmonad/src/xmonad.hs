@@ -102,7 +102,7 @@ myStartupHook gamingMode = do
         )
 
 setWallpaper :: X ()
-setWallpaper = spawn "feh -z --bg-fill ~/.config/images/moon.png"
+setWallpaper = spawn "feh -z --bg-fill ~/.config/images/"
 
 startCompositor :: Bool -> X ()
 startCompositor force = spawn $ if force

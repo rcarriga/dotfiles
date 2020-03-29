@@ -7,13 +7,11 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS="--height 96% --reverse --preview \"source ~/.config/system/function.sh && fuzzy_preview {}\""
 export FZF_COMPLETION_TRIGGER="#"
 export SCRIPT_DIR=$HOME/.config/scripts
-export HISTFILE="$ZDOTDIR/.zhistory"
-export HISTSIZE="4000"
-export SAVEHIST="4000"
 export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
 export PMY_FUZZY_FINDER_DEFAULT_CMD="fzf -0 -1 --height 20 --reverse --border --inline-info --ansi --color=dark"
 export GOPATH="$HOME/.go"
 export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin"
+export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Handling config and cache files
 

@@ -8,10 +8,10 @@ configuration {
 }
 
 * {
-  selected:         #F8F8F8;
-  background-dark:  #161616;
-  background:       #262626;
-  foreground:       #bdbdbd;
+  selected:         #3E3D32;
+  query-background: #bdbdbd;
+  background:       #bdbdbdBB;
+  foreground:       #262626;
   background-color: #00000000;
 }
 
@@ -22,11 +22,11 @@ configuration {
 }
 
 #inputbar {
-  background-color: @background-dark;
+  background-color: @query-background;
   border-color: @selected;
   border: 1px;
-  border-radius: 20px;
-  margin: 20px 0px;
+  border-radius: 100px;
+  margin: 0px 0px -3px 0px;
 }
 
 #prompt {
@@ -35,38 +35,35 @@ configuration {
   padding: 5px 20px;
   font: "DejaVuSansMono 40";
   text-color: @foreground;
-  background-color: @background-dark;
+  background-color: #00000000;
 }
 
 #entry {
   font: "Roboto 20";
-  background-color: @background-dark;
+  background-color: #00000000;
   text-color: @foreground;
   padding: 20px 0px;
 }
 
 #listview {
   background-color: @background;
-  border: 1px;
-  border-color: @foreground;
-  layout: vertical;
+  spacing: 0;
   margin: 0px 50px;
   scrollbar: false;
-  border-radius: 20px;
+  border-radius: 0 0 20 20;
   lines: 5;
   fixed-height: false;
   dynamic: true;
+  padding: 20px 0px;
 }
 
 #element {
   font: "Roboto 16";
-  background-color: @background;
+  background-color: #00000000;
   text-color: @foreground;
   padding: 15px;
 }
 
 #element.selected {
-  background-color: @background-dark;
-  text-color: @selected;
-  highlight: bold;
+  background-color: @query-background;
 }

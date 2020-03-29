@@ -5,6 +5,7 @@ augroup FileTypeInit
     au BufNew,VimEnter *\.purs set ft=purescript
     au BufNew,VimEnter *\.dhall set ft=dhall
     au BufNew,VimEnter \.babelrc set ft=json
+    au BufNew,VimEnter \.conf set ft=conf
 augroup END
 
 augroup NicerTerminal
