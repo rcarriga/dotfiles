@@ -83,7 +83,7 @@ call s:SetHi("CursorLine"                  , s:hasloBackground  , s:hasloGrey2  
 call s:SetHi("CursorColumn"                , s:hasloGrey1       , s:hasloBackground      , "none")
 call s:SetHi("ColorColumn"                 , s:hasloGrey1       , s:hasloBackground      , "none")
 call s:SetHi("LineNr"                      , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("CursorLineNr"                , s:hasloSteel       , s:hasloBackground      , "none")
+call s:SetHi("CursorLineNr"                , s:hasloRed         , s:hasloBackground      , "bold")
 call s:SetHi("VertSplit"                   , s:hasloGrey3       , s:hasloBackground      , "none")
 call s:SetHi("MatchParen"                  , s:hasloRed         , s:hasloBackground      , "underline")
 call s:SetHi("StatusLine"                  , s:hasloGrey3       , s:hasloBackground      , "none")
@@ -331,6 +331,9 @@ call s:SetHi("jsxAttrib"                   , s:hasloGreen       , s:hasloBackgro
 " Javascript
 call s:SetHi("jsImport"                    , s:hasloRed         , s:hasloBackground      , "none")
 call s:SetHi("jsExport"                    , s:hasloRed         , s:hasloBackground      , "none")
+call s:SetHi("jsVariableType"              , s:hasloRed         , s:hasloBackground      , "none")
+call s:SetHi("jsVariableType"              , s:hasloRed         , s:hasloBackground      , "none")
+call s:SetHi("jsAssignmentEqual"           , s:hasloRed         , s:hasloBackground      , "none")
 
 " vim-jumpmotion
 call s:SetHi("JumpMotion"                  , s:hasloRed         , s:hasloBackground      , "bold")

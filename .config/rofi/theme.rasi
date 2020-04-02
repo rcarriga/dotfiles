@@ -8,10 +8,11 @@ configuration {
 }
 
 * {
-  selected:         #3E3D32;
-  query-background: #bdbdbd;
-  background:       #bdbdbdBB;
-  foreground:       #262626;
+  query-background: #f4f4f4;
+  list-background:  #f4f4f4BB;
+  selected-background: #727272;
+  list-foreground:       #1E1E1E;
+  prompt-foreground:       #3E3D32;
   background-color: #00000000;
 }
 
@@ -23,7 +24,8 @@ configuration {
 
 #inputbar {
   background-color: @query-background;
-  border-color: @selected;
+  border-color: @prompt-foreground;
+  text-color: @prompt-foreground;
   border: 1px;
   border-radius: 100px;
   margin: 0px 0px -3px 0px;
@@ -34,22 +36,22 @@ configuration {
   expand: false;
   padding: 5px 20px;
   font: "DejaVuSansMono 40";
-  text-color: @foreground;
-  background-color: #00000000;
+  text-color: inherit;
 }
 
 #entry {
   font: "Roboto 20";
-  background-color: #00000000;
-  text-color: @foreground;
+  text-color: inherit;
   padding: 20px 0px;
 }
 
 #listview {
-  background-color: @background;
+  background-color: @list-background;
   spacing: 0;
   margin: 0px 50px;
   scrollbar: false;
+  border: 0px 1px 1px 1px;
+  border-color: @list-foreground;
   border-radius: 0 0 20 20;
   lines: 5;
   fixed-height: false;
@@ -59,11 +61,11 @@ configuration {
 
 #element {
   font: "Roboto 16";
-  background-color: #00000000;
-  text-color: @foreground;
+  text-color: @list-foreground;
   padding: 15px;
 }
 
 #element.selected {
-  background-color: @query-background;
+  background-color: @selected-background;
+  text-color: @list-background;
 }

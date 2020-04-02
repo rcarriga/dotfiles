@@ -1,5 +1,5 @@
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export FPATH="$ZDOTDIR/functions:${FPATH}" 
-export QT_STYLE_OVERRIDE="gtk2"
 export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
@@ -25,6 +25,7 @@ if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
 fi
 export XDG_RUNTIME_DIR
 
+export LESSHISTFILE="$XDG_CACHE_HOME/less.hst"
 export _ZL_DATA="$XDG_DATA_HOME/zlua"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 export NPM_CONFIG_CACHE=$XDG_CACHE_HOME/npm

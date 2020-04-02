@@ -11,12 +11,16 @@ export WORDCHARS=${WORDCHARS//[\/]}
 # Enable Vi mode
 bindkey -v
 
-# Autosuggestions {{{Mappings
-setopt -o shareHistory
-ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_USE_ASYNC=1
+# Completion {{{
+    setopt menucomplete
+# }}}
 
-bindkey '^k' autosuggest-accept
-bindkey '^h' autosuggest-fetch
-bindkey '^j' autosuggest-execute
+# Autosuggestions {{{Mappings
+    setopt -o shareHistory
+    ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+    ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+    bindkey '^k' autosuggest-accept
+    bindkey '^h' autosuggest-fetch
+    bindkey '^j' autosuggest-execute
 # }}}

@@ -3,3 +3,4 @@ zmodule completion
 zmodule "zsh-users/zsh-autosuggestions"
 zmodule "zdharma/fast-syntax-highlighting"
 zmodule "romkatv/powerlevel10k"
+zmodule "skywind3000/z.lua"

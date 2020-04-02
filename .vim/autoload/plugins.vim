@@ -7,7 +7,6 @@ let plugins = {
       \ "tpope/vim-dispatch": {},
       \ "zsugabubus/vim-jumpmotion": {},
       \ "segeljakt/vim-isotope": {},
-      \ "tmhedberg/SimpylFold": {"lazy": 1},
       \ "tomtom/tcomment_vim": {},
       \ "moll/vim-bbye": {},
       \ "dstein64/vim-win": {},
@@ -16,10 +15,8 @@ let plugins = {
       \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
       \ "Yggdroot/LeaderF": {"build": "./install.sh"},
       \ "Yggdroot/hiPairs": {},
-      \ "alvan/vim-closetag": {},
       \ "godlygeek/tabular": {},
       \ "honza/vim-snippets": {},
-      \ "iamcco/markdown-preview.nvim": {"on_ft": ["markdown", "pandoc.markdown", "rmd"], "build": "cd app & yarn install" },
       \ "janko/vim-test": {"lazy": 1},
       \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
       \ "junegunn/gv.vim": {},
@@ -41,14 +38,32 @@ let plugins = {
       \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
       \ "vim-airline/vim-airline-themes": {"lazy": 1},
       \ "tpope/vim-unimpaired": {},
-      \ "vim-pandoc/vim-pandoc": {},
-      \ "vim-pandoc/vim-pandoc-syntax": {},
       \ "vim-scripts/ReplaceWithRegister": {},
       \ "w0rp/ale": {"lazy": 1},
       \ "wellle/targets.vim": {},
       \ "whiteinge/diffconflicts": {"on_cmd" : "DiffConflicts" },
 \ }
 
+" Syntax plugins
+let plugins = extend(plugins, {
+      \ "neovimhaskell/haskell-vim": {},
+      \ "othree/html5.vim": {},
+      \ "posva/vim-vue": {},
+      \ "vim-pandoc/vim-pandoc-syntax": {},
+      \ "yuezk/vim-js": {},
+      \ "HerringtonDarkholme/yats.vim": {},
+\})
+
+
+" Filetype plugins
+let plugins = extend(plugins, {
+      \ "maxmellon/vim-jsx-pretty": {},
+      \ "tmhedberg/SimpylFold": {"lazy": 1},
+      \ "iamcco/markdown-preview.nvim": {"build": "cd app & yarn install" },
+      \ "vim-pandoc/vim-pandoc": {},
+\ })
+
+" Editor specific plugins
 if !has("nvim")
   let plugins = extend(plugins,
       \ {"roxma/nvim-yarp": {},
@@ -64,8 +79,6 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 "
-let g:Lf_CacheDirectory = environ()["HOME"].'/.cache/leaderf'
-
 let g:hiPairs_enable_matchParen = 0
 
 let g:tcomment_maps = 0
@@ -90,8 +103,6 @@ let g:vimtex_compiler_latexmk = {"build_dir": "build"}
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
 
 let g:pandoc#folding#fdc = 0
-
-let g:polyglot_disabled = ["latex"]
 
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
@@ -179,24 +190,18 @@ let g:signify_sign_change            = "\u258B"
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
 
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
-let g:closetag_filetypes = 'jsx,tsx,typescriptreact'
-let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_regions = {
-    \ 'typescriptreact': 'jsxRegion,tsxRegion',
-    \ 'javascriptreact': 'jsxRegion',
-    \ }
-
+let g:Lf_CacheDirectory = environ()["XDG_CACHE_HOME"].'/leaderf'
+let g:Lf_HideHelp = 1
+let g:Lf_IgnoreCurrentBufferName = 1
 " Ignore files for  fuzzy searching
 let g:Lf_WildIgnore = {
-        \ 'dir': [".env", "__pycache__", ".mypy_cache", ".stack"],
+        \ 'dir': [".env", "__pycache__", ".mypy_cache", ".stack", "node_modules"],
         \ 'file': []
         \}
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
-let g:Lf_PopupWidth = &columns * 1/2
+let g:Lf_PopupWidth = 0.5
 let g:Lf_ShortcutB = ""
 let g:Lf_ShortcutF = ""
 let g:Lf_AutoResize = 1
