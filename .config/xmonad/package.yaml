@@ -1,13 +1,9 @@
 name:                myXmonad
 version:             0.1.0.0
-#synopsis:
-#description:
 homepage:            https://github.com/rcarriga/dotfiles
-license:             BSD3
 author:              Rónán Carrigan
 maintainer:          ronan.carrigan@gmail.com
-copyright:           2019 Rónán Carrigan
-category:            Web
+copyright:           2020 Rónán Carrigan
 
 dependencies:
   - base >= 4.7 && < 5
