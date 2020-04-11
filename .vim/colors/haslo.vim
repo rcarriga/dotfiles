@@ -1,32 +1,29 @@
 " Vim color file - haslo
-set background=dark
-if version > 580
-    hi clear
-    if exists("syntax_on")
-        syntax reset
-    endif
-endif
-
 let g:colors_name = "haslo"
-scriptencoding utf-8
 
 " ==========================
 " Highlighting Functions
 " ==========================
-" Inspired by https://github.com/jaredgorski/SpaceCamp
-"             https://github.com/tomasiser/vim-code-dark
-"             https://github.com/chriskempson/base16-vim
-function! s:SetHi(group, fg, bg, attr)
-  if !empty(a:fg)
-    exec "hi " . a:group . " guifg=" . a:fg.gui . " ctermfg=" .  a:fg.cterm256
+function! s:SetHi(group, ...)
+  let fg = a:1
+  let bg = s:Background
+  let attrs = "none"
+  if  type(get(a:, 2)) == v:t_dict
+    let bg = a:2
+    if  type(get(a:, 3)) == v:t_string
+      let attrs = a:3
+    endif
+  elseif type(get(a:, 2)) == v:t_string
+    let attrs = a:2
   endif
-  if !empty(a:bg)
-    exec "hi " . a:group . " guibg=" . a:bg.gui . " ctermbg=" .  a:bg.cterm256
-  endif
-  if a:attr != ""
-    exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-  endif
+  exec "hi ".a:group." guifg=".fg.gui." ctermfg=". fg.cterm256." guibg=".bg.gui." ctermbg=". bg.cterm256." gui=".attrs." cterm=".attrs
 endfun
+
+function! s:loadHighlights(highlights)
+  for [group, groupArgs] in items(a:highlights)
+    call call("s:SetHi", [group] + groupArgs)
+  endfor
+endfunction
 
 augroup PluginOverrides
     au!
@@ -57,284 +54,284 @@ endfunction
 " ==========================
 " Color Variables
 " ==========================
-let s:hasloBlack           = s:ConstructColour("#262626")
-let s:hasloGrey1           = s:ConstructColour("#3E3D32")
-let s:hasloGrey2           = s:ConstructColour("#49483E")
-let s:hasloGrey3           = s:ConstructColour("#8B8B8B")
-let s:hasloSteel           = s:ConstructColour("#bdbdbd")
-let s:hasloWhite           = s:ConstructColour("#F8F8F8")
-let s:hasloViolet          = s:ConstructColour("#D484FF")
-let s:hasloPurple          = s:ConstructColour("#9C27B0")
-let s:hasloBlue            = s:ConstructColour("#1e88e5")
-let s:hasloCyan            = s:ConstructColour("#4DD0E1")
-let s:hasloLightBlue       = s:ConstructColour("#4FC3F7")
-let s:hasloGreen           = s:ConstructColour("#A9FF68")
-let s:hasloYellow          = s:ConstructColour("#FFEB3B")
-let s:hasloLightYellow     = s:ConstructColour("#FFF59D")
-let s:hasloOrange          = s:ConstructColour("#F57C00")
-let s:hasloLightRed        = s:ConstructColour("#ef9a9a")
-let s:hasloRed             = s:ConstructColour("#F70067")
-let s:hasloFloatBackground = s:ConstructColour("#162228")
-let s:hasloBackground      = {"gui": "NONE", "cterm256": "NONE"}
+let s:Black             = s:ConstructColour("#262626")
+let s:Grey1             = s:ConstructColour("#3E3D32")
+let s:Grey2             = s:ConstructColour("#49483E")
+let s:Grey3             = s:ConstructColour("#8B8B8B")
+let s:Steel             = s:ConstructColour("#bdbdbd")
+let s:White             = s:ConstructColour("#F8F8F8")
+let s:Violet            = s:ConstructColour("#D484FF")
+let s:Blue              = s:ConstructColour("#1e88e5")
+let s:Cyan              = s:ConstructColour("#4DD0E1")
+let s:LightBlue         = s:ConstructColour("#4FC3F7")
+let s:Green             = s:ConstructColour("#A9FF68")
+let s:Yellow            = s:ConstructColour("#FFEB3B")
+let s:LightYellow       = s:ConstructColour("#FFF59D")
+let s:Orange            = s:ConstructColour("#F57C00")
+let s:LightRed          = s:ConstructColour("#ef9a9a")
+let s:Red               = s:ConstructColour("#F70067")
 
+
+let s:Normal = s:White
+let s:Decoration = s:Steel
+let s:Hidden = s:Grey3
+let s:BuiltIn = s:Red
+let s:VarName = s:Green
+let s:FuncName = s:LightBlue
+let s:TypeName = s:Violet
+let s:Key = s:Cyan
+let s:Val = s:Violet
+let s:String = s:LightYellow
+let s:Operator = s:Orange
+let s:Success = s:Green
+let s:Warning = s:Yellow
+let s:Info = s:Cyan
+let s:Error = s:Red
+
+let FloatBackground   = s:ConstructColour("#233444")
+let Background = &background == "dark" ? {"gui": "NONE", "cterm256": "NONE"} : s:White
+let s:Background = Background
+
+let highlights = {}
 " Vim
-call s:SetHi("Cursor"                      , s:hasloBlack       , s:hasloWhite           , "none")
-call s:SetHi("CursorLine"                  , s:hasloBackground  , s:hasloGrey2           , "none")
-call s:SetHi("CursorColumn"                , s:hasloGrey1       , s:hasloBackground      , "none")
-call s:SetHi("ColorColumn"                 , s:hasloGrey1       , s:hasloBackground      , "none")
-call s:SetHi("LineNr"                      , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("CursorLineNr"                , s:hasloRed         , s:hasloBackground      , "bold")
-call s:SetHi("VertSplit"                   , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("MatchParen"                  , s:hasloRed         , s:hasloBackground      , "underline")
-call s:SetHi("StatusLine"                  , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("StatusLineNC"                , s:hasloSteel       , s:hasloBackground      , "none")
-call s:SetHi("IncSearch"                   , s:hasloGreen       , s:hasloBackground      , "bold,underline")
-call s:SetHi("Search"                      , s:hasloGreen       , s:hasloBackground      , "bold,underline")
-call s:SetHi("Directory"                   , s:hasloBlue        , s:hasloBackground      , "none")
-call s:SetHi("Folded"                      , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("WildMenu"                    , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("VisualNOS"                   , s:hasloGrey2       , s:hasloLightYellow     , "none")
-call s:SetHi("ModeMsg"                     , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("FoldColumn"                  , s:hasloSteel       , s:hasloBackground      , "none")
-call s:SetHi("MoreMsg"                     , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("cursorim"                    , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("Pmenu"                       , s:hasloSteel       , s:hasloFloatBackground , "none")
-call s:SetHi("PmenuSel"                    , s:hasloBackground  , s:hasloGrey2           , "none")
-call s:SetHi("PMenuSbar"                   , s:hasloBackground  , s:hasloFloatBackground , "none")
-call s:SetHi("PMenuThumb"                  , s:hasloBackground  , s:hasloSteel           , "none")
+call s:loadHighlights({
+\ "Cursor": [s:Black, s:Red],
+\ "CursorLine": [Background, s:Grey1],
+\ "CursorColumn": [Background, s:Grey1],
+\ "ColorColumn": [Background, s:Grey1],
+\ "LineNr": [s:Hidden],
+\ "CursorLineNr": [s:Success, "bold"],
+\ "VertSplit": [s:Hidden],
+\ "MatchParen": [s:Success, "underline"],
+\ "StatusLine": [s:Hidden],
+\ "StatusLineNC": [s:Steel],
+\ "IncSearch": [s:Green, "bold,underline"],
+\ "Search": [s:Green, "bold,underline"],
+\ "Directory": [s:Blue],
+\ "Folded": [s:Grey3],
+\ "WildMenu": [s:Cyan],
+\ "VisualNOS": [s:Grey2, s:LightYellow],
+\ "ModeMsg": [s:LightYellow],
+\ "FoldColumn": [s:Steel],
+\ "MoreMsg": [s:LightYellow],
+\ "cursorim": [s:Violet],
+\ "Pmenu": [s:Steel, FloatBackground],
+\ "PmenuSel": [Background, s:Grey2, "bold"],
+\ "PMenuSbar": [Background, FloatBackground],
+\ "PMenuThumb": [Background, s:Steel],
+\ "Visual": [Background, s:Grey1, "bold"],
+\ "EndOfBuffer": [s:Black],
+\ "Underlined": [Background, "underline"],
+\ "SpellBad": [Background, "undercurl"],
+\ "SpellCap": [Background, "undercurl"],
+\ "SpellLocal": [Background, "undercurl"],
+\ "SignColumn": [s:Key],
+\ "Question": [s:Info],
+\ "TabLineFill": [s:Grey3],
+\ })
 
 " General
-call s:SetHi("Normal"                      , s:hasloWhite       , s:hasloBackground      , "none")
-call s:SetHi("Visual"                      , s:hasloBackground  , s:hasloBlack           , "bold")
-call s:SetHi("Boolean"                     , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("Character"                   , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("Comment"                     , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("Conditional"                 , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("Constant"                    , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("Define"                      , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("DiffAdd"                     , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("DiffChange"                  , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("DiffDelete"                  , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("DiffText"                    , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("ErrorMsg"                    , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("WarningMsg"                  , s:hasloOrange      , s:hasloBackground      , "none")
-call s:SetHi("Float"                       , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("Function"                    , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("Identifier"                  , s:hasloWhite         , s:hasloBackground      , "none")
-call s:SetHi("Keyword"                     , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("Label"                       , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("NonText"                     , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("EndOfBuffer"                 , s:hasloBlack       , s:hasloBackground      , "none")
-call s:SetHi("Number"                      , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("Operator"                    , s:hasloOrange      , s:hasloBackground      , "none")
-call s:SetHi("PreProc"                     , s:hasloRed       , s:hasloBackground      , "none")
-call s:SetHi("Special"                     , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("SpecialKey"                  , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("Statement"                   , s:hasloBlue        , s:hasloBackground      , "none")
-call s:SetHi("StorageClass"                , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("String"                      , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("Tag"                         , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("Title"                       , s:hasloRed         , s:hasloBackground      , "bold")
-call s:SetHi("Todo"                        , s:hasloWhite       , s:hasloBackground      , "standout")
-call s:SetHi("Type"                        , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("Underlined"                  , s:hasloGrey3       , s:hasloBackground      , "underline")
-call s:SetHi("SpellBad"                    , s:hasloBackground  , s:hasloBackground      , "undercurl")
-call s:SetHi("SpellCap"                    , s:hasloBackground  , s:hasloBackground      , "undercurl")
-call s:SetHi("SpellLocal"                  , s:hasloBackground  , s:hasloBackground      , "undercurl")
-call s:SetHi("SignColumn"                  , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("SpecialComment"              , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("Typedef"                     , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("PreCondit"                   , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("Include"                     , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("Ignore"                      , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("Debug"                       , s:hasloSteel       , s:hasloBackground      , "none")
-call s:SetHi("SpecialChar"                 , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("Delimiter"                   , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("Question"                    , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("Exception"                   , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("Error"                       , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("Repeat"                      , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("Structure"                   , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("Macro"                       , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("TabLineFill"                 , s:hasloGrey3       , s:hasloBackground      , "none")
-call s:SetHi("Conceal"                     , s:hasloGrey3       , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "Normal": [s:Normal],
+\ "Boolean": [s:Val],
+\ "Character": [s:Val],
+\ "Comment": [s:Hidden],
+\ "Conditional": [s:BuiltIn],
+\ "Constant": [s:VarName],
+\ "Define": [s:BuiltIn],
+\ "DiffAdd": [s:Success],
+\ "DiffChange": [s:Warning],
+\ "DiffDelete": [s:Error],
+\ "DiffText": [s:Error],
+\ "ErrorMsg": [s:Error],
+\ "WarningMsg": [s:Warning],
+\ "Float": [s:Val],
+\ "Function": [s:FuncName],
+\ "Identifier": [s:VarName],
+\ "Keyword": [s:BuiltIn],
+\ "Label": [s:Key],
+\ "NonText": [s:Hidden],
+\ "Number": [s:Val],
+\ "Operator": [s:Operator],
+\ "PreProc": [s:Key],
+\ "Special": [s:Cyan],
+\ "SpecialKey": [s:BuiltIn],
+\ "Statement": [s:BuiltIn],
+\ "String": [s:String],
+\ "Tag": [s:Key],
+\ "Title": [s:Normal, "bold"],
+\ "Todo": [s:Normal, "bold"],
+\ "Type": [s:TypeName],
+\ "SpecialComment": [s:Hidden, "bold"],
+\ "Typedef": [s:TypeName],
+\ "PreCondit": [s:BuiltIn],
+\ "Include": [s:BuiltIn],
+\ "Ignore": [s:BuiltIn],
+\ "Delimiter": [s:Decoration],
+\ "Error": [s:Error],
+\ "Conceal": [s:Hidden],
+\ })
 
 " Viml
-call s:SetHi("vimOption"                   , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("vimCommand"                  , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("vimVar"                      , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("vimFunction"                 , s:hasloLightBlue   , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "vimContinue": [s:Decoration],
+\ "vimFunction": [s:FuncName],
+\ "vimIsCommand": [s:VarName],
+\ })
 
 " Haskell
-call s:SetHi("haskellIdentifier"           , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("haskellType"                 , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("haskellImportKeywords"       , s:hasloBlue        , s:hasloBackground      , "none")
-call s:SetHi("haskellDecl"                 , s:hasloOrange      , s:hasloBackground      , "none")
-call s:SetHi("haskellOperators"            , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("haskellDelimiter"            , s:hasloRed         , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "haskellIdentifier": [s:FuncName],
+\ "haskellDecl": [s:BuiltIn],
+\ })
 
 " Vim Fugitive
-call s:SetHi("diffRemoved"                 , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("diffAdded"                   , s:hasloGreen       , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "diffRemoved": [s:Error],
+\ "diffAdded": [s:Success],
+\ })
 
 " HTML
-call s:SetHi("htmlSpecialTagName"          , s:hasloLightBlue   , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "htmlTagName": [s:Key],
+\ "htmlSpecialTagName": [s:TypeName],
+\ "htmlTag": [s:Decoration],
+\ "htmlEndTag": [s:Decoration],
+\ "htmlArg": [s:VarName],
+\ })
 
 " Vim Signify
-call s:SetHi("SignifySignAdd"              , s:hasloGreen       , s:hasloBackground      , "bold")
-call s:SetHi("SignifySignDelete"           , s:hasloRed         , s:hasloBackground      , "bold")
-call s:SetHi("SignifySignChange"           , s:hasloLightYellow , s:hasloBackground      , "bold")
+call s:loadHighlights({
+\ "SignifySignAdd": [s:Success, "bold"],
+\ "SignifySignDelete": [s:Error, "bold"],
+\ "SignifySignChange": [s:Warning, "bold"],
+\ })
 
 " Coc.nvim
-call s:SetHi("CocErrorSign"                , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("CocWarningSign"              , s:hasloOrange      , s:hasloBackground      , "none")
-call s:SetHi("CocInfoSign"                 , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("CocHintSign"                 , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("CocHighlightText"            , s:hasloBackground  , s:hasloBackground      , "underline")
-call s:SetHi("CocCodeLens"                 , s:hasloGrey2       , s:hasloBackground      , "bold")
-call s:SetHi("CocListFgGreen"              , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("CocListFgRed"                , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("CocListFgBlack"              , s:hasloBlack       , s:hasloBackground      , "none")
-call s:SetHi("CocListFgRed"                , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("CocListFgGreen"              , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("CocListFgYellow"             , s:hasloYellow      , s:hasloBackground      , "none")
-call s:SetHi("CocListFgBlue"               , s:hasloBlue        , s:hasloBackground      , "none")
-call s:SetHi("CocListFgMagenta"            , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("CocListFgCyan"               , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("CocListFgWhite"              , s:hasloWhite       , s:hasloBackground      , "none")
-call s:SetHi("CocListFgGrey"               , s:hasloGrey3       , s:hasloBackground      , "none")
-
-
-" Python
-call s:SetHi("pythonDecoratorName"         , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("pythonStatement"             , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("pythonFunction"              , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("pythonOperator"              , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("pythonInclude"               , s:hasloRed         , s:hasloBackground      , "none")
-
-
-" ZSH
-call s:SetHi("zshDeref"                    , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("zshCommands"                 , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("zshOperator"                 , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("zshRedirect"                 , s:hasloRed         , s:hasloBackground      , "none")
-
-" INI Files
-call s:SetHi("dosiniLabel"                 , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("dosiniValue"                 , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("dosiniHeader"                , s:hasloViolet      , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "CocErrorSign": [s:Error],
+\ "CocWarningSign": [s:Warning],
+\ "CocInfoSign": [s:Info],
+\ "CocHintSign": [s:Info],
+\ "CocHighlightText": [Background, "underline"],
+\ "CocCodeLens": [s:Hidden, "bold"],
+\ "CocListFgGreen": [s:Green],
+\ "CocListFgRed": [s:Red],
+\ "CocListFgBlack": [s:Black],
+\ "CocListFgYellow": [s:Yellow],
+\ "CocListFgBlue": [s:Blue],
+\ "CocListFgMagenta": [s:Violet],
+\ "CocListFgCyan": [s:Cyan],
+\ "CocListFgWhite": [s:White],
+\ "CocListFgGrey": [s:Grey3],
+\ })
 
 " ALE
-call s:SetHi("ALEWarningSign"              , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("ALEVirtualTextError"         , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("ALEVirtualTextWarning"       , s:hasloLightYellow , s:hasloBackground      , "none")
-call s:SetHi("ALEVirtualTextInfo"          , s:hasloCyan        , s:hasloBackground      , "none")
-
-" Denite
-call s:SetHi("deniteSource_grepFile"       , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("deniteSource_grep"           , s:hasloWhite       , s:hasloBackground      , "none")
-call s:SetHi("deniteSource_file_rec"       , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("deniteMatchedChar"           , s:hasloOrange      , s:hasloBackground      , "bold")
-
-" Spelunker
-call s:SetHi("SpelunkerSpellBad"           , s:hasloBackground  , s:hasloBackground      , "undercurl")
-
-" Vim Sneak
-call s:SetHi("Sneak"                       , s:hasloRed         , s:hasloBackground      , "undercurl")
-call s:SetHi("SneakLabel"                  , s:hasloRed         , s:hasloSteel           , "undercurl")
+call s:loadHighlights({
+\ "ALEWarningSign": [s:Warning],
+\ "ALEVirtualTextError": [s:Error],
+\ "ALEVirtualTextWarning": [s:Warning],
+\ "ALEVirtualTextInfo": [s:Info],
+\ })
 
 " Markdown
-call s:SetHi("MarkdownBold"                , s:hasloOrange      , s:hasloBackground      , "bold")
-call s:SetHi("htmlBold"                    , s:hasloOrange      , s:hasloBackground      , "bold")
-call s:SetHi("markdownItalic"              , s:hasloViolet      , s:hasloBackground      , "italic")
-call s:SetHi("htmlItalic"                  , s:hasloViolet      , s:hasloBackground      , "italic")
-call s:SetHi("markdownCode"                , s:hasloBlue        , s:hasloBackground      , "bold")
-call s:SetHi("mkdCode"                     , s:hasloBlue        , s:hasloBackground      , "bold")
-call s:SetHi("markdownCodeDelimiter"       , s:hasloCyan        , s:hasloBackground      , "bold")
-call s:SetHi("mkdListItem"                 , s:hasloRed         , s:hasloBackground      , "bold")
+call s:loadHighlights({
+\ "markdownHeadingDelimiter": [s:BuiltIn],
+\ "markdownCodeDelimiter": [s:BuiltIn],
+\ "markdownRule": [s:BuiltIn],
+\ })
 
 " Semshi
 function! s:SetSemshi()
-    call s:SetHi("semshiLocal"             , s:hasloYellow      , s:hasloBackground      , "none")
-    call s:SetHi("semshiGlobal"            , s:hasloOrange      , s:hasloBackground      , "none")
-    call s:SetHi("semshiImported"          , s:hasloOrange      , s:hasloBackground      , "none")
-    call s:SetHi("semshiParameter"         , s:hasloBlue        , s:hasloBackground      , "none")
-    call s:SetHi("semshiParameterUnused"   , s:hasloGrey3       , s:hasloBackground      , "none")
-    call s:SetHi("semshiFree"              , s:hasloBlue        , s:hasloBackground      , "none")
-    call s:SetHi("semshiBuiltin"           , s:hasloViolet      , s:hasloBackground      , "none")
-    call s:SetHi("semshiAttribute"         , s:hasloCyan        , s:hasloBackground      , "none")
-    call s:SetHi("semshiSelf"              , s:hasloSteel       , s:hasloBackground      , "none")
-    call s:SetHi("semshiUnresolved"        , s:hasloGrey3       , s:hasloBackground      , "none")
-    call s:SetHi("semshiSelected"          , s:hasloBackground  , s:hasloBackground      , "underline")
-    call s:SetHi("semshiErrorSign"         , s:hasloRed         , s:hasloBackground      , "none")
-    call s:SetHi("semshiErrorChar"         , s:hasloRed         , s:hasloBackground      , "none")
+  call s:loadHighlights({
+    \ "semshiLocal": [s:VarName],
+    \ "semshiGlobal": [s:TypeName],
+    \ "semshiImported": [s:TypeName],
+    \ "semshiParameter": [s:VarName],
+    \ "semshiParameterUnused": [s:Hidden],
+    \ "semshiFree": [s:VarName],
+    \ "semshiBuiltin": [s:BuiltIn],
+    \ "semshiAttribute": [s:Key],
+    \ "semshiSelf": [s:Key, "bold"],
+    \ "semshiUnresolved": [s:Warning],
+    \ "semshiSelected": [s:Background, "underline"],
+    \ "semshiErrorSign": [s:Error],
+    \ "semshiErrorChar": [s:Error],
+    \ })
 endfunction
 
 " Makefile
-call s:SetHi("makeIdent"                   , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("makeTarget"                  , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("makeCommands"                , s:hasloSteel       , s:hasloBackground      , "bold")
+call s:loadHighlights({
+\ "makeCommands": [s:Normal, "bold"],
+\ })
 
 " vim-signature
-call s:SetHi("SignatureMarkText"           , s:hasloViolet      , s:hasloBackground      , "bold")
+call s:loadHighlights({
+\ "SignatureMarkText": [s:TypeName, "bold"],
+\ })
 
 " Vista.vim
-call s:SetHi("VistaScope"                  , s:hasloViolet      , s:hasloBackground      , "bold")
-call s:SetHi("VistaTag"                    , s:hasloBlue        , s:hasloBackground      , "none")
-
-" Log files
-call s:SetHi("logHexNumber"                , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("logFloatNumber"              , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("logFilePath"                 , s:hasloCyan        , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "VistaScope": [s:TypeName, "bold"],
+\ "VistaTag": [s:FuncName],
+\ })
 
 " LeaderF
-call s:SetHi("Lf_hl_popup_window"          , s:hasloWhite       , s:hasloFloatBackground , "none")
-call s:SetHi("Lf_hl_popup_blank"           , s:hasloSteel       , s:hasloFloatBackground , "none")
-call s:SetHi("Lf_hl_popup_inputText"       , s:hasloSteel       , s:hasloFloatBackground , "none")
-call s:SetHi("Lf_hl_cursorline"            , s:hasloYellow      , s:hasloFloatBackground , "bold")
-" call s:SetHi("Lf_hl_popup_total"         , s:hasloBackground  , s:hasloBackground      , "bold")
-
-" Nvim-R
-call s:SetHi("routNormal"                  , s:hasloWhite       , s:hasloBackground      , "none")
-call s:SetHi("routFloat"                   , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("routNumber"                  , s:hasloCyan        , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "Lf_hl_popup_window": [s:Normal, FloatBackground],
+\ "Lf_hl_popup_blank": [s:Hidden, FloatBackground],
+\ "Lf_hl_popup_inputText": [s:Key, FloatBackground],
+\ "Lf_hl_cursorline": [s:Info, FloatBackground  , "bold"],
+\ })
 
 " vim-which-key
-call s:SetHi("WhichKeySeperator"           , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("WhichKeyFloating"            , s:hasloGreen       , s:hasloFloatBackground , "bold")
-call s:SetHi("WhichKeyDesc"                , s:hasloYellow      , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "WhichKeySeperator": [s:BuiltIn],
+\ "WhichKeyFloating": [s:VarName, FloatBackground, "bold"],
+\ "WhichKeyGroup": [s:TypeName],
+\ "WhichKey": [s:VarName],
+\ "WhichKeyDesc": [s:Info, "bold"],
+\ })
 
 " TypeScript
-call s:SetHi("typescriptVariable"          , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("typescriptTypeReference"     , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("typescriptMember"            , s:hasloGreen       , s:hasloBackground      , "none")
-call s:SetHi("typescriptObjectLabel"       , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("typescriptNumber"            , s:hasloWhite       , s:hasloBackground      , "none")
-call s:SetHi("typescriptBraces"            , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("typescriptArrowFunc"         , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("typescriptImport"            , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("typescriptExport"            , s:hasloBlue        , s:hasloBackground      , "none")
-call s:SetHi("typescriptStringLiteralType" , s:hasloCyan        , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "typescriptVariable": [s:BuiltIn],
+\ "typescriptImport": [s:BuiltIn],
+\ "typescriptExport": [s:BuiltIn],
+\ "typescriptCall": [s:VarName],
+\ "typescriptTypeReference": [s:TypeName],
+\ "typescriptArrowFunc": [s:BuiltIn],
+\ "typescriptBraces": [s:Decoration],
+\ "typescriptMember": [s:Green],
+\ "typescriptObjectLabel": [s:Key],
+\ "typescriptStringLiteralType": [s:TypeName],
+\ "typescriptInterfaceName": [s:TypeName],
+\ "typescriptFuncType": [s:VarName],
+\ "typescriptFuncTypeArrow": [s:BuiltIn],
+\ })
 
-" TSX
-call s:SetHi("tsxTag"                      , s:hasloSteel       , s:hasloBackground      , "none")
-call s:SetHi("tsxTagName"                  , s:hasloCyan        , s:hasloBackground      , "none")
-call s:SetHi("tsxIntrinsicTagName"         , s:hasloLightBlue   , s:hasloBackground      , "none")
-call s:SetHi("tsxAttrib"                   , s:hasloGreen       , s:hasloBackground      , "none")
-
-" JSX
-call s:SetHi("jsxTag"                      , s:hasloSteel       , s:hasloBackground      , "none")
-call s:SetHi("jsxTagName"                  , s:hasloOrange      , s:hasloBackground      , "none")
-call s:SetHi("jsxComponentName"            , s:hasloViolet      , s:hasloBackground      , "none")
-call s:SetHi("jsxAttrib"                   , s:hasloGreen       , s:hasloBackground      , "none")
-
+" JSX/TSX
+call s:loadHighlights({
+\ "jsxTagName": [s:Key],
+\ "jsxComponentName": [s:TypeName],
+\ "jsxAttrib": [s:Green],
+\ })
+"
 " Javascript
-call s:SetHi("jsImport"                    , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("jsExport"                    , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("jsVariableType"              , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("jsVariableType"              , s:hasloRed         , s:hasloBackground      , "none")
-call s:SetHi("jsAssignmentEqual"           , s:hasloRed         , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "jsImport": [s:BuiltIn],
+\ "jsExport": [s:BuiltIn],
+\ "jsVariableType": [s:BuiltIn],
+\ "jsAssignmentEqual": [s:BuiltIn],
+\ })
 
 " vim-jumpmotion
-call s:SetHi("JumpMotion"                  , s:hasloRed         , s:hasloBackground      , "bold")
-call s:SetHi("JumpMotionTail"              , s:hasloOrange      , s:hasloBackground      , "none")
+call s:loadHighlights({
+\ "JumpMotion": [s:Red, "bold"],
+\ "JumpMotionTail": [s:Yellow],
+\ })
+
+call s:loadHighlights({
+  \ "hiPairs_matchPair": [s:Success, "bold,underline"],
+  \ "hiPairs_unmatchPair": [s:Error, "bold,underline"]
+  \ })

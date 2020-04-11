@@ -24,6 +24,7 @@ i3lock \
 --keyhlcolor=$W       \
 --bshlcolor=$W        \
 \
+-p win \
 --screen 1            \
 --blur 10              \
 --clock               \

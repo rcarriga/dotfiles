@@ -42,6 +42,7 @@ let plugins = {
       \ "w0rp/ale": {"lazy": 1},
       \ "wellle/targets.vim": {},
       \ "whiteinge/diffconflicts": {"on_cmd" : "DiffConflicts" },
+      \ "rakr/vim-one": {}
 \ }
 
 " Syntax plugins
@@ -49,8 +50,8 @@ let plugins = extend(plugins, {
       \ "neovimhaskell/haskell-vim": {},
       \ "othree/html5.vim": {},
       \ "posva/vim-vue": {},
-      \ "vim-pandoc/vim-pandoc-syntax": {},
       \ "yuezk/vim-js": {},
+      \ "MTDL9/vim-log-highlighting": {},
       \ "HerringtonDarkholme/yats.vim": {},
 \})
 

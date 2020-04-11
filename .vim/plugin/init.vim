@@ -215,11 +215,9 @@ augroup END
 " ###################################################################################
 " Plugins Init {{{1
 " Load plugins file after loading to reduce startup time.
-augroup PluginInit
-    au!
-    au InsertEnter,CursorHold * ++once silent runtime autoload/plugins.vim
-augroup END
-if exists('g:started_by_firenvim')
-    set laststatus=0
+if get(g:, "load_plugins", v:true)
+    augroup PluginInit
+        au!
+        au InsertEnter,CursorHold * ++once silent runtime autoload/plugins.vim
+    augroup END
 endif
-

@@ -21,9 +21,9 @@ startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
 
 main :: IO ()
 main = do
-    mode <- getEnv "XMONAD_MODE"
+    mode <- lookupEnv "XMONAD_MODE"
     let gameMode = case mode of
-            "game" -> True
+            Just "game" -> True
             _      -> False
         workspaceNameFile = if gameMode then "/tmp/xmonadGameMode" else "/tmp/xmonad"
     safeSpawn "mkfifo" [workspaceNameFile]
@@ -103,10 +103,13 @@ myStartupHook gamingMode = do
 setWallpaper :: X ()
 setWallpaper = spawn "feh -z --bg-fill ~/.config/images/"
 
+compositorCommand :: String
+compositorCommand = "picom --experimental-backends"
+
 startCompositor :: Bool -> X ()
 startCompositor force = spawn $ if force
-    then "pkill picom; picom --experimental-backends"
-    else "pgrep picom || picom --experimental-backends"
+    then "pkill picom; " <> compositorCommand
+    else "pgrep picom || " <> compositorCommand
 
 myKeys :: Bool -> [(String, X ())]
 myKeys gameMode =
@@ -146,7 +149,7 @@ parseWorkspaceId icons cur i = case M.lookup i icons of
     Nothing              -> Nothing
     Just _ | i == "NSP"  -> Nothing
     Just icon | i == cur -> Just $ "%{F#FFFFFF}" ++ i ++ "  " ++ [icon] ++ "%{F-}"
-    Just icon            -> Just $ "%{F#777777}" ++ i ++ "  " ++ [icon] ++ "%{F-}"
+    Just icon            -> Just $ "%{F#777777}%{A:xdotool key Super+" ++ i ++ ":}" ++ i ++ "  " ++ [icon] ++ "%{A}%{F-}"
 
 type WindowClass = String
 type WorkspaceIcons = M.Map WorkspaceId Char
@@ -168,6 +171,8 @@ myWindowIcons = M.fromList
     , ("Zotero"                 , '\xf02d')
     , ("Signal"                 , '\xf0e0')
     , ("Thunderbird"            , '\xf6ed')
+    , ("minecraft-launcher", '\xf872')
+    , ("discord", '\xfb6e')
     ]
 
 -- | Store the given workspace's name in given and return.

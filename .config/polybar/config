@@ -120,9 +120,9 @@ format-background = ${colors.background}
 
 [module/light]
 type = custom/script
-exec = light | grep -o '^[0-9]*'
+exec = $SCRIPT_DIR/brightness
 format-background=${colors.light}
-format = "  <label>%"
+format = %{A5:$SCRIPT_DIR/brightness DOWN:}%{A4:$SCRIPT_DIR/brightness UP:}  <label>%%{A}%{A}
 
 [module/home]
 type = internal/fs
@@ -177,8 +177,8 @@ label-muted-background = ${colors.volume}
 
 [module/battery]
 type = internal/battery
-battery = BAT0
-adapter = AC
+battery = bat0
+adapter = ac
 full-at = 98
 poll-interval = 10
 

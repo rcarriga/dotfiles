@@ -1,5 +1,6 @@
 export QT_QPA_PLATFORMTHEME="qt5ct"
-export FPATH="$ZDOTDIR/functions:${FPATH}" 
+export KEYTIMEOUT=1
+[[ $FPATH ]] && export FPATH="$ZDOTDIR/functions:${FPATH}" 
 export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"

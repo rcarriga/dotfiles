@@ -8,27 +8,26 @@ configuration {
 }
 
 * {
-  query-background: #f4f4f4;
-  list-background:  #f4f4f4BB;
-  selected-background: #727272;
-  list-foreground:       #1E1E1E;
-  prompt-foreground:       #3E3D32;
-  background-color: #00000000;
+  query-background    : #7e3ff299;
+  list-background     : #7e3ff222;
+  selected-background : #7e3ff299;
+  selected-foreground : #c6f68d;
+  list-foreground     : #9965f4;
+  prompt-foreground   : #efe5fd;
+  background-color    : #00000000;
 }
 
 #window {
   location: north;
   y-offset: 15%;
-  width: 40%;
+  width: 30%;
 }
 
 #inputbar {
   background-color: @query-background;
-  border-color: @prompt-foreground;
   text-color: @prompt-foreground;
-  border: 1px;
-  border-radius: 100px;
-  margin: 0px 0px -3px 0px;
+  border-radius: 5 5 0 0;
+  margin: 0px 0px -2px 0px;
 }
 
 #prompt {
@@ -45,14 +44,11 @@ configuration {
   padding: 20px 0px;
 }
 
+
 #listview {
   background-color: @list-background;
   spacing: 0;
-  margin: 0px 50px;
   scrollbar: false;
-  border: 0px 1px 1px 1px;
-  border-color: @list-foreground;
-  border-radius: 0 0 20 20;
   lines: 5;
   fixed-height: false;
   dynamic: true;
@@ -67,5 +63,5 @@ configuration {
 
 #element.selected {
   background-color: @selected-background;
-  text-color: @list-background;
+  text-color: @selected-foreground;
 }

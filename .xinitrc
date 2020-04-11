@@ -6,7 +6,7 @@ export SSH_AUTH_SOCK
 xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Tapping Enabled" 1
 xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 1
 setxkbmap -layout gb
-xset r rate 150 40
+# xset r rate 150 40
 xsetroot -cursor_name left_ptr
 xrdb -merge ~/.Xresources
 
