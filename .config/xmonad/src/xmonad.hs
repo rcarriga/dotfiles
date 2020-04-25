@@ -18,33 +18,9 @@ import System.Environment
 import XMonad.Layout.MouseResizableTile
 import XMonad.Hooks.EwmhDesktops
 import Data.Ratio ((%))
-import XMonad.Layout.Fullscreen (FullscreenMessage(..), fullscreenSupport, fullscreenFull)
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "bash $HOME/.config/scripts/" ++ script_name
-
-setSupported :: X ()
-setSupported = withDisplay $ \dpy -> do
-  r    <- asks theRoot
-  a    <- getAtom "_NET_SUPPORTED"
-  c    <- getAtom "ATOM"
-  supp <- mapM
-    getAtom
-    [ "_NET_WM_STATE_HIDDEN"
-    , "_NET_NUMBER_OF_DESKTOPS"
-    , "_NET_CLIENT_LIST"
-    , "_NET_CLIENT_LIST_STACKING"
-    , "_NET_CURRENT_DESKTOP"
-    , "_NET_DESKTOP_NAMES"
-    , "_NET_ACTIVE_WINDOW"
-    , "_NET_WM_DESKTOP"
-    , "_NET_WM_STRUT"
-    , "_NET_WM_STATE"
-    , "_NET_WM_STATE_FULLSCREEN"
-    ]
-  io $ changeProperty32 dpy r a c propModeReplace (fromIntegral <$> supp)
-
-
 
 main :: IO ()
 main = do
@@ -57,13 +33,14 @@ main = do
   safeSpawn "mkfifo" [workspaceNameFile]
   xmonad
     $                 ewmh
+    $                 ewmhFullscreen
     $                 docks def
                         { terminal           = "kitty"
                         , modMask            = mod4Mask
                         , workspaces         = myWorkspaces
                         , normalBorderColor  = "#3E3D32"
                         , focusedBorderColor = "#bdbdbd"
-                        , handleEventHook = def handleEventHook <+> fullscreenEventHook 
+                        , handleEventHook    = def handleEventHook
                         , layoutHook         = myLayoutHook
                         , startupHook        = myStartupHook gameMode
                         , logHook            = sendWorkspaceNames workspaceNameFile
@@ -114,7 +91,7 @@ myStartupHook gamingMode = do
   setWMName "XMonad"
   setWallpaper
   startCompositor False
-  setSupported
+  -- setSupported
   mapM_
     spawn
     (if gamingMode
@@ -156,7 +133,7 @@ myKeys gameMode =
   , ("<XF86AudioMute>"        , startScript "volume MUTE")
   , ("C-S-<Space>"            , spawn "rofi -show drun")
   , ("M-b"                    , namedScratchpadAction myScratchpads "Blueman-manager")
-  , ("M-<Tab>"                , cycleRecentWS [xK_Super_L] xK_Tab xK_BackSpace)
+  , ("M-<Tab>"                , toggleRecentNonEmptyWS)
   , ("M-S-t", spawn $ "pkill polybar || polybar " ++ (if gameMode then "xmonadGameMode" else "xmonad"))
   , ("M-S-p"                  , spawn "polybar-msg cmd toggle")
   , ("M-S-n"                  , namedScratchpadAction myScratchpads "htop")

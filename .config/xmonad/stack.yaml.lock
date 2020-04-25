@@ -5,12 +5,27 @@
 
 packages:
 - completed:
-    hackage: xmonad-contrib-0.16@sha256:a47da91613dc8e04c040424ab605acb2e8693bcf76e397f924b39af89b954da1,15927
+    size: 555204
+    url: https://github.com/xmonad/xmonad-contrib/archive/252e6e4d0074dcd0eda531177ac2e17939a9d3d7.tar.gz
+    name: xmonad-contrib
+    version: '0.16'
+    sha256: c1540a74e32de4f922d4fd75c55b146f4ff22633d9656c4266391c3bc40b32c6
     pantry-tree:
-      size: 19578
-      sha256: 934bc533bb08aebb72e51cb0fa5aab9e27e5c6c25a0a1edaa2c76058f8771167
+      size: 20376
+      sha256: 253a170dce7fa121aa8ca69b8b55121cc141505c8a13259ca859d4cc0ff81f79
   original:
-    hackage: xmonad-contrib-0.16@sha256:a47da91613dc8e04c040424ab605acb2e8693bcf76e397f924b39af89b954da1
+    url: https://github.com/xmonad/xmonad-contrib/archive/252e6e4d0074dcd0eda531177ac2e17939a9d3d7.tar.gz
+- completed:
+    size: 73816
+    url: https://github.com/xmonad/xmonad/archive/78b967198b70373f27291b232e10470ca7748d6f.tar.gz
+    name: xmonad
+    version: '0.15'
+    sha256: 2196dbbe3cabb912a74a467368b6f1a12ba2ceac747c0f7bbff163d5a42b34e3
+    pantry-tree:
+      size: 2978
+      sha256: e9f62b2ecd3fd1674be71373bfd4025973b18ca9ccde57f18fcb533dec8b7707
+  original:
+    url: https://github.com/xmonad/xmonad/archive/78b967198b70373f27291b232e10470ca7748d6f.tar.gz
 snapshots:
 - completed:
     size: 524164

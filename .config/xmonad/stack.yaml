@@ -38,7 +38,10 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-  - xmonad-contrib-0.16@sha256:a47da91613dc8e04c040424ab605acb2e8693bcf76e397f924b39af89b954da1
+  - github: xmonad/xmonad-contrib 
+    commit: 252e6e4d0074dcd0eda531177ac2e17939a9d3d7
+  - github: xmonad/xmonad
+    commit: 78b967198b70373f27291b232e10470ca7748d6f
 # Override default flag values for local packages and extra-deps
 # flags: {}
 

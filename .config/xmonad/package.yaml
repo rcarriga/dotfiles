@@ -8,7 +8,7 @@ copyright:           2020 Rónán Carrigan
 dependencies:
   - base >= 4.7 && < 5
   - xmonad
-  - xmonad-contrib == 0.16
+  - xmonad-contrib
   - containers
   - text
   - X11
