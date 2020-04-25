@@ -2,6 +2,8 @@ zmodload zsh/zpty
 
 [[ -f "$ZDOTDIR/base.sh" ]] && source "$ZDOTDIR/base.sh"
 
+autoload -Uz $(ls $ZDOTDIR/functions)
+
 [[ -f "$ZDOTDIR/.p10k.zsh" ]] && source "$ZDOTDIR/.p10k.zsh"
 
 ([[ -f "$ZIM_HOME/init.zsh" ]] || (mkdir -p $ZIM_HOME && curl  -L https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh > $ZIM_HOME/zimfw.zsh && source "$ZIM_HOME/zimfw.zsh" install))

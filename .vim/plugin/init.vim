@@ -137,7 +137,7 @@ set pyxversion=3
 set nowrap
 
 " Text to appear on folded line
-set foldtext=MyFoldText()
+set foldtext=<SID>MyFoldText()
 
 " Syntactic folding (Good for html, jsx, json etc)
 set foldmethod=syntax
@@ -157,7 +157,6 @@ noremap ;; ;
 " Jump to start and end of line easier
 nnoremap H ^
 nnoremap L $
-
 
 nnoremap <BS> X
 
@@ -181,6 +180,8 @@ inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
 
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
 " Enter normal mode with escape in terminal
 " tnoremap <silent> <ESC> <C-\><C-N>
 
@@ -194,14 +195,26 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 "}}}1
 " ###################################################################################
 " Custom Commands {{{1
-command! RunR exec "!Rscript "expand("%")
-command! RunP exec '!python' shellescape(@%, 1)
+command -range RunLines call <SID>RunLines(<count>, <range>)
 "}}}1
 " ###################################################################################
 " Functions {{{1
-function! MyFoldText() abort
+function! s:RunLines(count, range,...) abort
+  let endLine = a:count == -1 ? line(".") : a:count
+  let command = a:0 == 1 ? a:1 : "bash"
+  exec endLine-a:range.",".endLine."w !".command
+endfunction
+
+function! s:MyFoldText() abort
     let line = getline(v:foldstart)
     return substitute(line,"\s*{{{[0-9]\s*$","","")." ▶"
+endfunction
+
+function! s:VSetSearch(cmdtype) abort
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+  let @s = temp
 endfunction
 " }}}1
 " ###################################################################################

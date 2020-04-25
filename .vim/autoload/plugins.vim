@@ -1,9 +1,18 @@
 if exists("g:plugins_loaded")
+
     finish
 endif
 
+augroup AerojumpBufSettings
+  au!
+  au Filetype AerojumpFilter setlocal nosplitbelow nosplitright
+  au Filetype *.aerojump setlocal nolist
+augroup END
 
 let plugins = {
+      \ "ripxorip/aerojump.nvim": {"lazy": 1},
+      \ "rhysd/git-messenger.vim": {},
+      \ "alvan/vim-closetag": {},
       \ "tpope/vim-dispatch": {},
       \ "zsugabubus/vim-jumpmotion": {},
       \ "segeljakt/vim-isotope": {},
@@ -47,6 +56,7 @@ let plugins = {
 
 " Syntax plugins
 let plugins = extend(plugins, {
+      \ "vim-pandoc/vim-pandoc-syntax": {},
       \ "neovimhaskell/haskell-vim": {},
       \ "othree/html5.vim": {},
       \ "posva/vim-vue": {},
@@ -61,7 +71,6 @@ let plugins = extend(plugins, {
       \ "maxmellon/vim-jsx-pretty": {},
       \ "tmhedberg/SimpylFold": {"lazy": 1},
       \ "iamcco/markdown-preview.nvim": {"build": "cd app & yarn install" },
-      \ "vim-pandoc/vim-pandoc": {},
 \ })
 
 " Editor specific plugins
@@ -79,7 +88,34 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
-"
+
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
+let g:closetag_filetypes = 'jsx,tsx,typescriptreact'
+let g:closetag_emptyTags_caseSensitive = 1
+let g:closetag_regions = {
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+let g:pear_tree_map_special_keys = 0
+let g:pear_tree_pairs = {
+      \   '(': {'closer': ')'},
+      \   '[': {'closer': ']'},
+      \   '{': {'closer': '}'},
+      \   "'": {'closer': "'"},
+      \   '"': {'closer': '"'},
+      \   '<*>': { 'closer': '</*>',
+      \          'not_if': ['br', 'hr', 'img', 'input', 'link', 'meta',
+      \                  'area', 'base', 'col', 'command', 'embed',
+      \                  'keygen', 'param', 'source', 'track', 'wbr'],
+      \          'not_like': '{[^}]*$\|/$',
+      \          'until': '[^a-zA-Z0-9-._]',
+      \          'not_at': ['[^> ]<[^>]*'],
+      \          'not_in': ['String']
+      \        }
+      \ }
+
 let g:hiPairs_enable_matchParen = 0
 
 let g:tcomment_maps = 0
@@ -103,7 +139,6 @@ let g:vimtex_compiler_latexmk = {"build_dir": "build"}
 " Vim hardtime keys
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
 
-let g:pandoc#folding#fdc = 0
 
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
@@ -149,14 +184,11 @@ let g:vista_executive_for = {
 
 " Pretty icons for airline
 let g:airline_powerline_fonts = 1
-" Use manual loading of extensions
 let g:airline#extensions#tabline#show_splits = 1
 let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline_theme = "molokai"
-let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#coc#error_symbol = " "
 let g:airline#extensions#coc#warning_symbol = " "
-let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 
 let g:ale_virtualtext_cursor = 1
@@ -171,9 +203,6 @@ let g:ale_linters = {
     \ "ruby": ["rubocop"],
     \ "r": []
   \ }
-
-" Disable thesauras default mappings
-let g:tq_map_keys = 0
 
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
@@ -207,7 +236,6 @@ let g:Lf_ShortcutB = ""
 let g:Lf_ShortcutF = ""
 let g:Lf_AutoResize = 1
 
-let g:pandoc#modules#disabled = ["formatting", "command", "menu", "keyboard", "bibliographies", "completion", "toc", "spell", "hypertext"]
 
 let g:which_key_position = 'topleft'
 let g:which_key_max_size = 20
@@ -215,6 +243,7 @@ let g:which_key_floating_opts = { "col": "+30"}
 
 let g:spaceline_seperate_style= "curve"
 let g:spaceline_colorscheme = "space"
+
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -258,6 +287,10 @@ endfunction
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
+
+augroup PandocSyntax
+    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+augroup END
 
 augroup WhichKeyInit
   au!
@@ -367,6 +400,7 @@ let g:which_key_map.g = {
       \ "f": "Fold Around Changes",
       \ "u": "Revert Hunk",
       \ "i": "Show Hunk Changes",
+      \ "m": "Line History"
       \ }
 " Git functions and text objects with vim-fugitive and signify
 nmap <silent><leader>gs :Gstatus<CR>
@@ -436,6 +470,18 @@ nmap <silent><leader>dw :Leaderf line<CR>
 nmap <silent><leader>du :Leaderf function<CR>
 nmap <silent><leader>dc :Leaderf colorscheme<CR>
 
+let g:which_key_map.a = {
+  \ "name": "Fuzzy Searching",
+  \ "s": "Filter First Match",
+  \ "b": "Rank Matches",
+  \ "a": "Rank Matches From Cursor",
+  \ "d": "First Match Unfiltered",
+\ }
+nmap <Leader>as <Plug>(AerojumpSpace)
+nmap <Leader>ab <Plug>(AerojumpBolt)
+nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
+nmap <Leader>ad <Plug>(AerojumpDefault)
+
 " Language server functions
 let g:which_key_map.l = {
   \ "name": "LSP",
@@ -482,32 +528,6 @@ nmap <silent><leader>rw :IronWatchCurrentFile
 nmap <silent><leader>ru :IronUnwatchCurrentFile<CR>
 
 
-let g:which_key_map.b = {
-      \ "name": "Debugging Controls",
-      \ "g": "Start Debugger",
-      \ "c": "Continue",
-      \ "s": "Stop",
-      \ "r": "Restart",
-      \ "p": "Pause",
-      \ "b": "ToggleBreakpoint",
-      \ "f": "AddFunctionBreakpoint",
-      \ "o": "StepOver",
-      \ "i": "StepInto",
-      \ "x": "StepOut"
-      \ }
-nmap <silent><leader>bg :call vimspector#Launch()<CR>
-nmap <silent><leader>bc <Plug>VimspectorContinue
-nmap <silent><leader>bs <Plug>VimspectorStop
-nmap <silent><leader>br <Plug>VimspectorRestart
-nmap <silent><leader>bp <Plug>VimspectorPause
-nmap <silent><leader>bb <Plug>VimspectorToggleBreakpoint
-nmap <silent><leader>bf <Plug>VimspectorAddFunctionBreakpoint
-nmap <silent><leader>bo <Plug>VimspectorStepOver
-nmap <silent><leader>bi <Plug>VimspectorStepInto
-nmap <silent><leader>bx <Plug>VimspectorStepOut
-
-
-
 let g:which_key_map.t = {
   \ "name": "Tests",
   \ "n": "Run Nearest",
@@ -541,6 +561,10 @@ inoremap <silent><expr> <C-n> pumvisible() ? "\<C-n>" : coc#refresh()
 " Use <CR> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <silent><expr> <CR> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" inoremap <expr><silent> <CR> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\:call pear_tree#insert_mode#PrepareExpansion()<CR>"
+
+
+
 " }}}1
 " ###################################################################################
 " Install Plugins {{{1

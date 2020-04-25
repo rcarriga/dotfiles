@@ -70,6 +70,22 @@
     "enableGutters": false
   },
   "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
+    },
     "vls": {
       "command": "vls",
       "filetypes": ["vue"],
@@ -115,17 +131,6 @@
         }
       }
     },
-    "clangd": {
-      "command": "clangd",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [
-        "compile_flags.txt",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ]
-    },
     "haskell": {
       "command": "hie-wrapper",
       "args": ["--lsp"],
@@ -139,16 +144,6 @@
       "initializationOptions": {
         "languageServerHaskell": {}
       }
-    },
-    "kotlin": {
-      "command": "~/kotlin-language-server/server/build/scripts/kotlin-language-server",
-      "filetypes": ["kotlin"]
-    },
-    "purescript": {
-      "args": ["--stdio"],
-      "command": "purescript-language-server",
-      "filetypes": ["purescript"],
-      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
     }
   },
   "latex": {
@@ -222,15 +217,10 @@
     "formatting": {
       "provider": "yapf"
     },
-    "jediEnabled": true,
+    "jediEnabled": false,
     "linting": {
       "mypyEnabled": true,
       "pydocstyleEnabled": false
-    }
-  },
-  "r": {
-    "lsp": {
-      "debug": true
     }
   },
   "suggest": {

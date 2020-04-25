@@ -6,4 +6,3 @@
 
 [[ -f "$ZDOTDIR/options.sh" ]] && source "$ZDOTDIR/options.sh"
 
-autoload -Uz fuzzy_preview
