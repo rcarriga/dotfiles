@@ -1,5 +1,0 @@
-#!/bin/bash
-"[[ -z $(pgrep redshift) ]] && redshift -l 53:-6 -t 6500:2500 & "
-"[[ -z $(pgrep nm-applet) ]] && nm-applet & "
-"[[ -z $(pgrep compton) ]] && compton &"
-"[[ -z $(pgrep xautolock) ]] && xautolock -locker \"systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\""

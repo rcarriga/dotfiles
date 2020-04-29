@@ -1,4 +1,0 @@
-#!/bin/bash
-
-output=$(df -h | grep '/$' | awk '{print $4}' | grep -o '[0-9]*' )
-echo "$output""GB"

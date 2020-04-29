@@ -1,4 +1,0 @@
-#!/bin/bash
-
-output=$(date |  awk '{print $2" "$3" "$4" "}')
-echo "  ${output::-4}  "

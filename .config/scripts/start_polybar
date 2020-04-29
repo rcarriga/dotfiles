@@ -1,6 +1,0 @@
-#!/bin/bash
-pkill -x polybar
-polybar xmonad &
-sleep 3s
-polybar bar2 &
-

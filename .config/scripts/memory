@@ -1,6 +1,0 @@
-#!/bin/bash
-
-usage=$(free -m | tail -n2 | head -n1 | awk '{print $3" / "$2}' | bc -l | head -c 3 | tail -c 2) 
-echo "  $usage%   "
-
-

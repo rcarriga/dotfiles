@@ -1,4 +1,0 @@
-#!/bin/bash
-
-temp=$(sensors | grep 'CPU' | grep -o '[0-9]*' | head -n1)
-echo "$temp"
