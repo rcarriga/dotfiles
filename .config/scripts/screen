@@ -1,5 +1,14 @@
 #!/bin/sh
-[[ "$1" == "HDMI" ]] && xrandr --output eDP1 --off --output DP1 --off --output DP2 --off --output HDMI1 --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
-[[ "$1" == "EDPI" ]] && xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --off --output HDMI2 --off --output VIRTUAL1 --off
-[[ "$1" == "HDMIABOVE" ]] && xrandr --output eDP1 --primary --mode 1920x1080 --below HDMI1 --output DP1 --off --output DP2 --off --output HDMI1 --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
-[[ "$1" == "HDMIRIGHT" ]] && xrandr --output eDP1 --primary --mode 1920x1080 --pos 0x706 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --mode 2560x1440 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
+tty=$(w | tail -n1 | grep -o "tty\w*")
+if [[ $tty == "tty1" ]]; then
+    edp="eDP1"
+    hdmi="HDMI1"
+else
+    edp="eDP-1-1"
+    hdmi="HDMI-1-1"
+fi
+
+[[ "$1" == "HDMI" ]] && xrandr --output $edp --off --output DP1 --off --output DP2 --off --output $hdmi --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
+[[ "$1" == "EDPI" ]] && xrandr --output $edp --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output $hdmi --off --output HDMI2 --off --output VIRTUAL1 --off
+[[ "$1" == "HDMIABOVE" ]] && xrandr --output $edp --primary --mode 1920x1080 --below $hdmi --output DP1 --off --output DP2 --off --output HDMI1 --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
+[[ "$1" == "HDMIRIGHT" ]] && xrandr --output $edp --primary --mode 1920x1080 --pos 0x85 --rotate normal --output DP1 --off --output DP2 --off --output $hdmi --mode 2560x1440 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
