@@ -1,11 +1,12 @@
 augroup FileTypeInit
     au!
-    au BufNew,VimEnter *[jJ]enkins* set ft=Jenkinsfile
-    au BufNew,VimEnter *\.nix set ft=nix
-    au BufNew,VimEnter *\.purs set ft=purescript
-    au BufNew,VimEnter *\.dhall set ft=dhall
-    au BufNew,VimEnter \.babelrc set ft=json
-    au BufNew,VimEnter \.conf set ft=conf
+    au BufNew,VimEnter *[jJ]enkins* setlocal ft=Jenkinsfile
+    au BufNew,VimEnter *\.nix setlocal ft=nix
+    au BufNew,VimEnter *\.purs setlocal ft=purescript
+    au BufNew,VimEnter *\.dhall setlocal ft=dhall
+    au BufNew,VimEnter \.babelrc setlocal ft=json
+    au BufNew,VimEnter \.conf setlocal ft=conf
+    au Filetype dockerfile setlocal ft=Dockerfile
 augroup END
 
 augroup NicerTerminal

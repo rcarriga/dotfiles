@@ -1,4 +1,5 @@
 zmodule zsh-users/zsh-completions
+zmodule completion
 zmodule zsh-users/zsh-autosuggestions
 zmodule zdharma/fast-syntax-highlighting
 zmodule romkatv/powerlevel10k

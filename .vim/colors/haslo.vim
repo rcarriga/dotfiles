@@ -101,6 +101,12 @@ let s:Warning = s:Yellow
 let s:Info = s:Cyan
 let s:Error = s:Red
 
+call s:loadHighlights({
+  \ "User1": [s:Success, FloatBackground],
+  \ "User2": [s:Warning, FloatBackground],
+  \ "User3": [s:Error,   FloatBackground],
+  \ "User4": [s:Grey1, s:Info]
+  \ })
 
 let highlights = {}
 " Vim
@@ -113,8 +119,8 @@ call s:loadHighlights({
     \ "CursorLineNr": [s:Success, "bold"],
     \ "VertSplit": [s:Hidden],
     \ "MatchParen": [s:Success, "underline"],
-    \ "StatusLine": [s:Hidden],
-    \ "StatusLineNC": [s:Grey3],
+    \ "StatusLine": [s:Normal, FloatBackground],
+    \ "StatusLineNC": [s:Normal, s:Grey1],
     \ "IncSearch": [s:Green, "bold,underline"],
     \ "Search": [s:Green, "bold,underline"],
     \ "Directory": [s:Cyan],
@@ -172,7 +178,7 @@ call s:loadHighlights({
     \ "Title": [s:Normal, "bold"],
     \ "Todo": [s:Normal, "bold"],
     \ "Type": [s:TypeName],
-    \ "SpecialComment": [s:Hidden, "bold"],
+    \ "SpecialComment": [s:Info, "bold"],
     \ "Typedef": [s:TypeName],
     \ "PreCondit": [s:BuiltIn],
     \ "Include": [s:BuiltIn],
@@ -334,6 +340,9 @@ call s:loadHighlights({
     \ "jsExport": [s:BuiltIn],
     \ "jsVariableType": [s:BuiltIn],
     \ "jsAssignmentEqual": [s:BuiltIn],
+    \ "jsParens": [s:Decoration],
+    \ "jsObjectBraces": [s:Decoration],
+    \ "jsFunctionBraces": [s:Decoration],
 \ })
 
 " vim-jumpmotion
@@ -350,3 +359,7 @@ call s:loadHighlights({
 call s:loadHighlights({
     \ "texBeginEndName": [s:FuncName]
 \})
+
+call s:loadHighlights({
+  \ "yamlBlockMappingKey": [s:Key]
+  \ })

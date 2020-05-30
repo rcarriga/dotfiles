@@ -3,19 +3,15 @@ if exists("g:plugins_loaded")
     finish
 endif
 
-augroup AerojumpBufSettings
-  au!
-  au Filetype AerojumpFilter setlocal nosplitbelow nosplitright
-  au Filetype *.aerojump setlocal nolist
-augroup END
+function! s:AddPlugins(args) abort
+  let s:plugins = extend(get(s:, "plugins", {}), a:args)
+endfunction
 
-let plugins = {
-      \ "ripxorip/aerojump.nvim": {"lazy": 1},
+call s:AddPlugins({
       \ "rhysd/git-messenger.vim": {},
       \ "alvan/vim-closetag": {},
       \ "tpope/vim-dispatch": {},
       \ "zsugabubus/vim-jumpmotion": {},
-      \ "segeljakt/vim-isotope": {},
       \ "tomtom/tcomment_vim": {},
       \ "moll/vim-bbye": {},
       \ "dstein64/vim-win": {},
@@ -29,7 +25,6 @@ let plugins = {
       \ "janko/vim-test": {"lazy": 1},
       \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
       \ "junegunn/gv.vim": {},
-      \ "lervag/vimtex": {"lazy": 1},
       \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
       \ "liuchengxu/vista.vim": {"on_cmd": "Vista"},
       \ "machakann/vim-sandwich": {},
@@ -43,7 +38,6 @@ let plugins = {
       \ "tpope/vim-abolish": {},
       \ "tpope/vim-eunuch": {},
       \ "tpope/vim-fugitive": {},
-      \ "tpope/vim-sleuth": {"hook_post_source": "Sleuth"},
       \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
       \ "vim-airline/vim-airline-themes": {"lazy": 1},
       \ "tpope/vim-unimpaired": {},
@@ -52,10 +46,11 @@ let plugins = {
       \ "wellle/targets.vim": {},
       \ "whiteinge/diffconflicts": {"on_cmd" : "DiffConflicts" },
       \ "rakr/vim-one": {}
-\ }
+\ })
 
-" Syntax plugins
-let plugins = extend(plugins, {
+" Language plugins
+call s:AddPlugins({
+      \ "ekalinin/Dockerfile.vim": {},
       \ "vim-pandoc/vim-pandoc-syntax": {},
       \ "neovimhaskell/haskell-vim": {},
       \ "othree/html5.vim": {},
@@ -63,24 +58,20 @@ let plugins = extend(plugins, {
       \ "yuezk/vim-js": {},
       \ "MTDL9/vim-log-highlighting": {},
       \ "HerringtonDarkholme/yats.vim": {},
-\})
-
-
-" Filetype plugins
-let plugins = extend(plugins, {
       \ "maxmellon/vim-jsx-pretty": {},
       \ "tmhedberg/SimpylFold": {"lazy": 1},
-      \ "iamcco/markdown-preview.nvim": {"build": "cd app & yarn install" },
-\ })
+      \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
+\})
 
 " Editor specific plugins
 if !has("nvim")
-  let plugins = extend(plugins,
-      \ {"roxma/nvim-yarp": {},
+  call s:AddPlugins({
+      \ "roxma/nvim-yarp": {},
       \ "roxma/vim-hug-neovim-rpc": {}})
 else
-  let plugins = extend(plugins,
-      \ {"Vigemus/iron.nvim": {},
+  call s:AddPlugins({
+      \ "ripxorip/aerojump.nvim": {"lazy": 1},
+      \ "Vigemus/iron.nvim": {},
       \ "numirias/semshi": {}})
 endif
 
@@ -128,13 +119,6 @@ let g:caw_operator_keymappings = 1
 let g:windowswap_map_keys = 0
 
 let g:coc_config_home = trim(system("echo $HOME"))."/.vim"
-
-let g:vimtex_quickfix_enabled = 0
-let g:vimtex_compiler_progname = "nvr"
-let g:vimtex_view_method = "zathura"
-
-" Store compiled latex files in "build" dir
-let g:vimtex_compiler_latexmk = {"build_dir": "build"}
 
 " Vim hardtime keys
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
@@ -190,6 +174,7 @@ let g:airline_theme = "molokai"
 let g:airline#extensions#coc#error_symbol = " "
 let g:airline#extensions#coc#warning_symbol = " "
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#vista#enabled = 0
 
 let g:ale_virtualtext_cursor = 1
 let g:ale_linters = {
@@ -201,7 +186,9 @@ let g:ale_linters = {
     \ "typescriptreact": [],
     \ "javascriptreact": [],
     \ "ruby": ["rubocop"],
-    \ "r": []
+    \ "r": [],
+    \ "c": [],
+    \ "cpp": []
   \ }
 
 let g:doge_mapping = "\<leader\>i"
@@ -297,10 +284,6 @@ augroup WhichKeyInit
   au  FileType which_key set laststatus=0 noshowmode noruler
     \| au BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
-augroup SleuthInit
-  au!
-  au FileType * Sleuth
-augroup END
 
 augroup ReactInit
     au!
@@ -389,7 +372,6 @@ let g:which_key_map.n = "Compile to PDF"
 nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
 
 " Open config directory
-nnoremap <silent>` :CocCommand explorer ~/.vim<CR>
 
 let g:which_key_map.g = {
       \ "name": "Git Control",
@@ -434,6 +416,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 " Directory tree
 let g:which_key_map.x = "File Explorer"
 nmap <silent><leader>x :CocCommand explorer<CR>
+nnoremap <silent>` :CocCommand explorer ~/.vim<CR>
 " Ctags and LSP symbol finding
 let g:which_key_map.v = "Tags"
 nmap <silent><leader>v :Vista!!<CR>
@@ -583,7 +566,7 @@ let g:dein#auto_recache = 1
 if dein#load_state("~/.cache/dein")
   call dein#begin("~/.cache/dein")
 
-    for [plugin, options] in items(plugins)
+    for [plugin, options] in items(s:plugins)
       call dein#add(plugin, options)
     endfor
 
@@ -619,8 +602,3 @@ nnoremap cl cl
 endif
 
 " }}}1
-if get(g:, 'started_by_firenvim')
-  redir! > ~/testecho
-  mes
-  redir END
-endif
