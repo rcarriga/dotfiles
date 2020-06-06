@@ -1,0 +1,8 @@
+aura-bin
+neovim-nightly
+nerd-fonts-jetbrains-mono
+nerd-fonts-roboto-mono
+picom-tryone-git
+polybar
+vimix-icon-theme
+yadm
