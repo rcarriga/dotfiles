@@ -14,7 +14,7 @@ if [[ $ZIM_HOME/init.zsh -ot $ZDOTDIR/.zimrc ]]; then
 fi
 source $ZIM_HOME/init.zsh
 
-([[ -f "$XDG_CONFIG_HOME/fzf/fzf.zsh" ]] || (git clone --depth 1 https://github.com/junegunn/fzf.git "$XDG_CONFIG_HOME/fzf" && "$XDG_CONFIG_HOME/.fzf/install" --xdg)) && source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+([[ -f "$XDG_CONFIG_HOME/fzf/fzf.zsh" ]] || (git clone --depth 1 https://github.com/junegunn/fzf.git "$XDG_CONFIG_HOME/fzf" && "$XDG_CONFIG_HOME/fzf/install" --xdg)) && source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
 # added by travis gem
 [ -f /home/ronan/.travis/travis.sh ] && source /home/ronan/.travis/travis.sh

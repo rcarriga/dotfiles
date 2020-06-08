@@ -188,9 +188,12 @@ parseWorkspaceId icons cur i =
             Nothing | i == cur      -> Just $ "  " <> i <> "  "
             Nothing                 -> Nothing
             Just _ | i == "NSP"     -> Nothing
-            Just wsIcons | i == cur -> Just $ "%{F#FFFFFF}" ++ i ++ "  " ++ joinIcons wsIcons ++ "%{F-}"
+            Just wsIcons | i == cur -> Just $ polybarColour "#FFFFFF" $ i ++ "  " ++ joinIcons wsIcons
             Just wsIcons ->
-                Just $ "%{F#777777}%{A:xdotool key Super+" ++ i ++ ":}" ++ i ++ "  " ++ joinIcons wsIcons ++ "%{A}%{F-}"
+                Just $ polybarColour "#777777" $ "%{A:xdotool key Super+" ++ i ++ ":}" ++ i ++ "  " ++ joinIcons wsIcons ++ "%{A}"
+
+polybarColour :: String -> String -> String
+polybarColour colour str = "%{F" <> colour <> "}" <> str <> "%{F-}"
 
 storeIcon :: W.Workspace WorkspaceId l Window -> WorkspaceIcons -> X WorkspaceIcons
 storeIcon ws aliases = do
