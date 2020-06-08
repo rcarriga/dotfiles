@@ -7,6 +7,8 @@ bison
 blueman
 bluez
 bluez-utils
+docker
+docker-compose
 fakeroot
 feh
 file
@@ -22,6 +24,7 @@ groff
 gzip
 htop
 kitty
+lib32-nvidia-utils
 libtool
 libxss
 light
@@ -39,6 +42,7 @@ neofetch
 network-manager-applet
 networkmanager
 nodejs
+nss-mdns
 nvidia
 openssh
 pacman
@@ -50,16 +54,19 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 python
 python-pynvim
+ripgrep
 rofi
 sed
-stack
+steam
 sudo
 texinfo
+thunderbird
 tree
 ttf-roboto
 vim
 vlc
 which
+wqy-zenhei
 xclip
 xdotool
 xf86-video-vesa
