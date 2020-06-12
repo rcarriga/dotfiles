@@ -1,13 +1,14 @@
 aura-bin
 bashtop-git
+materia-kde-git
 neovim-nightly
 nerd-fonts-jetbrains-mono
 nerd-fonts-roboto-mono
 picom-tryone-git
-polybar
+polybar-git
 postman-bin
 qmk
 stack-static
 steam-fonts
 vimix-icon-theme
-yadm
+yadm-git
