@@ -53,8 +53,8 @@ font-0 = Roboto:style=Regular:size=10
 font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonadGameMode
-modules-center = date battery light pulseaudio 
-modules-right = root home media memory cpu temperature 
+modules-center = date pulseaudio 
+modules-right = root home memory cpu
 
 enable-ipc = true
 
@@ -88,8 +88,8 @@ font-0 = Roboto:style=Regular:size=10
 font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonad
-modules-center = date battery light pulseaudio
-modules-right = root home media memory cpu temperature 
+modules-center = date pulseaudio
+modules-right = root home memory cpu
 
 enable-ipc = true
 
@@ -125,12 +125,6 @@ format = %{A5:$SCRIPT_DIR/brightness DOWN:}%{A4:$SCRIPT_DIR/brightness UP:}  
 type = internal/fs
 mount-0 = /home
 label-mounted = "    %free%  "
-label-mounted-background = ${colors.fs}
-
-[module/media]
-type = internal/fs
-mount-0 = /media
-label-mounted = "     %free%  "
 label-mounted-background = ${colors.fs}
 
 [module/root]

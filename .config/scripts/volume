@@ -1,10 +1,9 @@
 #!/bin/bash
 
-sink=$(pactl list sinks | grep 'Sink' | grep -o '[0-9]*' | tail -n1)
 
-[[ "$1" == "UP" ]] && pactl set-sink-volume "$sink" +2%
-[[ "$1" == "DOWN" ]] && pactl set-sink-volume "$sink" -2%
-[[ "$1" == "MUTE" ]] && pactl set-sink-mute "$sink" toggle
+[[ "$1" == "UP" ]] && pactl set-sink-volume @DEFAULT_SINK@ +2%
+[[ "$1" == "DOWN" ]] && pactl set-sink-volume @DEFAULT_SINK@ -2%
+[[ "$1" == "MUTE" ]] && pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 volume=$(pactl list sinks | grep 'Volume.*\(,\|mono\).*' | tail -n1 | awk '{print $5}')
 mute=$(pactl list sinks | grep 'Mute' | tail -n1 | awk '{print $2}')

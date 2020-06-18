@@ -156,33 +156,33 @@ myKeys gameMode =
 -- Can be used for XMobar (Or any status bar desired)
 
 type WindowClass = String
-type WorkspaceIcons = M.Map WorkspaceId [Char]
+type WorkspaceIcons = M.Map WorkspaceId [String]
 
-myWindowIcons :: M.Map String Char
+myWindowIcons :: M.Map String String
 myWindowIcons = M.fromList
-    [ ("kitty"                  , '\xf120')
-    , ("firefox"                , '\xf269')
-    , ("Blueman-manager"        , '\xf294')
-    , ("libreoffice-startcenter", '\xf15c')
-    , ("libreoffice-draw"       , '\xf15c')
-    , ("Steam"                  , '\xf1b6')
-    , ("Zathura"                , '\xf1c1')
-    , ("okular"                 , '\xf1c1')
-    , ("Spotify"                , '\xf1bc')
-    , ("Inkscape"               , '\xf6fc')
-    , ("Kodi"                   , '\xf03d')
-    , ("Transmission-gtk"       , '\xf019')
-    , ("Zotero"                 , '\xf02d')
-    , ("Signal"                 , '\xfceb')
-    , ("Thunderbird"            , '\xf6ed')
-    , ("minecraft-launcher"     , '\xf872')
-    , ("discord"                , '\xfb6e')
-    , ("Postman"                , '\xf1d8')
+    [ ("kitty"                  , "\xf120")
+    , ("firefox"                , "\xf269")
+    , ("Blueman-manager"        , "\xf294")
+    , ("libreoffice-startcenter", "\xf15c")
+    , ("libreoffice-draw"       , "\xf15c")
+    , ("Steam"                  , "\xf1b6")
+    , ("Zathura"                , "\xf1c1")
+    , ("okular"                 , "\xf1c1")
+    , ("Spotify"                , "\xf1bc")
+    , ("Inkscape"               , "\xf6fc")
+    , ("Kodi"                   , "\xf03d")
+    , ("Transmission-gtk"       , "\xf019")
+    , ("Zotero"                 , "\xf02d")
+    , ("Signal"                 , "\xfceb")
+    , ("Thunderbird"            , "\xf6ed")
+    , ("minecraft-launcher"     , "\xf872")
+    , ("discord"                , "\xfb6e")
+    , ("Postman"                , "\xf1d8")
     ]
 
 parseWorkspaceId :: WorkspaceIcons -> WorkspaceId -> WorkspaceId -> Maybe String
 parseWorkspaceId icons cur i =
-    let joinIcons is = foldr (\a b -> [a] ++ "   " ++ b) [head is] (tail is)
+    let joinIcons is = foldr (\a b -> a <> "   " <> b) (head is) (tail is)
     in
         case M.lookup i icons of
             Nothing | i == cur      -> Just $ "  " <> i <> "  "
@@ -202,7 +202,7 @@ storeIcon ws aliases = do
         Nothing -> return aliases
         Just a  -> do
             wsWindows <- io $ mapM (fmap resClass . getClassHint dis) (W.up a <>(W.focus a : W.down a)) -- Get window classes for workspace
-            let wsIcons = map (\win -> fromMaybe '\xf2d0' (M.lookup win myWindowIcons)) wsWindows        -- Get icons for all windows
+            let wsIcons = map (\win -> fromMaybe "\xf2d0" (M.lookup win myWindowIcons)) wsWindows        -- Get icons for all windows
             return $ M.insert (W.tag ws) wsIcons aliases                                                 -- Store icons in Map
 
 
