@@ -17,3 +17,4 @@
     line-numbers = true
 [interactive]
     diffFilter = delta --color-only
+    path = ~/.gitconfig.local
