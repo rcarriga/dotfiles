@@ -8,6 +8,7 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+      \ "nvim-treesitter/nvim-treesitter": {},
       \ "rhysd/git-messenger.vim": {},
       \ "alvan/vim-closetag": {},
       \ "tpope/vim-dispatch": {},
