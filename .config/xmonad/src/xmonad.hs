@@ -68,22 +68,6 @@ sendWorkspaceNames file = do
             tags
     io $ appendFile file $ outTags ++ "  \n"
 
-newtype NoFullscreenBorders = NoFullscreenBorders Ambiguity deriving (Read, Show)
-
-instance SetsAmbiguous NoFullscreenBorders where
-    hiddens (NoFullscreenBorders amb) ws parentRect maybeStack wrs =
-        (fst <$> fullFloats) ++ hiddens amb ws parentRect maybeStack wrs
-      where
-        floats     = M.toList $ W.floating ws
-        fullRect   = W.RationalRect (0 % 1) (0 % 1) (1 % 1) (1 % 1)
-        fullFloats = filter (\(_, r) -> r == fullRect) floats
-
-myBordersMod = lessBorders (NoFullscreenBorders Never)
-myLayoutHook =
-    myBordersMod
-        $   avoidStruts
-        $   spacingRaw False (Border 0 10 10 10) True (Border 10 10 10 10) True mouseResizableTile --(Tall 1 (3 / 100) (1 / 2)))
-        ||| noBorders Full
 
 myStartupHook :: Bool -> X ()
 myStartupHook gamingMode = do
@@ -221,6 +205,7 @@ storeIcon ws aliases = do
 
 
 -- ######################################################################################
+-- Making XMonad play nice with fullscreen windows and borders.
 
 toggleBorder :: Window -> X ()
 toggleBorder w = do
@@ -230,3 +215,20 @@ toggleBorder w = do
         if cw == 0 then setWindowBorderWidth d w bw else setWindowBorderWidth d w 0
 
 
+newtype NoFullscreenBorders = NoFullscreenBorders Ambiguity deriving (Read, Show)
+
+instance SetsAmbiguous NoFullscreenBorders where
+    hiddens (NoFullscreenBorders amb) ws parentRect maybeStack wrs =
+        (fst <$> fullFloats) ++ hiddens amb ws parentRect maybeStack wrs
+      where
+        floats     = M.toList $ W.floating ws
+        fullRect   = W.RationalRect (0 % 1) (0 % 1) (1 % 1) (1 % 1)
+        fullFloats = filter (\(_, r) -> r == fullRect) floats
+
+myBordersMod = lessBorders (NoFullscreenBorders Never)
+
+myLayoutHook =
+    myBordersMod
+        $   avoidStruts
+        $   spacingRaw False (Border 0 10 10 10) True (Border 10 10 10 10) True mouseResizableTile --(Tall 1 (3 / 100) (1 / 2)))
+        ||| noBorders Full

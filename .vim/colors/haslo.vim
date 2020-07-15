@@ -363,3 +363,9 @@ call s:loadHighlights({
 call s:loadHighlights({
   \ "yamlBlockMappingKey": [s:Key]
   \ })
+
+call s:loadHighlights({
+  \ "dosiniLabel": [s:Key],
+  \ "dosiniValue": [s:Val],
+  \ "dosiniHeader": [s:BuiltIn]
+  \ })
