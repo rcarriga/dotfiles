@@ -54,7 +54,7 @@ font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonadGameMode
 modules-center = date battery light pulseaudio 
-modules-right = root home media memory cpu temperature 
+modules-right = root home memory cpu temperature 
 
 enable-ipc = true
 
@@ -89,7 +89,7 @@ font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonad
 modules-center = date battery light pulseaudio
-modules-right = root home media memory cpu temperature 
+modules-right = root home memory cpu temperature 
 
 enable-ipc = true
 
