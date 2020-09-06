@@ -269,7 +269,7 @@ function! s:SetSemshi()
     \ "semshiFree": [s:VarName],
     \ "semshiBuiltin": [s:BuiltIn],
     \ "semshiAttribute": [s:Key],
-    \ "semshiSelf": [s:Key, "bold"],
+    \ "semshiSelf": [s:Normal, "bold"],
     \ "semshiUnresolved": [s:Warning],
     \ "semshiSelected": [s:Transparent, "underline"],
     \ "semshiErrorSign": [s:Error],
@@ -298,7 +298,7 @@ call s:loadHighlights({
     \ "Lf_hl_popup_window": [s:Normal, FloatBackground],
     \ "Lf_hl_popup_blank": [s:Hidden, FloatBackground],
     \ "Lf_hl_popup_inputText": [s:Key, FloatBackground],
-    \ "Lf_hl_cursorline": [s:Info, FloatBackground  , "bold"],
+    \ "Lf_hl_cursorline": [s:Normal, FloatBackground  , "bold"],
 \ })
 
 " vim-which-key

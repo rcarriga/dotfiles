@@ -6,7 +6,8 @@
         "javascript",
         "typescriptreact",
         "javascriptreact",
-        "vue"
+        "vue",
+        "python"
       ]
     }
   },
@@ -66,71 +67,9 @@
     }
   },
   "git": {
-    "addGBlameToVirtualText": true,
     "enableGutters": false
   },
   "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        }
-      }
-    },
-    "vls": {
-      "command": "vls",
-      "filetypes": ["vue"],
-      "initializationOptions": {
-        "config": {
-          "vetur": {
-            "experimental": {
-              "templateInterpolationService": true
-            },
-            "useWorkspaceDependencies": false,
-            "validation": {
-              "template": true,
-              "style": true,
-              "script": true
-            },
-            "completion": {
-              "autoImport": false,
-              "useScaffoldSnippets": false,
-              "tagCasing": "kebab"
-            },
-            "format": {
-              "defaultFormatter": {
-                "js": "prettier",
-                "ts": "prettier"
-              },
-              "defaultFormatterOptions": {},
-              "scriptInitialIndent": false,
-              "styleInitialIndent": false
-            }
-          },
-          "css": {},
-          "html": {
-            "suggest": {}
-          },
-          "javascript": {
-            "format": {}
-          },
-          "typescript": {
-            "format": {}
-          },
-          "emmet": {},
-          "stylusSupremacy": {}
-        }
-      }
-    },
     "haskell": {
       "command": "hie-wrapper",
       "args": ["--lsp"],
@@ -215,9 +154,9 @@
   },
   "python": {
     "formatting": {
-      "provider": "yapf"
+      "provider": "black"
     },
-    "jediEnabled": false,
+    "jediEnabled": true,
     "linting": {
       "mypyEnabled": true,
       "pydocstyleEnabled": false
@@ -240,6 +179,9 @@
   "vetur": {
     "experimental": {
       "templateInterpolationService": true
+    },
+    "format": {
+        "enable": false
     }
   },
   "emmet": {

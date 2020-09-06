@@ -52,7 +52,6 @@ call s:AddPlugins({
 " Language plugins
 call s:AddPlugins({
       \ "ekalinin/Dockerfile.vim": {},
-      \ "vim-pandoc/vim-pandoc-syntax": {},
       \ "neovimhaskell/haskell-vim": {},
       \ "othree/html5.vim": {},
       \ "posva/vim-vue": {},
@@ -112,7 +111,7 @@ let g:hiPairs_enable_matchParen = 0
 
 let g:tcomment_maps = 0
 
-let g:vue_pre_processors = ["typescript"]
+let g:vue_pre_processors = ["typescript", "scss"]
 
 let g:caw_operator_keymappings = 1
 
@@ -136,6 +135,7 @@ let g:coc_global_extensions = [ "coc-sh", "coc-yank", "coc-lists", "coc-eslint",
 
 " Set GoYo width
 let g:goyo_width = 100
+let g:goyo_linenr = 1
 
 let g:coc_snippet_next = "<tab>"
 
@@ -526,7 +526,7 @@ let g:which_key_map.t = {
   \ "k": "Jump to Previous Failure"
   \ }
 " Testing functions
-nmap <silent><leader>tn :ViTestNearest<CR>
+nmap <silent><leader>tn :TestNearest<CR>
 nmap <silent><leader>tf :TestFile<CR>
 nmap <silent><leader>tt :TestSuite<CR>
 nmap <silent><leader>tl :TestLast<CR>

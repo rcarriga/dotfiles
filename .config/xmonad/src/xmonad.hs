@@ -142,6 +142,7 @@ myKeys gameMode =
     , ("M-C-S-k", incWindowSpacing 10)
     , ("M-g"    , toggleWindowSpacingEnabled >> toggleScreenSpacingEnabled)
     , ("M-f"    , spawn "firefox")
+    , ("M-d"    , spawn "GDK_DPI_SCALE=0.5 GDK_SCALE=2 dbeaver")
     , ("M-S-r"  , withFocused $ \w -> focus w >> mouseResizeWindow w >> windows W.shiftMaster)
     , ("M-s"    , startScript "screen EDPI" >> startCompositor True >> setWallpaper)
     , ("M-S-s"  , startScript "screen HDMI" >> startCompositor True >> setWallpaper)
@@ -149,6 +150,8 @@ myKeys gameMode =
     , ("M-i"    , startScript "lock")
     , ("M-S-b"  , withFocused toggleBorder)
     , ("M-u"    , setWallpaper)
+    , ("M-p"    , spawn "xset r rate 150 40 && setxkbmap -layout gb")
+    , ("M-v"    , startScript "session")
     ]
 
 -- ######################################################################################
@@ -178,6 +181,8 @@ myWindowIcons = M.fromList
     , ("minecraft-launcher"     , '\xf872')
     , ("discord"                , '\xfb6e')
     , ("Postman"                , '\xf1d8')
+    , ("Slack"                  , '\xf9b0')
+    , ("Keybase"                , '\xf084')
     ]
 
 parseWorkspaceId :: WorkspaceIcons -> WorkspaceId -> WorkspaceId -> Maybe String
@@ -190,7 +195,15 @@ parseWorkspaceId icons cur i =
             Just _ | i == "NSP"     -> Nothing
             Just wsIcons | i == cur -> Just $ polybarColour "#FFFFFF" $ i ++ "  " ++ joinIcons wsIcons
             Just wsIcons ->
-                Just $ polybarColour "#777777" $ "%{A:xdotool key Super+" ++ i ++ ":}" ++ i ++ "  " ++ joinIcons wsIcons ++ "%{A}"
+                Just
+                    $  polybarColour "#777777"
+                    $  "%{A:xdotool key Super+"
+                    ++ i
+                    ++ ":}"
+                    ++ i
+                    ++ "  "
+                    ++ joinIcons wsIcons
+                    ++ "%{A}"
 
 polybarColour :: String -> String -> String
 polybarColour colour str = "%{F" <> colour <> "}" <> str <> "%{F-}"
@@ -201,7 +214,7 @@ storeIcon ws aliases = do
     case W.stack ws of
         Nothing -> return aliases
         Just a  -> do
-            wsWindows <- io $ mapM (fmap resClass . getClassHint dis) (W.up a <>(W.focus a : W.down a)) -- Get window classes for workspace
+            wsWindows <- io $ mapM (fmap resClass . getClassHint dis) (W.up a <> (W.focus a : W.down a)) -- Get window classes for workspace
             let wsIcons = map (\win -> fromMaybe '\xf2d0' (M.lookup win myWindowIcons)) wsWindows        -- Get icons for all windows
             return $ M.insert (W.tag ws) wsIcons aliases                                                 -- Store icons in Map
 

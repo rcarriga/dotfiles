@@ -1,6 +1,7 @@
 zmodule zsh-users/zsh-completions
-zmodule completion
 zmodule zsh-users/zsh-autosuggestions
+zmodule marlonrichert/zsh-autocomplete
+# zmodule completion
 zmodule zdharma/fast-syntax-highlighting
 zmodule romkatv/powerlevel10k
 zmodule skywind3000/z.lua

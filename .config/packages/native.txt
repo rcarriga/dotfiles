@@ -20,7 +20,6 @@ htop
 i3-gaps
 kitty
 kvantum-qt5
-lib32-nvidia-utils
 libtool
 libxss
 light
@@ -51,7 +50,6 @@ python-pynvim
 qt5ct
 ripgrep
 rofi
-steam
 sudo
 texinfo
 thunderbird

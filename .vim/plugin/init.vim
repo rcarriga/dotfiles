@@ -57,7 +57,7 @@ set updatetime=100
 set termguicolors
 
 " Delay to wait for next key in combo
-set timeoutlen=300
+set timeoutlen=1000
 
 " Show numbers relative to current line
 set relativenumber
@@ -146,6 +146,8 @@ set foldmethod=syntax
 " Use patience algorithm for diffs
 set diffopt+=internal,algorithm:patience
 
+" Don't add newline if missing on write
+set nofixendofline
 " }}}1
 " ###################################################################################
 " Custom Mappings{{{1
