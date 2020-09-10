@@ -8,6 +8,7 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+      \ "ojroques/vim-scrollstatus": {},
       \ "nvim-treesitter/nvim-treesitter": {},
       \ "rhysd/git-messenger.vim": {},
       \ "alvan/vim-closetag": {},
@@ -176,6 +177,23 @@ let g:airline#extensions#coc#error_symbol = " "
 let g:airline#extensions#coc#warning_symbol = " "
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#vista#enabled = 0
+let g:airline_section_x = '%{ScrollStatus()} '
+augroup AirlineInit
+  au!
+  autocmd User AirlineAfterInit call AirlineInit()
+augroup EN
+
+function AirlineInit()
+  let g:airline_section_y = airline#section#create_right(['filetype'])
+  let g:airline_section_z = airline#section#create([
+              \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
+              \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
+              \ ])
+endfunction
+
+let g:scrollstatus_symbol_track = '-'
+let g:scrollstatus_symbol_bar = '|'
+
 
 let g:ale_virtualtext_cursor = 1
 let g:ale_linters = {
