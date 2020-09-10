@@ -8,7 +8,7 @@ autoload -Uz $(ls $ZDOTDIR/functions)
 
 ([[ -f "$ZIM_HOME/init.zsh" ]] || (mkdir -p $ZIM_HOME && curl  -L https://github.com/zimfw/zimfw/releases/latest/download/zimfw.zsh > $ZIM_HOME/zimfw.zsh && source "$ZIM_HOME/zimfw.zsh" install))
 
-([[ -f "$XDG_CONFIG_HOME/fzf/fzf.zsh" ]] || (git clone --depth 1 https://github.com/junegunn/fzf.git "$XDG_CONFIG_HOME/fzf" && "$XDG_CONFIG_HOME/fzf/install" --xdg)) && source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
+([[ -f "$XDG_CONFIG_HOME/fzf/fzf.zsh" ]] || (git clone https://github.com/junegunn/fzf.git "$XDG_CONFIG_HOME/fzf" && "$XDG_CONFIG_HOME/fzf/install" --xdg)) && source "$XDG_CONFIG_HOME/fzf/fzf.zsh"
 
 autoload -U compinit && compinit
 if [[ $ZIM_HOME/init.zsh -ot $ZDOTDIR/.zimrc ]]; then

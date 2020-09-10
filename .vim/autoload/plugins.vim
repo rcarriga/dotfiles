@@ -7,36 +7,32 @@ function! s:AddPlugins(args) abort
   let s:plugins = extend(get(s:, "plugins", {}), a:args)
 endfunction
 
+
+
 call s:AddPlugins({
+      \ "junegunn/fzf": {"build": "fzf#install" },
+      \ "junegunn/fzf.vim": {},
       \ "ojroques/vim-scrollstatus": {},
-      \ "nvim-treesitter/nvim-treesitter": {},
       \ "rhysd/git-messenger.vim": {},
       \ "alvan/vim-closetag": {},
-      \ "tpope/vim-dispatch": {},
-      \ "zsugabubus/vim-jumpmotion": {},
       \ "tomtom/tcomment_vim": {},
       \ "moll/vim-bbye": {},
       \ "dstein64/vim-win": {},
       \ "tpope/vim-rhubarb": {},
       \ "Konfekt/FastFold": {},
       \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
-      \ "Yggdroot/LeaderF": {"build": "./install.sh"},
       \ "Yggdroot/hiPairs": {},
       \ "godlygeek/tabular": {},
       \ "honza/vim-snippets": {},
       \ "janko/vim-test": {"lazy": 1},
       \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
-      \ "junegunn/gv.vim": {},
       \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
-      \ "liuchengxu/vista.vim": {"on_cmd": "Vista"},
       \ "machakann/vim-sandwich": {},
       \ "machakann/vim-swap": {},
       \ "mhinz/vim-signify": {},
       \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
       \ "rhysd/clever-f.vim": {},
-      \ "rhysd/vim-grammarous": {"on_cmd": "GrammarousCheck"},
       \ "simnalamburt/vim-mundo": {"lazy":1},
-      \ "takac/vim-hardtime": {},
       \ "tpope/vim-abolish": {},
       \ "tpope/vim-eunuch": {},
       \ "tpope/vim-fugitive": {},
@@ -44,10 +40,7 @@ call s:AddPlugins({
       \ "vim-airline/vim-airline-themes": {"lazy": 1},
       \ "tpope/vim-unimpaired": {},
       \ "vim-scripts/ReplaceWithRegister": {},
-      \ "w0rp/ale": {"lazy": 1},
       \ "wellle/targets.vim": {},
-      \ "whiteinge/diffconflicts": {"on_cmd" : "DiffConflicts" },
-      \ "rakr/vim-one": {}
 \ })
 
 " Language plugins
@@ -71,8 +64,6 @@ if !has("nvim")
       \ "roxma/vim-hug-neovim-rpc": {}})
 else
   call s:AddPlugins({
-      \ "ripxorip/aerojump.nvim": {"lazy": 1},
-      \ "Vigemus/iron.nvim": {},
       \ "numirias/semshi": {}})
 endif
 
@@ -226,29 +217,15 @@ let g:signify_sign_change            = "\u258B"
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
 
-let g:Lf_CacheDirectory = environ()["XDG_CACHE_HOME"].'/leaderf'
-let g:Lf_HideHelp = 1
-let g:Lf_IgnoreCurrentBufferName = 1
-" Ignore files for  fuzzy searching
-let g:Lf_WildIgnore = {
-        \ 'dir': [".env", "__pycache__", ".mypy_cache", ".stack", "node_modules"],
-        \ 'file': []
-        \}
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_StlSeparator = { 'left': '', 'right': '' }
-let g:Lf_PopupWidth = 0.5
-let g:Lf_ShortcutB = ""
-let g:Lf_ShortcutF = ""
-let g:Lf_AutoResize = 1
-
-
 let g:which_key_position = 'topleft'
 let g:which_key_max_size = 20
 let g:which_key_floating_opts = { "col": "+30"}
 
 let g:spaceline_seperate_style= "curve"
 let g:spaceline_colorscheme = "space"
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+let g:fzf_preview_window = 'right:60%'
 
 " }}}1
 " ###################################################################################
@@ -259,31 +236,13 @@ function! s:isOverWhitespace() abort
   return !col || getline(".")[col - 1]  =~# "\s"
 endfunction
 
-function! ReactSetup() abort
-    " Due to lazy loading some plugins in polyglot need to force started.
-    let ft = &filetype
-    set filetype=html
-    exec "set filetype=".ft
-endfunction
-
 function! GetTestResults() abort
     return " " + get(b:, "vitest_total") ?
                 \ get(b:, "vitest_passed")." Pass ".get(b:, "vitest_failed")." Fail" : ""
 endfunction
 
-function! OpenInFloating(params) abort
-    let [_, curs, filename] = split(a:params)
-    let out_buffer = bufadd(filename)
-    call bufload(out_buffer)
-    let height = nvim_buf_line_count(out_buffer)
-    let window_params = {"relative": "cursor", "width": 100, "height": height < 20 ? height : 20, "row": 1, "col": 1, "anchor": "SW", "style": "minimal"}
-    let created_window = nvim_open_win(out_buffer, v:true, window_params)
-    exec "call ".curs
-    exec "au WinLeave * ++once call nvim_win_close(".created_window.", v:true)"
-endfunction
-
 function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
   let reload_command = printf(command_fmt, '{q}')
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
@@ -335,13 +294,10 @@ endif
 " }}}1
 " ###################################################################################
 " Custom Commands {{{1
-command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=? Rg call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
-command! -bang -nargs=? RG call RipgrepFzf(<q-args>, <bang>0)
 
-command! -nargs=1 OpenPrevious call OpenFileInPreviousWindow(<f-args>)
-command! -nargs=1 OpenPeek call OpenInFloating(<f-args>)
-command CC CocCommand
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+command! CC CocCommand
 
 " }}}1
 " ###################################################################################
@@ -460,17 +416,19 @@ let g:which_key_map.d = {
   \ "t": "Buffer Tags",
   \ "h": "Help Tags",
   \ "w": "Current File",
-  \ "u": "Functions",
   \ "c": "Colorschemes",
   \ }
-nmap <silent><leader>df :Leaderf file<CR>
-nmap <silent><leader>dg :Leaderf rg<CR>
-nmap <silent><leader>db :Leaderf buffer<CR>
-nmap <silent><leader>dt :Leaderf bufTag<CR>
-nmap <silent><leader>dh :Leaderf help<CR>
-nmap <silent><leader>dw :Leaderf line<CR>
-nmap <silent><leader>du :Leaderf function<CR>
-nmap <silent><leader>dc :Leaderf colorscheme<CR>
+nmap <silent><leader>df :Files<CR>
+nmap <silent><leader>dg :RG<CR>
+nmap <silent><leader>db :Buffer<CR>
+nmap <silent><leader>dt :BTags<CR>
+nmap <silent><leader>dh :Helptags<CR>
+nmap <silent><leader>dw :Lines<CR>
+nmap <silent><leader>dc :Colors<CR>
+
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
+inoremap <expr> <c-x><c-l> fzf#vim#complete#line()
 
 let g:which_key_map.a = {
   \ "name": "Fuzzy Searching",
@@ -503,7 +461,6 @@ let g:which_key_map.l = {
   \ "b": "Jump to previous diagnostic"
   \ }
 nmap <silent><leader>ld <Plug>(coc-definition)
-nnoremap <silent><leader>lp :call CocAction('jumpDefinition', "OpenPeek")<CR>
 nmap <silent><leader>lr <Plug>(coc-rename)
 nmap <silent><leader>lf <Plug>(coc-format)
 vmap <silent><leader>lf <Plug>(coc-format-selected)
