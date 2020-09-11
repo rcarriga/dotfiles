@@ -31,7 +31,12 @@ memory = ${colors.background}
 volume = ${colors.background}
 battery = ${colors.background}
 
+###############################################################################
+# Bars
+###############################################################################
+
 [bar/xmonad]
+;monitor = ${env:MONITOR:HDMI-1}
 monitor-strict = true
 height = 40
 align = bottom
@@ -49,8 +54,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Roboto:style=Regular:size=10
-font-1 = RobotoMono Nerd Font:style=Regular:size=11
+font-0 = Roboto:style=Regular:size=18
+font-1 = RobotoMono Nerd Font:style=Regular:size=22
 
 modules-left = workspaces-xmonad
 modules-center = date battery light pulseaudio
@@ -68,14 +73,36 @@ override-redirect = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[bar/xmonadDesktop]
-inherit = bar/xmonad
-# Remove backlight and battery modules
-modules-center = date pulseaudio
-
 [bar/xmonadGameMode]
+
 inherit = bar/xmonad
 modules-left = workspaces-xmonadGameMode
+modules-center = date battery light pulseaudio
+modules-right = root home memory cpu temperature 
+
+
+[bar/xmonadHIDPI]
+
+inhert = bar/xmonad
+background = ${colors.background}
+foreground = ${colors.foreground}
+height = 70
+bottom = true
+font-0 = Roboto:style=Regular:size=18
+font-1 = RobotoMono Nerd Font:style=Regular:size=22
+modules-left = workspaces-xmonad
+modules-center = date battery light pulseaudio
+modules-right = root home memory cpu temperature 
+line-size = 3
+line-color = #f00
+
+padding-left = 5
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+###############################################################################
 
 [module/workspaces-xmonadGameMode]
 type = custom/script
@@ -133,11 +160,11 @@ type = internal/pulseaudio
 
 format-volume = <label-volume>
 label-volume = "  %percentage%% "
-label-volume-foreground = ${root.foreground}
+label-volume-foreground = ${colors.foreground}
 label-volume-background = ${colors.volume}
 
 label-muted = "  "
-label-muted-foreground = ${root.foreground}
+label-muted-foreground = ${colors.foreground}
 label-muted-background = ${colors.volume}
 
 [module/battery]
