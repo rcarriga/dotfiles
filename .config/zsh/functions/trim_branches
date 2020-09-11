@@ -1,0 +1,4 @@
+# Remove all remote branches removed from remote
+git fetch -p
+# Remove all local branches that are completely behind the current one except master. Will check for user confirmation
+git branch --merged | grep -v "\*" | grep -v "master" >/tmp/merged-branches && eval "${EDITOR:-vi} /tmp/merged-branches" && xargs git branch -d </tmp/merged-branches

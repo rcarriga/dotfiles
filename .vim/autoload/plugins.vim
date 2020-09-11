@@ -426,7 +426,7 @@ nmap <silent><leader>dh :Helptags<CR>
 nmap <silent><leader>dw :Lines<CR>
 nmap <silent><leader>dc :Colors<CR>
 
-inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files')
+inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
 inoremap <expr> <c-x><c-l> fzf#vim#complete#line()
 

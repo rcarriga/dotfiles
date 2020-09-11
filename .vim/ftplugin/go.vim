@@ -1,0 +1,2 @@
+setlocal nolist
+setlocal noexpandtab
