@@ -1,0 +1,19 @@
+[include]
+	path = ~/.gitconfig.local
+[core]
+	excludesfile = ~/.gitignore
+    pager = delta
+[diff]
+    colorMoved = default
+	algorithm = patience
+[pull]
+	rebase = true
+[color]
+	ui = true
+[delta]
+    plus-color = "#012800"
+    minus-color = "#340001"
+    syntax-theme = Monokai Extended
+    line-numbers = true
+[interactive]
+    diffFilter = delta --color-only
