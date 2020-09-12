@@ -4,18 +4,19 @@ export KEYTIMEOUT=1
 export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
+export SCRIPT_DIR=$HOME/.config/scripts
+export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
+export GOPATH="$HOME/.go"
+export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin"
+export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+
+# fzf
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" --hidden --color never --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 export FZF_CTRL_T_OPTS="--preview \". $ZDOTDIR/functions/fuzzy_preview {}\""
 export FZF_DEFAULT_OPTS="--height 96% --reverse"
 export FZF_COMPLETION_TRIGGER="#"
-export SCRIPT_DIR=$HOME/.config/scripts
-export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
-export PMY_FUZZY_FINDER_DEFAULT_CMD="fzf -0 -1 --height 20 --reverse --border --inline-info --ansi --color=dark"
-export GOPATH="$HOME/.go"
-export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin"
-export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
 # Handling config and cache files
 
@@ -27,6 +28,7 @@ if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
     XDG_RUNTIME_DIR=/tmp
 fi
 export XDG_RUNTIME_DIR
+
 
 # Used in oh-my-zsh plugins...
 export ZSH_CACHE_DIR="$XDG_CACHE_HOME"

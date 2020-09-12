@@ -1,0 +1,33 @@
+HEADER=":: Press [38;2;0;241;245mEnter[m to checkout commit or branch"
+PREVIEW='commit=$(echo {} | grep -o "[a-f0-9]\{7,\}" | head -1); [[ -n $commit ]] && git show -m --format=format: --color=always $commit | head -1000 | delta'
+PROMPT='Search> '
+
+output=$(git log --color=always --branches --format='%C(auto)%h%d %s %C(green)%cr' --graph |\
+ fzf --ansi --tiebreak=index --inline-info --prompt $PROMPT  --bind=ctrl-s:toggle-sort --header "$HEADER" --preview $PREVIEW |\
+ python -c '
+from typing import Optional
+import fileinput
+import re
+
+def get_branch(line: str) -> Optional[str]:
+    if branches := re.search(r"\((.*)\)", line):
+        for branch in branches[1].split(","):
+            if not branch.strip().startswith("origin/"):
+                return branch.strip()
+    return None
+
+
+def get_commit(line: str) -> Optional[str]:
+    if commit := re.search(r"\*\s+([a-z0-9]+)", line):
+        return commit[1]
+    return None
+
+
+line = "".join(fileinput.input()).strip()
+if "HEAD ->" not in line:
+    result = get_branch(line) or get_commit(line)
+    if result:
+        print(result)
+')
+
+([[ -n $output ]] && git checkout $output ) || echo "Nothing to do!"
