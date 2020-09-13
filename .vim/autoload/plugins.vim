@@ -10,7 +10,7 @@ endfunction
 
 
 call s:AddPlugins({
-      \ "junegunn/fzf": {"build": "fzf#install" },
+      \ "junegunn/fzf": {},
       \ "junegunn/fzf.vim": {},
       \ "ojroques/vim-scrollstatus": {},
       \ "rhysd/git-messenger.vim": {},
