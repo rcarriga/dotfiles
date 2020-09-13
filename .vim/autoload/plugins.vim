@@ -10,51 +10,50 @@ endfunction
 
 
 call s:AddPlugins({
-      \ "junegunn/fzf": {},
-      \ "junegunn/fzf.vim": {},
-      \ "ojroques/vim-scrollstatus": {},
-      \ "rhysd/git-messenger.vim": {},
-      \ "alvan/vim-closetag": {},
-      \ "tomtom/tcomment_vim": {},
-      \ "moll/vim-bbye": {},
-      \ "dstein64/vim-win": {},
-      \ "tpope/vim-rhubarb": {},
       \ "Konfekt/FastFold": {},
-      \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
       \ "Yggdroot/hiPairs": {},
+      \ "alvan/vim-closetag": {},
+      \ "dstein64/vim-win": {},
       \ "godlygeek/tabular": {},
       \ "honza/vim-snippets": {},
       \ "janko/vim-test": {"lazy": 1},
+      \ "junegunn/fzf": {},
+      \ "junegunn/fzf.vim": {},
       \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
+      \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
       \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
       \ "machakann/vim-sandwich": {},
       \ "machakann/vim-swap": {},
       \ "mhinz/vim-signify": {},
+      \ "moll/vim-bbye": {},
       \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
       \ "rhysd/clever-f.vim": {},
+      \ "rhysd/git-messenger.vim": {},
       \ "simnalamburt/vim-mundo": {"lazy":1},
+      \ "tomtom/tcomment_vim": {},
       \ "tpope/vim-abolish": {},
       \ "tpope/vim-eunuch": {},
       \ "tpope/vim-fugitive": {},
+      \ "tpope/vim-rhubarb": {},
+      \ "tpope/vim-unimpaired": {},
       \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
       \ "vim-airline/vim-airline-themes": {"lazy": 1},
-      \ "tpope/vim-unimpaired": {},
       \ "vim-scripts/ReplaceWithRegister": {},
       \ "wellle/targets.vim": {},
 \ })
 
 " Language plugins
 call s:AddPlugins({
+      \ "HerringtonDarkholme/yats.vim": {},
+      \ "MTDL9/vim-log-highlighting": {},
       \ "ekalinin/Dockerfile.vim": {},
+      \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
+      \ "maxmellon/vim-jsx-pretty": {},
       \ "neovimhaskell/haskell-vim": {},
       \ "othree/html5.vim": {},
       \ "posva/vim-vue": {},
-      \ "yuezk/vim-js": {},
-      \ "MTDL9/vim-log-highlighting": {},
-      \ "HerringtonDarkholme/yats.vim": {},
-      \ "maxmellon/vim-jsx-pretty": {},
       \ "tmhedberg/SimpylFold": {"lazy": 1},
-      \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
+      \ "yuezk/vim-js": {},
 \})
 
 " Editor specific plugins
@@ -81,40 +80,16 @@ let g:closetag_regions = {
     \ 'javascriptreact': 'jsxRegion',
     \ }
 
-let g:pear_tree_map_special_keys = 0
-let g:pear_tree_pairs = {
-      \   '(': {'closer': ')'},
-      \   '[': {'closer': ']'},
-      \   '{': {'closer': '}'},
-      \   "'": {'closer': "'"},
-      \   '"': {'closer': '"'},
-      \   '<*>': { 'closer': '</*>',
-      \          'not_if': ['br', 'hr', 'img', 'input', 'link', 'meta',
-      \                  'area', 'base', 'col', 'command', 'embed',
-      \                  'keygen', 'param', 'source', 'track', 'wbr'],
-      \          'not_like': '{[^}]*$\|/$',
-      \          'until': '[^a-zA-Z0-9-._]',
-      \          'not_at': ['[^> ]<[^>]*'],
-      \          'not_in': ['String']
-      \        }
-      \ }
-
 let g:hiPairs_enable_matchParen = 0
 
 let g:tcomment_maps = 0
 
 let g:vue_pre_processors = ["typescript", "scss"]
 
-let g:caw_operator_keymappings = 1
-
 " Disable default windowswap mappings
 let g:windowswap_map_keys = 0
 
 let g:coc_config_home = trim(system("echo $HOME"))."/.vim"
-
-" Vim hardtime keys
-let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+"]
-
 
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
@@ -131,11 +106,6 @@ let g:goyo_linenr = 1
 
 let g:coc_snippet_next = "<tab>"
 
-" Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDDefaultAlign = "left"
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
 if has("nvim")
     " Use terminal windows for running tests
     let test#strategy = "neovim"
@@ -144,20 +114,6 @@ endif
 
 " Open undo tree on right
 let g:mundo_right = 1
-
-let g:vista_ctags_cmd = {
-      \ "haskell": "hasktags -x -o - -c",
-      \ }
-let g:vista_icon_indent = ["╰─▸", "├─▸"]
-let g:vista#renderer#enable_icon = 1
-let g:vista_sidebar_width = 50
-let g:vista_echo_cursor_strategy = "floating_win"
-let g:vista_executive_for = {
-  \ "javascript": "coc",
-  \ "typescript": "coc",
-  \ "javascriptreact": "coc",
-  \ "typescriptreact": "coc"
-  \ }
 
 " Pretty icons for airline
 let g:airline_powerline_fonts = 1
@@ -168,38 +124,6 @@ let g:airline#extensions#coc#error_symbol = " "
 let g:airline#extensions#coc#warning_symbol = " "
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#vista#enabled = 0
-let g:airline_section_x = '%{ScrollStatus()} '
-augroup AirlineInit
-  au!
-  autocmd User AirlineAfterInit call AirlineInit()
-augroup EN
-
-function AirlineInit()
-  let g:airline_section_y = airline#section#create_right(['filetype'])
-  let g:airline_section_z = airline#section#create([
-              \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
-              \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
-              \ ])
-endfunction
-
-let g:scrollstatus_symbol_track = '-'
-let g:scrollstatus_symbol_bar = '|'
-
-
-let g:ale_virtualtext_cursor = 1
-let g:ale_linters = {
-    \ "vue": [],
-    \ "python": [],
-    \ "haskell": [],
-    \ "javascript": [],
-    \ "typescript": [],
-    \ "typescriptreact": [],
-    \ "javascriptreact": [],
-    \ "ruby": ["rubocop"],
-    \ "r": [],
-    \ "c": [],
-    \ "cpp": []
-  \ }
 
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
@@ -214,15 +138,9 @@ let g:signify_sign_delete            = "\u258B"
 let g:signify_sign_delete_first_line = "\u258B"
 let g:signify_sign_change            = "\u258B"
 
-let g:vim_markdown_math = 1
-let g:vim_markdown_new_list_item_indent = 0
-
 let g:which_key_position = 'topleft'
 let g:which_key_max_size = 20
 let g:which_key_floating_opts = { "col": "+30"}
-
-let g:spaceline_seperate_style= "curve"
-let g:spaceline_colorscheme = "space"
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let g:fzf_preview_window = 'right:60%'
@@ -231,14 +149,17 @@ let g:fzf_preview_window = 'right:60%'
 " ###################################################################################
 " Functions {{{1
 "
+function AirlineInit()
+  let g:airline_section_y = airline#section#create_right(['filetype'])
+  let g:airline_section_z = airline#section#create([
+              \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
+              \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
+              \ ])
+endfunction
+
 function! s:isOverWhitespace() abort
   let col = col(".") - 1
   return !col || getline(".")[col - 1]  =~# "\s"
-endfunction
-
-function! GetTestResults() abort
-    return " " + get(b:, "vitest_total") ?
-                \ get(b:, "vitest_passed")." Pass ".get(b:, "vitest_failed")." Fail" : ""
 endfunction
 
 function! RipgrepFzf(query, fullscreen)
@@ -252,20 +173,15 @@ endfunction
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
-
-augroup PandocSyntax
-    au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
-augroup END
+augroup AirlineInit
+  au!
+  autocmd User AirlineAfterInit call AirlineInit()
+augroup EN
 
 augroup WhichKeyInit
   au!
-  au  FileType which_key set laststatus=0 noshowmode noruler
+  au  FileType which_key setlocal laststatus=0 noshowmode noruler
     \| au BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
-
-augroup ReactInit
-    au!
-    au Filetype javascriptreact,typescriptreact ++once call ReactSetup()
 augroup END
 
 augroup SemshiInit
@@ -419,7 +335,7 @@ let g:which_key_map.d = {
   \ "c": "Colorschemes",
   \ }
 nmap <silent><leader>df :Files<CR>
-nmap <silent><leader>dg :RG<CR>
+nmap <silent><leader>dg :Rg<CR>
 nmap <silent><leader>db :Buffer<CR>
 nmap <silent><leader>dt :BTags<CR>
 nmap <silent><leader>dh :Helptags<CR>
@@ -559,22 +475,5 @@ endif
 
 filetype plugin indent on
 syn on
-
-" }}}1
-" ###################################################################################
-" NeoVim Specific {{{1
-if has("nvim")
-
-lua << EOF
-local iron = require("iron")
-
-iron.core.set_config{
-  repl_open_cmd = "vsplit"
-}
-
-EOF
-nnoremap cl cl
-
-endif
 
 " }}}1

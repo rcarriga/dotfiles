@@ -11,8 +11,8 @@
 [color]
 	ui = true
 [delta]
-    plus-color = "#012800"
-    minus-color = "#340001"
+    plus-color = "#A9FF68"
+    minus-color = "#F70067"
     syntax-theme = Monokai Extended
     line-numbers = true
 [interactive]

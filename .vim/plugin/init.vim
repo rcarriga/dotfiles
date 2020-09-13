@@ -19,16 +19,12 @@ augroup END
 " Tell neovim which python to use
 let g:python3_host_prog = "/usr/bin/python3"
 
-" Disable plaintex filetype
-let g:tex_flavor = "latex"
-
 " Disable modelines (Vim commands in files)
 set nomodeline
 
 " Always have a sign column
 set signcolumn=yes
 
-set rtp+=~/.vimdir/haslo-vim
 color haslo
 
 " Turn on syntax highlighting
