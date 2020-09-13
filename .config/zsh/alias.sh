@@ -20,6 +20,7 @@ alias gr="git rebase"
 alias gs="git status"
 alias gf="fuzzy_git_status"
 alias gt="cd \$(git rev-parse --show-toplevel)"
+alias gi="fuzzy_git_ignore"
 
 alias ya="yadm add"
 alias yb="yadm branch"

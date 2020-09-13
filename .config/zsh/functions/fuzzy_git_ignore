@@ -1,0 +1,46 @@
+BASE_PYTHON='
+import http.client as hc
+import json
+
+
+BASE = "/gitignore/templates"
+HOST = "api.github.com"
+
+
+def get_endpoint(endpoint: str = BASE):
+    con = hc.HTTPSConnection(HOST)
+    con.request(
+        "GET",
+        endpoint,
+        headers={
+            "User-Agent": "Python HTTP",
+        },
+    )
+    res = con.getresponse()
+    res_body = json.load(res) if res.status == 200 else None
+    res.close()
+    return res_body
+
+
+def get_template(key: str) -> str:
+    res = get_endpoint(endpoint=f"{BASE}/{key}")
+    return res["source"] if res else ""
+
+
+def list_templates():
+    return get_endpoint() or []
+'
+key=$(python -c "
+$BASE_PYTHON
+[print(key) for key in list_templates()]
+" | fzf --preview "python -c '
+$BASE_PYTHON
+print(get_template(\"{}\"))
+'")
+if [[ -n $key ]]; then
+    echo "# Generated from GitLab gitignore API for key: $key" >> .gitignore
+    python -c "
+$BASE_PYTHON
+print(get_template('$key'))
+" >> .gitignore
+fi
