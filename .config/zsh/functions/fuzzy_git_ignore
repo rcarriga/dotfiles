@@ -3,6 +3,7 @@ import http.client as hc
 import json
 
 
+TMP_DIR = "tmp/gitignore"
 BASE = "/gitignore/templates"
 HOST = "api.github.com"
 
@@ -22,9 +23,26 @@ def get_endpoint(endpoint: str = BASE):
     return res_body
 
 
+def get_template_file(key: str):
+    try:
+        with open(f"{TMP_DIR}/{key}") as file:
+            return file.read()
+    except FileNotFoundError:
+        return None
+
+
+def save_template_file(key: str, contents: str):
+    with open(f"{TMP_DIR}/{key}", "w") as file:
+        file.write(contents)
+
+
 def get_template(key: str) -> str:
+    if contents := get_template_file(key):
+        return contents
     res = get_endpoint(endpoint=f"{BASE}/{key}")
-    return res["source"] if res else ""
+    contents = res["source"] if res else ""
+    save_template_file(key, contents)
+    return contents
 
 
 def list_templates():
@@ -38,7 +56,7 @@ $BASE_PYTHON
 print(get_template(\"{}\"))
 '")
 if [[ -n $key ]]; then
-    echo "# Generated from GitLab gitignore API for key: $key" >> .gitignore
+    echo "# Generated from GitHub gitignore API for key: $key" >> .gitignore
     python -c "
 $BASE_PYTHON
 print(get_template('$key'))

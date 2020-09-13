@@ -33,6 +33,8 @@ alias yp="yadm push"
 alias yr="yadm rebase"
 alias ys="yadm status"
 alias yt="cd \$(yadm rev-parse --show-toplevel)"
+alias yf="GIT_EXEC=yadm fuzzy_git_status"
+alias yh="GIT_EXEC=yadm fuzzy_git_stash"
 
 
 alias v="nvim"

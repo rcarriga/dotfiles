@@ -1,33 +1,33 @@
+GIT_EXEC="${GIT_EXEC:-/usr/bin/git}"
 PREVIEW="\
 file=\$(echo {} | awk '{ print \$2 }');
-((git ls-files --error-unmatch \$file &>/dev/null \
-  && ( git diff --cached --quiet \$file \
-    && git diff \$file || git diff --cached \$file)) \
-  || git diff --no-index -- /dev/null \$file) | delta"
+(($GIT_EXEC ls-files --error-unmatch \$file &>/dev/null \
+  && ( $GIT_EXEC diff --cached --quiet \$file \
+    && $GIT_EXEC diff \$file || git diff --cached \$file)) \
+  || $GIT_EXEC diff --no-index -- /dev/null \$file) | delta"
 
-while out=$(git -c color.status=always status --short | fzf --ansi --no-clear --no-sort --preview $PREVIEW); do
+while out=$($GIT_EXEC -c color.status=always status --short | fzf --ansi --no-clear --no-sort --preview $PREVIEW); do
   file=$(echo $out | awk '{print $2}')
   stat=$(echo $out | awk '{print $1}')
   case $stat in
     "??")
-      echo "adding file"
-      git add $file
+      $GIT_EXEC add $file
       ;;
     A)
-      git reset HEAD $file &>/dev/null
+      $GIT_EXEC reset HEAD $file &>/dev/null
       ;;
     M)
-      if git diff --cached --quiet $file; then
-        git add $file
+      if $GIT_EXEC diff --cached --quiet $file; then
+        $GIT_EXEC add $file
       else
-        git reset HEAD $file &>/dev/null
+        $GIT_EXEC reset HEAD $file &>/dev/null
       fi
       ;;
     UU)
       ${EDITOR:-vi} $file
       printf "Stage file in rebase?[y/n]"
       if read -q; then
-        git add $file
+        $GIT_EXEC add $file
       fi
   esac
 done
