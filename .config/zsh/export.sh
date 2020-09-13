@@ -9,6 +9,7 @@ export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
 export GOPATH="$HOME/.go"
 export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin"
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+export BAT_THEME="Monokai Extended Origin"
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" --hidden --color never --follow"

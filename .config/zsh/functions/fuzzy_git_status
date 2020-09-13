@@ -1,0 +1,33 @@
+PREVIEW="\
+file=\$(echo {} | awk '{ print \$2 }');
+((git ls-files --error-unmatch \$file &>/dev/null \
+  && ( git diff --cached --quiet \$file \
+    && git diff \$file || git diff --cached \$file)) \
+  || git diff --no-index -- /dev/null \$file) | delta"
+
+while out=$(git -c color.status=always status --short | fzf --ansi --no-clear --no-sort --preview $PREVIEW); do
+  file=$(echo $out | awk '{print $2}')
+  stat=$(echo $out | awk '{print $1}')
+  case $stat in
+    "??")
+      echo "adding file"
+      git add $file
+      ;;
+    A)
+      git reset HEAD $file &>/dev/null
+      ;;
+    M)
+      if git diff --cached --quiet $file; then
+        git add $file
+      else
+        git reset HEAD $file &>/dev/null
+      fi
+      ;;
+    UU)
+      ${EDITOR:-vi} $file
+      printf "Stage file in rebase?[y/n]"
+      if read -q; then
+        git add $file
+      fi
+  esac
+done

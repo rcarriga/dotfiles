@@ -1,0 +1,6 @@
+PREVIEW="sha=\$(echo {} | awk '{ print \$1 }'); git diff \$sha | delta"
+
+while out=$(git stash list --pretty="%C(red)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(white)%gs" --color=always | fzf --ansi --no-sort --preview $PREVIEW); do
+  sha=$(echo $out | awk '{print $1}')
+  git stash pop $sha
+done
