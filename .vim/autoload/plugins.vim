@@ -98,7 +98,7 @@ let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 0
 
-let g:coc_global_extensions = [ "coc-sh", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-highlight", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
+let g:coc_global_extensions = [ "coc-sh", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -173,6 +173,12 @@ endfunction
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
+
+augroup NvimAuCommands
+  au!
+  au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+augroup END
+
 augroup AirlineInit
   au!
   autocmd User AirlineAfterInit call AirlineInit()
