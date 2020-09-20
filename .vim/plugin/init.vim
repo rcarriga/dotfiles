@@ -63,7 +63,7 @@ set number
 set backspace=indent,eol,start
 
 " Setup tabs to be 4 spaces
-set tabstop=4 softtabstop=0 expandtab shiftwidth=0 smarttab
+set tabstop=2 softtabstop=0 expandtab shiftwidth=0 smarttab
 
 " Opens new panes below and to right of current
 set splitbelow

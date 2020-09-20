@@ -63,7 +63,9 @@ if !has("nvim")
       \ "roxma/vim-hug-neovim-rpc": {}})
 else
   call s:AddPlugins({
-      \ "numirias/semshi": {}})
+      \ "Xuyuanp/scrollbar.nvim": {},
+      \ "numirias/semshi": {}
+      \ })
 endif
 
 let g:plugins_loaded = 1
@@ -145,6 +147,12 @@ let g:which_key_floating_opts = { "col": "+30"}
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let g:fzf_preview_window = 'right:60%'
 
+let g:scrollbar_highlight = {
+  \ 'head': 'LineNr',
+  \ 'body': 'LineNr',
+  \ 'tail': 'LineNr',
+  \ }
+
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -173,6 +181,19 @@ endfunction
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
+if has("nvim")
+  augroup ScrollbarInit
+      au!
+      au WinEnter    * silent! lua require('scrollbar').show()
+      au WinLeave    * silent! lua require('scrollbar').clear()
+
+      au CursorMoved * silent! lua require('scrollbar').show()
+      au VimResized  * silent! lua require('scrollbar').show()
+
+      au FocusGained * silent! lua require('scrollbar').show()
+      au FocusLost   * silent! lua require('scrollbar').clear()
+  augroup end
+endif
 
 augroup NvimAuCommands
   au!
