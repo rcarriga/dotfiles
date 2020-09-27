@@ -93,8 +93,6 @@ let g:vue_pre_processors = ["typescript", "scss"]
 " Disable default windowswap mappings
 let g:windowswap_map_keys = 0
 
-let g:coc_config_home = trim(system("echo $HOME"))."/.vim"
-
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
 " Don"t open preview window after entering the markdown buffer
@@ -330,7 +328,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 " Directory tree
 let g:which_key_map.x = "File Explorer"
 nmap <silent><leader>x :CocCommand explorer<CR>
-nnoremap <silent>` :CocCommand explorer ~/.vim<CR>
+nnoremap <silent>` :CocCommand explorer ~/.config/nvim<CR>
 " Ctags and LSP symbol finding
 let g:which_key_map.v = "Tags"
 nmap <silent><leader>v :Vista!!<CR>
@@ -500,75 +498,3 @@ filetype plugin indent on
 syn on
 
 " }}}1
-
-if has("nvim")
-lua <<EOF
-  require'nvim-treesitter.configs'.setup {
-    ensure_installed = "typescript",
-    disable = { "python" },
-    highlight = {
-      enable = true,
-      custom_captures = {
-        ["keyword"] = "BuiltIn",
-        ["punctuation.bracket"] = "Decoration",
-        ["type"] = "TypeName",
-        ["type.builtIn"] = "BuiltIn",
-        ["function"] = "FuncName",
-        ["property"] = "Key",
-        ["string"] = "String",
-      },
-    },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "gl",
-        node_incremental = "<Down>",
-        node_decremental = "<Up>",
-      },
-    },
-    refactor = {
-      highlight_definitions = { enable = true },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-        },
-      },
-      swap = {
-        enable = true,
-        swap_next = {
-          ["gm"] = "@required_parameter",
-        },
-        swap_previous = {
-          ["gn"] = "@required_parameter",
-        },
-      },
-      move = {
-        enable = true,
-        goto_next_start = {
-          ["]f"] = "@function.outer",
-          ["]]"] = "@class.outer",
-        },
-        goto_next_end = {
-          ["]F"] = "@function.outer",
-          ["]["] = "@class.outer",
-        },
-        goto_previous_start = {
-          ["[f"] = "@function.outer",
-          ["[["] = "@class.outer",
-        },
-        goto_previous_end = {
-          ["[F"] = "@function.outer",
-          ["[]"] = "@class.outer",
-        },
-      },
-    },
-  }
-EOF
-endif

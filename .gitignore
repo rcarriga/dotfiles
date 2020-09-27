@@ -10,3 +10,5 @@ local*
 .zhistory
 .zlogin
 myXmonad.cabal
+undodir
+.netrwhist
