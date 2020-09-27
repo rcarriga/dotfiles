@@ -86,10 +86,10 @@ else
 endif
 
 let s:Normal = s:Grey4
-let s:Decoration = s:Grey3
+let s:Decoration = s:Orange
 let s:Hidden = s:Grey2
 let s:BuiltIn = s:Red
-let s:VarName = s:Green
+let s:VarName = s:Grey4
 let s:FuncName = s:Cyan
 let s:TypeName = s:Violet
 let s:Key = s:Cyan
@@ -100,6 +100,25 @@ let s:Success = s:Green
 let s:Warning = s:Yellow
 let s:Info = s:Cyan
 let s:Error = s:Red
+
+" For reference elsewhere
+call s:loadHighlights({
+  \ "Normal": [s:Grey4],
+  \ "Decoration": [s:Orange],
+  \ "Hidden": [s:Grey2],
+  \ "BuiltIn": [s:Red],
+  \ "VarName": [s:Grey4],
+  \ "FuncName": [s:Cyan],
+  \ "TypeName": [s:Violet],
+  \ "Key": [s:Cyan],
+  \ "Val": [s:Violet],
+  \ "String": [s:Yellow],
+  \ "Operator": [s:Orange],
+  \ "Success": [s:Green],
+  \ "Warning": [s:Yellow],
+  \ "Info": [s:Cyan],
+  \ "Error": [s:Red]
+\ })
 
 call s:loadHighlights({
   \ "User1": [s:Success, FloatBackground],
@@ -310,23 +329,6 @@ call s:loadHighlights({
     \ "WhichKeyDesc": [s:Info, "bold"],
 \ })
 
-" TypeScript
-call s:loadHighlights({
-    \ "typescriptVariable": [s:BuiltIn],
-    \ "typescriptImport": [s:BuiltIn],
-    \ "typescriptExport": [s:BuiltIn],
-    \ "typescriptCall": [s:VarName],
-    \ "typescriptTypeReference": [s:TypeName],
-    \ "typescriptArrowFunc": [s:BuiltIn],
-    \ "typescriptBraces": [s:Decoration],
-    \ "typescriptMember": [s:Green],
-    \ "typescriptObjectLabel": [s:Key],
-    \ "typescriptStringLiteralType": [s:TypeName],
-    \ "typescriptInterfaceName": [s:TypeName],
-    \ "typescriptFuncType": [s:VarName],
-    \ "typescriptFuncTypeArrow": [s:BuiltIn],
-\ })
-
 " JSX/TSX
 call s:loadHighlights({
     \ "jsxTagName": [s:Key],
@@ -369,3 +371,4 @@ call s:loadHighlights({
   \ "dosiniValue": [s:Val],
   \ "dosiniHeader": [s:BuiltIn]
   \ })
+

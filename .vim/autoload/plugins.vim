@@ -10,6 +10,7 @@ endfunction
 
 
 call s:AddPlugins({
+      \ "nvim-treesitter/playground": {"merge": 0},
       \ "Konfekt/FastFold": {},
       \ "Yggdroot/hiPairs": {},
       \ "alvan/vim-closetag": {},
@@ -44,7 +45,6 @@ call s:AddPlugins({
 
 " Language plugins
 call s:AddPlugins({
-      \ "HerringtonDarkholme/yats.vim": {},
       \ "MTDL9/vim-log-highlighting": {},
       \ "ekalinin/Dockerfile.vim": {},
       \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
@@ -72,6 +72,8 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
@@ -183,15 +185,9 @@ endfunction
 " Autocommands {{{1
 if has("nvim")
   augroup ScrollbarInit
-      au!
-      au WinEnter    * silent! lua require('scrollbar').show()
-      au WinLeave    * silent! lua require('scrollbar').clear()
-
-      au CursorMoved * silent! lua require('scrollbar').show()
-      au VimResized  * silent! lua require('scrollbar').show()
-
-      au FocusGained * silent! lua require('scrollbar').show()
-      au FocusLost   * silent! lua require('scrollbar').clear()
+    au!
+    au WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
+    au WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
   augroup end
 endif
 
@@ -225,7 +221,7 @@ augroup CocSetup
     " Show function signatures when calling function
     au!
     au User CocJumpPlaceholder call CocActionAsync("showSignatureHelp")
-    au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
+    " au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
 augroup END
 
 if exists(":ViTest")
@@ -504,3 +500,75 @@ filetype plugin indent on
 syn on
 
 " }}}1
+
+if has("nvim")
+lua <<EOF
+  require'nvim-treesitter.configs'.setup {
+    ensure_installed = "typescript",
+    disable = { "python" },
+    highlight = {
+      enable = true,
+      custom_captures = {
+        ["keyword"] = "BuiltIn",
+        ["punctuation.bracket"] = "Decoration",
+        ["type"] = "TypeName",
+        ["type.builtIn"] = "BuiltIn",
+        ["function"] = "FuncName",
+        ["property"] = "Key",
+        ["string"] = "String",
+      },
+    },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "gl",
+        node_incremental = "<Down>",
+        node_decremental = "<Up>",
+      },
+    },
+    refactor = {
+      highlight_definitions = { enable = true },
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        keymaps = {
+          -- You can use the capture groups defined in textobjects.scm
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
+        },
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ["gm"] = "@required_parameter",
+        },
+        swap_previous = {
+          ["gn"] = "@required_parameter",
+        },
+      },
+      move = {
+        enable = true,
+        goto_next_start = {
+          ["]f"] = "@function.outer",
+          ["]]"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]F"] = "@function.outer",
+          ["]["] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[f"] = "@function.outer",
+          ["[["] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[F"] = "@function.outer",
+          ["[]"] = "@class.outer",
+        },
+      },
+    },
+  }
+EOF
+endif

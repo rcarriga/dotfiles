@@ -144,6 +144,9 @@ set diffopt+=internal,algorithm:patience
 
 " Don't add newline if missing on write
 set nofixendofline
+
+" Explicitly auto select regex engine
+set regexpengine=0
 " }}}1
 " ###################################################################################
 " Custom Mappings{{{1
