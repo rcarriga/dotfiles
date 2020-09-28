@@ -413,3 +413,8 @@ call s:loadHighlights({
   \ "TSDefinitionUsage": [s:Transparent, "bold,underline"],
   \ "TSCurrentScope": [s:Transparent, "bold"]
 \ })
+
+call s:loadHighlights({
+  \ "goFunctionCall": [s:FuncName],
+  \ "goVarDefs": [s:VarName]
+  \ })

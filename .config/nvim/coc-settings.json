@@ -11,6 +11,7 @@
     "checkCurrentLine": true,
     "virtualTextLines": 4
   },
+  "prettier.eslintIntegration": true,
   "eslint": {
     "autoFixOnSave": true,
     "filetypes": [
@@ -149,7 +150,7 @@
     "formatting": {
       "provider": "black"
     },
-    "jediEnabled": true,
+    "jediEnabled": false,
     "linting": {
       "mypyEnabled": true,
       "pydocstyleEnabled": false
@@ -177,7 +178,12 @@
       "templateInterpolationService": true
     },
     "format": {
-        "enable": false
+        "enable": false,
+        "defaultFormatter": {
+          "html": "prettier",
+          "css": "prettier",
+          "ts": "prettier-eslint"
+        }
     }
   },
   "emmet": {

@@ -47,6 +47,7 @@ call s:AddPlugins({
 
 " Language plugins
 call s:AddPlugins({
+      \ "fatih/vim-go": {},
       \ "MTDL9/vim-log-highlighting": {},
       \ "ekalinin/Dockerfile.vim": {},
       \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
@@ -62,8 +63,6 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
-
-
 let g:conflict_marker_highlight_group = ''
 
 let g:minimap_highlight="CursorLineNr"
