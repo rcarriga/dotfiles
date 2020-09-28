@@ -3,15 +3,6 @@
     disable = { "python" },
     highlight = {
       enable = true,
-      custom_captures = {
-        ["keyword"] = "BuiltIn",
-        ["punctuation.bracket"] = "Decoration",
-        ["type"] = "TypeName",
-        ["type.builtIn"] = "BuiltIn",
-        ["function"] = "FuncName",
-        ["property"] = "Key",
-        ["string"] = "String",
-      },
     },
     incremental_selection = {
       enable = true,
@@ -22,7 +13,7 @@
       },
     },
     refactor = {
-      highlight_definitions = { enable = true },
+      highlight_definitions = { enable = false },
     },
     textobjects = {
       select = {
@@ -37,10 +28,10 @@
       swap = {
         enable = true,
         swap_next = {
-          ["<leader>fn"] = "@function.outer",
+          ["gm"] = "@parameter.inner",
         },
         swap_previous = {
-          ["<leader>fp"] = "@function.outer",
+          ["gn"] = "@parameter.inner",
         },
       },
       move = {

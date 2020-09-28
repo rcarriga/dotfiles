@@ -25,11 +25,6 @@ function! s:loadHighlights(highlights)
   endfor
 endfunction
 
-augroup PluginOverrides
-    au!
-    au FileType python call s:SetSemshi()
-augroup END
-
 function! s:ShiftLeft(x, count) abort
     let result = a:x
     let c = a:count
@@ -94,6 +89,7 @@ let s:FuncName = s:Cyan
 let s:TypeName = s:Violet
 let s:Key = s:Cyan
 let s:Val = s:Violet
+let s:Parameter = s:Green
 let s:String = s:Yellow
 let s:Operator = s:Orange
 let s:Success = s:Green
@@ -107,7 +103,7 @@ call s:loadHighlights({
   \ "Decoration": [s:Orange],
   \ "Hidden": [s:Grey2],
   \ "BuiltIn": [s:Red],
-  \ "VarName": [s:Grey4],
+  \ "VarName": [s:Grey4, "bold"],
   \ "FuncName": [s:Cyan],
   \ "TypeName": [s:Violet],
   \ "Key": [s:Cyan],
@@ -277,25 +273,6 @@ call s:loadHighlights({
     \ "markdownUrl": [s:Key],
 \ })
 
-" Semshi
-function! s:SetSemshi()
-  call s:loadHighlights({
-    \ "semshiLocal": [s:VarName],
-    \ "semshiGlobal": [s:TypeName],
-    \ "semshiImported": [s:TypeName],
-    \ "semshiParameter": [s:VarName],
-    \ "semshiParameterUnused": [s:Hidden],
-    \ "semshiFree": [s:VarName],
-    \ "semshiBuiltin": [s:BuiltIn],
-    \ "semshiAttribute": [s:Key],
-    \ "semshiSelf": [s:Normal, "bold"],
-    \ "semshiUnresolved": [s:Warning],
-    \ "semshiSelected": [s:Transparent, "underline"],
-    \ "semshiErrorSign": [s:Error],
-    \ "semshiErrorChar": [s:Error],
-    \ })
-endfunction
-
 " Makefile
 call s:loadHighlights({
     \ "makeCommands": [s:Normal, "bold"],
@@ -372,3 +349,52 @@ call s:loadHighlights({
   \ "dosiniHeader": [s:BuiltIn]
   \ })
 
+call s:loadHighlights({
+  \ "TSError": [s:Error],
+  \ "TSPunctDelimiter": [s:Decoration],
+  \ "TSPunctBracket": [s:Decoration],
+  \ "TSPunctSpecial": [s:Decoration],
+  \ "TSConstant": [s:VarName],
+  \ "TSConstBuiltin": [s:BuiltIn],
+  \ "TSConstMacro": [s:BuiltIn],
+  \ "TSString": [s:String],
+  \ "TSStringRegex": [s:Operator],
+  \ "TSStringEscape": [s:Operator],
+  \ "TSCharacter": [s:Val],
+  \ "TSNumber": [s:Val],
+  \ "TSBoolean": [s:Val],
+  \ "TSFloat": [s:Val],
+  \ "TSFunction": [s:FuncName],
+  \ "TSFuncBuiltin": [s:BuiltIn],
+  \ "TSFuncMacro": [s:BuiltIn],
+  \ "TSParameter": [s:Green],
+  \ "TSParameterReference": [s:Green],
+  \ "TSMethod": [s:FuncName],
+  \ "TSField": [s:FuncName],
+  \ "TSProperty": [s:Key],
+  \ "TSConstructor": [s:TypeName],
+  \ "TSConditional": [s:BuiltIn],
+  \ "TSRepeat": [s:BuiltIn],
+  \ "TSLabel": [s:Key],
+  \ "TSOperator": [s:Operator],
+  \ "TSKeyword": [s:BuiltIn],
+  \ "TSKeywordFunction": [s:BuiltIn],
+  \ "TSException": [s:Error],
+  \ "TSType": [s:TypeName],
+  \ "TSTypeBuiltin": [s:TypeName],
+  \ "TSStructure": [s:Error],
+  \ "TSInclude": [s:BuiltIn],
+  \ "TSAnnotation": [s:String],
+  \ "TSText": [s:String],
+  \ "TSStrong": [s:Transparent, "bold"],
+  \ "TSEmphasis": [s:Transparent, "bold,underline"],
+  \ "TSUnderline": [s:Transparent, "underline"],
+  \ "TSTitle": [s:BuiltIn],
+  \ "TSLiteral": [s:Decoration],
+  \ "TSURI": [s:Info],
+  \ "TSVariable": [s:VarName],
+  \ "TSVariableBuiltin": [s:BuiltIn],
+  \ "TSDefinition": [s:Transparent, "bold,underline"],
+  \ "TSDefinitionUsage": [s:Transparent, "bold,underline"],
+  \ "TSCurrentScope": [s:Transparent, "bold"]
+\ })

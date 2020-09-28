@@ -10,37 +10,37 @@ endfunction
 
 
 call s:AddPlugins({
-      \ "nvim-treesitter/playground": {"merge": 0},
-      \ "Konfekt/FastFold": {},
-      \ "Yggdroot/hiPairs": {},
-      \ "alvan/vim-closetag": {},
-      \ "dstein64/vim-win": {},
-      \ "godlygeek/tabular": {},
-      \ "honza/vim-snippets": {},
-      \ "janko/vim-test": {"lazy": 1},
-      \ "junegunn/fzf": {},
-      \ "junegunn/fzf.vim": {},
-      \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
-      \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
-      \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
-      \ "machakann/vim-sandwich": {},
-      \ "machakann/vim-swap": {},
-      \ "mhinz/vim-signify": {},
-      \ "moll/vim-bbye": {},
-      \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
-      \ "rhysd/clever-f.vim": {},
-      \ "rhysd/git-messenger.vim": {},
-      \ "simnalamburt/vim-mundo": {"lazy":1},
-      \ "tomtom/tcomment_vim": {},
-      \ "tpope/vim-abolish": {},
-      \ "tpope/vim-eunuch": {},
-      \ "tpope/vim-fugitive": {},
-      \ "tpope/vim-rhubarb": {},
-      \ "tpope/vim-unimpaired": {},
-      \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
-      \ "vim-airline/vim-airline-themes": {"lazy": 1},
-      \ "vim-scripts/ReplaceWithRegister": {},
-      \ "wellle/targets.vim": {},
+    \ "Konfekt/FastFold": {},
+    \ "Yggdroot/hiPairs": {},
+    \ "dstein64/vim-win": {},
+    \ "godlygeek/tabular": {},
+    \ "honza/vim-snippets": {},
+    \ "janko/vim-test": {"lazy": 1},
+    \ "junegunn/fzf": {},
+    \ "junegunn/fzf.vim": {},
+    \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
+    \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
+    \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
+    \ "machakann/vim-sandwich": {},
+    \ "machakann/vim-swap": {},
+    \ "mhinz/vim-signify": {},
+    \ "moll/vim-bbye": {},
+    \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
+    \ "nvim-treesitter/playground": {"merge": 0},
+    \ "rhysd/clever-f.vim": {},
+    \ "rhysd/git-messenger.vim": {},
+    \ "simnalamburt/vim-mundo": {"lazy":1},
+    \ "tomtom/tcomment_vim": {},
+    \ "tpope/vim-abolish": {},
+    \ "tpope/vim-eunuch": {},
+    \ "tpope/vim-fugitive": {},
+    \ "tpope/vim-rhubarb": {},
+    \ "tpope/vim-unimpaired": {},
+    \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
+    \ "vim-airline/vim-airline-themes": {"lazy": 1},
+    \ "vim-scripts/ReplaceWithRegister": {},
+    \ "wellle/targets.vim": {},
+    \ "wfxr/minimap.vim": {},
 \ })
 
 " Language plugins
@@ -56,33 +56,11 @@ call s:AddPlugins({
       \ "yuezk/vim-js": {},
 \})
 
-" Editor specific plugins
-if !has("nvim")
-  call s:AddPlugins({
-      \ "roxma/nvim-yarp": {},
-      \ "roxma/vim-hug-neovim-rpc": {}})
-else
-  call s:AddPlugins({
-      \ "Xuyuanp/scrollbar.nvim": {},
-      \ "numirias/semshi": {}
-      \ })
-endif
-
 let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx,tsx,typescriptreact'
-let g:closetag_filetypes = 'jsx,tsx,typescriptreact'
-let g:closetag_emptyTags_caseSensitive = 1
-let g:closetag_regions = {
-    \ 'typescriptreact': 'jsxRegion,tsxRegion',
-    \ 'javascriptreact': 'jsxRegion',
-    \ }
+let g:minimap_highlight="CursorLineNr"
 
 let g:hiPairs_enable_matchParen = 0
 
@@ -147,12 +125,6 @@ let g:which_key_floating_opts = { "col": "+30"}
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let g:fzf_preview_window = 'right:60%'
 
-let g:scrollbar_highlight = {
-  \ 'head': 'LineNr',
-  \ 'body': 'LineNr',
-  \ 'tail': 'LineNr',
-  \ }
-
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -181,13 +153,6 @@ endfunction
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
-if has("nvim")
-  augroup ScrollbarInit
-    au!
-    au WinEnter,FocusGained,CursorMoved,VimResized * silent! lua require('scrollbar').show()
-    au WinLeave,FocusLost                          * silent! lua require('scrollbar').clear()
-  augroup end
-endif
 
 augroup NvimAuCommands
   au!
@@ -205,11 +170,6 @@ augroup WhichKeyInit
     \| au BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
-augroup SemshiInit
-    au!
-    au CursorMoved python ++once Semshi
-augroup END
-
 augroup AirlineSetup
     au!
     au CursorMoved * ++once AirlineRefresh
@@ -219,6 +179,7 @@ augroup CocSetup
     " Show function signatures when calling function
     au!
     au User CocJumpPlaceholder call CocActionAsync("showSignatureHelp")
+    au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
     " au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
 augroup END
 
@@ -309,18 +270,8 @@ xmap ic <plug>(signify-motion-inner-visual)
 omap ac <plug>(signify-motion-outer-pending)
 xmap ac <plug>(signify-motion-outer-visual)
 
-let g:which_key_map.m = {
-  \ "name": "Merge Conflicts",
-  \ "s": "Start Diff Merge",
-  \ "l": "Get Left Version",
-  \ "r": "Get Right Version"
-  \ }
-" Merge conflict helpers
-nmap <silent><leader>ms :Gdiffsplit!<CR>
-nmap <silent><leader>ml :diffget //2<CR>
-nmap <silent><leader>mr :diffget //3<CR>
-vmap <silent><leader>mg :diffget<CR>
-vmap <silent><leader>mp :diffput<CR>
+let g:which_key_map.m = "Code Minimap"
+nmap <silent><leader>m :MinimapToggle<CR>
 
 " Toggle UndoTree window
 let g:which_key_map.u = "Undo Tree"

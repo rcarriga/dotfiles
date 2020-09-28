@@ -12,7 +12,7 @@
     }
   },
   "codeLens": {
-    "enable": true
+    "enable": false
   },
   "diagnostic": {
     "checkCurrentLine": true,
