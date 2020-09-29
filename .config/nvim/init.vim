@@ -232,8 +232,13 @@ augroup END
 " Plugins Init {{{1
 " Load plugins file after loading to reduce startup time.
 if get(g:, "load_plugins", v:true)
-   augroup PluginInit
-       au!
-       au InsertEnter,CursorHold * ++once silent runtime autoload/plugins.vim
-   augroup END
+  function! s:loadPlugins()
+      silent runtime autoload/plugins.vim
+      norm "<leader>"
+  endfunction
+  nnoremap  <silent><leader>  :call <SID>loadPlugins()<CR>
+  augroup PluginInit
+      au!
+      au InsertEnter * ++once call <SID>loadPlugins()
+  augroup END
 endif
