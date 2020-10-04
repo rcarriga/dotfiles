@@ -173,14 +173,14 @@ nnoremap <silent> <C-h> <C-w><C-h>
 nnoremap <silent> <C-j> <C-w><C-j>
 nnoremap <silent> <C-k> <C-w><C-k>
 nnoremap <silent> <C-l> <C-w><C-l>
-tnoremap <silent><C-h> <C-\><C-N><C-w><C-h>
-tnoremap <silent><C-j> <C-\><C-N><C-w><C-j>
-tnoremap <silent><C-k> <C-\><C-N><C-w><C-k>
-tnoremap <silent><C-l> <C-\><C-N><C-w><C-l>
-inoremap <silent><C-h> <C-\><C-N><C-w><C-h>
-inoremap <silent><C-j> <C-\><C-N><C-w><C-j>
-inoremap <silent><C-k> <C-\><C-N><C-w><C-k>
-inoremap <silent><C-l> <C-\><C-N><C-w><C-l>
+tnoremap <silent> <C-h> <C-\><C-N><C-w><C-h>
+tnoremap <silent> <C-j> <C-\><C-N><C-w><C-j>
+tnoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
+tnoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
+inoremap <silent> <C-h> <C-\><C-N><C-w><C-h>
+inoremap <silent> <C-j> <C-\><C-N><C-w><C-j>
+inoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
+inoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
 
 
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>

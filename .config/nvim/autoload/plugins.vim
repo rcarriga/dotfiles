@@ -8,8 +8,9 @@ function! s:AddPlugins(args) abort
 endfunction
 
 
-
 call s:AddPlugins({
+    \ "voldikss/vim-floaterm": {"lazy": 1},
+    \ "rhysd/conflict-marker.vim": {},
     \ "Konfekt/FastFold": {},
     \ "Yggdroot/hiPairs": {},
     \ "dstein64/vim-win": {},
@@ -60,6 +61,12 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+
+
+let g:lens#disabled_filetypes = ["coc-explorer", "fugitive", "Mundo", "MundoDiff"]
+
+let g:conflict_marker_highlight_group = ''
+
 let g:minimap_highlight="CursorLineNr"
 
 let g:hiPairs_enable_matchParen = 0
@@ -255,7 +262,10 @@ let g:which_key_map.g = {
       \ "f": "Fold Around Changes",
       \ "u": "Revert Hunk",
       \ "i": "Show Hunk Changes",
-      \ "m": "Line History"
+      \ "m": "Line History",
+      \ "o": "Keep our changes from conflict",
+      \ "t": "Keep their changes from conflict",
+      \ "c": "Keep both changes from conflict"
       \ }
 " Git functions and text objects with vim-fugitive and signify
 nmap <silent><leader>gs :Gstatus<CR>
@@ -265,6 +275,9 @@ nmap <silent><leader>gl :Gblame<CR>
 nmap <silent><leader>gf :SignifyFold!<CR>
 nmap <silent><leader>gu :SignifyHunkUndo<CR>
 nmap <silent><leader>gi :SignifyHunkDiff<CR>
+nmap <silent><leader>go :ConflictMarkerOurselves<CR>
+nmap <silent><leader>gt :ConflictMarkerThemselves<CR>
+nmap <silent><leader>gc :ConflictMarkerBoth<CR>
 omap ic <plug>(signify-motion-inner-pending)
 xmap ic <plug>(signify-motion-inner-visual)
 omap ac <plug>(signify-motion-outer-pending)
@@ -318,17 +331,11 @@ inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
 inoremap <expr> <c-x><c-l> fzf#vim#complete#line()
 
-let g:which_key_map.a = {
-  \ "name": "Fuzzy Searching",
-  \ "s": "Filter First Match",
-  \ "b": "Rank Matches",
-  \ "a": "Rank Matches From Cursor",
-  \ "d": "First Match Unfiltered",
-\ }
-nmap <Leader>as <Plug>(AerojumpSpace)
-nmap <Leader>ab <Plug>(AerojumpBolt)
-nmap <Leader>aa <Plug>(AerojumpFromCursorBolt)
-nmap <Leader>ad <Plug>(AerojumpDefault)
+nnoremap <silent><leader>f :FloatermToggle<CR>
+tnoremap <silent> <C-a> <C-\><C-n>:FloatermNew<CR>
+tnoremap <silent> <C-x> <C-\><C-n>:FloatermToggle<CR>
+tnoremap <silent> <C-n> <C-\><C-n>:FloatermNext<CR>
+tnoremap <silent> <C-p> <C-\><C-n>:FloatermPrev<CR>
 
 " Language server functions
 let g:which_key_map.l = {
@@ -362,18 +369,6 @@ nmap <silent><leader>lb <Plug>(coc-diagnostic-prev)
 nmap <silent><leader>ls :call CocActionAsync("codeLensAction")<CR>
 nmap <silent><leader>lk :call CocActionAsync("doHover")<CR>
 nmap <silent><leader>lq :call CocActionAsync("quickfixes")<CR>
-
-let g:which_key_map.r = {
-  \ "name": "REPL Control",
-  \ "o": "Open REPL",
-  \ "w": "Run Command on Write",
-  \ "u": "Stop Watching File"
-  \ }
-" Repl Commands
-nmap <silent><leader>ro :IronFocus<CR>
-nmap <silent><leader>rw :IronWatchCurrentFile
-nmap <silent><leader>ru :IronUnwatchCurrentFile<CR>
-
 
 let g:which_key_map.t = {
   \ "name": "Tests",

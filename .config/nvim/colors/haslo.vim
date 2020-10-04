@@ -1,5 +1,5 @@
 " Vim color file - haslo
-    let g:colors_name = "haslo"
+let g:colors_name = "haslo"
 
 " ==========================
 " Highlighting Functions
@@ -57,13 +57,15 @@ endfunction
   let s:Grey4             = s:ConstructColour("#F8F8F8")
 
   let s:Violet            = s:ConstructColour("#D484FF")
+  let s:Blue              = s:ConstructColour("#2f628e")
   let s:Cyan              = s:ConstructColour("#00f1f5")
   let s:Green             = s:ConstructColour("#A9FF68")
+  let s:Green2             = s:ConstructColour("#2f7366")
   let s:Yellow            = s:ConstructColour("#FFF59D")
   let s:Orange            = s:ConstructColour("#F79000")
   let s:Red               = s:ConstructColour("#F70067")
   let FloatBackground   = s:ConstructColour("#233444")
-    let s:Background = {"gui": "NONE", "cterm256": "NONE"}
+  let s:Background = {"gui": "NONE", "cterm256": "NONE"}
 else
   let s:Grey1             = s:ConstructColour("#424242")
   let s:Grey2             = s:ConstructColour("#bdbdbd")
@@ -238,6 +240,11 @@ call s:loadHighlights({
     \ "SignifySignChange": [s:Warning, "bold"],
 \ })
 
+"Floaterm
+call s:loadHighlights({
+  \ "FloatermBorder": [s:Orange]
+  \ })
+
 " Coc.nvim
 call s:loadHighlights({
     \ "CocErrorSign": [s:Error],
@@ -347,6 +354,14 @@ call s:loadHighlights({
   \ "dosiniLabel": [s:Key],
   \ "dosiniValue": [s:Val],
   \ "dosiniHeader": [s:BuiltIn]
+  \ })
+
+call s:loadHighlights({
+  \ "ConflictMarkerBegin": [s:Transparent, s:Green2],
+  \ "ConflictMarkerOurs": [s:Transparent, s:Green2],
+  \ "ConflictMarkerTheirs": [s:Transparent, s:Blue],
+  \ "ConflictMarkerEnd": [s:Transparent, s:Blue],
+  \ "ConflictMarkerCommonAncestorsHunk": [s:Transparent, s:Red]
   \ })
 
 call s:loadHighlights({

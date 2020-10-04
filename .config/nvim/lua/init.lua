@@ -1,6 +1,5 @@
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "typescript",
-    disable = { "python" },
+    ensure_installed = "all",
     highlight = {
       enable = true,
     },
