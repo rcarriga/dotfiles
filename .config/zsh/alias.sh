@@ -39,7 +39,6 @@ alias yf="GIT_EXEC=yadm fuzzy_git_status"
 alias yh="GIT_EXEC=yadm fuzzy_git_stash"
 
 
-alias v="nvim"
 alias za="zathura"
 alias sv="sudo edit"
 alias l="tree -DhvC -L 1"

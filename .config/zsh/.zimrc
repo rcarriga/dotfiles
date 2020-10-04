@@ -1,4 +1,4 @@
-zmodule zsh-users/zsh-completions
+zmodule Aloxaf/fzf-tab
 zmodule zsh-users/zsh-autosuggestions
 zmodule completion
 zmodule zdharma/fast-syntax-highlighting

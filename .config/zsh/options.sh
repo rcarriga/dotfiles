@@ -24,3 +24,4 @@ bindkey -v
     bindkey '^h' autosuggest-fetch
     bindkey '^j' autosuggest-execute
 # }}}
+
