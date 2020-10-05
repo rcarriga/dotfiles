@@ -60,7 +60,7 @@ endfunction
   let s:Blue              = s:ConstructColour("#2f628e")
   let s:Cyan              = s:ConstructColour("#00f1f5")
   let s:Green             = s:ConstructColour("#A9FF68")
-  let s:Green2             = s:ConstructColour("#2f7366")
+  let s:Green2            = s:ConstructColour("#2f7366")
   let s:Yellow            = s:ConstructColour("#FFF59D")
   let s:Orange            = s:ConstructColour("#F79000")
   let s:Red               = s:ConstructColour("#F70067")

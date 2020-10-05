@@ -5,7 +5,7 @@
     }
   },
   "codeLens": {
-    "enable": false
+    "enable": true
   },
   "diagnostic": {
     "checkCurrentLine": true,
@@ -50,6 +50,19 @@
     },
     "icon": {
       "enableNerdfont": true
+    }
+  },
+  "go": {
+    "goplsOptions": {
+      "gofumpt": true,
+      "codelens": {
+        "gc_details": true,
+        "generate": true,
+        "regenerate_cgo": true,
+        "tidy": true,
+        "upgrade_dependency": true,
+        "vendor": true
+      }
     }
   },
   "javascript": {
@@ -150,7 +163,7 @@
     "formatting": {
       "provider": "black"
     },
-    "jediEnabled": false,
+    "jediEnabled": true,
     "linting": {
       "mypyEnabled": true,
       "pydocstyleEnabled": false
@@ -169,7 +182,7 @@
   },
   "yank": {
     "highlight": {
-        "enable": false
+      "enable": false
     },
     "priority": 40
   },
@@ -178,12 +191,12 @@
       "templateInterpolationService": true
     },
     "format": {
-        "enable": false,
-        "defaultFormatter": {
-          "html": "prettier",
-          "css": "prettier",
-          "ts": "prettier-eslint"
-        }
+      "enable": false,
+      "defaultFormatter": {
+        "html": "prettier",
+        "css": "prettier",
+        "ts": "prettier-eslint"
+      }
     }
   },
   "emmet": {

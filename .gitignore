@@ -1,6 +1,5 @@
 __pycache__/*
 .mypy_cache/*
-local*
 .stack-work/
 .vim/sessions/*
 .config/zsh/.zim/*

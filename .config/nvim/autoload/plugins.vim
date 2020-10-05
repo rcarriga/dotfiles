@@ -33,7 +33,7 @@ call s:AddPlugins({
     \ "rhysd/clever-f.vim": {},
     \ "rhysd/git-messenger.vim": {},
     \ "simnalamburt/vim-mundo": {"lazy":1},
-    \ "tomtom/tcomment_vim": {},
+    \ "preservim/nerdcommenter": {},
     \ "tpope/vim-abolish": {},
     \ "tpope/vim-eunuch": {},
     \ "tpope/vim-fugitive": {},
@@ -47,7 +47,6 @@ call s:AddPlugins({
 
 " Language plugins
 call s:AddPlugins({
-      \ "fatih/vim-go": {},
       \ "MTDL9/vim-log-highlighting": {},
       \ "ekalinin/Dockerfile.vim": {},
       \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
@@ -63,13 +62,13 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+
 let g:conflict_marker_highlight_group = ''
 
 let g:minimap_highlight="CursorLineNr"
 
 let g:hiPairs_enable_matchParen = 0
 
-let g:tcomment_maps = 0
 
 let g:vue_pre_processors = ["typescript", "scss"]
 
@@ -212,12 +211,8 @@ let g:which_key_map.i = "Generate Documentation"
 
 let g:which_key_map.c = {"name": "Comments",
       \ "c": "Comment Line",
-      \ "b": "Comment as Block"
+      \ "s": "Comment as Block"
       \ }
-nmap <silent><leader>cc :TComment<CR>
-vmap <silent><leader>cc :TComment<CR>
-nmap <silent><leader>cb :TCommentBlock<CR>
-vmap <silent><leader>cb :TCommentBlock<CR>
 
 let g:which_key_map.x = {"name": "Substitute Text",
       \ "s": "Substitute within range",
@@ -273,10 +268,10 @@ let g:which_key_map.g = {
       \ "c": "Keep both changes from conflict"
       \ }
 " Git functions and text objects with vim-fugitive and signify
-nmap <silent><leader>gs :Gstatus<CR>
-nmap <silent><leader>gp :Gpush<CR>
-nmap <silent><leader>gb :Gbrowse<CR>
-nmap <silent><leader>gl :Gblame<CR>
+nmap <silent><leader>gs :vertical Git \| vertical resize 50 <CR>
+nmap <silent><leader>gp :Git push<CR>
+nmap <silent><leader>gb :Git browse<CR>
+nmap <silent><leader>gl :Git blame<CR>
 nmap <silent><leader>gf :SignifyFold!<CR>
 nmap <silent><leader>gu :SignifyHunkUndo<CR>
 nmap <silent><leader>gi :SignifyHunkDiff<CR>
