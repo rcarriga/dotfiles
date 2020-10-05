@@ -185,6 +185,10 @@ inoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
 
 xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
 xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+
+" Select entire buffer
+onoremap ie :exec "normal! ggVG"<cr>
+
 " Enter normal mode with escape in terminal
 " tnoremap <silent> <ESC> <C-\><C-N>
 

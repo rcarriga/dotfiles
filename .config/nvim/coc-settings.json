@@ -1,14 +1,7 @@
 {
   "coc": {
     "preferences": {
-      "formatOnSaveFiletypes": [
-        "typescript",
-        "javascript",
-        "typescriptreact",
-        "javascriptreact",
-        "vue",
-        "python"
-      ]
+      "colorSupport": false
     }
   },
   "codeLens": {

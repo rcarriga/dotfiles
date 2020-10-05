@@ -9,6 +9,8 @@ endfunction
 
 
 call s:AddPlugins({
+    \ "svermeulen/vim-subversive": {},
+    \ "norcalli/nvim-colorizer.lua": {},
     \ "voldikss/vim-floaterm": {"lazy": 1},
     \ "rhysd/conflict-marker.vim": {},
     \ "Konfekt/FastFold": {},
@@ -39,7 +41,6 @@ call s:AddPlugins({
     \ "tpope/vim-unimpaired": {},
     \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
     \ "vim-airline/vim-airline-themes": {"lazy": 1},
-    \ "vim-scripts/ReplaceWithRegister": {},
     \ "wellle/targets.vim": {},
     \ "wfxr/minimap.vim": {},
 \ })
@@ -62,8 +63,6 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 
-
-let g:lens#disabled_filetypes = ["coc-explorer", "fugitive", "Mundo", "MundoDiff"]
 
 let g:conflict_marker_highlight_group = ''
 
@@ -221,19 +220,26 @@ vmap <silent><leader>cc :TComment<CR>
 nmap <silent><leader>cb :TCommentBlock<CR>
 vmap <silent><leader>cb :TCommentBlock<CR>
 
+let g:which_key_map.x = {"name": "Substitute Text",
+      \ "s": "Substitute within range",
+      \ "ss": "Substitute word within range"
+      \ }
+nmap <leader>s <plug>(SubversiveSubstituteRange)
+xmap <leader>s <plug>(SubversiveSubstituteRange)
+
+nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
+
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <localleader> :<c-u>WhichKey  '\'<CR>
 vnoremap <localleader> :<c-u>WhichKeyVisual  '\'<CR>
 
-nmap x <Plug>(JumpMotion)
+nmap x <plug>(SubversiveSubstitute)
+nmap xx <plug>(SubversiveSubstituteLine)
+nmap X <plug>(SubversiveSubstituteToEndOfLine)
 
 let g:which_key_map.e = "Manage Windows"
 nmap <silent><leader>e <plug>WinWin
-
-"Replace the word under cursor
-let g:which_key_map.o = "Replace Current Word"
-nmap <leader>o :%s/\<<c-r><c-w>\>//g<left><left>
 
 " Distraction free writing
 let g:which_key_map.z = "Zen Mode"
@@ -444,3 +450,5 @@ filetype plugin indent on
 syn on
 
 " }}}1
+"
+lua require("plugins")
