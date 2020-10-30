@@ -16,4 +16,6 @@ if [[ $ZIM_HOME/init.zsh -ot $ZDOTDIR/.zimrc ]]; then
 fi
 source $ZIM_HOME/init.zsh
 
+source `which aws_zsh_completer.sh`
+
 [[ -f "$ZDOTDIR/widgets.sh" ]] && source "$ZDOTDIR/widgets.sh"

@@ -1,0 +1,28 @@
+JOURNAL_DIR=${JOURNAL_DIR:-$HOME/Journal}
+DATE=$(date +"%F-%a")
+JOURNAL_ENTRY="$JOURNAL_DIR/$DATE.md"
+[[ -d $JOURNAL_DIR ]] || mkdir -p $JOURNAL_DIR
+
+cat << EOF > $JOURNAL_ENTRY
+
+# Tasks for $(date +"%A") $(date +"%F")
+
+\`\`\`
+$(curl "wttr.in/?0pqFT")
+\`\`\`
+
+## Goals
+
+
+
+## Achieved
+
+
+
+## Remarks
+
+
+
+EOF
+
+${EDITOR:-vi} "$JOURNAL_ENTRY"

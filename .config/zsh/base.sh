@@ -7,5 +7,7 @@
 
 [[ -d "$ZDOTDIR/functions" ]] && autoload -Uz $(ls $ZDOTDIR/functions)
 
+[[ -d "$ZDOTDIR/functions.local" ]] && autoload -Uz $(ls $ZDOTDIR/functions.local)
+
 [[ -d "$ZDOTDIR/completions" ]] && autoload -Uz $(ls $ZDOTDIR/completions)
 
