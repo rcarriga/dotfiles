@@ -1,25 +1,38 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-import Data.Foldable
-import Data.List
+import Data.Foldable ( foldrM )
+import Data.List ( elemIndex, sortOn )
 import qualified Data.Map as M
-import Data.Maybe
+import Data.Maybe ( fromMaybe, mapMaybe )
 import Data.Ratio ((%))
 import Graphics.X11.Xlib.Extras
-import System.Environment
+    ( getClassHint,
+      getWindowAttributes,
+      ClassHint(resClass),
+      WindowAttributes(wa_border_width) )
+import System.Environment ( lookupEnv )
 import XMonad hiding (WindowClass)
-import XMonad.Actions.CycleRecentWS
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.SetWMName
+import XMonad.Actions.CycleRecentWS ( toggleRecentNonEmptyWS )
+import XMonad.Hooks.EwmhDesktops ( ewmh, ewmhFullscreen )
+import XMonad.Hooks.ManageDocks ( avoidStruts, docks )
+import XMonad.Hooks.ManageHelpers ()
+import XMonad.Hooks.SetWMName ( setWMName )
 import XMonad.Layout.MouseResizableTile
+    ( mouseResizableTile, MRTMessage(ExpandSlave, ShrinkSlave) )
 import XMonad.Layout.NoBorders
+    ( lessBorders, noBorders, Ambiguity(Never), SetsAmbiguous(..) )
 import XMonad.Layout.Spacing
+    ( decWindowSpacing,
+      incWindowSpacing,
+      spacingRaw,
+      toggleScreenSpacingEnabled,
+      toggleWindowSpacingEnabled,
+      Border(Border) )
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig
+import XMonad.Util.EZConfig ( additionalKeysP )
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run
+    ( defaultFloating, namedScratchpadAction, NamedScratchpad(NS) )
+import XMonad.Util.Run ( safeSpawn )
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "zsh $HOME/.config/scripts/" ++ script_name
