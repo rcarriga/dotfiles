@@ -337,6 +337,23 @@ call s:loadHighlights({
     \ "JumpMotionTail": [s:Yellow],
 \ })
 
+" TypeScript
+call s:loadHighlights({
+    \ "typescriptVariable": [s:BuiltIn],
+    \ "typescriptImport": [s:BuiltIn],
+    \ "typescriptExport": [s:BuiltIn],
+    \ "typescriptCall": [s:VarName],
+    \ "typescriptTypeReference": [s:TypeName],
+    \ "typescriptArrowFunc": [s:BuiltIn],
+    \ "typescriptBraces": [s:Decoration],
+    \ "typescriptMember": [s:Green],
+    \ "typescriptObjectLabel": [s:Key],
+    \ "typescriptStringLiteralType": [s:TypeName],
+    \ "typescriptInterfaceName": [s:TypeName],
+    \ "typescriptFuncType": [s:VarName],
+    \ "typescriptFuncTypeArrow": [s:BuiltIn],
+\ })
+
 call s:loadHighlights({
     \ "hiPairs_matchPair": [s:Success, "bold,underline"],
     \ "hiPairs_unmatchPair": [s:Error, "bold,underline"]

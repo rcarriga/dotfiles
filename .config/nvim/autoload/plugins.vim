@@ -9,6 +9,8 @@ endfunction
 
 
 call s:AddPlugins({
+    \ "rcarriga/vim-ultest": {},
+    \ "sodapopcan/vim-twiggy": {},
     \ "svermeulen/vim-subversive": {},
     \ "norcalli/nvim-colorizer.lua": {},
     \ "voldikss/vim-floaterm": {"lazy": 1},
@@ -22,7 +24,7 @@ call s:AddPlugins({
     \ "junegunn/fzf": {},
     \ "junegunn/fzf.vim": {},
     \ "junegunn/goyo.vim": {"on_cmd": "Goyo"},
-    \ "kkoomen/vim-doge": { "hook_post_source": "call doge#activate()" },
+    \ "kkoomen/vim-doge": { "rev": "v3.1.1" },
     \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
     \ "machakann/vim-sandwich": {},
     \ "machakann/vim-swap": {},
@@ -40,13 +42,14 @@ call s:AddPlugins({
     \ "tpope/vim-rhubarb": {},
     \ "tpope/vim-unimpaired": {},
     \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
-    \ "vim-airline/vim-airline-themes": {"lazy": 1},
+    \ "vim-airline/vim-airline-themes": {"lazy": 1, "hook_add": "AirlineRefresh"},
     \ "wellle/targets.vim": {},
     \ "wfxr/minimap.vim": {},
 \ })
 
 " Language plugins
 call s:AddPlugins({
+      \ "HerringtonDarkholme/yats.vim": {},
       \ "MTDL9/vim-log-highlighting": {},
       \ "ekalinin/Dockerfile.vim": {},
       \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
@@ -62,6 +65,8 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+
+let g:twiggy_num_columns = 50
 
 let g:conflict_marker_highlight_group = ''
 
@@ -90,11 +95,8 @@ let g:goyo_linenr = 1
 
 let g:coc_snippet_next = "<tab>"
 
-if has("nvim")
-    " Use terminal windows for running tests
-    let test#strategy = "neovim"
-    let test#python#pytest#options = "--disable-warnings"
-endif
+let test#strategy = "floaterm"
+let test#python#pytest#options = "--disable-warnings --color=yes"
 
 " Open undo tree on right
 let g:mundo_right = 1
@@ -114,8 +116,8 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
-let g:vitest#icons = 1
-let g:vitest#virtual_text = 1
+let g:ultest_icons = 1
+let g:ultest_virtual_text = 0
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
@@ -186,13 +188,6 @@ augroup CocSetup
     au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
     " au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
 augroup END
-
-if exists(":ViTest")
-  augroup ViTestStatusRunner
-      au!
-      au BufWritePost * ViTest
-  augroup END
-endif
 " }}}1
 " ###################################################################################
 " Custom Commands {{{1
@@ -257,7 +252,7 @@ let g:which_key_map.g = {
       \ "name": "Git Control",
       \ "s": "Status",
       \ "p": "Push",
-      \ "b": "Browse",
+      \ "b": "Branch Management",
       \ "l": "Blame",
       \ "f": "Fold Around Changes",
       \ "u": "Revert Hunk",
@@ -270,7 +265,7 @@ let g:which_key_map.g = {
 " Git functions and text objects with vim-fugitive and signify
 nmap <silent><leader>gs :vertical Git \| vertical resize 50 <CR>
 nmap <silent><leader>gp :Git push<CR>
-nmap <silent><leader>gb :Git browse<CR>
+nmap <silent><leader>gb :Twiggy<CR>
 nmap <silent><leader>gl :Git blame<CR>
 nmap <silent><leader>gf :SignifyFold!<CR>
 nmap <silent><leader>gu :SignifyHunkUndo<CR>
@@ -391,9 +386,12 @@ nmap <silent><leader>tl :TestLast<CR>
 nmap <silent><leader>tv :TestVisit<CR>
 nmap <silent><leader>tm :make test<CR>
 nmap <silent><leader>to :!firefox coverage/index.html<CR>
-nmap <silent><leader>ts <Plug>(vitest-run-all)
-nmap <silent><leader>tj <Plug>(vitest-next-fail)
-nmap <silent><leader>tk <Plug>(vitest-prev-fail)
+nmap <silent><leader>vn :UltestNearest<CR>
+nmap <silent><leader>vf <Plug>(ultest-run-file)
+nmap <silent><leader>vj <Plug>(ultest-next-fail)
+nmap <silent><leader>vk <Plug>(ultest-prev-fail)
+nmap <silent><leader>vg <Plug>(ultest-output-jump)
+nmap <silent><leader>vo <Plug>(ultest-output-show)
 
 " inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"

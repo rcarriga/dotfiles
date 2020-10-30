@@ -241,8 +241,4 @@ if get(g:, "load_plugins", v:true)
       norm "<leader>"
   endfunction
   nnoremap  <silent><leader>  :call <SID>loadPlugins()<CR>
-  augroup PluginInit
-      au!
-      au InsertEnter * ++once call <SID>loadPlugins()
-  augroup END
 endif
