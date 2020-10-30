@@ -55,13 +55,20 @@ configuration {
   padding: 20px 0px;
 }
 
-#element {
-  font: "Roboto 16";
+element {
   text-color: @list-foreground;
   padding: 15px;
 }
 
-#element.selected {
+element-text {
+  font: "Roboto 16";
+}
+
+element-icon {
+  size: 20;
+}
+
+element.selected {
   background-color: @selected-background;
   text-color: @selected-foreground;
 }

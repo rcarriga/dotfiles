@@ -102,6 +102,11 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
+tray-offset-x = 0
+tray-offset-y = 0
+tray-detached = false
+tray-position = right
+
 ###############################################################################
 
 [module/workspaces-xmonadGameMode]

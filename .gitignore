@@ -11,3 +11,7 @@ __pycache__/*
 myXmonad.cabal
 undodir
 .netrwhist
+.config/zsh/functions.local/*
+.config/zsh/completions/*
+.config/zsh/.zcompdump*
+.config/nvim/spell
