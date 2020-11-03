@@ -161,6 +161,9 @@ call s:loadHighlights({
     \ "SignColumn": [s:Key],
     \ "Question": [s:Info],
     \ "TabLineFill": [s:Grey2],
+    \ "NotificationInfo": [s:Normal, FloatBackground],
+    \ "NotificationError": [s:Error, FloatBackground],
+    \ "NotificationWarning": [s:Warning, FloatBackground]
 \ })
 
 " General

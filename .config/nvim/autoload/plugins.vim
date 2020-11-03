@@ -7,10 +7,12 @@ function! s:AddPlugins(args) abort
   let s:plugins = extend(get(s:, "plugins", {}), a:args)
 endfunction
 
-
 call s:AddPlugins({
-    \ "rcarriga/vim-ultest": {},
     \ "sodapopcan/vim-twiggy": {},
+    \ "tpope/vim-dadbod": {},
+    \ "kristijanhusak/vim-dadbod-ui": {},
+    \ "ajorgensen/vim-markdown-toc": {},
+    \ "/home/ronan/Dev/repos/vim-ultest": {"merge": 0, "lazy": 1},
     \ "svermeulen/vim-subversive": {},
     \ "norcalli/nvim-colorizer.lua": {},
     \ "voldikss/vim-floaterm": {"lazy": 1},
@@ -66,7 +68,12 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 
+
 let g:twiggy_num_columns = 50
+
+let g:db_ui_auto_execute_table_helpers = 1
+let g:db_ui_show_database_icon = 1
+let g:db_ui_use_nerd_fonts = 1
 
 let g:conflict_marker_highlight_group = ''
 
@@ -97,6 +104,7 @@ let g:coc_snippet_next = "<tab>"
 
 let test#strategy = "floaterm"
 let test#python#pytest#options = "--disable-warnings --color=yes"
+let test#javascript#jest#options = "--color=always"
 
 " Open undo tree on right
 let g:mundo_right = 1
@@ -109,7 +117,6 @@ let g:airline_theme = "molokai"
 let g:airline#extensions#coc#error_symbol = " "
 let g:airline#extensions#coc#warning_symbol = " "
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#vista#enabled = 0
 
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
@@ -128,15 +135,21 @@ let g:which_key_position = 'topleft'
 let g:which_key_max_size = 20
 let g:which_key_floating_opts = { "col": "+30"}
 
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'Operator' } }
 let g:fzf_preview_window = 'right:60%'
 
 " }}}1
 " ###################################################################################
 " Functions {{{1
-"
+
+function! GetTestResults() abort
+    return get(b:, "ultest_total") ?
+                \ get(b:,"ultest_passed")." Pass ".get(b:, "ultest_failed")." Fail" : ""
+endfunction
+
 function AirlineInit()
-  let g:airline_section_y = airline#section#create_right(['filetype'])
+  call airline#parts#define_function('ultest', 'GetTestResults')
+  let g:airline_section_y = airline#section#create_right(["ultest"])
   let g:airline_section_z = airline#section#create([
               \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
               \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
@@ -200,6 +213,8 @@ command! CC CocCommand
 " ###################################################################################
 " Plugin Mappings {{{1
 let g:which_key_map = {}
+
+autocmd FileType dbui nmap <buffer> l <Plug>(DBUI_SelectLine)
 
 " Doge Mapping
 let g:which_key_map.i = "Generate Documentation"
@@ -288,9 +303,6 @@ nmap <silent><leader>u :MundoToggle<CR>
 let g:which_key_map.x = "File Explorer"
 nmap <silent><leader>x :CocCommand explorer<CR>
 nnoremap <silent>` :CocCommand explorer ~/.config/nvim<CR>
-" Ctags and LSP symbol finding
-let g:which_key_map.v = "Tags"
-nmap <silent><leader>v :Vista!!<CR>
 
 " HTTP requests - coc-post
 let g:which_key_map.h = {
@@ -386,12 +398,12 @@ nmap <silent><leader>tl :TestLast<CR>
 nmap <silent><leader>tv :TestVisit<CR>
 nmap <silent><leader>tm :make test<CR>
 nmap <silent><leader>to :!firefox coverage/index.html<CR>
-nmap <silent><leader>vn :UltestNearest<CR>
-nmap <silent><leader>vf <Plug>(ultest-run-file)
-nmap <silent><leader>vj <Plug>(ultest-next-fail)
-nmap <silent><leader>vk <Plug>(ultest-prev-fail)
-nmap <silent><leader>vg <Plug>(ultest-output-jump)
-nmap <silent><leader>vo <Plug>(ultest-output-show)
+nmap <leader>vf <Plug>(ultest-run-file)
+nmap <leader>vn <Plug>(ultest-run-nearest)
+nmap <leader>vj <Plug>(ultest-next-fail)
+nmap <leader>vk <Plug>(ultest-prev-fail)
+nmap <leader>vg <Plug>(ultest-output-jump)
+nmap <leader>vo <Plug>(ultest-output-show)
 
 " inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"

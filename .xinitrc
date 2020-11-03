@@ -12,10 +12,21 @@ case $(hostname) in
         xset r rate 150 40
         xsetroot -cursor_name left_ptr
         xrdb -merge ~/.Xresources
-        export XMONAD_MODE=""
+        export XMONAD_MODE="xmonadHIDPI"
         /usr/bin/prime-offload
+        exec xmonad
+        ;;
+    XPS15)
+        xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Tapping Enabled" 1
+        xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 1
+        setxkbmap -layout gb
+        xset r rate 150 40
+        xsetroot -cursor_name left_ptr
+        xrdb -merge ~/.Xresources
+        export XMONAD_MODE="xmonad"
         exec xmonad
         ;;
     *)
         ;;
 esac
+

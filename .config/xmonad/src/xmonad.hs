@@ -1,49 +1,57 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-import Data.Foldable ( foldrM )
-import Data.List ( elemIndex, sortOn )
+import Data.Foldable (foldrM)
+import Data.List (elemIndex, sortOn)
 import qualified Data.Map as M
-import Data.Maybe ( fromMaybe, mapMaybe )
+import Data.Maybe (fromMaybe, mapMaybe)
 import Data.Ratio ((%))
 import Graphics.X11.Xlib.Extras
-    ( getClassHint,
-      getWindowAttributes,
-      ClassHint(resClass),
-      WindowAttributes(wa_border_width) )
-import System.Environment ( lookupEnv )
+  ( ClassHint (resClass),
+    WindowAttributes (wa_border_width),
+    getClassHint,
+    getWindowAttributes,
+  )
+import System.Environment (lookupEnv)
 import XMonad hiding (WindowClass)
-import XMonad.Actions.CycleRecentWS ( toggleRecentNonEmptyWS )
-import XMonad.Hooks.EwmhDesktops ( ewmh, ewmhFullscreen )
-import XMonad.Hooks.ManageDocks ( avoidStruts, docks )
+import XMonad.Actions.CycleRecentWS (toggleRecentNonEmptyWS)
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
+import XMonad.Hooks.ManageDocks (avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers ()
-import XMonad.Hooks.SetWMName ( setWMName )
+import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Layout.MouseResizableTile
-    ( mouseResizableTile, MRTMessage(ExpandSlave, ShrinkSlave) )
+  ( MRTMessage (ExpandSlave, ShrinkSlave),
+    mouseResizableTile,
+  )
 import XMonad.Layout.NoBorders
-    ( lessBorders, noBorders, Ambiguity(Never), SetsAmbiguous(..) )
+  ( Ambiguity (Never),
+    SetsAmbiguous (..),
+    lessBorders,
+    noBorders,
+  )
 import XMonad.Layout.Spacing
-    ( decWindowSpacing,
-      incWindowSpacing,
-      spacingRaw,
-      toggleScreenSpacingEnabled,
-      toggleWindowSpacingEnabled,
-      Border(Border) )
+  ( Border (Border),
+    decWindowSpacing,
+    incWindowSpacing,
+    spacingRaw,
+    toggleScreenSpacingEnabled,
+    toggleWindowSpacingEnabled,
+  )
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig ( additionalKeysP )
+import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad
-    ( defaultFloating, namedScratchpadAction, NamedScratchpad(NS) )
-import XMonad.Util.Run ( safeSpawn )
+  ( NamedScratchpad (NS),
+    defaultFloating,
+    namedScratchpadAction,
+  )
+import XMonad.Util.Run (safeSpawn)
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "zsh $HOME/.config/scripts/" ++ script_name
 
 main :: IO ()
 main = do
-  mode <- lookupEnv "XMONAD_MODE"
-  let gameMode = case mode of
-        Just "game" -> True
-        _ -> False
-      workspaceNameFile = if gameMode then "/tmp/xmonadGameMode" else "/tmp/xmonad"
+  mode <- fromMaybe "xmonad" <$> lookupEnv "XMONAD_MODE"
+  let workspaceNameFile = "/tmp/" <> mode
   safeSpawn "mkfifo" [workspaceNameFile]
   xmonad $
     ewmh $
@@ -57,11 +65,11 @@ main = do
               focusedBorderColor = "#bdbdbd",
               handleEventHook = def handleEventHook,
               layoutHook = myLayoutHook,
-              startupHook = myStartupHook gameMode,
+              startupHook = myStartupHook mode,
               logHook = sendWorkspaceNames workspaceNameFile,
               borderWidth = 2
             }
-          `additionalKeysP` myKeys gameMode
+          `additionalKeysP` myKeys mode
 
 myScratchpads :: [NamedScratchpad]
 myScratchpads =
@@ -71,7 +79,6 @@ myScratchpads =
 
 myWorkspaces :: [String]
 myWorkspaces = map show ([1 .. 9] :: [Int]) ++ ["NSP"]
-
 
 sendWorkspaceNames :: String -> X ()
 sendWorkspaceNames file = do
@@ -88,31 +95,22 @@ sendWorkspaceNames file = do
               tags
   io $ appendFile file $ outTags ++ "  \n"
 
-myStartupHook :: Bool -> X ()
-myStartupHook gamingMode = do
+myStartupHook :: String -> X ()
+myStartupHook mode = do
   setWMName "XMonad"
   setWallpaper
   startCompositor False
   mapM_
     spawn
-    ( if gamingMode
-        then
-          [ "pkill polybar; sleep 1; polybar xmonadGameMode",
-            "pgrep nm-applet || nm-applet",
-            "pgrep blueman-applet || blueman-applet",
-            "light -N 1"
-          ]
-        else
-          [ "pkill polybar; sleep 1; polybar xmonadHIDPI",
-            "/usr/lib/notification-daemon-1.0/notification-daemon",
-            "pgrep redshift-gtk || redshift-gtk -l 53:-6 -t 6500:2500",
-            "pgrep nm-applet || nm-applet",
-            "(pgrep kdeconnectd || /usr/lib/kdeconnectd) && pkill kdeconnect-indic && kdeconnect-indicator",
-            "pgrep blueman-applet || blueman-applet",
-            "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\"",
-            "light -N 1"
-          ]
-    )
+    [ "pkill polybar; sleep 1; polybar " <> mode,
+      "/usr/lib/notification-daemon-1.0/notification-daemon",
+      "pgrep redshift-gtk || redshift-gtk -l 53:-6 -t 6500:2500",
+      "pgrep nm-applet || nm-applet",
+      "(pgrep kdeconnectd || /usr/lib/kdeconnectd) && pkill kdeconnect-indic && kdeconnect-indicator",
+      "pgrep blueman-applet || blueman-applet",
+      "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\"",
+      "light -N 1"
+    ]
 
 setWallpaper :: X ()
 setWallpaper = spawn "feh -z --bg-fill ~/.config/images/"
@@ -124,8 +122,8 @@ startCompositor :: Bool -> X ()
 startCompositor force =
   spawn $ if force then "pkill picom; " <> compositorCommand else "pgrep picom || " <> compositorCommand
 
-myKeys :: Bool -> [(String, X ())]
-myKeys gameMode =
+myKeys :: String -> [(String, X ())]
+myKeys mode =
   [ ("<XF86MonBrightnessUp>", startScript "brightness UP"),
     ("<XF86MonBrightnessDown>", startScript "brightness DOWN"),
     ("<XF86AudioRaiseVolume>", startScript "volume UP"),
@@ -135,7 +133,7 @@ myKeys gameMode =
     ("M-b", namedScratchpadAction myScratchpads "Blueman-manager"),
     ("M-<Tab>", toggleRecentNonEmptyWS),
     ( "M-S-t",
-      spawn $ "pkill polybar || (sleep 1 && polybar " ++ (if gameMode then "xmonadGameMode" else "xmonadHIDPI") ++ ")"
+      spawn $ "pkill polybar || (sleep 1 && polybar " <> mode <> ")"
     ),
     ("M-S-p", spawn "polybar-msg cmd toggle"),
     ("M-S-n", namedScratchpadAction myScratchpads "bashtop"),

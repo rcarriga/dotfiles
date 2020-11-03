@@ -54,8 +54,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Roboto:style=Regular:size=18
-font-1 = RobotoMono Nerd Font:style=Regular:size=22
+font-0 = Roboto:style=Regular:size=10
+font-1 = RobotoMono Nerd Font:style=Regular:size=11
 
 modules-left = workspaces-xmonad
 modules-center = date battery light pulseaudio
@@ -90,7 +90,7 @@ height = 70
 bottom = true
 font-0 = Roboto:style=Regular:size=18
 font-1 = RobotoMono Nerd Font:style=Regular:size=22
-modules-left = workspaces-xmonad
+modules-left = workspaces-xmonad-hidpi
 modules-center = date battery light pulseaudio
 modules-right = root home memory cpu temperature 
 line-size = 3
@@ -118,6 +118,12 @@ format-background = ${colors.background}
 [module/workspaces-xmonad]
 type = custom/script
 exec = tail -F /tmp/xmonad
+tail = true
+format-background = ${colors.background}
+
+[module/workspaces-xmonad-hidpi]
+type = custom/script
+exec = tail -F /tmp/xmonadHIDPI
 tail = true
 format-background = ${colors.background}
 

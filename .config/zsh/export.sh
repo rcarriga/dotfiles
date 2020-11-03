@@ -7,7 +7,6 @@ export EDITOR="nvim"
 export SCRIPT_DIR=$HOME/.config/scripts
 export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
 export GOPATH="$HOME/.go"
-export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin"
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 export BAT_THEME="Monokai Extended Origin"
 
@@ -34,6 +33,7 @@ export XDG_RUNTIME_DIR
 # Used in oh-my-zsh plugins...
 export ZSH_CACHE_DIR="$XDG_CACHE_HOME"
 
+export npm_config_prefix="$XDG_CACHE_HOME/node_modules"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export LESSHISTFILE="$XDG_CACHE_HOME/less.hst"
 export _ZL_DATA="$XDG_DATA_HOME/zlua"
@@ -44,4 +44,5 @@ export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
 export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
 export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad"
+export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin:$npm_config_prefix/bin"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh

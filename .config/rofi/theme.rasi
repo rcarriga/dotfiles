@@ -8,12 +8,12 @@ configuration {
 }
 
 * {
-  query-background    : #7e3ff299;
-  list-background     : #7e3ff222;
-  selected-background : #7e3ff299;
-  selected-foreground : #c6f68d;
-  list-foreground     : #9965f4;
-  prompt-foreground   : #efe5fd;
+  query-background    : #5b6f8299;
+  list-background     : #5b6f8222;
+  selected-background : #5b6f8299;
+  selected-foreground : #F8F8F8;
+  list-foreground     : #bdbdbd;
+  prompt-foreground   : #F8F8F8;
   background-color    : #00000000;
 }
 
@@ -33,7 +33,7 @@ configuration {
 #prompt {
   str: "";
   expand: false;
-  padding: 5px 20px;
+  padding: 0.8% 1.5%;
   font: "DejaVuSansMono 40";
   text-color: inherit;
 }
@@ -41,7 +41,7 @@ configuration {
 #entry {
   font: "Roboto 20";
   text-color: inherit;
-  padding: 20px 0px;
+  padding: 2% 0px;
 }
 
 
@@ -52,12 +52,12 @@ configuration {
   lines: 5;
   fixed-height: false;
   dynamic: true;
-  padding: 20px 0px;
+  padding: 2% 0px;
 }
 
 element {
   text-color: @list-foreground;
-  padding: 15px;
+  padding: 1.5%;
 }
 
 element-text {
@@ -65,7 +65,8 @@ element-text {
 }
 
 element-icon {
-  size: 20;
+  size: 3%;
+  padding: 0% 1% 0% 0%;
 }
 
 element.selected {
