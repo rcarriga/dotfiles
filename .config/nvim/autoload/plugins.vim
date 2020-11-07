@@ -32,7 +32,7 @@ call s:AddPlugins({
     \ "machakann/vim-swap": {},
     \ "mhinz/vim-signify": {},
     \ "moll/vim-bbye": {},
-    \ "neoclide/coc.nvim": {"merge": 0, "rev": "release"},
+    \ "neoclide/coc.nvim": {"merge": 0, "rev": "master", "build": "yarn install --frozen-lockfile"},
     \ "nvim-treesitter/playground": {"merge": 0},
     \ "rhysd/clever-f.vim": {},
     \ "rhysd/git-messenger.vim": {},

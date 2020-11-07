@@ -1,9 +1,8 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-import Data.Foldable (foldrM)
 import Data.List (elemIndex, sortOn)
 import qualified Data.Map as M
-import Data.Maybe (fromMaybe, mapMaybe)
+import Data.Maybe (fromMaybe)
 import Data.Ratio ((%))
 import Graphics.X11.Xlib.Extras
   ( ClassHint (resClass),
@@ -12,7 +11,7 @@ import Graphics.X11.Xlib.Extras
     getWindowAttributes,
   )
 import System.Environment (lookupEnv)
-import XMonad hiding (WindowClass)
+import XMonad
 import XMonad.Actions.CycleRecentWS (toggleRecentNonEmptyWS)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks)
@@ -80,21 +79,6 @@ myScratchpads =
 myWorkspaces :: [String]
 myWorkspaces = map show ([1 .. 9] :: [Int]) ++ ["NSP"]
 
-sendWorkspaceNames :: String -> X ()
-sendWorkspaceNames file = do
-  st <- get
-  workspaceNames <- workspaces . config <$> ask
-  workspaceIcons <- foldrM storeIcon M.empty $ W.workspaces $ windowset st
-  let curWs = W.tag $ W.workspace $ W.current $ windowset st
-      tags = sortOn (\t -> fromMaybe 99 $ t `elemIndex` myWorkspaces) workspaceNames
-      outTags =
-        foldr1 (\a b -> a <> "      " <> b) $
-          filter (/= "") $
-            mapMaybe
-              (parseWorkspaceId workspaceIcons curWs)
-              tags
-  io $ appendFile file $ outTags ++ "  \n"
-
 myStartupHook :: String -> X ()
 myStartupHook mode = do
   setWMName "XMonad"
@@ -156,12 +140,9 @@ myKeys mode =
   ]
 
 -- ######################################################################################
--- This section is used to convert a workspace ID to a string containing an icon for the focused window in that workspace
+-- Creates and stores a string in FIFO for displaying in polybar
+-- Focused workspace and windows are highlighted
 -- Can be used for XMobar (Or any status bar desired)
-
-type WindowClass = String
-
-type WorkspaceIcons = M.Map WorkspaceId [String]
 
 myWindowIcons :: M.Map String String
 myWindowIcons =
@@ -185,40 +166,64 @@ myWindowIcons =
       ("discord", "\xfb6e"),
       ("Postman", "\xf1d8"),
       ("Slack", "\xf9b0"),
-      ("Keybase", "\xf084")
+      ("Keybase", "\xf084"),
+      ("vlc", "\xfa7b")
     ]
 
-parseWorkspaceId :: WorkspaceIcons -> WorkspaceId -> WorkspaceId -> Maybe String
-parseWorkspaceId icons cur i =
-  let joinIcons is = foldr (\a b -> a <> "   " <> b) (head is) (tail is)
-   in case M.lookup i icons of
-        Nothing | i == cur -> Just $ "  " <> i <> "  "
-        Nothing -> Nothing
-        Just _ | i == "NSP" -> Nothing
-        Just wsIcons | i == cur -> Just $ polybarColour "#FFFFFF" $ i ++ "  " ++ joinIcons wsIcons
-        Just wsIcons ->
-          Just $
-            polybarColour "#777777" $
-              "%{A:xdotool key Super+"
-                ++ i
-                ++ ":}"
-                ++ i
-                ++ "  "
-                ++ joinIcons wsIcons
-                ++ "%{A}"
+highlight :: String -> String
+highlight = fg "#FFFFFF"
 
-polybarColour :: String -> String -> String
-polybarColour colour str = "%{F" <> colour <> "}" <> str <> "%{F-}"
+normal :: String -> String
+normal = fg "#777777"
 
-storeIcon :: W.Workspace WorkspaceId l Window -> WorkspaceIcons -> X WorkspaceIcons
-storeIcon ws aliases = do
+fg :: String -> String -> String
+fg colour str = "%{F" <> colour <> "}" <> str <> "%{F-}"
+
+bg :: String -> String -> String
+bg colour str = "%{B" <> colour <> "}" <> str <> "%{B-}"
+
+clickable :: String -> String -> String
+clickable winId str =
+  "%{A:xdotool key Super+"
+    <> winId
+    <> ":}"
+    <> str
+    <> "%{A}"
+
+sendWorkspaceNames :: String -> X ()
+sendWorkspaceNames file = do
+  workspacesString <- joinWithSpaces 1 <$> prettyWorkspaceList
+  io $ appendFile file $ workspacesString ++ "  \n"
+
+prettyWorkspaceList :: X [String]
+prettyWorkspaceList = do
+  curWorkspaces <- sortOn (W.tag) . filter (\wspace -> W.tag wspace /= "NSP") . W.workspaces . windowset <$> get
+  workspaceIcons <- zip (map W.tag curWorkspaces) . filter (\icons -> length icons > 0) <$> mapM prettyWindowIconList curWorkspaces
+  focusedWspace <- W.tag . W.workspace . W.current . windowset <$> get
+  let colour tag = (if tag == focusedWspace then highlight else normal)
+  return $ map (\(tag, winIcons) -> colour tag $ clickable tag $ joinWithSpaces 4 (tag : winIcons)) workspaceIcons
+
+joinWithSpaces :: Int -> [String] -> String
+joinWithSpaces spaces = joinStrings (take spaces $ repeat ' ')
+
+joinStrings :: String -> [String] -> String
+joinStrings joinWith = foldr (\a b -> a <> joinWith <> b) ""
+
+prettyWindowIconList :: W.Workspace WorkspaceId l Window -> X [String]
+prettyWindowIconList workspace = case W.stack workspace of
+  Nothing -> return []
+  Just curStack -> do
+    let curWindows = W.integrate curStack
+    winIcons <- windowIcons curWindows
+    let focusedIndex = fromMaybe (-1) $ elemIndex (W.focus curStack) curWindows
+    isWorkspaceFocused <- (==) (W.tag workspace) .  W.tag . W.workspace . W.current . windowset <$> get
+    return $ zipWith (\icon i -> if i == focusedIndex && isWorkspaceFocused then highlight icon else normal icon) winIcons [0 ..]
+
+windowIcons :: [Window] -> X [String]
+windowIcons winIds = do
   dis <- display <$> ask
-  case W.stack ws of
-    Nothing -> return aliases
-    Just a -> do
-      wsWindows <- io $ mapM (fmap resClass . getClassHint dis) (W.up a <> (W.focus a : W.down a)) -- Get window classes for workspace
-      let wsIcons = map (\win -> fromMaybe "\xf2d0" (M.lookup win myWindowIcons)) wsWindows -- Get icons for all windows
-      return $ M.insert (W.tag ws) wsIcons aliases -- Store icons in Map
+  windowClasses <- io $ mapM (fmap resClass . getClassHint dis) winIds
+  return $ map (\win -> fromMaybe "\xf2d0" (M.lookup win myWindowIcons)) windowClasses
 
 -- ######################################################################################
 -- Making XMonad play nice with fullscreen windows and borders.

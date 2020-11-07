@@ -64,7 +64,7 @@ endfunction
   let s:Yellow            = s:ConstructColour("#FFF59D")
   let s:Orange            = s:ConstructColour("#F79000")
   let s:Red               = s:ConstructColour("#F70067")
-  let FloatBackground   = s:ConstructColour("#233444")
+  let FloatBackground   = s:ConstructColour("#132434")
   let s:Background = {"gui": "NONE", "cterm256": "NONE"}
 else
   let s:Grey1             = s:ConstructColour("#424242")
@@ -219,6 +219,8 @@ call s:loadHighlights({
 call s:loadHighlights({
     \ "haskellIdentifier": [s:FuncName],
     \ "haskellDecl": [s:BuiltIn],
+    \ "haskellDeclKeyword": [s:BuiltIn],
+    \ "haskellLet": [s:BuiltIn],
 \ })
 
 " Vim Fugitive
