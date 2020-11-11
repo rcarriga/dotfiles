@@ -8,6 +8,8 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+    \ "kyazdani42/nvim-web-devicons": {},
+    \ "kyazdani42/nvim-tree.lua": {},
     \ "sodapopcan/vim-twiggy": {},
     \ "tpope/vim-dadbod": {},
     \ "kristijanhusak/vim-dadbod-ui": {},
@@ -68,6 +70,37 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 
+let g:lua_tree_auto_close = 1
+let g:lua_tree_follow = 1
+let g:lua_tree_indent_markers = 1
+let g:lua_tree_git_hl = 1 
+let g:lua_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
+    \ }
+let g:lua_tree_bindings = {
+    \ 'edit':            ['<CR>', 'l'],
+    \ 'edit_vsplit':     '<C-v>',
+    \ 'edit_split':      '<C-x>',
+    \ 'edit_tab':        '<C-t>',
+    \ 'toggle_ignored':  'i',
+    \ 'toggle_dotfiles': '.',
+    \ 'refresh':         'R',
+    \ 'preview':         '<Tab>',
+    \ 'cd':              '<C-]>',
+    \ 'create':          'a',
+    \ 'remove':          'd',
+    \ 'rename':          'r',
+    \ 'cut':             'x',
+    \ 'copy':            'c',
+    \ 'paste':           'p',
+    \ 'prev_git_item':   '[c',
+    \ 'next_git_item':   ']c',
+    \ }
+
+
+au FileType LuaTree setlocal cursorline
 
 let g:twiggy_num_columns = 50
 
@@ -94,7 +127,7 @@ let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 0
 
-let g:coc_global_extensions = [ "coc-sh", "coc-yank", "coc-lists", "coc-eslint", "coc-json", "coc-python", "coc-snippets", "coc-docker", "coc-css", "coc-html", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
+let g:coc_global_extensions = [ "coc-sh", "coc-yank", "coc-lists", "coc-json", "coc-snippets", "coc-docker", "coc-css", "coc-tsserver", "coc-yaml", "coc-word", "coc-vimlsp" ]
 
 " Set GoYo width
 let g:goyo_width = 100
@@ -123,8 +156,7 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
-let g:ultest_icons = 1
-let g:ultest_virtual_text = 0
+let g:ultest_virtual_text = 1
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
@@ -301,8 +333,8 @@ let g:which_key_map.u = "Undo Tree"
 nmap <silent><leader>u :MundoToggle<CR>
 " Directory tree
 let g:which_key_map.x = "File Explorer"
-nmap <silent><leader>x :CocCommand explorer<CR>
-nnoremap <silent>` :CocCommand explorer ~/.config/nvim<CR>
+nmap <silent><leader>x LuaTreeOpen<CR>
+nnoremap <silent>` :LuaTreeOpen ~/.config/nvim<CR>
 
 " HTTP requests - coc-post
 let g:which_key_map.h = {

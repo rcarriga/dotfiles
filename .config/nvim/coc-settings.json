@@ -163,9 +163,8 @@
     "formatting": {
       "provider": "black"
     },
-    "jediEnabled": false,
     "linting": {
-      "mypyEnabled": true,
+      "mypyEnabled": false,
       "mypyArgs": ["--follow-imports=silent", "--show-column-numbers", "--ignore-missing-imports"],
       "pydocstyleEnabled": false
     }
