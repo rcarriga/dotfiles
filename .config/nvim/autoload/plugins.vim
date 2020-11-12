@@ -8,6 +8,8 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+    \ "mfussenegger/nvim-dap": {},
+    \ "theHamsta/nvim-dap-virtual-text": {},
     \ "kyazdani42/nvim-web-devicons": {},
     \ "kyazdani42/nvim-tree.lua": {},
     \ "sodapopcan/vim-twiggy": {},
@@ -69,6 +71,7 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+let g:dap_virtual_text = "all_frames"
 
 let g:lua_tree_auto_close = 1
 let g:lua_tree_follow = 1
@@ -333,8 +336,7 @@ let g:which_key_map.u = "Undo Tree"
 nmap <silent><leader>u :MundoToggle<CR>
 " Directory tree
 let g:which_key_map.x = "File Explorer"
-nmap <silent><leader>x LuaTreeOpen<CR>
-nnoremap <silent>` :LuaTreeOpen ~/.config/nvim<CR>
+nmap <silent><leader>x :LuaTreeToggle<CR>
 
 " HTTP requests - coc-post
 let g:which_key_map.h = {
@@ -365,6 +367,28 @@ nmap <silent><leader>dt :BTags<CR>
 nmap <silent><leader>dh :Helptags<CR>
 nmap <silent><leader>dw :Lines<CR>
 nmap <silent><leader>dc :Colors<CR>
+
+let g:which_key_map.b = {
+  \ "name": "Debugger",
+  \ "c": "Start/Continue",
+  \ "s": "Step Over",
+  \ "i": "Step Into",
+  \ "o": "Step Out",
+  \ "b": "Toggle Breakpoint",
+  \ "B": "Conditional Breakpoint",
+  \ "l": "Log point",
+  \ "r": "Open REPL",
+  \ "g": "Repeat last run",
+  \ }
+nnoremap <silent> <leader>bc :lua require'dap'.continue()<CR>
+nnoremap <silent> <leader>bs :lua require'dap'.step_over()<CR>
+nnoremap <silent> <leader>bi :lua require'dap'.step_into()<CR>
+nnoremap <silent> <leader>bo :lua require'dap'.step_out()<CR>
+nnoremap <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <silent> <leader>bl :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+nnoremap <silent> <leader>br :lua require'dap'.repl.open()<CR>
+nnoremap <silent> <leader>bg :lua require'dap'.repl.run_last()<CR>
 
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
