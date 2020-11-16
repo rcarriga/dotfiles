@@ -14,7 +14,7 @@ export BAT_THEME="Monokai Extended Origin"
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" --hidden --color never --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
-export FZF_CTRL_T_OPTS="--preview \". $ZDOTDIR/functions/fuzzy_preview {}\""
+export FZF_CTRL_T_OPTS="--margin 5% --preview \". $ZDOTDIR/functions/fuzzy_preview {}\""
 export FZF_DEFAULT_OPTS="--height 96% --reverse --bind=shift-right:preview-page-down,shift-left:preview-page-up"
 export FZF_COMPLETION_TRIGGER="#"
 

@@ -51,4 +51,11 @@ alias dc="docker-compose"
 
 alias sa="sudo aura"
 alias sc="sudo systemctl"
+
+if command -v floaterm &> /dev/null; then
+  alias v=floaterm
+else
+  alias v=nvim
+fi
+
 [[ -f "$HOME/.config/system/local.alias.sh" ]] && source "$HOME/.config/system/local.alias.sh"

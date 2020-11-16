@@ -50,7 +50,7 @@ endfunction
 " ==========================
 " Color Variables
 " ==========================
-    if &background == "dark"
+if &background != "light"
   let s:Grey1             = s:ConstructColour("#262626")
   let s:Grey2             = s:ConstructColour("#8B8B8B")
   let s:Grey3             = s:ConstructColour("#bdbdbd")

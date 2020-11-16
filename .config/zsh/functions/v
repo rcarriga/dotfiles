@@ -1,7 +1,0 @@
-#!/bin/env zsh
-
-if command -v floaterm &> /dev/null; then
-  floaterm $@
-else
-  nvim $@
-fi

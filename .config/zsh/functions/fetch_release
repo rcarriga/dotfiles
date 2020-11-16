@@ -1,0 +1,23 @@
+#!/bin/zsh
+
+zparseopts -D -E -M -- o:=output r:=repo p:=pattern
+
+output=${output[2]:--}
+repo=${repo[2]}
+pattern=${pattern[2]}
+
+[[ -z $output ]] && echo "Must specify a repository with -r" && exit 1
+
+assets=$(curl -s https://api.github.com/repos/${repo}/releases/latest | jq '.assets')
+
+if [[ -z $pattern ]]; then
+  chosen=$(jq '.[].name' <<< $assets | sed 's/"//g' | fzf)
+else
+  chosen=$(jq '.[].name' <<< $assets | grep $pattern | sed 's/"//g')
+fi
+
+grep '[a-bA-B]' >& /dev/null <<< $chosen || (echo "No release chosen" && exit)
+
+url=$(jq 'map(select(.name=="'${chosen}'") | .url) | .[]' <<< $assets | sed 's/"//g')
+
+curl -L  -H 'Accept: application/octet-stream' "${url}" -o $output
