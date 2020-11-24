@@ -58,6 +58,7 @@ configuration {
 element {
   text-color: @list-foreground;
   padding: 1.5%;
+  children: [element-text, element-icon];
 }
 
 element-text {
@@ -66,7 +67,6 @@ element-text {
 
 element-icon {
   size: 3%;
-  padding: 0% 1% 0% 0%;
 }
 
 element.selected {

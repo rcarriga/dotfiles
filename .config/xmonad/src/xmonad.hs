@@ -92,7 +92,6 @@ myStartupHook mode = do
       "pgrep nm-applet || nm-applet",
       "(pgrep kdeconnectd || /usr/lib/kdeconnectd) && pkill kdeconnect-indic && kdeconnect-indicator",
       "pgrep blueman-applet || blueman-applet",
-      "pgrep xautolock || xautolock -locker \"sh /home/ronan/.config/scripts/lock; systemctl suspend\" -detectsleep -time 30 -notify 30 -notifier \"notify-send -u critical -t 10000 -- 'Suspending in 30 seconds'\"",
       "light -N 1"
     ]
 

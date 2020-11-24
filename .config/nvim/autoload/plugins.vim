@@ -77,6 +77,7 @@ let g:lua_tree_auto_close = 1
 let g:lua_tree_follow = 1
 let g:lua_tree_indent_markers = 1
 let g:lua_tree_git_hl = 1 
+let g:lua_tree_ignore = [ ".git", "node_modules", "__pycache__"]
 let g:lua_tree_show_icons = {
     \ 'git': 1,
     \ 'folders': 1,
