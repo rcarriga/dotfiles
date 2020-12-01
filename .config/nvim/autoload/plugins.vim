@@ -8,6 +8,7 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+    \ "rrethy/vim-hexokinase": { "build": "make hexokinase" },
     \ "mfussenegger/nvim-dap": {},
     \ "theHamsta/nvim-dap-virtual-text": {},
     \ "kyazdani42/nvim-web-devicons": {},
@@ -18,7 +19,6 @@ call s:AddPlugins({
     \ "ajorgensen/vim-markdown-toc": {},
     \ "/home/ronan/Dev/repos/vim-ultest": {"merge": 0, "lazy": 1},
     \ "svermeulen/vim-subversive": {},
-    \ "norcalli/nvim-colorizer.lua": {},
     \ "voldikss/vim-floaterm": {"lazy": 1},
     \ "rhysd/conflict-marker.vim": {},
     \ "Konfekt/FastFold": {},
@@ -71,6 +71,10 @@ let g:plugins_loaded = 1
 
 " ###################################################################################
 " Plugin Settings {{{1
+
+
+let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
+
 let g:dap_virtual_text = "all_frames"
 
 let g:lua_tree_auto_close = 1
