@@ -1,3 +1,35 @@
+
+local telescope = require("telescope")
+local actions = require('telescope.actions')
+telescope.setup {
+  defaults = {
+    vim_buffers_everywhere = true, -- Will most likely be renamed to something more useful
+    prompt_position = "top",
+    prompt_prefix = " ❯",
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    selection_strategy = "reset",
+    sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
+    mappings = {
+      i = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+      }
+    }
+  },
+}
+
+telescope.load_extension('fzy_native')
+
+
 local dap = require('dap')
 
 dap.adapters.python = {
@@ -26,3 +58,8 @@ dap.configurations.python = {
     end;
   },
 }
+
+local dap_python = require('dap-python')
+
+dap_python.setup('python')
+dap_python.test_method()

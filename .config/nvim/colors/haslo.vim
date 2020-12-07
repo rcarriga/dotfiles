@@ -440,3 +440,7 @@ call s:loadHighlights({
   \ "goFunctionCall": [s:FuncName],
   \ "goVarDefs": [s:VarName]
   \ })
+
+call s:loadHighlights({
+  \ "TelescopeBorder": [s:Operator],
+  \ })

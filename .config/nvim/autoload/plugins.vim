@@ -8,11 +8,16 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+    \ "nvim-telescope/telescope-dap.nvim": {},
+    \ "nvim-lua/popup.nvim": {},
+    \ "nvim-lua/plenary.nvim": {},
+    \ "mfussenegger/nvim-dap-python": {},
+    \ "Conni2461/telescope.nvim": {"rev": "vim_buffers_everywhere"},
+    \ "nvim-telescope/telescope-fzy-native.nvim": {},
     \ "rrethy/vim-hexokinase": { "build": "make hexokinase" },
     \ "mfussenegger/nvim-dap": {},
     \ "theHamsta/nvim-dap-virtual-text": {},
     \ "kyazdani42/nvim-web-devicons": {},
-    \ "kyazdani42/nvim-tree.lua": {},
     \ "sodapopcan/vim-twiggy": {},
     \ "tpope/vim-dadbod": {},
     \ "kristijanhusak/vim-dadbod-ui": {},
@@ -41,7 +46,7 @@ call s:AddPlugins({
     \ "rhysd/clever-f.vim": {},
     \ "rhysd/git-messenger.vim": {},
     \ "simnalamburt/vim-mundo": {"lazy":1},
-    \ "preservim/nerdcommenter": {},
+    \ "tomtom/tcomment_vim": {},
     \ "tpope/vim-abolish": {},
     \ "tpope/vim-eunuch": {},
     \ "tpope/vim-fugitive": {},
@@ -76,39 +81,6 @@ let g:plugins_loaded = 1
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
 let g:dap_virtual_text = "all_frames"
-
-let g:lua_tree_auto_close = 1
-let g:lua_tree_follow = 1
-let g:lua_tree_indent_markers = 1
-let g:lua_tree_git_hl = 1 
-let g:lua_tree_ignore = [ ".git", "node_modules", "__pycache__"]
-let g:lua_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ }
-let g:lua_tree_bindings = {
-    \ 'edit':            ['<CR>', 'l'],
-    \ 'edit_vsplit':     '<C-v>',
-    \ 'edit_split':      '<C-x>',
-    \ 'edit_tab':        '<C-t>',
-    \ 'toggle_ignored':  'i',
-    \ 'toggle_dotfiles': '.',
-    \ 'refresh':         'R',
-    \ 'preview':         '<Tab>',
-    \ 'cd':              '<C-]>',
-    \ 'create':          'a',
-    \ 'remove':          'd',
-    \ 'rename':          'r',
-    \ 'cut':             'x',
-    \ 'copy':            'c',
-    \ 'paste':           'p',
-    \ 'prev_git_item':   '[c',
-    \ 'next_git_item':   ']c',
-    \ }
-
-
-au FileType LuaTree setlocal cursorline
 
 let g:twiggy_num_columns = 50
 
@@ -341,7 +313,7 @@ let g:which_key_map.u = "Undo Tree"
 nmap <silent><leader>u :MundoToggle<CR>
 " Directory tree
 let g:which_key_map.x = "File Explorer"
-nmap <silent><leader>x :LuaTreeToggle<CR>
+nmap <silent><leader>x :CocCommand explorer<CR>
 
 " HTTP requests - coc-post
 let g:which_key_map.h = {
@@ -365,13 +337,11 @@ let g:which_key_map.d = {
   \ "w": "Current File",
   \ "c": "Colorschemes",
   \ }
-nmap <silent><leader>df :Files<CR>
-nmap <silent><leader>dg :Rg<CR>
-nmap <silent><leader>db :Buffer<CR>
-nmap <silent><leader>dt :BTags<CR>
-nmap <silent><leader>dh :Helptags<CR>
-nmap <silent><leader>dw :Lines<CR>
-nmap <silent><leader>dc :Colors<CR>
+nmap <silent><leader>df :Telescope find_files<CR>
+nmap <silent><leader>dg :Telescope grep_string<CR>
+nmap <silent><leader>db :Telescope buffers<CR>
+nmap <silent><leader>dt :Telescope treesitter<CR>
+nmap <silent><leader>dh :Telescope help_tags<CR>
 
 let g:which_key_map.b = {
   \ "name": "Debugger",
@@ -426,7 +396,7 @@ let g:which_key_map.l = {
 nmap <silent><leader>ld <Plug>(coc-definition)
 nmap <silent><leader>lr <Plug>(coc-rename)
 nmap <silent><leader>lf <Plug>(coc-format)
-vmap <silent><leader>lf <Plug>(coc-format-selected)
+xmap <silent><leader>lf :call CocActionAsync("formatSelected", "line")<CR>
 nmap <silent><leader>lt <Plug>(coc-type-definition)
 nmap <silent><leader>lx <Plug>(coc-references)
 nmap <silent><leader>lg <Plug>(coc-diagnostic-info)
