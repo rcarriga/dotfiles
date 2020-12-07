@@ -18,10 +18,14 @@ telescope.setup {
     selection_strategy = "reset",
     sorting_strategy = "ascending",
     layout_strategy = "horizontal",
+    layout_config = {
+      preview_width = 0.65,
+    },
     mappings = {
       i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
+        ["<esc>"] = actions.close
       }
     }
   },
@@ -62,4 +66,3 @@ dap.configurations.python = {
 local dap_python = require('dap-python')
 
 dap_python.setup('python')
-dap_python.test_method()

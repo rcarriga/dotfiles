@@ -337,8 +337,8 @@ let g:which_key_map.d = {
   \ "w": "Current File",
   \ "c": "Colorschemes",
   \ }
-nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :Telescope grep_string<CR>
+nmap <silent><leader>df :lua require("telescope.builtin").find_files{layout_config = {preview_width = 0.65}}<CR>
+nmap <silent><leader>dg :lua require("telescope.builtin").grep_string{layout_config = {preview_width = 0.65}}<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
@@ -354,6 +354,7 @@ let g:which_key_map.b = {
   \ "l": "Log point",
   \ "r": "Open REPL",
   \ "g": "Repeat last run",
+  \ "t": "Run test method (python only)"
   \ }
 nnoremap <silent> <leader>bc :lua require'dap'.continue()<CR>
 nnoremap <silent> <leader>bs :lua require'dap'.step_over()<CR>
@@ -364,6 +365,8 @@ nnoremap <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Brea
 nnoremap <silent> <leader>bl :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent> <leader>br :lua require'dap'.repl.open()<CR>
 nnoremap <silent> <leader>bg :lua require'dap'.repl.run_last()<CR>
+nnoremap <silent> <leader>bt :lua require('dap-python').test_method()<CR>
+vnoremap <silent> <leader>b <ESC>:lua require('dap-python').debug_selection()<CR>
 
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
