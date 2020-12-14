@@ -24,7 +24,8 @@ case $(hostname) in
         xsetroot -cursor_name left_ptr
         xrdb -merge ~/.Xresources
         export XMONAD_MODE="xmonad"
-        exec xmonad
+        date >> ~/.cache/xmonad.log
+        exec xmonad >> ~/.cache/xmonad.log
         ;;
     *)
         ;;

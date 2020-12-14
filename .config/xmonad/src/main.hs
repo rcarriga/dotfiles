@@ -1,5 +1,7 @@
 {-# LANGUAGE FlexibleContexts #-}
 
+module Main where
+
 import Data.List (elemIndex, sortOn)
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
@@ -14,21 +16,26 @@ import System.Environment (lookupEnv)
 import XMonad
 import XMonad.Actions.CycleRecentWS (toggleRecentNonEmptyWS)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
-import XMonad.Hooks.ManageDocks (avoidStruts, docks)
+import XMonad.Hooks.ManageDocks (AvoidStruts, avoidStruts, docks)
 import XMonad.Hooks.ManageHelpers ()
 import XMonad.Hooks.SetWMName (setWMName)
+import XMonad.Layout.LayoutModifier (ModifiedLayout ())
 import XMonad.Layout.MouseResizableTile
   ( MRTMessage (ExpandSlave, ShrinkSlave),
+    MouseResizableTile,
     mouseResizableTile,
   )
 import XMonad.Layout.NoBorders
   ( Ambiguity (Never),
+    ConfigurableBorder,
     SetsAmbiguous (..),
+    WithBorder,
     lessBorders,
     noBorders,
   )
 import XMonad.Layout.Spacing
   ( Border (Border),
+    Spacing,
     decWindowSpacing,
     incWindowSpacing,
     spacingRaw,
@@ -196,14 +203,14 @@ sendWorkspaceNames file = do
 
 prettyWorkspaceList :: X [String]
 prettyWorkspaceList = do
-  curWorkspaces <- sortOn (W.tag) . filter (\wspace -> W.tag wspace /= "NSP") . W.workspaces . windowset <$> get
-  workspaceIcons <- zip (map W.tag curWorkspaces) . filter (\icons -> length icons > 0) <$> mapM prettyWindowIconList curWorkspaces
+  curWorkspaces <- sortOn W.tag . filter (\wspace -> W.tag wspace /= "NSP") . W.workspaces . windowset <$> get
+  workspaceIcons <- filter (\(_, icons) -> not $ null icons) . zip (map W.tag curWorkspaces) <$> mapM prettyWindowIconList curWorkspaces
   focusedWspace <- W.tag . W.workspace . W.current . windowset <$> get
   let colour tag = (if tag == focusedWspace then highlight else normal)
   return $ map (\(tag, winIcons) -> colour tag $ clickable tag $ joinWithSpaces 4 (tag : winIcons)) workspaceIcons
 
 joinWithSpaces :: Int -> [String] -> String
-joinWithSpaces spaces = joinStrings (take spaces $ repeat ' ')
+joinWithSpaces spaces = joinStrings $ replicate spaces ' '
 
 joinStrings :: String -> [String] -> String
 joinStrings joinWith = foldr (\a b -> a <> joinWith <> b) ""
@@ -215,7 +222,7 @@ prettyWindowIconList workspace = case W.stack workspace of
     let curWindows = W.integrate curStack
     winIcons <- windowIcons curWindows
     let focusedIndex = fromMaybe (-1) $ elemIndex (W.focus curStack) curWindows
-    isWorkspaceFocused <- (==) (W.tag workspace) .  W.tag . W.workspace . W.current . windowset <$> get
+    isWorkspaceFocused <- (==) (W.tag workspace) . W.tag . W.workspace . W.current . windowset <$> get
     return $ zipWith (\icon i -> if i == focusedIndex && isWorkspaceFocused then highlight icon else normal icon) winIcons [0 ..]
 
 windowIcons :: [Window] -> X [String]
@@ -244,8 +251,11 @@ instance SetsAmbiguous NoFullscreenBorders where
       fullRect = W.RationalRect (0 % 1) (0 % 1) (1 % 1) (1 % 1)
       fullFloats = filter (\(_, r) -> r == fullRect) floats
 
+myBordersMod :: ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full)) Window 
+             -> ModifiedLayout (ConfigurableBorder NoFullscreenBorders) (ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full))) Window
 myBordersMod = lessBorders (NoFullscreenBorders Never)
 
+myLayoutHook :: ModifiedLayout (ConfigurableBorder NoFullscreenBorders) (ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full))) Window
 myLayoutHook =
   myBordersMod $
     avoidStruts $
