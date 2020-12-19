@@ -2,6 +2,9 @@
     highlight = {
       enable = true,
     },
+    indent = {
+      enable = true
+    },
     incremental_selection = {
       enable = true,
       keymaps = {
@@ -11,7 +14,8 @@
       },
     },
     refactor = {
-      highlight_definitions = { enable = false },
+      highlight_definitions = { enable = true },
+      highlight_current_scope = { enable = true },
     },
     textobjects = {
       select = {
@@ -21,15 +25,17 @@
           ["if"] = "@function.inner",
           ["ac"] = "@class.outer",
           ["ic"] = "@class.inner",
+          ["ab"] = "@block.outer",
+          ["ib"] = "@block.inner",
         },
       },
       swap = {
         enable = true,
         swap_next = {
-          ["gm"] = "@parameter.inner",
+          ["g>"] = "@parameter.inner",
         },
         swap_previous = {
-          ["gn"] = "@parameter.inner",
+          ["g<"] = "@parameter.inner",
         },
       },
       move = {

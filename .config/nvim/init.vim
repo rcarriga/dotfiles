@@ -71,6 +71,8 @@ set splitright
 
 " Set all code unfolded by default
 set foldlevel=99
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " Update files on change
 set autoread
@@ -134,10 +136,7 @@ set pyxversion=3
 set nowrap
 
 " Text to appear on folded line
-set foldtext=<SID>MyFoldText()
-
-" Syntactic folding (Good for html, jsx, json etc)
-set foldmethod=syntax
+set foldtext=MyFoldText()
 
 " Use patience algorithm for diffs
 set diffopt+=internal,algorithm:patience
@@ -212,7 +211,7 @@ function! s:RunLines(count, range,...) abort
   exec endLine-a:range.",".endLine."w !".command
 endfunction
 
-function! s:MyFoldText() abort
+function! MyFoldText() abort
     let line = getline(v:foldstart)
     return substitute(line,"\s*{{{[0-9]\s*$","","")." ▶"
 endfunction

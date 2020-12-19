@@ -38,11 +38,12 @@ call s:AddPlugins({
     \ "kkoomen/vim-doge": { "rev": "v3.1.1" },
     \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
     \ "machakann/vim-sandwich": {},
-    \ "machakann/vim-swap": {},
     \ "mhinz/vim-signify": {},
     \ "moll/vim-bbye": {},
     \ "neoclide/coc.nvim": {"merge": 0, "rev": "master", "build": "yarn install --frozen-lockfile"},
     \ "nvim-treesitter/playground": {"merge": 0},
+    \ "nvim-treesitter/nvim-treesitter-textobjects": {},
+    \ "nvim-treesitter/nvim-treesitter-refactor": {},
     \ "rhysd/clever-f.vim": {},
     \ "rhysd/git-messenger.vim": {},
     \ "simnalamburt/vim-mundo": {"lazy":1},
@@ -60,16 +61,11 @@ call s:AddPlugins({
 
 " Language plugins
 call s:AddPlugins({
-      \ "HerringtonDarkholme/yats.vim": {},
       \ "MTDL9/vim-log-highlighting": {},
       \ "ekalinin/Dockerfile.vim": {},
       \ "iamcco/markdown-preview.nvim": {"build": "cd app && yarn install" },
-      \ "maxmellon/vim-jsx-pretty": {},
       \ "neovimhaskell/haskell-vim": {},
-      \ "othree/html5.vim": {},
       \ "posva/vim-vue": {},
-      \ "tmhedberg/SimpylFold": {"lazy": 1},
-      \ "yuezk/vim-js": {},
 \})
 
 let g:plugins_loaded = 1
@@ -210,7 +206,6 @@ augroup CocSetup
     " Show function signatures when calling function
     au!
     au User CocJumpPlaceholder call CocActionAsync("showSignatureHelp")
-    au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
     " au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
 augroup END
 " }}}1
