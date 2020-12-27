@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+command nvm &> /dev/null || source /usr/share/nvm/init-nvm.sh
+ nvm $@

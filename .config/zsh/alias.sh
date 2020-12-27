@@ -34,7 +34,6 @@ alias yp="yadm push"
 alias yr="yadm rebase"
 alias ys="yadm status"
 
-
 alias za="zathura"
 alias sv="sudo edit"
 alias l="tree -DhvC -L 1"

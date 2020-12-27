@@ -2,6 +2,6 @@ if [[ -f "$1" ]]; then
     bat -r :"$LINES" "$1" --color always
 else 
     if [[ -d $1 ]]; then
-        tree -DhvC -L 1 $PARSED
+        tree -DhvC -L 1 $1
     fi
 fi
