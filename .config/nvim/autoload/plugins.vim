@@ -12,7 +12,7 @@ call s:AddPlugins({
     \ "nvim-lua/popup.nvim": {},
     \ "nvim-lua/plenary.nvim": {},
     \ "mfussenegger/nvim-dap-python": {},
-    \ "Conni2461/telescope.nvim": {"rev": "vim_buffers_everywhere"},
+    \ "nvim-telescope/telescope.nvim": {},
     \ "nvim-telescope/telescope-fzy-native.nvim": {},
     \ "rrethy/vim-hexokinase": { "build": "make hexokinase" },
     \ "mfussenegger/nvim-dap": {},
@@ -22,7 +22,7 @@ call s:AddPlugins({
     \ "tpope/vim-dadbod": {},
     \ "kristijanhusak/vim-dadbod-ui": {},
     \ "ajorgensen/vim-markdown-toc": {},
-    \ "/home/ronan/Dev/repos/vim-ultest": {"merge": 0, "lazy": 1},
+    \ "rcarriga/vim-ultest": {},
     \ "svermeulen/vim-subversive": {},
     \ "voldikss/vim-floaterm": {"lazy": 1},
     \ "rhysd/conflict-marker.vim": {},
@@ -73,6 +73,8 @@ let g:plugins_loaded = 1
 " ###################################################################################
 " Plugin Settings {{{1
 
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
@@ -332,9 +334,9 @@ let g:which_key_map.d = {
   \ "w": "Current File",
   \ "c": "Colorschemes",
   \ }
-nmap <silent><leader>df :lua require("telescope.builtin").find_files{layout_config = {preview_width = 0.65}}<CR>
-nmap <silent><leader>dg :lua require("telescope.builtin").grep_string{layout_config = {preview_width = 0.65}}<CR>
-nmap <silent><leader>db :Telescope buffers<CR>
+nmap <silent><leader>df :Files<CR>
+nmap <silent><leader>dg :Rg<CR>
+nmap <silent><leader>db :Buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
 
@@ -358,7 +360,7 @@ nnoremap <silent> <leader>bo :lua require'dap'.step_out()<CR>
 nnoremap <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <silent> <leader>bl :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-nnoremap <silent> <leader>br :lua require'dap'.repl.open()<CR>
+nnoremap <silent> <leader>br :vertical lua require'dap'.repl.open()<CR>
 nnoremap <silent> <leader>bg :lua require'dap'.repl.run_last()<CR>
 nnoremap <silent> <leader>bt :lua require('dap-python').test_method()<CR>
 vnoremap <silent> <leader>b <ESC>:lua require('dap-python').debug_selection()<CR>

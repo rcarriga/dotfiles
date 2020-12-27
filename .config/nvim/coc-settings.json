@@ -5,13 +5,12 @@
     }
   },
   "codeLens": {
-    "enable": true
+    "enable": false
   },
   "diagnostic": {
     "checkCurrentLine": true,
     "virtualTextLines": 4
   },
-  "prettier.eslintIntegration": true,
   "eslint": {
     "autoFixOnSave": true,
     "filetypes": [
@@ -25,7 +24,7 @@
   "explorer": {
     "file": {
       "child": {
-        "template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][readonly][git] [linkIcon & 1][link]"
+        "template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][readonly] [linkIcon & 1][link]"
       },
       "column": {
         "filename": {
@@ -33,7 +32,9 @@
         },
         "git": {
           "icon": {
-            "modified": "⛥"
+            "status": {
+              "modified": "⛥"
+            }
           }
         }
       },
@@ -191,11 +192,11 @@
       "templateInterpolationService": true
     },
     "format": {
-      "enable": false,
+      "enable": true,
       "defaultFormatter": {
         "html": "prettier",
         "css": "prettier",
-        "ts": "prettier-eslint"
+        "ts": "prettier"
       }
     }
   },
