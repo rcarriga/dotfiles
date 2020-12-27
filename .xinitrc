@@ -27,6 +27,15 @@ case $(hostname) in
         date >> ~/.cache/xmonad.log
         exec xmonad >> ~/.cache/xmonad.log
         ;;
+    Desktop)
+        setxkbmap -layout gb
+        xset r rate 150 40
+        xsetroot -cursor_name left_ptr
+        xrdb -merge ~/.Xresources
+        export XMONAD_MODE="xmonad"
+        date >> ~/.cache/xmonad.log
+        exec xmonad >> ~/.cache/xmonad.log
+        ;;
     *)
         ;;
 esac
