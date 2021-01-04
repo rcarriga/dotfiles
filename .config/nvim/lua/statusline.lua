@@ -143,9 +143,41 @@ gls.left[1] = {
 
   },
 }
+
+function file_readonly()
+  if vim.bo.filetype == 'help' then
+    return ''
+  end
+  if vim.bo.readonly == true then
+    return " "
+  end
+  return ''
+end
+
 gls.left[2] = {
-  FileName = {
-    provider = 'FileName',
+  LongFileName = {
+    provider = function ()
+      local file = vim.fn.expand('%:t')
+      local dir = vim.fn.expand("%:h")
+      local short_dir = ""
+      if string.sub(dir, 1,1) ~= "/" then
+        short_dir = dir.."/"
+      else
+        for part in string.gmatch(dir, "([^/]+)") do
+          short_dir = short_dir..string.sub(part, 1,1).."/"
+        end
+      end
+      if vim.fn.empty(file) == 1 then return '' end
+      if string.len(file_readonly()) ~= 0 then
+        return short_dir .. file .. file_readonly()
+      end
+      if vim.bo.modifiable then
+        if vim.bo.modified then
+          return short_dir .. file .. '   '
+        end
+      end
+      return short_dir .. file .. ' '
+    end,
     condition = buffer_not_empty,
     highlight = {colors.fg,colors.line_bg,'bold'}
   }

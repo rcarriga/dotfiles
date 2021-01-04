@@ -99,6 +99,9 @@ let s:Warning = s:Yellow
 let s:Info = s:Cyan
 let s:Error = s:Red
 
+" Temp fix for coc highlight linking
+call s:loadHighlights({"StorageClass": [s:Normal], "Structure": [s:Normal], "Debug": [s:Info]})
+
 " For reference elsewhere
 call s:loadHighlights({
   \ "Normal": [s:Grey4],
