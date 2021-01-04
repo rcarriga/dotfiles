@@ -32,6 +32,14 @@ telescope.setup {
       }
     }
   },
+  extensions = {
+      fzf_writer = {
+          -- Disabled by default.
+          -- Will probably slow down some aspects of the sorter, but can make color highlights.
+          -- I will work on this more later.
+          use_highlighter = true,
+      }
+  }
 }
 
 telescope.load_extension('fzy_native')

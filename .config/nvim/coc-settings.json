@@ -1,7 +1,9 @@
 {
   "coc": {
     "preferences": {
-      "colorSupport": false
+      "enableMessageDialog": true,
+      "colorSupport": false,
+      "jumpCommand": "vsplit"
     }
   },
   "codeLens": {
@@ -166,7 +168,11 @@
     },
     "linting": {
       "mypyEnabled": false,
-      "mypyArgs": ["--follow-imports=silent", "--show-column-numbers", "--ignore-missing-imports"],
+      "mypyArgs": [
+        "--follow-imports=silent",
+        "--show-column-numbers",
+        "--ignore-missing-imports"
+      ],
       "pydocstyleEnabled": false
     }
   },

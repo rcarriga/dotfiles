@@ -136,8 +136,8 @@ call s:loadHighlights({
     \ "CursorLineNr": [s:Success, "bold"],
     \ "VertSplit": [s:Hidden],
     \ "MatchParen": [s:Success, "underline"],
-    \ "StatusLine": [s:Normal, FloatBackground],
-    \ "StatusLineNC": [s:Normal, s:Grey1],
+    \ "StatusLine": [s:Normal],
+    \ "StatusLineNC": [s:Hidden],
     \ "IncSearch": [s:Green, "bold,underline"],
     \ "Search": [s:Green, "bold,underline"],
     \ "Directory": [s:Cyan],
@@ -444,3 +444,19 @@ call s:loadHighlights({
 call s:loadHighlights({
   \ "TelescopeBorder": [s:Operator],
   \ })
+call s:loadHighlights({
+   \ 'BufferCurrent': [s:Normal],
+   \ 'BufferCurrentMod': [s:Normal, "underline"],
+   \ 'BufferCurrentSign': [s:Info],
+   \ 'BufferCurrentTarget': [s:Error, "bold"],
+   \ 'BufferVisible': [s:Normal, "bold"],
+   \ 'BufferVisibleMod': [s:Normal, "bold,underline"],
+   \ 'BufferVisibleSign': [s:Info],
+   \ 'BufferVisibleTarget': [s:Error, 'bold,underline'],
+   \ 'BufferInactive': [s:Grey2],
+   \ 'BufferInactiveMod': [s:Grey2, "underline"],
+   \ 'BufferInactiveSign': [s:Grey2],
+   \ 'BufferInactiveTarget': [s:Error,  "bold"],
+   \ 'BufferTabpages': [s:Info, "bold"],
+   \ 'BufferTabpageFill': [s:Grey2]
+   \ })

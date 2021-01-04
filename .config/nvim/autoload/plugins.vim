@@ -8,6 +8,9 @@ function! s:AddPlugins(args) abort
 endfunction
 
 call s:AddPlugins({
+    \ "glepnir/galaxyline.nvim": {},
+    \ "romgrk/barbar.nvim": {},
+    \ "AndrewRadev/splitjoin.vim": {},
     \ "nvim-telescope/telescope-dap.nvim": {},
     \ "nvim-lua/popup.nvim": {},
     \ "nvim-lua/plenary.nvim": {},
@@ -39,7 +42,6 @@ call s:AddPlugins({
     \ "liuchengxu/vim-which-key": {"lazy": 1, "hook_post_source": "call which_key#register('<Space>', 'g:which_key_map')"},
     \ "machakann/vim-sandwich": {},
     \ "mhinz/vim-signify": {},
-    \ "moll/vim-bbye": {},
     \ "neoclide/coc.nvim": {"merge": 0, "rev": "master", "build": "yarn install --frozen-lockfile"},
     \ "nvim-treesitter/playground": {"merge": 0},
     \ "nvim-treesitter/nvim-treesitter-textobjects": {},
@@ -53,10 +55,7 @@ call s:AddPlugins({
     \ "tpope/vim-fugitive": {},
     \ "tpope/vim-rhubarb": {},
     \ "tpope/vim-unimpaired": {},
-    \ "vim-airline/vim-airline": {"lazy": 1, "depends": "vim-airline-themes"},
-    \ "vim-airline/vim-airline-themes": {"lazy": 1, "hook_add": "AirlineRefresh"},
     \ "wellle/targets.vim": {},
-    \ "wfxr/minimap.vim": {},
 \ })
 
 " Language plugins
@@ -76,6 +75,9 @@ let g:plugins_loaded = 1
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
+let bufferline = {}
+let bufferline.closable = v:false
+
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
 let g:dap_virtual_text = "all_frames"
@@ -87,8 +89,6 @@ let g:db_ui_show_database_icon = 1
 let g:db_ui_use_nerd_fonts = 1
 
 let g:conflict_marker_highlight_group = ''
-
-let g:minimap_highlight="CursorLineNr"
 
 let g:hiPairs_enable_matchParen = 0
 
@@ -120,14 +120,6 @@ let test#javascript#jest#options = "--color=always"
 " Open undo tree on right
 let g:mundo_right = 1
 
-" Pretty icons for airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#show_splits = 1
-let g:airline#extensions#hunks#non_zero_only = 1
-let g:airline_theme = "molokai"
-let g:airline#extensions#coc#error_symbol = " "
-let g:airline#extensions#coc#warning_symbol = " "
-let g:airline#extensions#tabline#enabled = 1
 
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
@@ -157,14 +149,6 @@ function! GetTestResults() abort
                 \ get(b:,"ultest_passed")." Pass ".get(b:, "ultest_failed")." Fail" : ""
 endfunction
 
-function AirlineInit()
-  call airline#parts#define_function('ultest', 'GetTestResults')
-  let g:airline_section_y = airline#section#create_right(["ultest"])
-  let g:airline_section_z = airline#section#create([
-              \ '%#__accent_bold#%3l%#__restore__#/%L', ' ',
-              \ '%#__accent_bold#%3v%#__restore__#/%3{virtcol("$") - 1}',
-              \ ])
-endfunction
 
 function! s:isOverWhitespace() abort
   let col = col(".") - 1
@@ -179,29 +163,31 @@ function! RipgrepFzf(query, fullscreen)
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
+function! CleanNoNameEmptyBuffers()
+    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
+    if !empty(buffers)
+        exe 'BufferClose '.join(buffers, ' ')
+    endif
+endfunction
+
 " }}}1
 " ###################################################################################
 " Autocommands {{{1
+
+augroup CleanEmpty
+  au!
+  au BufEnter * call CleanNoNameEmptyBuffers()
+augroup END
 
 augroup NvimAuCommands
   au!
   au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
 augroup END
 
-augroup AirlineInit
-  au!
-  autocmd User AirlineAfterInit call AirlineInit()
-augroup EN
-
 augroup WhichKeyInit
   au!
   au  FileType which_key setlocal laststatus=0 noshowmode noruler
     \| au BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
-
-augroup AirlineSetup
-    au!
-    au CursorMoved * ++once AirlineRefresh
 augroup END
 
 augroup CocSetup
@@ -224,6 +210,9 @@ command! CC CocCommand
 let g:which_key_map = {}
 
 autocmd FileType dbui nmap <buffer> l <Plug>(DBUI_SelectLine)
+
+let g:which_key_map.a = "Switch Buffer"
+nnoremap <silent> <leader>a :BufferPick<CR>
 
 " Doge Mapping
 let g:which_key_map.i = "Generate Documentation"
@@ -262,7 +251,7 @@ nmap <silent><leader>z :Goyo<CR>
 let g:which_key_map.w = "Write File"
 nnoremap <leader>w :w<CR>
 let g:which_key_map.q = "Quit Buffer"
-nnoremap <silent><leader>q :Bdelete<CR>
+nnoremap <silent><leader>q :BufferClose<CR>
 
 "Cycle between last two open buffers
 " let g:which_key_map["<Space>"] = "Switch to Previous Buffer"
@@ -301,9 +290,6 @@ omap ic <plug>(signify-motion-inner-pending)
 xmap ic <plug>(signify-motion-inner-visual)
 omap ac <plug>(signify-motion-outer-pending)
 xmap ac <plug>(signify-motion-outer-visual)
-
-let g:which_key_map.m = "Code Minimap"
-nmap <silent><leader>m :MinimapToggle<CR>
 
 " Toggle UndoTree window
 let g:which_key_map.u = "Undo Tree"
@@ -487,3 +473,4 @@ syn on
 " }}}1
 "
 lua require("plugins")
+lua require("statusline")
