@@ -474,3 +474,4 @@ syn on
 "
 lua require("plugins")
 lua require("statusline")
+call sy#start_all()
