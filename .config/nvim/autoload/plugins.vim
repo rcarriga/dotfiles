@@ -196,6 +196,11 @@ augroup CocSetup
     au User CocJumpPlaceholder call CocActionAsync("showSignatureHelp")
     " au CursorHold * try | silent call CocActionAsync("highlight") | catch /.*/ | endtry
 augroup END
+
+augroup GalaxyLineSetup
+  au!
+  au InsertEnter * lua require("galaxyline").load_galaxyline()
+augroup END
 " }}}1
 " ###################################################################################
 " Custom Commands {{{1
