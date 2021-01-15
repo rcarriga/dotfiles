@@ -18,6 +18,7 @@ gl.short_line_list = {
 
 local colors = {
     bg = "#262626",
+    normal = "#F8F8F8",
     grey = "#132434",
     grey1 = "#262626",
     grey2 = "#8B8B8B",
@@ -32,6 +33,18 @@ local colors = {
     orange = "#F79000",
     red = "#F70067"
 }
+local function has_vcs_status()
+    local branch = vcs.get_git_branch()
+    if type(branch) == "string" and branch ~= "" then
+        return true
+    end
+    for _, v in pairs({vcs.diff_add(), vcs.diff_modified(), vcs.diff_remove()}) do
+        if v ~= nil then
+            return true
+        end
+    end
+    return false
+end
 
 local function has_file_type()
     local f_type = vim.bo.filetype
@@ -121,13 +134,6 @@ gls.left[2] = {
             if vim.fn.empty(file) == 1 then
                 return result
             end
-            if string.len(file_readonly()) ~= 0 then
-                result = file .. file_readonly()
-            elseif vim.bo.modifiable then
-                if vim.bo.modified then
-                    result = file .. " "
-                end
-            end
             return "  " .. result .. " "
         end,
         condition = buffer_not_empty,
@@ -144,6 +150,21 @@ gls.left[3] = {
 }
 
 gls.left[4] = {
+    FileStatus = {
+        provider = function()
+            if string.len(file_readonly()) ~= 0 then
+                return file_readonly()
+            elseif vim.bo.modifiable then
+                if vim.bo.modified then
+                    return " "
+                end
+            end
+        end,
+        highlight = {colors.cyan, colors.bg}
+    }
+}
+
+gls.left[5] = {
     FileSize = {
         provider = "FileSize",
         condition = buffer_not_empty,
@@ -152,15 +173,14 @@ gls.left[4] = {
 }
 
 gls.left[6] = {
-    CustomGitBranch = {
+    FileBarrier = {
         provider = function()
-            local branch = vcs.get_git_branch()
-            return "  " .. branch
+            return " "
         end,
-        condition = vcs.check_git_workspace,
-        highlight = {colors.normal, colors.bg, "bold"}
+        highlight = {colors.bg, "none"}
     }
 }
+
 local checkwidth = function()
     local squeeze_width = vim.fn.winwidth(0) / 2
     if squeeze_width > 40 then
@@ -170,36 +190,41 @@ local checkwidth = function()
 end
 
 gls.left[7] = {
-    DiffAdd = {
-        provider = "DiffAdd",
+    CustomGitBranch = {
+        provider = function()
+            local branch = vcs.get_git_branch()
+            if branch == nil then
+                return ""
+            end
+            return "  " .. branch
+        end,
         condition = checkwidth,
-        icon = " ",
-        highlight = {colors.green, colors.bg, "bold"}
-    }
-}
-gls.left[8] = {
-    DiffModified = {
-        provider = "DiffModified",
-        condition = checkwidth,
-        icon = "⊛ ",
-        highlight = {colors.yellow, colors.bg, "bold"}
-    }
-}
-gls.left[9] = {
-    DiffRemove = {
-        provider = "DiffRemove",
-        condition = checkwidth,
-        icon = " ",
-        highlight = {colors.red, colors.bg, "bold"}
+        highlight = {colors.normal, "none", "bold"}
     }
 }
 
+gls.left[8] = {
+    DiffAdd = {
+        provider = "DiffAdd",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.green, "none", "bold"}
+    }
+}
+gls.left[9] = {
+    DiffModified = {
+        provider = "DiffModified",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.yellow, "none", "bold"}
+    }
+}
 gls.left[10] = {
-    LeftBarrier = {
-        provider = function()
-            return ""
-        end,
-        highlight = {colors.grey, "none"}
+    DiffRemove = {
+        provider = "DiffRemove",
+        condition = checkwidth,
+        icon = " ",
+        highlight = {colors.red, "none", "bold"}
     }
 }
 
@@ -225,7 +250,7 @@ end
 gls.right[1] = {
     CocStatus = {
         provider = get_coc_lsp,
-        highlight = {colors.cyan, colors.bg}
+        highlight = {colors.cyan, "none"}
     }
 }
 

@@ -1,12 +1,6 @@
 #!/bin/sh
-tty=$(w | tail -n1 | grep -o "tty\w*")
-if [[ $tty == "tty1" ]]; then
-    edp="eDP1"
-    hdmi="HDMI1"
-else
-    edp="eDP-1-1"
-    hdmi="HDMI-1-1"
-fi
+edp="eDP-1"
+hdmi="HDMI-1"
 
 [[ "$1" == "HDMI" ]] && xrandr --output $edp --off --output DP1 --off --output DP2 --off --output $hdmi --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
 [[ "$1" == "EDPI" ]] && xrandr --output $edp --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output $hdmi --off --output HDMI2 --off --output VIRTUAL1 --off

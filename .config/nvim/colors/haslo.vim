@@ -448,7 +448,7 @@ call s:loadHighlights({
   \ "TelescopeBorder": [s:Operator],
   \ })
 call s:loadHighlights({
-   \ 'BufferCurrent': [s:Normal],
+   \ 'BufferCurrent': [s:Normal, FloatBackground],
    \ 'BufferCurrentMod': [s:Normal, "underline"],
    \ 'BufferCurrentSign': [s:Info],
    \ 'BufferCurrentTarget': [s:Error, "bold"],

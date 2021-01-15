@@ -25,7 +25,7 @@ call s:AddPlugins({
     \ "tpope/vim-dadbod": {},
     \ "kristijanhusak/vim-dadbod-ui": {},
     \ "ajorgensen/vim-markdown-toc": {},
-    \ "rcarriga/vim-ultest": {},
+    \ "/home/ronan/Dev/repos/vim-ultest/": {},
     \ "svermeulen/vim-subversive": {},
     \ "voldikss/vim-floaterm": {"lazy": 1},
     \ "rhysd/conflict-marker.vim": {},
@@ -126,7 +126,7 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
-let g:ultest_virtual_text = 1
+let g:ultest_virtual_text = 0
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
@@ -199,7 +199,7 @@ augroup END
 
 augroup GalaxyLineSetup
   au!
-  au InsertEnter * lua require("galaxyline").load_galaxyline()
+  au InsertEnter,BufModifiedSet * lua require("galaxyline").load_galaxyline()
 augroup END
 " }}}1
 " ###################################################################################
@@ -426,6 +426,7 @@ nmap <leader>vj <Plug>(ultest-next-fail)
 nmap <leader>vk <Plug>(ultest-prev-fail)
 nmap <leader>vg <Plug>(ultest-output-jump)
 nmap <leader>vo <Plug>(ultest-output-show)
+nmap <leader>vs <Plug>(ultest-open-summary)
 
 " inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>isOverWhitespace() ? "\<TAB>" : coc#refresh()
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
