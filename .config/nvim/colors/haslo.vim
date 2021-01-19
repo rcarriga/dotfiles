@@ -463,3 +463,10 @@ call s:loadHighlights({
    \ 'BufferTabpages': [s:Info, "bold"],
    \ 'BufferTabpageFill': [s:Grey2]
    \ })
+
+call s:loadHighlights({
+   \ "LspDiagnosticsDefaultError": [s:Error],
+   \ "LspDiagnosticsDefaultWarning": [s:Warning],
+   \ "LspDiagnosticsDefaultInformation": [s:Info],
+   \ "LspDiagnosticsDefaultHint": [s:Hidden]
+   \ })

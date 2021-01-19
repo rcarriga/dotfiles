@@ -240,6 +240,7 @@ local function lsp_status(status)
 end
 
 local function get_coc_lsp()
+    if vim.fn["exists"]("*coc#status") == 0 then return "" end
     local status = vim.fn["coc#status"]()
     if not status or status == "" then
         return ""

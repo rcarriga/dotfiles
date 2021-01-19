@@ -1,54 +1,258 @@
+local execute = vim.api.nvim_command
+local fn = vim.fn
 
-local telescope = require("telescope")
-local actions = require('telescope.actions')
-local previewers = require('telescope.previewers')
-telescope.setup {
-  defaults = {
-    file_previewer = previewers.vim_buffer_cat.new,
-    grep_previewer = previewers.vim_buffer_vimgrep.new,
-    qflist_previewer = previewers.vim_buffer_qflist.new,
-    prompt_position = "top",
-    prompt_prefix = " ❯",
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case'
-    },
-    selection_strategy = "reset",
-    sorting_strategy = "ascending",
-    layout_strategy = "horizontal",
-    layout_config = {
-      preview_width = 0.65,
-    },
-    mappings = {
-      i = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<esc>"] = actions.close
-      }
-    }
-  },
-  extensions = {
-      fzf_writer = {
-          -- Disabled by default.
-          -- Will probably slow down some aspects of the sorter, but can make color highlights.
-          -- I will work on this more later.
-          use_highlighter = true,
-      }
-  }
-}
+local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 
-telescope.load_extension('fzy_native')
+if fn.empty(fn.glob(install_path)) > 0 then
+    execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+    execute "packadd packer.nvim"
+end
 
+vim.cmd [[packadd packer.nvim]]
 
-local dap = require('dap')
-
-local dap_python = require('dap-python')
-
-dap_python.setup('$HOME/.cache/virtualenv/debugpy/bin/python', {
-  include_configs = true
-})
+require("packer").startup(
+    function()
+        -- Packer can manage itself as an optional plugin
+        use {
+            "wbthomason/packer.nvim",
+            opt = true
+        }
+        use {
+            "glepnir/galaxyline.nvim",
+            config = "require('config.galaxyline')"
+        }
+        use {
+            "romgrk/barbar.nvim"
+        }
+        use {
+            "indrewRadev/splitjoin.vim",
+            keys = {
+                "gS",
+                "gJ"
+            }
+        }
+        use {
+            "lukas-reineke/format.nvim",
+            config = "require('config.format')"
+        }
+        use {
+            "nvim-telescope/telescope.nvim",
+            config = "require('config.telescope')",
+            cmd = "Telescope",
+            requires = {
+                {
+                    "nvim-telescope/telescope-dap.nvim"
+                },
+                {
+                    "nvim-lua/popup.nvim"
+                },
+                {
+                    "nvim-lua/plenary.nvim"
+                },
+                {
+                    "kyazdani42/nvim-web-devicons"
+                },
+                {
+                    "nvim-telescope/telescope-fzy-native.nvim"
+                }
+            }
+        }
+        use {
+            "rrethy/vim-hexokinase",
+            run = "make hexokinase"
+        }
+        use {
+            "mfussenegger/nvim-dap",
+            config = "require('config.dap')",
+            requires = {
+                {
+                    "theHamsta/nvim-dap-virtual-text"
+                },
+                {
+                    "mfussenegger/nvim-dap-python"
+                }
+            }
+        }
+        use {
+            "sodapopcan/vim-twiggy",
+            cmd = "Twiggy"
+        }
+        use {
+            "kristijanhusak/vim-dadbod-ui",
+            cmd = {
+                "DBUI"
+            },
+            requires = {
+                "tpope/vim-dadbod",
+                opt = true
+            }
+        }
+        use {
+            "/home/ronan/Dev/repos/vim-ultest/",
+            cmd = {
+                "Ultest",
+                "UltestNearest"
+            },
+            requires = {
+                {
+                    "janko/vim-test",
+                    opt = true
+                }
+            }
+        }
+        use {
+            "svermeulen/vim-subversive",
+            keys = {
+                "<leader>s"
+            }
+        }
+        use {
+            "voldikss/vim-floaterm",
+            cmd = "Floaterm"
+        }
+        use {
+            "rhysd/conflict-marker.vim"
+        }
+        use {
+            "Konfekt/FastFold"
+        }
+        use {
+            "Yggdroot/hiPairs"
+        }
+        use {
+            "godlygeek/tabular",
+            cmd = "Tabularize"
+        }
+        use {
+            "junegunn/fzf",
+            requires = {
+                {
+                    "junegunn/fzf.vim"
+                }
+            }
+        }
+        use {
+            "junegunn/goyo.vim",
+            cmd = "Goyo"
+        }
+        use {
+            "kkoomen/vim-doge",
+            cmd = "DogeGenertate",
+            run = ":call doge#install()"
+        }
+        use {
+            "machakann/vim-sandwich"
+        }
+        use {
+            "mhinz/vim-signify"
+        }
+        use {
+            "neovim/nvim-lspconfig",
+            config = "require('config.lsp')",
+            requires = {
+                {
+                    "RishabhRD/popfix"
+                },
+                {
+                    "RishabhRD/nvim-lsputils"
+                }
+            }
+        }
+        use {
+            "nvim-treesitter/nvim-treesitter",
+            config = "require('config.treesitter')",
+            requires = {
+                {
+                    "nvim-treesitter/playground"
+                },
+                {
+                    "nvim-treesitter/nvim-treesitter-textobjects"
+                },
+                {
+                    "nvim-treesitter/nvim-treesitter-refactor"
+                }
+            }
+        }
+        use {
+            "nvim-lua/completion-nvim",
+            setup = "require('config.completion')",
+            requires = {
+                {
+                    "hrsh7th/vim-vsnip"
+                },
+                {
+                    "hrsh7th/vim-vsnip-integ"
+                },
+                {
+                    "steelsojka/completion-buffers"
+                },
+                {
+                    "kristijanhusak/completion-tags"
+                }
+            }
+        }
+        use {
+            "rhysd/clever-f.vim",
+            keys = {
+                "f",
+                "t"
+            }
+        }
+        use {
+            "rhysd/git-messenger.vim",
+            keys = "<leader>gm"
+        }
+        use {
+            "simnalamburt/vim-mundo",
+            cmd = "MundoToggle"
+        }
+        use {
+            "tomtom/tcomment_vim",
+            keys = {
+                "gcc"
+            }
+        }
+        use {
+            "tpope/vim-abolish",
+            cmd = "S"
+        }
+        use {
+            "tpope/vim-eunuch",
+            cmd = {
+                "Rename",
+                "Delete"
+            }
+        }
+        use {
+            "tpope/vim-fugitive",
+            requires = {
+                {
+                    "tpope/vim-rhubarb"
+                }
+            }
+        }
+        use {
+            "tpope/vim-unimpaired"
+        }
+        use {
+            "wellle/targets.vim"
+        }
+        use {
+            "MTDL9/vim-log-highlighting"
+        }
+        use {
+            "ekalinin/Dockerfile.vim",
+            ft = {
+                "dockerfile",
+                "Dockerfile"
+            }
+        }
+        use {
+            "neovimhaskell/haskell-vim"
+        }
+        use {
+            "posva/vim-vue",
+            ft = "vue"
+        }
+    end
+)

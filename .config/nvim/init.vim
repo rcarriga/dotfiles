@@ -230,14 +230,3 @@ augroup VimInit
     au FileType vim setlocal foldmethod=marker
 augroup END
 " }}}1
-
-" ###################################################################################
-" Plugins Init {{{1
-" Load plugins file after loading to reduce startup time.
-if get(g:, "load_plugins", v:true)
-  function! s:loadPlugins()
-      silent runtime autoload/plugins.vim
-      norm "<leader>"
-  endfunction
-  nnoremap  <silent><leader>  :call <SID>loadPlugins()<CR>
-endif

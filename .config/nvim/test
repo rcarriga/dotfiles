@@ -1,0 +1,111 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.008  000.008: --- NVIM STARTING ---
+000.270  000.263: locale set
+000.524  000.253: inits 1
+000.535  000.011: window checked
+000.537  000.003: parsing arguments
+000.575  000.038: expanding arguments
+000.613  000.038: inits 2
+001.008  000.395: init highlight
+001.010  000.002: waiting for UI
+001.837  000.828: done waiting for UI
+001.904  000.067: initialized screen early for UI
+002.033  000.012  000.012: sourcing /usr/share/nvim/archlinux.vim
+002.038  000.040  000.027: sourcing /etc/xdg//nvim/sysinit.vim
+010.437  008.291  008.291: sourcing /home/ronan/.config/nvim/colors/haslo.vim
+017.419  006.848  006.848: sourcing /home/ronan/.config/nvim/colors/haslo.vim
+017.496  006.961  000.114: sourcing /usr/share/nvim/runtime/syntax/synload.vim
+023.164  000.017  000.017: sourcing /usr/share/vim/vimfiles/ftdetect/PKGBUILD.vim
+023.205  000.022  000.022: sourcing /usr/share/vim/vimfiles/ftdetect/meson.vim
+023.494  000.020  000.020: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/query.vim
+023.517  000.009  000.009: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-fugitive/ftdetect/fugitive.vim
+023.586  000.050  000.050: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-log-highlighting/ftdetect/log.vim
+023.742  006.204  006.087: sourcing /usr/share/nvim/runtime/filetype.vim
+023.992  013.508  000.343: sourcing /usr/share/nvim/runtime/syntax/syntax.vim
+024.041  000.010  000.010: sourcing /usr/share/nvim/runtime/filetype.vim
+024.332  000.031  000.031: sourcing /usr/share/nvim/runtime/ftplugin.vim
+024.615  000.026  000.026: sourcing /usr/share/nvim/runtime/indent.vim
+024.969  000.010  000.010: sourcing /usr/share/nvim/runtime/filetype.vim
+025.236  000.010  000.010: sourcing /usr/share/nvim/runtime/ftplugin.vim
+025.489  000.009  000.009: sourcing /usr/share/nvim/runtime/indent.vim
+025.931  023.874  001.980: sourcing /home/ronan/.config/nvim/init.vim
+025.935  000.118: sourcing vimrc file(s)
+027.738  000.148  000.148: sourcing /home/ronan/.config/nvim/plugin/clearhl.vim
+031.309  003.552  003.552: sourcing /home/ronan/.config/nvim/plugin/packer_compiled.vim
+053.895  022.567  022.567: sourcing /home/ronan/.config/nvim/plugin/plugins.vim
+054.363  000.237  000.237: sourcing /usr/share/nvim/runtime/plugin/gzip.vim
+054.388  000.010  000.010: sourcing /usr/share/nvim/runtime/plugin/health.vim
+054.491  000.090  000.090: sourcing /usr/share/nvim/runtime/plugin/man.vim
+055.082  000.186  000.186: sourcing /usr/share/nvim/runtime/pack/dist/opt/matchit/plugin/matchit.vim
+055.120  000.615  000.429: sourcing /usr/share/nvim/runtime/plugin/matchit.vim
+055.257  000.123  000.123: sourcing /usr/share/nvim/runtime/plugin/matchparen.vim
+055.654  000.380  000.380: sourcing /usr/share/nvim/runtime/plugin/netrwPlugin.vim
+055.810  000.009  000.009: sourcing /home/ronan/.cache/nvim/rplugin.vim
+055.817  000.134  000.125: sourcing /usr/share/nvim/runtime/plugin/rplugin.vim
+055.934  000.102  000.102: sourcing /usr/share/nvim/runtime/plugin/shada.vim
+055.984  000.023  000.023: sourcing /usr/share/nvim/runtime/plugin/spellfile.vim
+056.135  000.127  000.127: sourcing /usr/share/nvim/runtime/plugin/tarPlugin.vim
+056.219  000.061  000.061: sourcing /usr/share/nvim/runtime/plugin/tohtml.vim
+056.255  000.015  000.015: sourcing /usr/share/nvim/runtime/plugin/tutor.vim
+056.418  000.145  000.145: sourcing /usr/share/nvim/runtime/plugin/zipPlugin.vim
+056.441  002.177: loading plugins
+057.188  000.411  000.411: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/FastFold/plugin/fastfold.vim
+057.447  000.027  000.027: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter/autoload/nvim_treesitter.vim
+058.156  000.013  000.013: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/barbar.nvim/autoload/bufferline.vim
+058.433  000.042  000.042: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/barbar.nvim/autoload/bufferline/highlight.vim
+060.854  003.570  003.488: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/barbar.nvim/plugin/bufferline.vim
+061.137  000.177  000.177: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/completion-nvim/plugin/completion.vim
+061.454  000.241  000.241: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/conflict-marker.vim/plugin/conflict_marker.vim
+061.963  000.433  000.433: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/fzf/plugin/fzf.vim
+062.168  000.116  000.116: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/galaxyline.nvim/plugin/galaxyline.vim
+062.436  000.193  000.193: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/hiPairs/plugin/hiPairs.vim
+062.527  000.012  000.012: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-dap/plugin/dap.vim
+063.265  000.652  000.652: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-dap-virtual-text/plugin/nvim-dap-virtual-text.vim
+063.400  000.053  000.053: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-lspconfig/plugin/lspconfig.vim
+063.511  000.039  000.039: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-lsputils/plugin/nvim-lsputils.vim
+065.160  001.543  001.543: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter/plugin/nvim-treesitter.vim
+065.227  000.017  000.017: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter/ftdetect/query.vim
+065.633  000.342  000.342: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter-refactor/plugin/nvim-treesitter-refactor.vim
+067.521  001.809  001.809: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter-textobjects/plugin/nvim-treesitter-textobjects.vim
+067.656  000.034  000.034: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+067.969  000.243  000.243: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/playground/plugin/nvim-treesitter-playground.vim
+070.384  002.341  002.341: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/plenary.nvim/plugin/plenary.vim
+070.491  000.031  000.031: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/popfix/plugin/popfix.vim
+070.770  000.191  000.191: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/targets.vim/plugin/targets.vim
+071.039  000.155  000.155: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-dadbod/plugin/dadbod.vim
+072.178  001.071  001.071: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-fugitive/plugin/fugitive.vim
+072.239  000.010  000.010: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-fugitive/ftdetect/fugitive.vim
+072.432  000.035  000.035: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-hexokinase/autoload/hexokinase/v2.vim
+072.565  000.265  000.230: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-hexokinase/plugin/hexokinase.vim
+072.655  000.021  000.021: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-log-highlighting/ftdetect/log.vim
+072.865  000.147  000.147: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-rhubarb/plugin/rhubarb.vim
+073.402  000.395  000.395: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-sandwich/plugin/operator/sandwich.vim
+073.619  000.190  000.190: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-sandwich/plugin/sandwich.vim
+073.803  000.158  000.158: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-sandwich/plugin/textobj/sandwich.vim
+074.083  000.205  000.205: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-signify/plugin/signify.vim
+074.407  000.120  000.120: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-test/autoload/test.vim
+075.000  000.846  000.725: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-test/plugin/test.vim
+080.616  005.527  005.527: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-unimpaired/plugin/unimpaired.vim
+081.080  000.375  000.375: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip/plugin/vsnip.vim
+081.287  000.106  000.106: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip-integ/plugin/vsnip_integ.vim
+081.412  003.051: loading packages
+081.550  000.020  000.020: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip-integ/autoload/vsnip_integ/integration.vim
+081.635  000.036  000.036: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip-integ/autoload/vsnip_integ/detection.vim
+083.276  001.796  001.740: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip-integ/after/plugin/vsnip_integ.vim
+083.462  000.254: loading after plugins
+083.476  000.014: inits 3
+086.310  002.834: reading ShaDa
+086.824  000.513: opening buffers
+087.177  000.040  000.040: sourcing /home/ronan/.cache/nvim/site/pack/packer/start/conflict-marker.vim/autoload/conflict_marker/detect.vim
+087.378  000.515: BufEnter autocommands
+087.381  000.003: editing files in windows
+088.367  000.985: VimEnter autocommands
+088.374  000.008: UIEnter autocommands
+088.376  000.002: before starting main loop
+090.468  002.092: first screen update
+090.471  000.003: --- NVIM STARTED ---
