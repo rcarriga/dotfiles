@@ -20,6 +20,12 @@ require "format".setup {
     javascript = {
         {cmd = {"prettier -w", "./node_modules/.bin/eslint --fix"}}
     },
+    json = {
+        {cmd = {"prettier -w"}}
+    },
+    yaml = {
+        {cmd = {"prettier -w"}}
+    },
     typescript = {
         {cmd = {"prettier -w", "./node_modules/.bin/eslint --fix"}}
     },
@@ -33,6 +39,6 @@ require "format".setup {
         }
     },
     python = {
-    {cmd = {"black"}}
-  }
+        {cmd = {"./scripts/style -w", "./scripts/code-style -w", "black"}}
+    }
 }

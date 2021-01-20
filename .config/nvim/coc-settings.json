@@ -2,8 +2,7 @@
   "coc": {
     "preferences": {
       "enableMessageDialog": true,
-      "colorSupport": false,
-      "jumpCommand": "vsplit"
+      "colorSupport": false
     }
   },
   "codeLens": {

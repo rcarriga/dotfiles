@@ -12,10 +12,14 @@ vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup(
     function()
-        -- Packer can manage itself as an optional plugin
         use {
             "wbthomason/packer.nvim",
             opt = true
+        }
+        use {
+            "kyazdani42/nvim-tree.lua",
+            setup = "require('config.tree')",
+            cmd = "NvimTreeToggle"
         }
         use {
             "glepnir/galaxyline.nvim",
@@ -33,6 +37,7 @@ require("packer").startup(
         }
         use {
             "lukas-reineke/format.nvim",
+            cmd = "Format",
             config = "require('config.format')"
         }
         use {
@@ -88,16 +93,15 @@ require("packer").startup(
             }
         }
         use {
-            "/home/ronan/Dev/repos/vim-ultest/",
+            "janko/vim-test",
+            cmd = {"TestNearest", "TestFile"},
+            opt = true,
+        }
+        use {
+            "rcarriga/vim-ultest",
             cmd = {
                 "Ultest",
                 "UltestNearest"
-            },
-            requires = {
-                {
-                    "janko/vim-test",
-                    opt = true
-                }
             }
         }
         use {
@@ -108,7 +112,7 @@ require("packer").startup(
         }
         use {
             "voldikss/vim-floaterm",
-            cmd = "Floaterm"
+            cmd = "FloatermNew"
         }
         use {
             "rhysd/conflict-marker.vim"
@@ -154,7 +158,8 @@ require("packer").startup(
                     "RishabhRD/popfix"
                 },
                 {
-                    "RishabhRD/nvim-lsputils"
+                    "RishabhRD/nvim-lsputils",
+                    setup = "require('config.lsp_utils')"
                 }
             }
         }

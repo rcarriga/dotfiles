@@ -148,6 +148,10 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
 autocmd FileType dbui nmap <buffer> l <Plug>(DBUI_SelectLine)
 
+nmap <silent><leader>lf :Format<CR>
+
+nnoremap <silent><leader>x :NvimTreeToggle<CR>
+
 imap <tab> <Plug>(completion_smart_tab)
 imap <s-tab> <Plug>(completion_smart_s_tab)
 
