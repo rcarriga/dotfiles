@@ -1,4 +1,3 @@
-vim = vim
 local gl = require("galaxyline")
 local gls = gl.section
 local vcs = require("galaxyline.provider_vcs")

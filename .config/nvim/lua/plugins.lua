@@ -17,6 +17,10 @@ require("packer").startup(
             opt = true
         }
         use {
+            "windwp/nvim-autopairs",
+            config = "require('config.autopairs')"
+        }
+        use {
             "kyazdani42/nvim-tree.lua",
             setup = "require('config.tree')",
             cmd = "NvimTreeToggle"
@@ -95,7 +99,7 @@ require("packer").startup(
         use {
             "janko/vim-test",
             cmd = {"TestNearest", "TestFile"},
-            opt = true,
+            opt = true
         }
         use {
             "rcarriga/vim-ultest",

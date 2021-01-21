@@ -1,4 +1,6 @@
 local nvim_lsp = require("lspconfig")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
@@ -23,9 +25,6 @@ local on_attach = function(client, bufnr)
     local function buf_set_keymap(...)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
 
     -- Mappings.
     local opts = {noremap = true, silent = true}
@@ -35,6 +34,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
     buf_set_keymap("n", "<space>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap("n", "<space>lA", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
     buf_set_keymap("n", "<space>lw", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>ld", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
     buf_set_keymap("n", "<space>ll", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
@@ -58,5 +58,49 @@ end
 -- and map buffer local keybindings when the language server attaches
 local servers = {"pyright", "tsserver", "hls", "gopls", "jsonls", "yamlls", "dockerls"}
 for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {on_attach = on_attach}
+    nvim_lsp[lsp].setup {on_attach = on_attach, capabilities = capabilities}
 end
+
+-- Lua Specific setup
+
+require "lspconfig".sumneko_lua.setup {
+    cmd = {"lua-language-server"},
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                version = "LuaJIT",
+                path = vim.split(package.path, ";")
+            },
+            diagnostics = {
+                globals = {"vim", "use"}
+            },
+            workspace = {
+                library = {
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+                }
+            }
+        }
+    }
+}
+
+-- Emmet setup
+local configs = require "lspconfig/configs"
+
+configs.emmet_ls = {
+    default_config = {
+        cmd = {"emmet-ls", "--stdio"},
+        filetypes = {"html", "css", "vue", "typescriptreact", "javascriptreact"},
+        root_dir = function()
+            return vim.loop.cwd()
+        end,
+        settings = {}
+    }
+}
+
+nvim_lsp.emmet_ls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
