@@ -18,19 +18,20 @@ require("packer").startup(
         }
         use {
             "windwp/nvim-autopairs",
-            config = "require('config.autopairs')"
+            config = "require('config.autopairs').post()"
         }
         use {
             "kyazdani42/nvim-tree.lua",
-            setup = "require('config.tree')",
+            setup = "require('config.tree').pre()",
             cmd = "NvimTreeToggle"
         }
         use {
             "glepnir/galaxyline.nvim",
-            config = "require('config.galaxyline')"
+            config = "require('config.galaxyline').post()"
         }
         use {
-            "romgrk/barbar.nvim"
+            "romgrk/barbar.nvim",
+            setup = "require('config.barbar').pre()"
         }
         use {
             "indrewRadev/splitjoin.vim",
@@ -42,11 +43,11 @@ require("packer").startup(
         use {
             "lukas-reineke/format.nvim",
             cmd = "Format",
-            config = "require('config.format')"
+            config = "require('config.format').pre()"
         }
         use {
             "nvim-telescope/telescope.nvim",
-            config = "require('config.telescope')",
+            config = "require('config.telescope').post()",
             cmd = "Telescope",
             requires = {
                 {
@@ -72,7 +73,7 @@ require("packer").startup(
         }
         use {
             "mfussenegger/nvim-dap",
-            config = "require('config.dap')",
+            config = "require('config.dap').post()",
             requires = {
                 {
                     "theHamsta/nvim-dap-virtual-text"
@@ -156,20 +157,21 @@ require("packer").startup(
         }
         use {
             "neovim/nvim-lspconfig",
-            config = "require('config.lsp')",
+            setup = "require('config.lsp').pre()",
+            config = "require('config.lsp').post()",
             requires = {
                 {
                     "RishabhRD/popfix"
                 },
                 {
                     "RishabhRD/nvim-lsputils",
-                    setup = "require('config.lsp_utils')"
+                    setup = "require('config.lsp_utils').pre()"
                 }
             }
         }
         use {
             "nvim-treesitter/nvim-treesitter",
-            config = "require('config.treesitter')",
+            config = "require('config.treesitter').post()",
             requires = {
                 {
                     "nvim-treesitter/playground"
@@ -184,7 +186,7 @@ require("packer").startup(
         }
         use {
             "nvim-lua/completion-nvim",
-            setup = "require('config.completion')",
+            setup = "require('config.completion').pre()",
             requires = {
                 {
                     "hrsh7th/vim-vsnip"
@@ -229,7 +231,9 @@ require("packer").startup(
             "tpope/vim-eunuch",
             cmd = {
                 "Rename",
-                "Delete"
+                "Delete",
+                "Remove",
+                "Chmod"
             }
         }
         use {
@@ -244,7 +248,8 @@ require("packer").startup(
             "tpope/vim-unimpaired"
         }
         use {
-            "wellle/targets.vim"
+            "wellle/targets.vim",
+            requires = {"wellle/line-targets.vim"}
         }
         use {
             "MTDL9/vim-log-highlighting"
@@ -257,7 +262,10 @@ require("packer").startup(
             }
         }
         use {
-            "neovimhaskell/haskell-vim"
+            "neovimhaskell/haskell-vim",
+            ft = {
+                "haskell"
+            }
         }
         use {
             "posva/vim-vue",

@@ -9,12 +9,28 @@ endif
 try
 
 lua << END
+  local package_path_str = "/home/ronan/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/ronan/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/ronan/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/ronan/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
+  local install_cpath_pattern = "/home/ronan/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
+  if not string.find(package.path, package_path_str, 1, true) then
+    package.path = package.path .. ';' .. package_path_str
+  end
+
+  if not string.find(package.cpath, install_cpath_pattern, 1, true) then
+    package.cpath = package.cpath .. ';' .. install_cpath_pattern
+  end
+
 local plugins = {
   ["Dockerfile.vim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/Dockerfile.vim"
+  },
+  ["barbar.nvim"] = {
+    loaded = false,
+    only_sequence = true,
+    only_setup = true,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/opt/barbar.nvim"
   },
   ["clever-f.vim"] = {
     keys = { { "", "f" }, { "", "t" } },
@@ -31,7 +47,7 @@ local plugins = {
   },
   ["format.nvim"] = {
     commands = { "Format" },
-    config = { "require('config.format')" },
+    config = { "require('config.format').pre()" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
@@ -50,6 +66,19 @@ local plugins = {
     only_sequence = false,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/goyo.vim"
+  },
+  ["haskell-vim"] = {
+    loaded = false,
+    only_sequence = false,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/opt/haskell-vim"
+  },
+  ["nvim-lspconfig"] = {
+    config = { "require('config.lsp').post()" },
+    loaded = false,
+    only_sequence = true,
+    only_setup = true,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/opt/nvim-lspconfig"
   },
   ["nvim-lsputils"] = {
     loaded = false,
@@ -93,7 +122,7 @@ local plugins = {
   },
   ["telescope.nvim"] = {
     commands = { "Telescope" },
-    config = { "require('config.telescope')" },
+    config = { "require('config.telescope').post()" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
@@ -121,7 +150,7 @@ local plugins = {
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-doge"
   },
   ["vim-eunuch"] = {
-    commands = { "Rename", "Delete" },
+    commands = { "Rename", "Delete", "Remove", "Chmod" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
@@ -305,25 +334,31 @@ end
 -- Runtimepath customization
 
 -- Pre-load configuration
--- Setup for: nvim-lsputils
-require('config.lsp_utils')
-vim.cmd("packadd nvim-lsputils")
+-- Setup for: nvim-lspconfig
+require('config.lsp').pre()
+vim.cmd("packadd nvim-lspconfig")
 -- Setup for: completion-nvim
-require('config.completion')
+require('config.completion').pre()
 vim.cmd("packadd completion-nvim")
 -- Setup for: nvim-tree.lua
-require('config.tree')
+require('config.tree').pre()
+-- Setup for: barbar.nvim
+require('config.barbar').pre()
+vim.cmd("packadd barbar.nvim")
+-- Setup for: nvim-lsputils
+require('config.lsp_utils').pre()
+vim.cmd("packadd nvim-lsputils")
 -- Post-load configuration
 -- Config for: nvim-treesitter
-require('config.treesitter')
+require('config.treesitter').post()
 -- Config for: nvim-dap
-require('config.dap')
+require('config.dap').post()
 -- Config for: galaxyline.nvim
-require('config.galaxyline')
+require('config.galaxyline').post()
 -- Config for: nvim-autopairs
-require('config.autopairs')
+require('config.autopairs').post()
 -- Config for: nvim-lspconfig
-require('config.lsp')
+require('config.lsp').post()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END
@@ -335,35 +370,38 @@ endfunction
 
 " Command lazy-loads
 command! -nargs=* -range -bang -complete=file Format call s:load(['format.nvim'], { "cmd": "Format", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Telescope call s:load(['telescope.nvim'], { "cmd": "Telescope", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Ultest call s:load(['vim-ultest'], { "cmd": "Ultest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file S call s:load(['vim-abolish'], { "cmd": "S", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file TestFile call s:load(['vim-test'], { "cmd": "TestFile", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Delete call s:load(['vim-eunuch'], { "cmd": "Delete", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file TestNearest call s:load(['vim-test'], { "cmd": "TestNearest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file DBUI call s:load(['vim-dadbod-ui'], { "cmd": "DBUI", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file NvimTreeToggle call s:load(['nvim-tree.lua'], { "cmd": "NvimTreeToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Rename call s:load(['vim-eunuch'], { "cmd": "Rename", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file DBUI call s:load(['vim-dadbod-ui'], { "cmd": "DBUI", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file FloatermNew call s:load(['vim-floaterm'], { "cmd": "FloatermNew", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Telescope call s:load(['telescope.nvim'], { "cmd": "Telescope", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file MundoToggle call s:load(['vim-mundo'], { "cmd": "MundoToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file FloatermNew call s:load(['vim-floaterm'], { "cmd": "FloatermNew", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Chmod call s:load(['vim-eunuch'], { "cmd": "Chmod", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Twiggy call s:load(['vim-twiggy'], { "cmd": "Twiggy", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Tabularize call s:load(['tabular'], { "cmd": "Tabularize", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file TestFile call s:load(['vim-test'], { "cmd": "TestFile", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Remove call s:load(['vim-eunuch'], { "cmd": "Remove", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Ultest call s:load(['vim-ultest'], { "cmd": "Ultest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Goyo call s:load(['goyo.vim'], { "cmd": "Goyo", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file UltestNearest call s:load(['vim-ultest'], { "cmd": "UltestNearest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file S call s:load(['vim-abolish'], { "cmd": "S", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Tabularize call s:load(['tabular'], { "cmd": "Tabularize", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file DogeGenertate call s:load(['vim-doge'], { "cmd": "DogeGenertate", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 
 " Keymap lazy-loads
-noremap <silent> gcc <cmd>call <SID>load(['tcomment_vim'], { "keys": "gcc", "prefix": "" })<cr>
 noremap <silent> <leader>s <cmd>call <SID>load(['vim-subversive'], { "keys": "\<leader\>s", "prefix": "" })<cr>
-noremap <silent> gS <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gS", "prefix": "" })<cr>
+noremap <silent> gJ <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gJ", "prefix": "" })<cr>
 noremap <silent> <leader>gm <cmd>call <SID>load(['git-messenger.vim'], { "keys": "\<leader\>gm", "prefix": "" })<cr>
 noremap <silent> f <cmd>call <SID>load(['clever-f.vim'], { "keys": "f", "prefix": "" })<cr>
-noremap <silent> gJ <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gJ", "prefix": "" })<cr>
+noremap <silent> gcc <cmd>call <SID>load(['tcomment_vim'], { "keys": "gcc", "prefix": "" })<cr>
+noremap <silent> gS <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gS", "prefix": "" })<cr>
 noremap <silent> t <cmd>call <SID>load(['clever-f.vim'], { "keys": "t", "prefix": "" })<cr>
 
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
+  au FileType haskell ++once call s:load(['haskell-vim'], { "ft": "haskell" })
   au FileType Dockerfile ++once call s:load(['Dockerfile.vim'], { "ft": "Dockerfile" })
   au FileType vue ++once call s:load(['vim-vue'], { "ft": "vue" })
   au FileType dockerfile ++once call s:load(['Dockerfile.vim'], { "ft": "dockerfile" })

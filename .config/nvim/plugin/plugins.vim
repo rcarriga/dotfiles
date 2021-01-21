@@ -10,26 +10,9 @@ set completeopt=menuone,noinsert
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-call sign_define("LspDiagnosticsSignError", {"text": "", "texthl": "LspDiagnosticsDefaultError", "numhl": "LspDiagnosticsDefaultError"})
-call sign_define("LspDiagnosticsSignWarning", {"text": "", "texthl": "LspDiagnosticsDefaultWarning", "numhl": "LspDiagnosticsDefaultWarning"})
-call sign_define("LspDiagnosticsSignInformation", {"text": "", "texthl": "LspDiagnosticsDefaultInformation", "numhl": "LspDiagnosticsDefaultInformation"})
-call sign_define("LspDiagnosticsSignHint", {"text": "", "texthl": "LspDiagnosticsDefaultHint", "numhl": "LspDiagnosticsDefaultHint"})
-
-augroup LSPConfig
-  au!
-  au CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
-augroup END
-
-augroup CompletionConfig
-  au!
-  au BufEnter * lua require('completion').on_attach()
-augroup END
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-
-let bufferline = {}
-let bufferline.closable = v:false
 
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
@@ -155,7 +138,6 @@ nnoremap <silent><leader>x :NvimTreeToggle<CR>
 imap <tab> <Plug>(completion_smart_tab)
 imap <s-tab> <Plug>(completion_smart_s_tab)
 
-nnoremap <silent> <leader>a :BufferPick<CR>
 
 nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
