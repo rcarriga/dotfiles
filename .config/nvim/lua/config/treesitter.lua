@@ -6,7 +6,7 @@ function M.post()
             enable = true
         },
         indent = {
-            enable = true
+            enable = false
         },
         incremental_selection = {
             enable = true,
@@ -35,10 +35,10 @@ function M.post()
             swap = {
                 enable = true,
                 swap_next = {
-                    ["g>"] = "@parameter.inner"
+                    ["s>"] = "@parameter.inner"
                 },
                 swap_previous = {
-                    ["g<"] = "@parameter.inner"
+                    ["s<"] = "@parameter.inner"
                 }
             },
             move = {

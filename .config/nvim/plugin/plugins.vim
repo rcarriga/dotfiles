@@ -1,18 +1,38 @@
 " ###################################################################################
 " Plugin Settings {{{1
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_follow = 1
+let g:nvim_tree_auto_close = 1
 
-" Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert
+map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
+map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
+map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
+map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
 
-" Avoid showing message extra message when using completion
-set shortmess+=c
+let g:dap_virtual_text = "all_frames"
 
+let g:bufferline = { "closable" : 0  }
 
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
+let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
+let g:Hexokinase_optOutPatterns = [ "colour_names" ]
+
+nnoremap <silent> <leader>a :BufferPick<CR>
+
+let g:completion_sorting = "none"
+let g:completion_enable_auto_paren = 1
+let g:completion_enable_snippet = "vim-vsnip"
+let g:completion_chain_complete_list = {
+      \ "default" : [
+      \ {"complete_items" : ["lsp", "snippet", "buffers", "tags", "path"]},
+      \ {"mode" : ["<c-p>"]},
+      \ {"mode" : ["<c-n>"]}
+      \ ]
+      \ }
+augroup CompletionConfig
+  au!
+  au BufEnter * lua require('completion').on_attach()
+augroup END
 
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
