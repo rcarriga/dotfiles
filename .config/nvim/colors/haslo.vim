@@ -254,7 +254,7 @@ call s:loadHighlights({
 
 "Floaterm
 call s:loadHighlights({
-  \ "FloatermBorder": [s:Orange]
+  \ "FloatermBorder": [s:Grey1]
   \ })
 
 " Coc.nvim

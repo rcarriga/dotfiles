@@ -20,7 +20,6 @@ require("packer").startup(
     use {"godlygeek/tabular", cmd = "Tabularize"}
     use {"haya14busa/vim-asterisk", requires = {"haya14busa/is.vim"}}
     use {"indrewRadev/splitjoin.vim", keys = {"gS", "gJ"}}
-    use {"janko/vim-test", cmd = {"TestNearest", "TestFile"}, opt = true}
     use {"junegunn/fzf", requires = {{"junegunn/fzf.vim"}}}
     use {"junegunn/goyo.vim", cmd = "Goyo"}
     use {"kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()"}
@@ -29,10 +28,17 @@ require("packer").startup(
     use {"lukas-reineke/format.nvim", cmd = "Format", config = "require('config.format').pre()"}
     use {"machakann/vim-sandwich"}
     use {"mhinz/vim-signify"}
-    use {"neovim/nvim-lspconfig", config = "require('config.lsp').post()"}
+    use {
+      "neovim/nvim-lspconfig",
+      config = "require('config.lsp').post()",
+      requires = {"nvim-lua/lsp-status.nvim", "glepnir/lspsaga.nvim"}
+    }
     use {"neovimhaskell/haskell-vim"}
     use {"posva/vim-vue", ft = "vue"}
-    use {"rcarriga/vim-ultest", cmd = {"Ultest", "UltestNearest"}}
+    use {
+      "/home/ronan/Dev/repos/vim-ultest/",
+      requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}, opt = true}
+    }
     use {"rhysd/clever-f.vim", keys = {"f", "t"}}
     use {"rhysd/conflict-marker.vim"}
     use {"rhysd/git-messenger.vim", keys = "<leader>gm"}
@@ -40,7 +46,7 @@ require("packer").startup(
     use {"rrethy/vim-hexokinase", run = "make hexokinase"}
     use {"simnalamburt/vim-mundo", cmd = "MundoToggle"}
     use {"sodapopcan/vim-twiggy", cmd = "Twiggy"}
-    use {"svermeulen/vim-subversive", keys = {"<leader>s"}}
+    use {"svermeulen/vim-subversive"}
     use {"tomtom/tcomment_vim", keys = {"gcc"}}
     use {"tpope/vim-abolish", cmd = "S"}
     use {"tpope/vim-eunuch", cmd = {"Rename", "Delete", "Remove", "Chmod"}}

@@ -87,9 +87,9 @@ let g:signify_sign_delete            = "\u258B"
 let g:signify_sign_delete_first_line = "\u258B"
 let g:signify_sign_change            = "\u258B"
 
-let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'Operator' } }
+let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'FloatermBorder' } }
 let g:fzf_preview_window = 'right:60%'
-
+command! Conf Files ~/.config/nvim
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -207,6 +207,7 @@ nmap <silent><leader>dg :Rg<CR>
 nmap <silent><leader>db :Buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
+nmap <silent><leader>dc :Conf<CR>
 
 nnoremap <silent> <leader>bc :lua require'dap'.continue()<CR>
 nnoremap <silent> <leader>bs :lua require'dap'.step_over()<CR>

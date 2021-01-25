@@ -1,4 +1,5 @@
 local util = require("util")
+vim.lsp.set_log_level("debug")
 util.multilineCommand [[
 augroup FileTypeInit
     au!
@@ -61,8 +62,8 @@ vim.o.termguicolors = true
 vim.o.timeoutlen = 1000
 
 -- Show numbers relative to current line
-vim.o.relativenumber = true
-vim.o.number = true
+vim.wo.relativenumber = true
+vim.wo.number = true
 
 -- Make backspace work as expected
 vim.o.backspace = "indent,eol,start"
@@ -75,9 +76,9 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 -- vim.o.all code unfolded by default
-vim.o.foldlevel = 99
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldlevel = 99
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Update files on change
 vim.o.autoread = true

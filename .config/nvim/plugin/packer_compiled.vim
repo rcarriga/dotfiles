@@ -19,12 +19,24 @@ lua << END
     package.cpath = package.cpath .. ';' .. install_cpath_pattern
   end
 
-local plugins = {
+_G.packer_plugins = {
   ["Dockerfile.vim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/Dockerfile.vim"
+  },
+  FastFold = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/FastFold"
+  },
+  ["barbar.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/barbar.nvim"
   },
   ["clever-f.vim"] = {
     keys = { { "", "f" }, { "", "t" } },
@@ -33,6 +45,30 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/clever-f.vim"
   },
+  ["completion-buffers"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/completion-buffers"
+  },
+  ["completion-nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/completion-nvim"
+  },
+  ["completion-tags"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/completion-tags"
+  },
+  ["conflict-marker.vim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/conflict-marker.vim"
+  },
   ["format.nvim"] = {
     commands = { "Format" },
     config = { "require('config.format').pre()" },
@@ -40,6 +76,25 @@ local plugins = {
     only_sequence = false,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/format.nvim"
+  },
+  fzf = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/fzf"
+  },
+  ["fzf.vim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/fzf.vim"
+  },
+  ["galaxyline.nvim"] = {
+    config = { "require('config.galaxyline').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/galaxyline.nvim"
   },
   ["git-messenger.vim"] = {
     keys = { { "", "<leader>gm" } },
@@ -55,6 +110,75 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/goyo.vim"
   },
+  ["haskell-vim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/haskell-vim"
+  },
+  hiPairs = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/hiPairs"
+  },
+  ["is.vim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/is.vim"
+  },
+  ["line-targets.vim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/line-targets.vim"
+  },
+  ["lsp-status.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/lsp-status.nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/lspsaga.nvim"
+  },
+  ["nvim-autopairs"] = {
+    config = { "require('config.autopairs').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-autopairs"
+  },
+  ["nvim-dap"] = {
+    config = { "require('config.dap').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-dap"
+  },
+  ["nvim-dap-python"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-dap-python"
+  },
+  ["nvim-dap-virtual-text"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-dap-virtual-text"
+  },
+  ["nvim-lspconfig"] = {
+    config = { "require('config.lsp').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-lspconfig"
+  },
   ["nvim-tree.lua"] = {
     commands = { "NvimTreeToggle" },
     loaded = false,
@@ -62,11 +186,54 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/nvim-tree.lua"
   },
+  ["nvim-treesitter"] = {
+    config = { "require('config.treesitter').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-treesitter-refactor"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter-refactor"
+  },
+  ["nvim-treesitter-textobjects"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-treesitter-textobjects"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-web-devicons"
+  },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/packer.nvim"
+  },
+  playground = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/playground"
+  },
+  ["plenary.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/plenary.nvim"
+  },
+  ["popup.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/popup.nvim"
   },
   ["splitjoin.vim"] = {
     keys = { { "", "gS" }, { "", "gJ" } },
@@ -82,6 +249,12 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/tabular"
   },
+  ["targets.vim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/targets.vim"
+  },
   tcomment_vim = {
     keys = { { "", "gcc" } },
     loaded = false,
@@ -89,12 +262,43 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/tcomment_vim"
   },
+  ["telescope-dap.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/telescope-dap.nvim"
+  },
+  ["telescope-fzy-native.nvim"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/telescope-fzy-native.nvim"
+  },
+  ["telescope.nvim"] = {
+    config = { "require('config.telescope').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/telescope.nvim"
+  },
   ["vim-abolish"] = {
     commands = { "S" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-abolish"
+  },
+  ["vim-asterisk"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-asterisk"
+  },
+  ["vim-dadbod"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-dadbod"
   },
   ["vim-dadbod-ui"] = {
     commands = { "DBUI" },
@@ -124,6 +328,24 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-floaterm"
   },
+  ["vim-fugitive"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-fugitive"
+  },
+  ["vim-hexokinase"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-hexokinase"
+  },
+  ["vim-log-highlighting"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-log-highlighting"
+  },
   ["vim-mundo"] = {
     commands = { "MundoToggle" },
     loaded = false,
@@ -131,19 +353,35 @@ local plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-mundo"
   },
-  ["vim-subversive"] = {
-    keys = { { "", "<leader>s" } },
-    loaded = false,
-    only_sequence = false,
+  ["vim-rhubarb"] = {
+    loaded = true,
+    only_sequence = true,
     only_setup = false,
-    path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-subversive"
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-rhubarb"
+  },
+  ["vim-sandwich"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-sandwich"
+  },
+  ["vim-signify"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-signify"
+  },
+  ["vim-subversive"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-subversive"
   },
   ["vim-test"] = {
-    commands = { "TestNearest", "TestFile" },
-    loaded = false,
-    only_sequence = false,
+    loaded = true,
+    only_sequence = true,
     only_setup = false,
-    path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-test"
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-test"
   },
   ["vim-twiggy"] = {
     commands = { "Twiggy" },
@@ -153,11 +391,28 @@ local plugins = {
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-twiggy"
   },
   ["vim-ultest"] = {
-    commands = { "Ultest", "UltestNearest" },
-    loaded = false,
-    only_sequence = false,
+    loaded = true,
+    only_sequence = true,
     only_setup = false,
-    path = "/home/ronan/.cache/nvim/site/pack/packer/opt/vim-ultest"
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-ultest"
+  },
+  ["vim-unimpaired"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-unimpaired"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/vim-vsnip-integ"
   },
   ["vim-vue"] = {
     loaded = false,
@@ -169,7 +424,7 @@ local plugins = {
 
 local function handle_bufread(names)
   for _, name in ipairs(names) do
-    local path = plugins[name].path
+    local path = packer_plugins[name].path
     for _, dir in ipairs({ 'ftdetect', 'ftplugin', 'after/ftdetect', 'after/ftplugin' }) do
       if #vim.fn.finddir(dir, path) > 0 then
         vim.cmd('doautocmd BufRead')
@@ -181,7 +436,7 @@ end
 
 local packer_load = nil
 local function handle_after(name, before)
-  local plugin = plugins[name]
+  local plugin = packer_plugins[name]
   plugin.load_after[before] = nil
   if next(plugin.load_after) == nil then
     packer_load({name}, {})
@@ -191,7 +446,7 @@ end
 packer_load = function(names, cause)
   local some_unloaded = false
   for _, name in ipairs(names) do
-    if not plugins[name].loaded then
+    if not packer_plugins[name].loaded then
       some_unloaded = true
       break
     end
@@ -203,14 +458,14 @@ packer_load = function(names, cause)
   local del_cmds = {}
   local del_maps = {}
   for _, name in ipairs(names) do
-    if plugins[name].commands then
-      for _, cmd in ipairs(plugins[name].commands) do
+    if packer_plugins[name].commands then
+      for _, cmd in ipairs(packer_plugins[name].commands) do
         del_cmds[cmd] = true
       end
     end
 
-    if plugins[name].keys then
-      for _, key in ipairs(plugins[name].keys) do
+    if packer_plugins[name].keys then
+      for _, key in ipairs(packer_plugins[name].keys) do
         del_maps[key] = true
       end
     end
@@ -225,22 +480,22 @@ packer_load = function(names, cause)
   end
 
   for _, name in ipairs(names) do
-    if not plugins[name].loaded then
+    if not packer_plugins[name].loaded then
       vim.cmd('packadd ' .. name)
-      if plugins[name].config then
-        for _i, config_line in ipairs(plugins[name].config) do
+      if packer_plugins[name].config then
+        for _i, config_line in ipairs(packer_plugins[name].config) do
           loadstring(config_line)()
         end
       end
 
-      if plugins[name].after then
-        for _, after_name in ipairs(plugins[name].after) do
+      if packer_plugins[name].after then
+        for _, after_name in ipairs(packer_plugins[name].after) do
           handle_after(after_name, name)
           vim.cmd('redraw')
         end
       end
 
-      plugins[name].loaded = true
+      packer_plugins[name].loaded = true
     end
   end
 
@@ -318,33 +573,28 @@ endfunction
 
 
 " Command lazy-loads
-command! -nargs=* -range -bang -complete=file Format call s:load(['format.nvim'], { "cmd": "Format", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file S call s:load(['vim-abolish'], { "cmd": "S", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Tabularize call s:load(['tabular'], { "cmd": "Tabularize", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Delete call s:load(['vim-eunuch'], { "cmd": "Delete", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file TestNearest call s:load(['vim-test'], { "cmd": "TestNearest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file DogeGenerate call s:load(['vim-doge'], { "cmd": "DogeGenerate", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Format call s:load(['format.nvim'], { "cmd": "Format", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file MundoToggle call s:load(['vim-mundo'], { "cmd": "MundoToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file NvimTreeToggle call s:load(['nvim-tree.lua'], { "cmd": "NvimTreeToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Rename call s:load(['vim-eunuch'], { "cmd": "Rename", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Delete call s:load(['vim-eunuch'], { "cmd": "Delete", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file DBUI call s:load(['vim-dadbod-ui'], { "cmd": "DBUI", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file FloatermNew call s:load(['vim-floaterm'], { "cmd": "FloatermNew", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Chmod call s:load(['vim-eunuch'], { "cmd": "Chmod", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Twiggy call s:load(['vim-twiggy'], { "cmd": "Twiggy", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Remove call s:load(['vim-eunuch'], { "cmd": "Remove", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Ultest call s:load(['vim-ultest'], { "cmd": "Ultest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Tabularize call s:load(['tabular'], { "cmd": "Tabularize", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file S call s:load(['vim-abolish'], { "cmd": "S", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Chmod call s:load(['vim-eunuch'], { "cmd": "Chmod", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Goyo call s:load(['goyo.vim'], { "cmd": "Goyo", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file UltestNearest call s:load(['vim-ultest'], { "cmd": "UltestNearest", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file TestFile call s:load(['vim-test'], { "cmd": "TestFile", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file MundoToggle call s:load(['vim-mundo'], { "cmd": "MundoToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file FloatermNew call s:load(['vim-floaterm'], { "cmd": "FloatermNew", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 
 " Keymap lazy-loads
-noremap <silent> gJ <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gJ", "prefix": "" })<cr>
-noremap <silent> <leader>gm <cmd>call <SID>load(['git-messenger.vim'], { "keys": "\<leader\>gm", "prefix": "" })<cr>
+noremap <silent> t <cmd>call <SID>load(['clever-f.vim'], { "keys": "t", "prefix": "" })<cr>
 noremap <silent> f <cmd>call <SID>load(['clever-f.vim'], { "keys": "f", "prefix": "" })<cr>
 noremap <silent> gcc <cmd>call <SID>load(['tcomment_vim'], { "keys": "gcc", "prefix": "" })<cr>
-noremap <silent> <leader>s <cmd>call <SID>load(['vim-subversive'], { "keys": "\<leader\>s", "prefix": "" })<cr>
+noremap <silent> gJ <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gJ", "prefix": "" })<cr>
+noremap <silent> <leader>gm <cmd>call <SID>load(['git-messenger.vim'], { "keys": "\<leader\>gm", "prefix": "" })<cr>
 noremap <silent> gS <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gS", "prefix": "" })<cr>
-noremap <silent> t <cmd>call <SID>load(['clever-f.vim'], { "keys": "t", "prefix": "" })<cr>
 
 augroup packer_load_aucmds
   au!

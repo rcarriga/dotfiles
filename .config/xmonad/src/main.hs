@@ -251,8 +251,7 @@ instance SetsAmbiguous NoFullscreenBorders where
       fullRect = W.RationalRect (0 % 1) (0 % 1) (1 % 1) (1 % 1)
       fullFloats = filter (\(_, r) -> r == fullRect) floats
 
-myBordersMod :: ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full)) Window 
-             -> ModifiedLayout (ConfigurableBorder NoFullscreenBorders) (ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full))) Window
+myBordersMod :: ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full)) Window -> ModifiedLayout (ConfigurableBorder NoFullscreenBorders) (ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full))) Window
 myBordersMod = lessBorders (NoFullscreenBorders Never)
 
 myLayoutHook :: ModifiedLayout (ConfigurableBorder NoFullscreenBorders) (ModifiedLayout AvoidStruts (Choose (ModifiedLayout Spacing MouseResizableTile) (ModifiedLayout WithBorder Full))) Window
