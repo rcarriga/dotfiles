@@ -20,7 +20,6 @@ let g:Hexokinase_optOutPatterns = [ "colour_names" ]
 nnoremap <silent> <leader>a :BufferPick<CR>
 
 let g:completion_sorting = "none"
-let g:completion_enable_auto_paren = 1
 let g:completion_enable_snippet = "vim-vsnip"
 let g:completion_chain_complete_list = {
       \ "default" : [

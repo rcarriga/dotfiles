@@ -106,7 +106,7 @@ function M.post()
     buf_set_keymap("n", "gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
     buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+    buf_set_keymap("n", "gr", "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
     buf_set_keymap("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
     buf_set_keymap("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", opts)
     buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
@@ -119,7 +119,7 @@ function M.post()
     buf_set_keymap("n", "<space>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
     buf_set_keymap("n", "<space>ls", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
     buf_set_keymap("n", "<space>ln", "<cmd>lua require('config.lsp_codelens').run()<CR>", opts)
-    buf_set_keymap("n", "<space>lq", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", opts)
+    buf_set_keymap("n", "gq", "<cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", opts)
     require("util").multilineCommand [[
       augroup CodeLensRegfresh
         au!
