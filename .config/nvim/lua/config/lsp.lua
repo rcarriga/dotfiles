@@ -61,7 +61,7 @@ function M.post()
     {text = "", texthl = "LspDiagnosticsDefaultHint", numhl = "LspDiagnosticsDefaultHint"}
   )
   local opts = {
-    border_style = 2,
+    border_style = 3,
     max_hover_width = 80
   }
 
