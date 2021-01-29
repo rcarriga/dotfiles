@@ -45,24 +45,6 @@ _G.packer_plugins = {
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/opt/clever-f.vim"
   },
-  ["completion-buffers"] = {
-    loaded = true,
-    only_sequence = true,
-    only_setup = false,
-    path = "/home/ronan/.cache/nvim/site/pack/packer/start/completion-buffers"
-  },
-  ["completion-nvim"] = {
-    loaded = true,
-    only_sequence = true,
-    only_setup = false,
-    path = "/home/ronan/.cache/nvim/site/pack/packer/start/completion-nvim"
-  },
-  ["completion-tags"] = {
-    loaded = true,
-    only_sequence = true,
-    only_setup = false,
-    path = "/home/ronan/.cache/nvim/site/pack/packer/start/completion-tags"
-  },
   ["conflict-marker.vim"] = {
     loaded = true,
     only_sequence = true,
@@ -152,6 +134,13 @@ _G.packer_plugins = {
     only_sequence = true,
     only_setup = false,
     path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-autopairs"
+  },
+  ["nvim-compe"] = {
+    config = { "require('config.compe').post()" },
+    loaded = true,
+    only_sequence = true,
+    only_setup = false,
+    path = "/home/ronan/.cache/nvim/site/pack/packer/start/nvim-compe"
   },
   ["nvim-dap"] = {
     config = { "require('config.dap').post()" },
@@ -555,14 +544,16 @@ end
 require('config.treesitter').post()
 -- Config for: nvim-dap
 require('config.dap').post()
--- Config for: galaxyline.nvim
-require('config.galaxyline').post()
 -- Config for: telescope.nvim
 require('config.telescope').post()
--- Config for: nvim-autopairs
-require('config.autopairs').post()
+-- Config for: galaxyline.nvim
+require('config.galaxyline').post()
 -- Config for: nvim-lspconfig
 require('config.lsp').post()
+-- Config for: nvim-autopairs
+require('config.autopairs').post()
+-- Config for: nvim-compe
+require('config.compe').post()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END
@@ -576,25 +567,25 @@ endfunction
 command! -nargs=* -range -bang -complete=file DogeGenerate call s:load(['vim-doge'], { "cmd": "DogeGenerate", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Format call s:load(['format.nvim'], { "cmd": "Format", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file MundoToggle call s:load(['vim-mundo'], { "cmd": "MundoToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file NvimTreeToggle call s:load(['nvim-tree.lua'], { "cmd": "NvimTreeToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Tabularize call s:load(['tabular'], { "cmd": "Tabularize", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Rename call s:load(['vim-eunuch'], { "cmd": "Rename", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Delete call s:load(['vim-eunuch'], { "cmd": "Delete", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file DBUI call s:load(['vim-dadbod-ui'], { "cmd": "DBUI", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file NvimTreeToggle call s:load(['nvim-tree.lua'], { "cmd": "NvimTreeToggle", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Twiggy call s:load(['vim-twiggy'], { "cmd": "Twiggy", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Remove call s:load(['vim-eunuch'], { "cmd": "Remove", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Tabularize call s:load(['tabular'], { "cmd": "Tabularize", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file S call s:load(['vim-abolish'], { "cmd": "S", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file Chmod call s:load(['vim-eunuch'], { "cmd": "Chmod", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file DBUI call s:load(['vim-dadbod-ui'], { "cmd": "DBUI", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file Goyo call s:load(['goyo.vim'], { "cmd": "Goyo", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file Chmod call s:load(['vim-eunuch'], { "cmd": "Chmod", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file S call s:load(['vim-abolish'], { "cmd": "S", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file FloatermNew call s:load(['vim-floaterm'], { "cmd": "FloatermNew", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 
 " Keymap lazy-loads
-noremap <silent> t <cmd>call <SID>load(['clever-f.vim'], { "keys": "t", "prefix": "" })<cr>
 noremap <silent> f <cmd>call <SID>load(['clever-f.vim'], { "keys": "f", "prefix": "" })<cr>
 noremap <silent> gcc <cmd>call <SID>load(['tcomment_vim'], { "keys": "gcc", "prefix": "" })<cr>
 noremap <silent> gJ <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gJ", "prefix": "" })<cr>
 noremap <silent> <leader>gm <cmd>call <SID>load(['git-messenger.vim'], { "keys": "\<leader\>gm", "prefix": "" })<cr>
 noremap <silent> gS <cmd>call <SID>load(['splitjoin.vim'], { "keys": "gS", "prefix": "" })<cr>
+noremap <silent> t <cmd>call <SID>load(['clever-f.vim'], { "keys": "t", "prefix": "" })<cr>
 
 augroup packer_load_aucmds
   au!

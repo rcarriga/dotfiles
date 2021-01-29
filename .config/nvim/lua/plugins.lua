@@ -85,13 +85,9 @@ require("packer").startup(
       }
     }
     use {
-      "nvim-lua/completion-nvim",
-      requires = {
-        {"hrsh7th/vim-vsnip"},
-        {"hrsh7th/vim-vsnip-integ"},
-        {"steelsojka/completion-buffers"},
-        {"kristijanhusak/completion-tags"}
-      }
+      "hrsh7th/nvim-compe",
+      config = "require('config.compe').post()",
+      requires = {{"hrsh7th/vim-vsnip"}, {"hrsh7th/vim-vsnip-integ"}}
     }
   end
 )

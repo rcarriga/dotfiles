@@ -19,20 +19,6 @@ let g:Hexokinase_optOutPatterns = [ "colour_names" ]
 
 nnoremap <silent> <leader>a :BufferPick<CR>
 
-let g:completion_sorting = "none"
-let g:completion_enable_snippet = "vim-vsnip"
-let g:completion_chain_complete_list = {
-      \ "default" : [
-      \ {"complete_items" : ["lsp", "snippet", "buffers", "tags", "path"]},
-      \ {"mode" : ["<c-p>"]},
-      \ {"mode" : ["<c-n>"]}
-      \ ]
-      \ }
-augroup CompletionConfig
-  au!
-  au BufEnter * lua require('completion').on_attach()
-augroup END
-
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
 let g:dap_virtual_text = "all_frames"
@@ -98,7 +84,6 @@ function! GetTestResults() abort
                 \ get(b:,"ultest_passed")." Pass ".get(b:, "ultest_failed")." Fail" : ""
 endfunction
 
-
 function! s:isOverWhitespace() abort
   let col = col(".") - 1
   return !col || getline(".")[col - 1]  =~# "\s"
@@ -133,10 +118,6 @@ augroup NvimAuCommands
   au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
 augroup END
 
-augroup GalaxyLineSetup
-  au!
-  au InsertEnter,BufModifiedSet * lua require("galaxyline").load_galaxyline()
-augroup END
 " }}}1
 " ###################################################################################
 " Custom Commands {{{1
@@ -154,8 +135,9 @@ nmap <silent><leader>lf :Format<CR>
 
 nnoremap <silent><leader>x :NvimTreeToggle<CR>
 
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 
 nmap <leader>s <plug>(SubversiveSubstituteRange)
@@ -245,5 +227,3 @@ nmap <leader>vk <Plug>(ultest-prev-fail)
 nmap <leader>vg <Plug>(ultest-output-jump)
 nmap <leader>vo <Plug>(ultest-output-show)
 nmap <leader>vs <Plug>(ultest-open-summary)
-
-lua require("plugins")
