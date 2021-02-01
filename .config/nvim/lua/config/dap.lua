@@ -6,7 +6,7 @@ function M.post()
     local dap_python = require("dap-python")
 
     dap_python.setup(
-        "$HOME/.cache/virtualenv/debugpy/bin/python",
+        "$HOME/.cache/virtualenvs/debugpy/bin/python",
         {
             include_configs = true
         }

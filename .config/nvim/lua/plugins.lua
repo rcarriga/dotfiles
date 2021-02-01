@@ -23,7 +23,12 @@ require("packer").startup(
     use {"junegunn/fzf", requires = {{"junegunn/fzf.vim"}}}
     use {"junegunn/goyo.vim", cmd = "Goyo"}
     use {"kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()"}
-    use {"kristijanhusak/vim-dadbod-ui", cmd = {"DBUI"}, requires = {"tpope/vim-dadbod", opt = true}}
+    use {
+      "kristijanhusak/vim-dadbod-ui",
+      cmd = {"DBUI"},
+      requires = {"tpope/vim-dadbod", opt = true},
+      {"kristijanhusak/vim-dadbod-completion", opt = true}
+    }
     use {"kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle"}
     use {"lukas-reineke/format.nvim", cmd = "Format", config = "require('config.format').pre()"}
     use {"machakann/vim-sandwich"}
@@ -87,7 +92,7 @@ require("packer").startup(
     use {
       "hrsh7th/nvim-compe",
       config = "require('config.compe').post()",
-      requires = {{"hrsh7th/vim-vsnip"}, {"hrsh7th/vim-vsnip-integ"}}
+      requires = {{"hrsh7th/vim-vsnip"}}
     }
   end
 )
