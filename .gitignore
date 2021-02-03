@@ -2,6 +2,7 @@ __pycache__/*
 .mypy_cache/*
 .stack-work/
 .vim/sessions/*
+packer_compiled.vim
 .config/zsh/.zim/*
 .config/zsh/.zcompcache/*
 *.zwc*

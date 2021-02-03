@@ -23,7 +23,7 @@ augroup END
 vim.g.python3_host_prog = "/usr/bin/python3"
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt="menuone,noinsert"
+vim.o.completeopt="menu,menuone,noselect"
 
 -- Disable modelines (Vim commands in files)
 vim.o.modeline = false

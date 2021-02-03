@@ -62,7 +62,6 @@ function M.post()
   )
   local opts = {
     border_style = 3,
-    max_hover_width = 80
   }
 
   require("lspsaga").init_lsp_saga(opts)
@@ -124,7 +123,7 @@ function M.post()
     ]]
   end
 
-  local servers = {"tsserver", "hls", "gopls", "jsonls", "dockerls", "vimls", "bashls"}
+  local servers = {"tsserver", "hls", "gopls", "dockerls", "vimls", "bashls"}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {on_attach = on_attach, capabilities = capabilities}
   end
@@ -134,6 +133,21 @@ function M.post()
     capabilities = capabilities
   }
 
+  nvim_lsp.jsonls.setup {
+    cmd = {"vscode-json-language-server", "--stdio"},
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
+  nvim_lsp.html.setup {
+    cmd = {"vscode-html-language-server", "--stdio"},
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
+  nvim_lsp.cssls.setup {
+    cmd = {"vscode-css-language-server", "--stdio"},
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
   -- Vue setup
   nvim_lsp.vuels.setup {
     on_attach = on_attach,
@@ -218,24 +232,6 @@ function M.post()
     }
   }
 
-  -- Emmet setup
-  -- local configs = require "lspconfig/configs"
-  --
-  -- configs.emmet_ls = {
-  --   default_config = {
-  --     cmd = {"emmet-ls", "--stdio"},
-  --     filetypes = {"html", "css", "vue", "typescriptreact", "javascriptreact"},
-  --     root_dir = function()
-  --       return vim.loop.cwd()
-  --     end,
-  --     settings = {}
-  --   }
-  -- }
-  --
-  -- nvim_lsp.emmet_ls.setup {
-  --   on_attach = on_attach,
-  --   capabilities = capabilities
-  -- }
 end
 
 return M

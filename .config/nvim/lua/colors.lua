@@ -317,7 +317,7 @@ loadHighlights(
     goFunctionCall = {FuncName},
     goVarDefs = {VarName},
     -- Telescope
-    TelescopeBorder = {Operator},
+    TelescopeBorder = {Grey2},
     -- barbar
     BufferCurrent = {Normal, FloatBackground},
     BufferCurrentMod = {Info, FloatBackground, "bold"},
