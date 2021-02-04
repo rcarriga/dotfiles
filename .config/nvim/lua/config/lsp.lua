@@ -44,6 +44,8 @@ end
 function M.post()
   local lsp_status = require("lsp-status")
   lsp_status.register_progress()
+  vim.fn.sign_define("LightBulbSign", { text = "", texthl = "Info", linehl="", numhl="" })
+  vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
   vim.fn.sign_define(
     "LspDiagnosticsSignError",
     {text = "", texthl = "LspDiagnosticsDefaultError", numhl = "LspDiagnosticsDefaultError"}
@@ -61,7 +63,8 @@ function M.post()
     {text = "", texthl = "LspDiagnosticsDefaultHint", numhl = "LspDiagnosticsDefaultHint"}
   )
   local opts = {
-    border_style = 3,
+    border_style = 1,
+    max_diag_msg_width = 80
   }
 
   require("lspsaga").init_lsp_saga(opts)

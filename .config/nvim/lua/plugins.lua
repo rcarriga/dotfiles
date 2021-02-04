@@ -12,6 +12,7 @@ vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup(
   function(use)
+    use {"kosayoda/nvim-lightbulb"}
     use {"Konfekt/FastFold"}
     use {"MTDL9/vim-log-highlighting"}
     use {"Yggdroot/hiPairs"}
@@ -41,7 +42,7 @@ require("packer").startup(
     use {"neovimhaskell/haskell-vim"}
     use {"posva/vim-vue", ft = "vue"}
     use {
-      "/home/ronan/Dev/repos/vim-ultest/",
+      "rcarriga/vim-ultest", branch = "feat/SummaryWindow",
       requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}, opt = true}
     }
     use {"rhysd/clever-f.vim", keys = {"f", "t"}}
