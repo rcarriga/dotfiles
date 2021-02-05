@@ -44,7 +44,7 @@ end
 function M.post()
   local lsp_status = require("lsp-status")
   lsp_status.register_progress()
-  vim.fn.sign_define("LightBulbSign", { text = "", texthl = "Info", linehl="", numhl="" })
+  vim.fn.sign_define("LightBulbSign", {text = "", texthl = "Info", linehl = "", numhl = ""})
   vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
   vim.fn.sign_define(
     "LspDiagnosticsSignError",
@@ -102,6 +102,8 @@ function M.post()
     buf_set_keymap("n", "gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
     buf_set_keymap("n", "ge", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
     buf_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
+    buf_set_keymap("n", "<C-f>", "<cmd>lua require('lspsaga.hover').smart_scroll_hover(1)<CR>", opts)
+    buf_set_keymap("n", "<C-b>", "<cmd>lua require('lspsaga.hover').smart_scroll_hover(-1)<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
     buf_set_keymap("n", "gr", "<cmd>lua require('lspsaga.rename').rename()<CR>", opts)
     buf_set_keymap("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", opts)
@@ -234,7 +236,6 @@ function M.post()
       }
     }
   }
-
 end
 
 return M

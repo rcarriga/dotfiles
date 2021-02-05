@@ -12,6 +12,7 @@ vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup(
   function(use)
+    use {"mattn/emmet-vim"}
     use {"kosayoda/nvim-lightbulb"}
     use {"Konfekt/FastFold"}
     use {"MTDL9/vim-log-highlighting"}
