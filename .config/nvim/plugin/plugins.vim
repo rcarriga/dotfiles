@@ -1,5 +1,11 @@
 " ###################################################################################
 " Plugin Settings {{{1
+
+
+let g:auto_session_root_dir = expand("~/.cache/nvim/sessions")
+
+let g:UltiSnipsExpandTrigger="<C-}>"
+
 let g:user_emmet_leader_key='<C-X>'
 
 let g:nvim_tree_git_hl = 1
@@ -228,4 +234,5 @@ nmap <leader>vj <Plug>(ultest-next-fail)
 nmap <leader>vk <Plug>(ultest-prev-fail)
 nmap <leader>vg <Plug>(ultest-output-jump)
 nmap <leader>vo <Plug>(ultest-output-show)
-nmap <leader>vs <Plug>(ultest-open-summary)
+nmap <leader>vs <Plug>(ultest-summary-toggle)
+nmap <leader>vS <Plug>(ultest-summary-jump)

@@ -1,3 +1,4 @@
+local M = {}
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
@@ -8,10 +9,16 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute "packadd packer.nvim"
 end
 
+function M.update()
+  vim.cmd [[ PackerCompile ]]
+  vim.cmd [[ PackerSync ]]
+end
+
 vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup(
   function(use)
+    use {"romgrk/nvim-treesitter-context"}
     use {"mattn/emmet-vim"}
     use {"kosayoda/nvim-lightbulb"}
     use {"Konfekt/FastFold"}
@@ -43,7 +50,7 @@ require("packer").startup(
     use {"neovimhaskell/haskell-vim"}
     use {"posva/vim-vue", ft = "vue"}
     use {
-      "rcarriga/vim-ultest", branch = "feat/SummaryWindow",
+      "rcarriga/vim-ultest",
       requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}, opt = true}
     }
     use {"rhysd/clever-f.vim", keys = {"f", "t"}}
@@ -96,5 +103,7 @@ require("packer").startup(
       config = "require('config.compe').post()",
       requires = {{"hrsh7th/vim-vsnip"}}
     }
+    use {"onsails/lspkind-nvim", config = "require('config.lspkind').post()"}
   end
 )
+return M

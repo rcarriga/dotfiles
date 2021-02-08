@@ -108,7 +108,6 @@ vim.o.inccommand = "nosplit"
 -- vim.o.characters for after foldtext, eof, foldcolumn
 vim.o.fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,eob: "
 
-vim.o.foldcolumn = "1"
 
 -- Jump to existing window when opening buffer already opened
 vim.o.switchbuf = "useopen"
@@ -182,9 +181,6 @@ inoremap <silent> <C-j> <C-\><C-N><C-w><C-j>
 inoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " Select entire buffer
 onoremap ie :exec "normal! ggVG"<cr>
 
@@ -195,4 +191,4 @@ onoremap ie :exec "normal! ggVG"<cr>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 ]]
 
-vim.cmd [[command Plugins lua require("plugins")]]
+vim.cmd [[command Plugins lua require("plugins").update() ]]

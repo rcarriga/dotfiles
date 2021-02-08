@@ -16,7 +16,8 @@ function M.post()
     "fugitiveblame",
     "plug",
     "coc-explorer",
-    "NvimTree"
+    "NvimTree",
+    "UltestSummary"
   }
 
   local colors = {
@@ -128,17 +129,18 @@ function M.post()
     end
     return ""
   end
+  local function long_filename()
+          local file = vim.fn.expand("%")
+          local result = file
+          if vim.fn.empty(file) == 1 then
+            return result
+          end
+          return "  " .. result .. " "
+        end
 
   gls.left[2] = {
     LongFileName = {
-      provider = function()
-        local file = vim.fn.expand("%")
-        local result = file
-        if vim.fn.empty(file) == 1 then
-          return result
-        end
-        return "  " .. result .. " "
-      end,
+      provider = long_filename,
       condition = buffer_not_empty,
       highlight = {colors.normal, colors.bg, "bold"}
     }
@@ -352,19 +354,16 @@ function M.post()
   }
 
   gls.short_line_left[1] = {
-    BufferType = {
-      provider = "FileTypeName",
+    LongFileName = {
+      provider = long_filename,
       separator = "  ",
-      condition = has_file_type,
-      separator_highlight = {colors.violet, colors.bg},
-      highlight = {colors.fg, colors.violet}
+      highlight = {colors.normal, colors.bg, "bold"}
     }
   }
 
   gls.short_line_right[1] = {
     BufferIcon = {
       provider = "BufferIcon",
-      separator = "  ",
       condition = has_file_type,
       separator_highlight = {colors.violet, colors.bg},
       highlight = {colors.fg, colors.violet}

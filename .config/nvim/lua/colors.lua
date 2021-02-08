@@ -267,6 +267,7 @@ loadHighlights(
     ConflictMarkerCommonAncestorsHunk = {Transparent, Red},
     -- TreeSitter
     TSError = {Error},
+    TSComment = {Hidden},
     TSPunctDelimiter = {Decoration},
     TSPunctBracket = {Decoration},
     TSPunctSpecial = {Decoration},
@@ -323,7 +324,7 @@ loadHighlights(
     BufferCurrentMod = {Info, FloatBackground, "bold"},
     BufferCurrentSign = {Info, FloatBackground},
     BufferCurrentTarget = {Info, Grey1, "bold"},
-    BufferVisible = {Normal, Grey1,"bold"},
+    BufferVisible = {Normal, Grey1, "bold"},
     BufferVisibleMod = {Normal, Grey1, "bold,underline"},
     BufferVisibleSign = {Info, Grey1},
     BufferVisibleTarget = {Error, "bold,underline"},
@@ -340,6 +341,11 @@ loadHighlights(
     LspDiagnosticsDefaultHint = {Hidden},
     -- Lsp saga
     LspFloatWinBorder = {Grey2},
-    ProviderTruncateLine = {Grey2}
+    ProviderTruncateLine = {Grey2},
+    NeogitDiffAddHighlight = {Success, Grey1},
+    NeogitDiffDeleteHighlight = {Error, Grey1},
+    NeogitDiffContextHighlight = {Normal, Grey1},
+    NeogitHunkHeader = {Normal, Grey1},
+    NeogitHunkHeaderHighlight = {Normal, Grey1}
   }
 )

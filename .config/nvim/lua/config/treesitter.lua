@@ -18,7 +18,6 @@ function M.post()
         },
         refactor = {
             highlight_definitions = {enable = true},
-            highlight_current_scope = {enable = true}
         },
         textobjects = {
             select = {
@@ -35,10 +34,18 @@ function M.post()
             swap = {
                 enable = true,
                 swap_next = {
-                    ["s>"] = "@parameter.inner"
+                    ["sp"] = "@parameter.inner",
+                    ["sf"] = "@function.outer",
+                    ["sc"] = "@class.outer",
+                    ["ss"] = "@statement.outer",
+                    ["sb"] = "@block.outer",
                 },
                 swap_previous = {
-                    ["s<"] = "@parameter.inner"
+                    ["sP"] = "@parameter.inner",
+                    ["sF"] = "@function.outer",
+                    ["sC"] = "@class.outer",
+                    ["sS"] = "@statement.outer",
+                    ["sB"] = "@block.outer",
                 }
             },
             move = {
