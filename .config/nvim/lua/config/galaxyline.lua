@@ -130,13 +130,13 @@ function M.post()
     return ""
   end
   local function long_filename()
-          local file = vim.fn.expand("%")
-          local result = file
-          if vim.fn.empty(file) == 1 then
-            return result
-          end
-          return "  " .. result .. " "
-        end
+    local file = vim.fn.expand("%")
+    local result = file
+    if vim.fn.empty(file) == 1 then
+      return result
+    end
+    return "  " .. result .. " "
+  end
 
   gls.left[2] = {
     LongFileName = {
@@ -277,7 +277,7 @@ function M.post()
     end
     status = ""
     for name, msg in pairs(msgs) do
-      status = status .. " | ".. name .. ": " .. msg
+      status = status .. " | " .. name .. ": " .. msg
     end
     return status
   end
@@ -326,8 +326,56 @@ function M.post()
       highlight = {colors.cyan, colors.bg}
     }
   }
-
   gls.right[7] = {
+    UltestTests = {
+      provider = function()
+          return vim.fn["ultest#status"]().tests
+      end,
+      icon = "  ",
+      condition = function()
+        return vim.fn["ultest#is_test_file"]() == 1
+      end,
+      highlight = {colors.cyan, colors.bg}
+    }
+  }
+  gls.right[8] = {
+    UltestPassed = {
+      provider = function()
+        return vim.fn["ultest#status"]().passed
+      end,
+      icon = "  ● ",
+      condition = function()
+        return vim.fn["ultest#is_test_file"]() == 1
+      end,
+      highlight = {colors.green, colors.bg}
+    }
+  }
+  gls.right[9] = {
+    UltestFailed = {
+      provider = function()
+        return vim.fn["ultest#status"]().failed
+      end,
+      icon = "  ● ",
+      condition = function()
+        return vim.fn["ultest#is_test_file"]() == 1
+      end,
+      highlight = {colors.red, colors.bg}
+    }
+  }
+  gls.right[10] = {
+    UltestRunning = {
+      provider = function()
+        return vim.fn["ultest#status"]().running
+      end,
+      icon = "  ● ",
+      condition = function()
+        return vim.fn["ultest#is_test_file"]() == 1
+      end,
+      highlight = {colors.yellow, colors.bg}
+    }
+  }
+
+  gls.right[11] = {
     FileFormat = {
       provider = "FileFormat",
       separator = " ",
@@ -335,7 +383,7 @@ function M.post()
       highlight = {colors.fg, colors.bg, "bold"}
     }
   }
-  gls.right[8] = {
+  gls.right[12] = {
     LineInfo = {
       provider = "LineColumn",
       separator = " ",
@@ -344,7 +392,7 @@ function M.post()
     }
   }
 
-  gls.right[9] = {
+  gls.right[13] = {
     PerCent = {
       provider = "LinePercent",
       separator = " ",

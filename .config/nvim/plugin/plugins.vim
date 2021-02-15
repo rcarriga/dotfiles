@@ -1,6 +1,10 @@
 " ###################################################################################
 " Plugin Settings {{{1
 
+augroup GalaxylineEvents
+  au!
+  au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
+augroup END
 
 let g:auto_session_root_dir = expand("~/.cache/nvim/sessions")
 
@@ -74,6 +78,7 @@ let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
 let g:ultest_virtual_text = 0
+let g:ultest_output_cols = 100
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
@@ -86,11 +91,6 @@ command! Conf Files ~/.config/nvim
 " }}}1
 " ###################################################################################
 " Functions {{{1
-
-function! GetTestResults() abort
-    return get(b:, "ultest_total") ?
-                \ get(b:,"ultest_passed")." Pass ".get(b:, "ultest_failed")." Fail" : ""
-endfunction
 
 function! s:isOverWhitespace() abort
   let col = col(".") - 1
@@ -236,3 +236,4 @@ nmap <leader>vg <Plug>(ultest-output-jump)
 nmap <leader>vo <Plug>(ultest-output-show)
 nmap <leader>vs <Plug>(ultest-summary-toggle)
 nmap <leader>vS <Plug>(ultest-summary-jump)
+nmap <leader>va <Plug>(ultest-attach)
