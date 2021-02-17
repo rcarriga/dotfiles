@@ -64,7 +64,6 @@ function M.post()
   )
   local opts = {
     border_style = 1,
-    max_diag_msg_width = 80
   }
 
   require("lspsaga").init_lsp_saga(opts)
