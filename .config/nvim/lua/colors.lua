@@ -104,7 +104,7 @@ loadHighlights(
     PmenuSel = {Transparent, Grey2, "bold"},
     PMenuSbar = {Transparent, FloatBackground},
     PMenuThumb = {Transparent, Grey3},
-    Visual = {Transparent, Grey1, "bold"},
+    Visual = {Transparent, Grey1, "bold,underline"},
     EndOfBuffer = {Grey1},
     Underlined = {Transparent, "underline"},
     SpellBad = {Transparent, "undercurl"},

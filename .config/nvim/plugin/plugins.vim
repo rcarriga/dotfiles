@@ -33,8 +33,6 @@ nnoremap <silent> <leader>a :BufferPick<CR>
 
 let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
-let g:dap_virtual_text = "all_frames"
-
 let g:twiggy_num_columns = 50
 
 let g:db_ui_auto_execute_table_helpers = 1
@@ -87,7 +85,6 @@ let g:signify_sign_change            = "\u258B"
 
 let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'FloatermBorder' } }
 let g:fzf_preview_window = 'right:60%'
-command! Conf Files ~/.config/nvim
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -191,24 +188,23 @@ xmap ac <plug>(signify-motion-outer-visual)
 nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
-nmap <silent><leader>df :Files<CR>
-nmap <silent><leader>dg :Rg<CR>
-nmap <silent><leader>db :Buffers<CR>
+nmap <silent><leader>df :Telescope find_files<CR>
+nmap <silent><leader>dg :Telescope grep_string<CR>
+nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
-nmap <silent><leader>dc :Conf<CR>
+nmap <silent><leader>dc :Telescope find_files cwd=~/.config/nvim<CR>
 
-nnoremap <silent> <leader>bc :lua require'dap'.continue()<CR>
-nnoremap <silent> <leader>bs :lua require'dap'.step_over()<CR>
-nnoremap <silent> <leader>bi :lua require'dap'.step_into()<CR>
-nnoremap <silent> <leader>bo :lua require'dap'.step_out()<CR>
-nnoremap <silent> <leader>bb :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <leader>bB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-nnoremap <silent> <leader>bl :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-nnoremap <silent> <leader>br :vertical lua require'dap'.repl.open()<CR>
-nnoremap <silent> <leader>bg :lua require'dap'.repl.run_last()<CR>
-nnoremap <silent> <leader>bt :lua require('dap-python').test_method()<CR>
-vnoremap <silent> <leader>b <ESC>:lua require('dap-python').debug_selection()<CR>
+nnoremap <silent> <C-c> :lua require'dap'.continue()<CR>
+nnoremap <silent> <C-right> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <C-down> :lua require'dap'.step_into()<CR>
+nnoremap <silent> <C-up> :lua require'dap'.step_out()<CR>
+nnoremap <silent> <C-b> :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <C-t> :lua require('dap-python').test_method()<CR>
+vnoremap <silent> <C-c> <ESC>:lua require('dap-python').debug_selection()<CR>
+nnoremap <silent> <leader>br :lua require'dap'.repl.toggle({width = 50}, "belowright vsplit")<cr>
+nnoremap <silent> <leader>bg :lua require'dap'.repl.run_last()<cr>
+nnoremap <silent> <leader>bk :lua require'dap.ui.variables'.hover()<cr>
 
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
