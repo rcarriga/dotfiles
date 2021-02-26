@@ -28,7 +28,7 @@ require("packer").startup(
     use {"glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()"}
     use {"godlygeek/tabular", cmd = "Tabularize"}
     use {"haya14busa/vim-asterisk", requires = {"haya14busa/is.vim"}}
-    use {"indrewRadev/splitjoin.vim", keys = {"gS", "gJ"}}
+    use {"AndrewRadev/splitjoin.vim", keys = {"gS", "gJ"}}
     use {"junegunn/fzf", requires = {{"junegunn/fzf.vim"}}}
     use {"junegunn/goyo.vim", cmd = "Goyo"}
     use {"kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()"}

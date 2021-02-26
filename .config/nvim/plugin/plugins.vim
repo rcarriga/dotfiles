@@ -189,7 +189,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
 nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :Telescope grep_string<CR>
+nmap <silent><leader>dg :Telescope live_grep<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
