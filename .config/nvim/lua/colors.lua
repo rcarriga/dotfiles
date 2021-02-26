@@ -41,6 +41,7 @@ local function loadHighlights(highlights)
 end
 
 local Normal = Grey4
+local Border = Orange
 local Decoration = Orange
 local Hidden = Grey2
 local BuiltIn = Red
@@ -61,6 +62,7 @@ local Error = Red
 loadHighlights(
   {
     Normal = {Grey4},
+    Border = {Orange},
     Decoration = {Orange},
     Hidden = {Grey2},
     BuiltIn = {Red},
@@ -174,7 +176,7 @@ loadHighlights(
     SignifySignDelete = {Error, "bold"},
     SignifySignChange = {Warning, "bold"},
     --Floaterm
-    FloatermBorder = {Grey2},
+    FloatermBorder = {Border},
     -- Coc.nvim
     CocErrorSign = {Error},
     CocWarningSign = {Warning},
@@ -318,7 +320,7 @@ loadHighlights(
     goFunctionCall = {FuncName},
     goVarDefs = {VarName},
     -- Telescope
-    TelescopeBorder = {Grey2},
+    TelescopeBorder = {Border},
     -- barbar
     BufferCurrent = {Normal, FloatBackground},
     BufferCurrentMod = {Info, FloatBackground, "bold"},
@@ -340,8 +342,8 @@ loadHighlights(
     LspDiagnosticsDefaultInformation = {Info},
     LspDiagnosticsDefaultHint = {Hidden},
     -- Lsp saga
-    LspFloatWinBorder = {Grey2},
-    ProviderTruncateLine = {Grey2},
+    LspFloatWinBorder = {Border},
+    ProviderTruncateLine = {Hidden},
     LspSagaFinderSelection = {Green, "bold"},
     LspSagaBorderTitle = {BuiltIn, "bold"},
     TargetWord = {BuiltIn},
@@ -351,31 +353,31 @@ loadHighlights(
     DefinitionIcon = {Decoration},
     ReferencesIcon = {Decoration},
     SagaShadow = {Transparent, Grey1},
-    DiagnosticTruncateLine = {Cyan},
+    DiagnosticTruncateLine = {Hidden},
     DiagnosticError = {Error},
     DiagnosticWarning = {Warning},
     DiagnosticInformation = {Info},
     DiagnosticHint = {Hidden},
     DefinitionPreviewTitle = {BuiltIn, "bold"},
-    LspSagaDiagnosticBorder = {Grey2},
+    LspSagaDiagnosticBorder = {Border},
     LspSagaDiagnosticHeader = {BuiltIn},
-    LspSagaDiagnostcTruncateLine = {Grey2},
+    LspSagaDiagnostcTruncateLine = {Hidden},
     LspDiagnosticsFloatingError = {Error},
     LspDiagnosticsFloatingWarn = {Warning},
     LspDiagnosticsFloatingInfor = {Info},
     LspDiagnosticsFloatingHint = {Hidden},
-    LspSagaShTruncateLine = {Grey2},
-    LspSagaDocTruncateLine = {Grey2},
+    LspSagaShTruncateLine = {Hidden},
+    LspSagaDocTruncateLine = {Hidden},
     LspSagaCodeActionTitle = {BuiltIn},
-    LspSagaCodeActionTruncateLine = {Grey2},
+    LspSagaCodeActionTruncateLine = {Hidden},
     LspSagaCodeActionContent = {Grey3},
     LspSagaRenamePromptPrefix = {Decoration},
-    LspSagaRenameBorder = {Grey2},
-    LspSagaHoverBorder = {Grey2},
-    LspSagaSignatureHelpBorder = {Grey2},
-    LspSagaLspFinderBorder = {Grey2},
-    LspSagaCodeActionBorder = {Grey2},
+    LspSagaRenameBorder = {Border},
+    LspSagaHoverBorder = {Border},
+    LspSagaSignatureHelpBorder = {Border},
+    LspSagaLspFinderBorder = {Border},
+    LspSagaCodeActionBorder = {Border},
     LspSagaAutoPreview = {Yellow},
-    LspSagaDefPreviewBorder = {Grey2}
+    LspSagaDefPreviewBorder = {Border}
   }
 )

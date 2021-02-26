@@ -83,7 +83,7 @@ let g:signify_sign_delete            = "\u258B"
 let g:signify_sign_delete_first_line = "\u258B"
 let g:signify_sign_change            = "\u258B"
 
-let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'FloatermBorder' } }
+let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'Border' } }
 let g:fzf_preview_window = 'right:60%'
 " }}}1
 " ###################################################################################
@@ -141,7 +141,6 @@ nmap <silent><leader>lf :Format<CR>
 nnoremap <silent><leader>x :NvimTreeToggle<CR>
 
 inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 
