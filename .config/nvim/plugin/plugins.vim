@@ -76,7 +76,8 @@ let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
 let g:ultest_virtual_text = 0
-let g:ultest_output_cols = 100
+let g:ultest_output_cols = 120
+let g:ultest_max_threads = 4
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
@@ -232,3 +233,5 @@ nmap <leader>vo <Plug>(ultest-output-show)
 nmap <leader>vs <Plug>(ultest-summary-toggle)
 nmap <leader>vS <Plug>(ultest-summary-jump)
 nmap <leader>va <Plug>(ultest-attach)
+nmap <leader>vc <Plug>(ultest-stop-nearest)
+nmap <leader>vx <Plug>(ultest-stop-file)
