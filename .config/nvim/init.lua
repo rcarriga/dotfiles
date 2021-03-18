@@ -49,11 +49,10 @@ vim.cmd [[filetype plugin indent on]]
 -- Always on statusline
 vim.o.laststatus = 2
 
--- Hides --insert-- under lightline
+-- Hides --insert-- under statusline
 vim.o.showmode = false
 
--- vim.o.file update time in milliseconds
-vim.o.updatetime = 100
+vim.o.updatetime = 4000
 
 -- Turn on 24 bit color. Delete this line if colors are weird
 vim.o.termguicolors = true

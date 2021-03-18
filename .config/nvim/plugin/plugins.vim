@@ -1,5 +1,6 @@
 " ###################################################################################
 " Plugin Settings {{{1
+lua require("dapui").setup()
 
 augroup GalaxylineEvents
   au!
@@ -202,8 +203,8 @@ nnoremap <silent> <C-up> :lua require'dap'.step_out()<CR>
 nnoremap <silent> <C-b> :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <C-t> :lua require('dap-python').test_method()<CR>
 vnoremap <silent> <C-c> <ESC>:lua require('dap-python').debug_selection()<CR>
-nnoremap <silent> <leader>br :lua require'dap'.repl.toggle({width = 50}, "belowright vsplit")<cr>
-nnoremap <silent> <leader>bg :lua require'dap'.repl.run_last()<cr>
+nnoremap <silent> <leader>br :lua require'dap'.repl.toggle({}, "10split")<cr>
+nnoremap <silent> <leader>bg :lua require'dap'.run_last()<cr>
 nnoremap <silent> <leader>bk :lua require'dap.ui.variables'.hover()<cr>
 
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
@@ -235,3 +236,4 @@ nmap <leader>vS <Plug>(ultest-summary-jump)
 nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
+nnoremap <silent><leader>vd :lua require("ultest").dap_run_nearest()<CR>
