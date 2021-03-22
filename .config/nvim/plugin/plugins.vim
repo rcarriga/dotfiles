@@ -1,6 +1,5 @@
 " ###################################################################################
 " Plugin Settings {{{1
-lua require("dapui").setup()
 
 augroup GalaxylineEvents
   au!
@@ -206,6 +205,7 @@ vnoremap <silent> <C-c> <ESC>:lua require('dap-python').debug_selection()<CR>
 nnoremap <silent> <leader>br :lua require'dap'.repl.toggle({}, "10split")<cr>
 nnoremap <silent> <leader>bg :lua require'dap'.run_last()<cr>
 nnoremap <silent> <leader>bk :lua require'dap.ui.variables'.hover()<cr>
+nnoremap <silent> <M-k> :lua require'dapui.hover'.eval_cursor()<cr>
 
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})

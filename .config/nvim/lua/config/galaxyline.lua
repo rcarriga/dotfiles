@@ -6,6 +6,8 @@ function M.post()
   local vcs = require("galaxyline.provider_vcs")
 
   gl.short_line_list = {
+    "dapui_scopes",
+    "dapui_stacks",
     "LuaTree",
     "vista",
     "dbui",
