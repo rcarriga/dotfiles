@@ -284,6 +284,13 @@ function M.post()
     return status
   end
 
+  local function ultest_is_test_file()
+    if vim.fn["has"]("ultest#is_test_file")  then
+      return vim.fn["ultest#is_test_file"] == 1
+    end
+    return false
+  end
+
   gls.right[1] = {
     CocStatus = {
       provider = lsp_status,
@@ -334,9 +341,7 @@ function M.post()
           return vim.fn["ultest#status"]().tests
       end,
       icon = "  ",
-      condition = function()
-        return vim.fn["ultest#is_test_file"]() == 1
-      end,
+      condition = ultest_is_test_file,
       highlight = {colors.cyan, colors.bg}
     }
   }
@@ -346,9 +351,7 @@ function M.post()
         return vim.fn["ultest#status"]().passed
       end,
       icon = "  ● ",
-      condition = function()
-        return vim.fn["ultest#is_test_file"]() == 1
-      end,
+      condition = ultest_is_test_file,
       highlight = {colors.green, colors.bg}
     }
   }
@@ -358,9 +361,7 @@ function M.post()
         return vim.fn["ultest#status"]().failed
       end,
       icon = "  ● ",
-      condition = function()
-        return vim.fn["ultest#is_test_file"]() == 1
-      end,
+      condition = ultest_is_test_file,
       highlight = {colors.red, colors.bg}
     }
   }
@@ -370,9 +371,7 @@ function M.post()
         return vim.fn["ultest#status"]().running
       end,
       icon = "  ● ",
-      condition = function()
-        return vim.fn["ultest#is_test_file"]() == 1
-      end,
+      condition = ultest_is_test_file,
       highlight = {colors.yellow, colors.bg}
     }
   }
