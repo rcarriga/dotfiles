@@ -195,17 +195,18 @@ nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
 nmap <silent><leader>dc :Telescope find_files cwd=~/.config/nvim<CR>
 
-nnoremap <silent> <C-c> :lua require'dap'.continue()<CR>
-nnoremap <silent> <C-right> :lua require'dap'.step_over()<CR>
-nnoremap <silent> <C-down> :lua require'dap'.step_into()<CR>
-nnoremap <silent> <C-up> :lua require'dap'.step_out()<CR>
-nnoremap <silent> <C-b> :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <C-t> :lua require('dap-python').test_method()<CR>
-vnoremap <silent> <C-c> <ESC>:lua require('dap-python').debug_selection()<CR>
-nnoremap <silent> <leader>br :lua require'dap'.repl.toggle({}, "10split")<cr>
-nnoremap <silent> <leader>bg :lua require'dap'.run_last()<cr>
-nnoremap <silent> <leader>bk :lua require'dap.ui.variables'.hover()<cr>
-nnoremap <silent> <M-k> :lua require'dapui.hover'.eval_cursor()<cr>
+nnoremap <silent> <M-c> :lua require'dap'.continue()<CR>
+nnoremap <silent> <M-right> :lua require'dap'.step_over()<CR>
+nnoremap <silent> <M-down> :lua require'dap'.step_into()<CR>
+nnoremap <silent> <M-up> :lua require'dap'.step_out()<CR>
+nnoremap <silent> <M-x> :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <silent> <M-t> :lua require('dap-python').test_method()<CR>
+vnoremap <silent> <M-c> <ESC>:lua require('dap-python').debug_selection()<CR>
+nnoremap <silent> <M-l> :lua require'dap'.run_last()<cr>
+nnoremap <silent> <M-k> :lua require'dapui.hover'.eval_cursor("scopes")<cr>
+nnoremap <silent> <M-m> :lua require'dapui'.float_element()<cr>
+nnoremap <silent> <M-v> :lua require'dapui'.float_element("scopes")<cr>
+nnoremap <silent> <M-r> :lua require'dapui'.float_element("repl")<cr>
 
 inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
@@ -236,4 +237,4 @@ nmap <leader>vS <Plug>(ultest-summary-jump)
 nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
-nnoremap <silent><leader>vd :lua require("ultest").dap_run_nearest()<CR>
+nmap <leader>vd <Plug>(ultest-debug-nearest)
