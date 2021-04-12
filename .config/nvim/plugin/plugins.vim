@@ -1,6 +1,5 @@
 " ###################################################################################
 " Plugin Settings {{{1
-
 augroup GalaxylineEvents
   au!
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
@@ -106,7 +105,10 @@ endfunction
 function! CleanNoNameEmptyBuffers()
     let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
     if !empty(buffers)
+      try
         exe 'BufferClose '.join(buffers, ' ')
+      catch /.*/
+      endtry
     endif
 endfunction
 
@@ -203,7 +205,8 @@ nnoremap <silent> <M-x> :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <M-t> :lua require('dap-python').test_method()<CR>
 vnoremap <silent> <M-c> <ESC>:lua require('dap-python').debug_selection()<CR>
 nnoremap <silent> <M-l> :lua require'dap'.run_last()<cr>
-nnoremap <silent> <M-k> :lua require'dapui.hover'.eval_cursor("scopes")<cr>
+nnoremap <silent> <M-k> :lua require'dapui'.eval()<cr>
+vnoremap <M-k> <Cmd>lua require'dapui'.eval()<cr>
 nnoremap <silent> <M-m> :lua require'dapui'.float_element()<cr>
 nnoremap <silent> <M-v> :lua require'dapui'.float_element("scopes")<cr>
 nnoremap <silent> <M-r> :lua require'dapui'.float_element("repl")<cr>

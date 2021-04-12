@@ -19,7 +19,8 @@ function M.post()
           type = "python",
           request = "launch",
           module = cmd[module_index],
-          args = args
+          args = args,
+          justMyCode = false,
         }
       }
     end,
@@ -48,7 +49,7 @@ function M.post()
       }
     end
   }
-  -- require("ultest").setup({builders = builders})
+  require("ultest").setup({builders = builders})
 end
 
 return M

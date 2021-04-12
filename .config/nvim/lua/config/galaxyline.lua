@@ -8,6 +8,7 @@ function M.post()
   gl.short_line_list = {
     "dapui_scopes",
     "dapui_stacks",
+    "dapui_watches",
     "LuaTree",
     "vista",
     "dbui",

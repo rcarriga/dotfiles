@@ -1,5 +1,4 @@
 local util = require("util")
-vim.lsp.set_log_level("debug")
 util.multilineCommand [[
 augroup FileTypeInit
     au!
@@ -32,9 +31,6 @@ vim.o.modeline = false
 vim.wo.signcolumn = "yes"
 
 vim.cmd [[color haslo]]
-
--- Turn on syntax highlighting
-vim.cmd [[syn on]]
 
 -- Indents word-wrapped lines as much as the 'parent' line
 vim.wo.breakindent = true
@@ -119,11 +115,10 @@ vim.o.viewoptions = "cursor,folds,slash,unix"
 
 -- Show unwanted characters
 vim.cmd "set listchars=tab:╍╍,nbsp:_,trail:·"
-vim.o.list = true
+vim.o.list = false
 
 -- Keep a buffer of 10 lines/columns between cursor and edge when scrolling
 vim.o.scrolloff = 10
-vim.o.sidescrolloff = 10
 
 vim.o.pyxversion = 3
 
