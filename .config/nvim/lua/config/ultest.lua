@@ -17,6 +17,7 @@ function M.post()
       return {
         dap = {
           type = "python",
+          name = "Ultest Debugger",
           request = "launch",
           module = cmd[module_index],
           args = args,

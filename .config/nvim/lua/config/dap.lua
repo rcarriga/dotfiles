@@ -1,6 +1,13 @@
 local M = {}
 
 function M.post()
+  require("dapui").setup({
+    floating = {
+      max_width = 0.5,
+      max_height = 0.5,
+    }
+  })
+
   local dap = require("dap")
 
   local dap_python = require("dap-python")
