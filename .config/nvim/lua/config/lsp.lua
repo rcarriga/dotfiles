@@ -1,37 +1,70 @@
 local M = {}
+local finders = require("telescope.finders")
+local make_entry = require("telescope.make_entry")
+local pickers = require("telescope.pickers")
+local conf = require("telescope.config").values
 
 local lsp_definitions = function(opts)
-  opts = {}
+  opts = opts or {}
 
   local params = vim.lsp.util.make_position_params()
-  params.context = {includeDeclaration = true}
-
-  local results_lsp = vim.lsp.buf_request_sync(0, "textDocument/definition", params, opts.timeout or 10000)
-  local locations = {}
-  for _, server_results in pairs(results_lsp) do
+  local result = vim.lsp.buf_request_sync(0, "textDocument/definition", params, opts.timeout or 10000)
+  local flattened_results = {}
+  for _, server_results in pairs(result) do
     if server_results.result then
-      vim.list_extend(locations, vim.lsp.util.locations_to_items(server_results.result) or {})
+      vim.list_extend(flattened_results, server_results.result)
     end
   end
 
-  if vim.tbl_isempty(locations) then
+  if #flattened_results == 0 then
     return
+  else
+    local success, locations = pcall(vim.lsp.util.locations_to_items, flattened_results)
+    if not success then
+      print("Error opening locations")
+    end
+    pickers.new(
+      opts,
+      {
+        prompt_title = "LSP Definitions",
+        finder = finders.new_table {
+          results = locations,
+          entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts)
+        },
+        previewer = conf.qflist_previewer(opts),
+        sorter = conf.generic_sorter(opts)
+      }
+    ):find()
   end
-  local conf = require("telescope.config").values
+end
 
-  require("telescope.pickers").new(
-    opts,
-    {
-      prompt_title = "LSP Definitions",
-      layout_strategy = "vertical",
-      finder = require("telescope.finders").new_table {
-        results = locations,
-        entry_maker = opts.entry_maker or require("telescope.make_entry").gen_from_quickfix(opts)
-      },
-      previewer = conf.qflist_previewer(opts),
-      sorter = conf.generic_sorter(opts)
-    }
-  ):find()
+local SignatureHelper = {should_run = false, changed_tick = 0}
+function SignatureHelper:start()
+  local timer = vim.loop.new_timer()
+  timer:start(
+    100,
+    200,
+    vim.schedule_wrap(
+      function()
+        local changed_tick = vim.api.nvim_buf_get_changedtick(0)
+        if changed_tick ~= self.changed_tick then
+          self.changed_tick = changed_tick
+          require("lspsaga.signaturehelp").signature_help()
+        end
+        if not self.should_run and timer:is_closing() == false then
+          timer:stop()
+          timer:close()
+        end
+      end
+    )
+  )
+end
+function M.stop_signature()
+  SignatureHelper.should_run = false
+end
+function M.start_signature()
+  SignatureHelper.should_run = true
+  SignatureHelper:start()
 end
 
 local wrap_options = function(custom, handler)
@@ -61,7 +94,7 @@ function M.post()
     {text = "", texthl = "LspDiagnosticsDefaultHint", numhl = "LspDiagnosticsDefaultHint"}
   )
   local opts = {
-    border_style = 1,
+    border_style = "single",
     code_action_prompt = {
       virtual_text = false
     }
@@ -92,6 +125,10 @@ function M.post()
   vim.lsp.handlers["textDocument/codeLens"] = require("config.lsp_codelens").on_codelens
   local on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
+    if bufnr ~= nil then
+      vim.cmd("autocmd InsertEnter <buffer=" .. bufnr .. "> lua require('config.lsp').start_signature()")
+      vim.cmd("autocmd InsertLeave <buffer=" .. bufnr .. "> lua require('config.lsp').stop_signature()")
+    end
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end

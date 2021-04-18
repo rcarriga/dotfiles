@@ -18,9 +18,10 @@ vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup(
   function(use)
-    use {"romgrk/nvim-treesitter-context"}
-    use {"mattn/emmet-vim"}
-    use {"kosayoda/nvim-lightbulb"}
+    use { "lukas-reineke/indent-blankline.nvim", branch = "lua"}
+    use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
+    use {"rafcamlet/nvim-luapad", cmd = "Luapad"}
+    use {"mattn/emmet-vim", keys = {"<C-x>"}}
     use {"Konfekt/FastFold"}
     use {"MTDL9/vim-log-highlighting"}
     use {"Yggdroot/hiPairs"}
@@ -29,7 +30,7 @@ require("packer").startup(
     use {"godlygeek/tabular", cmd = "Tabularize"}
     use {"haya14busa/vim-asterisk", requires = {"haya14busa/is.vim"}}
     use {"AndrewRadev/splitjoin.vim", keys = {"gS", "gJ"}}
-    use {"junegunn/fzf", requires = {{"junegunn/fzf.vim"}}}
+    use {"junegunn/fzf", requires = {{"junegunn/fzf.vim", opt = true}}, cmd = {"Files", "Rg"}}
     use {"junegunn/goyo.vim", cmd = "Goyo"}
     use {"kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()"}
     use {
@@ -38,20 +39,26 @@ require("packer").startup(
       requires = {"tpope/vim-dadbod", opt = true},
       {"kristijanhusak/vim-dadbod-completion", opt = true}
     }
-    use {"kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle"}
+    use {"kyazdani42/nvim-tree.lua"}
     use {"lukas-reineke/format.nvim", cmd = "Format", config = "require('config.format').pre()"}
     use {"machakann/vim-sandwich"}
     use {"mhinz/vim-signify"}
     use {
       "neovim/nvim-lspconfig",
       config = "require('config.lsp').post()",
-      requires = {"nvim-lua/lsp-status.nvim", "glepnir/lspsaga.nvim"}
+      requires = {
+        "nvim-lua/lsp-status.nvim",
+        "glepnir/lspsaga.nvim",
+        {"onsails/lspkind-nvim", config = "require('config.lspkind').post()"},
+      }
     }
     use {"neovimhaskell/haskell-vim"}
-    use {"posva/vim-vue", ft = "vue"}
     use {
-      "rcarriga/vim-ultest",
-      requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}, opt = true}
+      "/home/ronan/Dev/repos/vim-ultest",
+      config = "require('config.ultest').post()",
+      keys = {"<Plug>(ultest-run-nearest)", "<Plug>(ultest-run-file)", "<Plug>(ultest-summary-toggle)"},
+      cmd = {"TestNearest", "TestFile"},
+      requires = {"janko/vim-test", opt = true}
     }
     use {"rhysd/clever-f.vim", keys = {"f", "t"}}
     use {"rhysd/conflict-marker.vim"}
@@ -61,11 +68,11 @@ require("packer").startup(
     use {"simnalamburt/vim-mundo", cmd = "MundoToggle"}
     use {"sodapopcan/vim-twiggy", cmd = "Twiggy"}
     use {"svermeulen/vim-subversive"}
-    use {"tomtom/tcomment_vim", keys = {"gcc"}}
+    use {"JoosepAlviste/nvim-ts-context-commentstring", requires = {"tpope/vim-commentary", opt = true}, keys = {"gc"}}
     use {"tpope/vim-abolish", cmd = "S"}
     use {"tpope/vim-eunuch", cmd = {"Rename", "Delete", "Remove", "Chmod"}}
     use {"tpope/vim-fugitive", requires = {{"tpope/vim-rhubarb"}}}
-    use {"tpope/vim-unimpaired"}
+    use {"tpope/vim-unimpaired", keys = {"yo"}}
     use {"voldikss/vim-floaterm", cmd = "FloatermNew"}
     use {"wbthomason/packer.nvim", opt = true}
     use {"wellle/targets.vim", requires = {"wellle/line-targets.vim"}}
@@ -74,6 +81,8 @@ require("packer").startup(
       "nvim-telescope/telescope.nvim",
       config = "require('config.telescope').post()",
       requires = {
+        {"nvim-telescope/telescope-fzf-native.nvim", run = "make"},
+        {"nvim-telescope/telescope-fzf-writer.nvim"},
         {"nvim-telescope/telescope-dap.nvim"},
         {"nvim-lua/popup.nvim"},
         {"nvim-lua/plenary.nvim"},
@@ -85,8 +94,8 @@ require("packer").startup(
       "mfussenegger/nvim-dap",
       config = "require('config.dap').post()",
       requires = {
-        {"theHamsta/nvim-dap-virtual-text"},
-        {"mfussenegger/nvim-dap-python"}
+        {"mfussenegger/nvim-dap-python"},
+        {"/home/ronan/Dev/repos/nvim-dap-ui"}
       }
     }
     use {
@@ -95,15 +104,16 @@ require("packer").startup(
       requires = {
         {"nvim-treesitter/playground"},
         {"nvim-treesitter/nvim-treesitter-textobjects"},
-        {"nvim-treesitter/nvim-treesitter-refactor"}
+        {"nvim-treesitter/nvim-treesitter-refactor"},
+        {"romgrk/nvim-treesitter-context"}
       }
     }
     use {
       "hrsh7th/nvim-compe",
+      event = {"InsertEnter"},
       config = "require('config.compe').post()",
       requires = {{"hrsh7th/vim-vsnip"}}
     }
-    use {"onsails/lspkind-nvim", config = "require('config.lspkind').post()"}
   end
 )
 return M

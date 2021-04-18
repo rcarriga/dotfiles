@@ -62,7 +62,8 @@ local Error = Red
 loadHighlights(
   {
     Normal = {Grey4},
-    Border = {Orange},
+    Border = {Border},
+    FloatBorder = {Border},
     Decoration = {Orange},
     Hidden = {Grey2},
     BuiltIn = {Red},
@@ -290,7 +291,8 @@ loadHighlights(
     TSParameterReference = {Green},
     TSMethod = {FuncName},
     TSField = {FuncName},
-    TSProperty = {Key},
+    TSProperty = {Parameter},
+    TSTag = {FuncName},
     TSConstructor = {TypeName},
     TSConditional = {BuiltIn},
     TSRepeat = {BuiltIn},
@@ -378,6 +380,8 @@ loadHighlights(
     LspSagaLspFinderBorder = {Border},
     LspSagaCodeActionBorder = {Border},
     LspSagaAutoPreview = {Yellow},
-    LspSagaDefPreviewBorder = {Border}
+    LspSagaDefPreviewBorder = {Border},
+    IndentBlanklineChar = {Grey1},
+    IndentBlanklineContextChar = {Key}
   }
 )

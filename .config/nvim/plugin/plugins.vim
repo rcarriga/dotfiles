@@ -5,6 +5,22 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
+let g:indentLine_char = '🭰'
+let g:indent_blankline_show_first_indent_level = v:false
+let g:indent_blankline_filetype_exclude = ['help',
+      \ "dapui_scopes",
+      \ "dapui_stacks",
+      \ "dapui_watches",
+      \ "LuaTree",
+      \ "dbui",
+      \ "term",
+      \ "fugitive",
+      \ "fugitiveblame",
+      \ "NvimTree",
+      \ "UltestSummary",
+      \ "packer"
+      \ ]
+
 let g:auto_session_root_dir = expand("~/.cache/nvim/sessions")
 
 let g:UltiSnipsExpandTrigger="<C-}>"
@@ -191,7 +207,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
 nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :Telescope live_grep<CR>
+nmap <silent><leader>dg :lua require("telescope.builtin").grep_string({search = ""})<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>

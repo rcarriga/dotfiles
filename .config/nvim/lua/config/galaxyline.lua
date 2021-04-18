@@ -10,15 +10,10 @@ function M.post()
     "dapui_stacks",
     "dapui_watches",
     "LuaTree",
-    "vista",
     "dbui",
-    "startify",
     "term",
-    "nerdtree",
     "fugitive",
     "fugitiveblame",
-    "plug",
-    "coc-explorer",
     "NvimTree",
     "UltestSummary"
   }

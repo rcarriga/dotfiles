@@ -21,6 +21,8 @@ augroup END
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
+vim.g.vimsyn_embed = 'lP'
+
 -- Set completeopt to have a better completion experience
 vim.o.completeopt="menu,menuone,noselect"
 
@@ -80,7 +82,7 @@ vim.o.autoread = true
 
 -- Save edit history between sessions
 vim.cmd [[ set undofile ]]
-vim.o.undodir = vim.fn.expand "~/.config/nvim/undodir"
+vim.o.undodir = vim.fn.expand "~/.cache/nvim/undodir"
 
 -- Don't unload buffers when left
 vim.o.hidden = true
