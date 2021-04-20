@@ -48,7 +48,7 @@ require("packer").startup(
       config = "require('config.lsp').post()",
       requires = {
         "nvim-lua/lsp-status.nvim",
-        "glepnir/lspsaga.nvim",
+        {"rcarriga/lspsaga.nvim", branch = "feat/avoidPmenu"},
         {"onsails/lspkind-nvim", config = "require('config.lspkind').post()"},
       }
     }
@@ -109,7 +109,8 @@ require("packer").startup(
       }
     }
     use {
-      "hrsh7th/nvim-compe",
+      "rcarriga/nvim-compe",
+      branch = "feat/doc-border",
       event = {"InsertEnter"},
       config = "require('config.compe').post()",
       requires = {{"hrsh7th/vim-vsnip"}}

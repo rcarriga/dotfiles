@@ -381,6 +381,7 @@ loadHighlights(
     LspSagaCodeActionBorder = {Border},
     LspSagaAutoPreview = {Yellow},
     LspSagaDefPreviewBorder = {Border},
+    -- indent_blankline
     IndentBlanklineChar = {Grey1},
     IndentBlanklineContextChar = {Key}
   }
