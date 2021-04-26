@@ -2,19 +2,16 @@ local M = {}
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
   execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-  execute "packadd packer.nvim"
 end
 
 function M.update()
   vim.cmd [[ PackerCompile ]]
   vim.cmd [[ PackerSync ]]
 end
-
-vim.cmd [[packadd packer.nvim]]
 
 require("packer").startup(
   function(use)
@@ -54,10 +51,9 @@ require("packer").startup(
     }
     use {"neovimhaskell/haskell-vim"}
     use {
-      "/home/ronan/Dev/repos/vim-ultest",
+      "rcarriga/vim-ultest",
       config = "require('config.ultest').post()",
       keys = {"<Plug>(ultest-run-nearest)", "<Plug>(ultest-run-file)", "<Plug>(ultest-summary-toggle)"},
-      cmd = {"TestNearest", "TestFile"},
       requires = {"janko/vim-test", opt = true}
     }
     use {"rhysd/clever-f.vim", keys = {"f", "t"}}
@@ -68,13 +64,13 @@ require("packer").startup(
     use {"simnalamburt/vim-mundo", cmd = "MundoToggle"}
     use {"sodapopcan/vim-twiggy", cmd = "Twiggy"}
     use {"svermeulen/vim-subversive"}
-    use {"JoosepAlviste/nvim-ts-context-commentstring", requires = {"tpope/vim-commentary", opt = true}, keys = {"gc"}}
+    use {"JoosepAlviste/nvim-ts-context-commentstring", requires = {"tpope/vim-commentary"}}
     use {"tpope/vim-abolish", cmd = "S"}
     use {"tpope/vim-eunuch", cmd = {"Rename", "Delete", "Remove", "Chmod"}}
     use {"tpope/vim-fugitive", requires = {{"tpope/vim-rhubarb"}}}
-    use {"tpope/vim-unimpaired", keys = {"yo"}}
+    use {"tpope/vim-unimpaired"}
     use {"voldikss/vim-floaterm", cmd = "FloatermNew"}
-    use {"wbthomason/packer.nvim", opt = true}
+    use {"wbthomason/packer.nvim"}
     use {"wellle/targets.vim", requires = {"wellle/line-targets.vim"}}
     use {"windwp/nvim-autopairs", config = "require('config.autopairs').post()"}
     use {
@@ -95,7 +91,7 @@ require("packer").startup(
       config = "require('config.dap').post()",
       requires = {
         {"mfussenegger/nvim-dap-python"},
-        {"/home/ronan/Dev/repos/nvim-dap-ui"}
+        {"rcarriga/nvim-dap-ui"}
       }
     }
     use {

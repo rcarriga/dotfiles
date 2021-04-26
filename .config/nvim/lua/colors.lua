@@ -4,9 +4,10 @@ end
 
 local Transparent = ConstructColour("NONE")
 local Grey1 = ConstructColour("#262626")
-local Grey2 = ConstructColour("#8B8B8B")
-local Grey3 = ConstructColour("#bdbdbd")
-local Grey4 = ConstructColour("#F8F8F8")
+local Grey2 = ConstructColour("#424242")
+local Grey3 = ConstructColour("#8B8B8B")
+local Grey4 = ConstructColour("#bdbdbd")
+local Grey5 = ConstructColour("#F8F8F8")
 
 local Violet = ConstructColour("#D484FF")
 local Blue = ConstructColour("#2f628e")
@@ -40,12 +41,12 @@ local function loadHighlights(highlights)
   end
 end
 
-local Normal = Grey4
+local Normal = Grey5
 local Border = Orange
 local Decoration = Orange
-local Hidden = Grey2
+local Hidden = Grey3
 local BuiltIn = Red
-local VarName = Grey4
+local VarName = Grey5
 local FuncName = Cyan
 local TypeName = Violet
 local Key = Cyan
@@ -61,13 +62,13 @@ local Error = Red
 -- For reference elsewhere
 loadHighlights(
   {
-    Normal = {Grey4},
+    Normal = {Grey5},
     Border = {Border},
     FloatBorder = {Border},
     Decoration = {Orange},
-    Hidden = {Grey2},
+    Hidden = {Grey3},
     BuiltIn = {Red},
-    VarName = {Grey4, "bold"},
+    VarName = {Grey5, "bold"},
     FuncName = {Cyan},
     TypeName = {Violet},
     Key = {Cyan},
@@ -96,17 +97,17 @@ loadHighlights(
     IncSearch = {Green, "bold,underline"},
     Search = {Green, "bold,underline"},
     Directory = {Cyan},
-    Folded = {Grey2},
+    Folded = {Grey3},
     WildMenu = {Cyan},
-    VisualNOS = {Grey2, Yellow},
+    VisualNOS = {Grey3, Yellow},
     ModeMsg = {Yellow},
-    FoldColumn = {Grey3},
+    FoldColumn = {Grey4},
     MoreMsg = {Yellow},
     cursorim = {Violet},
-    Pmenu = {Grey3, FloatBackground},
-    PmenuSel = {Transparent, Grey2, "bold"},
+    Pmenu = {Grey4, FloatBackground},
+    PmenuSel = {Transparent, Grey3, "bold"},
     PMenuSbar = {Transparent, FloatBackground},
-    PMenuThumb = {Transparent, Grey3},
+    PMenuThumb = {Transparent, Grey4},
     Visual = {Transparent, Grey1, "bold,underline"},
     EndOfBuffer = {Grey1},
     Underlined = {Transparent, "underline"},
@@ -115,7 +116,7 @@ loadHighlights(
     SpellLocal = {Transparent, "undercurl"},
     SignColumn = {Key},
     Question = {Info},
-    TabLineFill = {Grey2},
+    TabLineFill = {Grey3},
     NotificationInfo = {Normal, FloatBackground},
     NotificationError = {Error, FloatBackground},
     NotificationWarning = {Warning, FloatBackground},
@@ -192,8 +193,8 @@ loadHighlights(
     CocListFgBlue = {Cyan},
     CocListFgMagenta = {Violet},
     CocListFgCyan = {Cyan},
-    CocListFgWhite = {Grey4},
-    CocListFgGrey = {Grey2},
+    CocListFgWhite = {Grey5},
+    CocListFgGrey = {Grey3},
     -- ALE
     ALEWarningSign = {Warning},
     ALEVirtualTextError = {Error},
@@ -332,12 +333,12 @@ loadHighlights(
     BufferVisibleMod = {Normal, Grey1, "bold,underline"},
     BufferVisibleSign = {Info, Grey1},
     BufferVisibleTarget = {Error, "bold,underline"},
-    BufferInactive = {Grey2, Grey1},
-    BufferInactiveMod = {Grey2, Grey1, "underline"},
-    BufferInactiveSign = {Grey2, Grey1},
+    BufferInactive = {Grey3, Grey1},
+    BufferInactiveMod = {Grey3, Grey1, "underline"},
+    BufferInactiveSign = {Grey3, Grey1},
     BufferInactiveTarget = {Error, Grey1, "bold"},
     BufferTabpages = {Info, "bold"},
-    BufferTabpageFill = {Grey2},
+    BufferTabpageFill = {Grey3},
     -- LSP
     LspDiagnosticsDefaultError = {Error},
     LspDiagnosticsDefaultWarning = {Warning},
@@ -372,7 +373,7 @@ loadHighlights(
     LspSagaDocTruncateLine = {Hidden},
     LspSagaCodeActionTitle = {BuiltIn},
     LspSagaCodeActionTruncateLine = {Hidden},
-    LspSagaCodeActionContent = {Grey3},
+    LspSagaCodeActionContent = {Grey4},
     LspSagaRenamePromptPrefix = {Decoration},
     LspSagaRenameBorder = {Border},
     LspSagaHoverBorder = {Border},
@@ -381,8 +382,7 @@ loadHighlights(
     LspSagaCodeActionBorder = {Border},
     LspSagaAutoPreview = {Yellow},
     LspSagaDefPreviewBorder = {Border},
-    -- indent_blankline
-    IndentBlanklineChar = {Grey1},
+    IndentBlanklineChar = {Grey2},
     IndentBlanklineContextChar = {Key}
   }
 )

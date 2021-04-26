@@ -11,8 +11,8 @@ function base_settings() {
   xrdb -merge ~/.Xresources
 }
 
-case $(hostname) in
-    CalypsoAI)
+case $(cat /etc/hostname) in
+    cai)
         xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
         xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Natural Scrolling Enabled" 1
         xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Accel Speed" 0.8

@@ -46,9 +46,7 @@ function SignatureHelper:start()
     200,
     vim.schedule_wrap(
       function()
-        local changed_tick = vim.api.nvim_buf_get_changedtick(0)
-        if changed_tick ~= self.changed_tick then
-          self.changed_tick = changed_tick
+        if not require("lspsaga.signaturehelp").has_saga_signature() then
           require("lspsaga.signaturehelp").signature_help()
         end
         if not self.should_run and timer:is_closing() == false then
@@ -109,7 +107,9 @@ function M.post()
     vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
     {
-      signs = true,
+      signs = {
+        priority = 5,
+      },
       underline = false,
       virtual_text = {
         prefix = "⚫"

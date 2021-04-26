@@ -16,3 +16,5 @@ undodir
 .config/zsh/completions/*
 .config/zsh/.zcompdump*
 .config/nvim/spell
+test.py
+Pipfile*

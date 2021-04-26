@@ -6,7 +6,7 @@ function M.post()
       enable = true
     },
     indent = {
-      enable = true
+      enable = false
     },
     incremental_selection = {
       enable = true,

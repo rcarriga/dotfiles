@@ -16,6 +16,15 @@ if [[ $ZIM_HOME/init.zsh -ot $ZDOTDIR/.zimrc ]]; then
 fi
 source $ZIM_HOME/init.zsh
 
-command -v aws &> /dev/null && source `which aws_zsh_completer.sh`
+if [ $(command -v aws) ]; then
+  autoload bashcompinit && bashcompinit
+  complete -C '/usr/bin/aws_completer' aws
+fi
 
 [[ -f "$ZDOTDIR/widgets.sh" ]] && source "$ZDOTDIR/widgets.sh"
+
+if [[ $1 == eval ]]
+then
+    "$@"
+set --
+fi
