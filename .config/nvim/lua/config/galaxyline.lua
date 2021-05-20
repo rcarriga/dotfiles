@@ -281,8 +281,10 @@ function M.post()
   end
 
   local function ultest_is_test_file()
-    if vim.fn["has"]("ultest#is_test_file")  then
-      return vim.fn["ultest#is_test_file"] == 1
+    if vim.fn["exists"]("*ultest#is_test_file") == 1 then
+      local success, res = pcall(vim.fn["ultest#is_test_file"]())
+      if not success then return 0 end
+      return res == 1
     end
     return false
   end

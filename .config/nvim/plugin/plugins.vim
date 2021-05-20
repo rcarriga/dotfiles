@@ -5,6 +5,11 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
+
+let g:git_messenger_floating_win_opts = {
+   \ 'border': 'single'
+   \ }
+
 let g:indentLine_char = '🭰'
 let g:indent_blankline_show_first_indent_level = v:false
 let g:indent_blankline_filetype_exclude = ['help',
@@ -18,7 +23,8 @@ let g:indent_blankline_filetype_exclude = ['help',
       \ "fugitiveblame",
       \ "NvimTree",
       \ "UltestSummary",
-      \ "packer"
+      \ "packer",
+      \ "UltestOutput",
       \ ]
 
 let g:auto_session_root_dir = expand("~/.cache/nvim/sessions")
@@ -36,8 +42,6 @@ map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
 map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
 map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
 map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
-
-let g:dap_virtual_text = "all_frames"
 
 let g:bufferline = { "closable" : 0  }
 
@@ -78,8 +82,8 @@ let g:goyo_linenr = 1
 
 
 let test#strategy = "floaterm"
-let test#python#pytest#options = "--disable-warnings --color=yes"
-let test#javascript#jest#options = "--color=always"
+let test#python#runner = "pytest"
+let test#go#runner = "richgo"
 
 " Open undo tree on right
 let g:mundo_right = 1
@@ -90,6 +94,7 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
+let g:ultest_env = {"RICHGO_FORCE_COLOR": "1"}
 let g:ultest_virtual_text = 0
 let g:ultest_output_cols = 120
 let g:ultest_max_threads = 4
@@ -218,7 +223,7 @@ nnoremap <silent> <M-right> :lua require'dap'.step_over()<CR>
 nnoremap <silent> <M-down> :lua require'dap'.step_into()<CR>
 nnoremap <silent> <M-up> :lua require'dap'.step_out()<CR>
 nnoremap <silent> <M-x> :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <silent> <M-t> :lua require('dap-python').test_method()<CR>
+nnoremap <silent> <M-t> :lua require('dapui').toggle()<CR>
 vnoremap <silent> <M-c> <ESC>:lua require('dap-python').debug_selection()<CR>
 nnoremap <silent> <M-l> :lua require'dap'.run_last()<cr>
 nnoremap <silent> <M-k> :lua require'dapui'.eval()<cr>

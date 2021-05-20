@@ -6,6 +6,7 @@ local conf = require("telescope.config").values
 
 local lsp_definitions = function(opts)
   opts = opts or {}
+  opts.tail_path = true
 
   local params = vim.lsp.util.make_position_params()
   local result = vim.lsp.buf_request_sync(0, "textDocument/definition", params, opts.timeout or 10000)
@@ -21,7 +22,8 @@ local lsp_definitions = function(opts)
   else
     local success, locations = pcall(vim.lsp.util.locations_to_items, flattened_results)
     if not success then
-      print("Error opening locations")
+      print("Error opening locations "..locations)
+      return
     end
     pickers.new(
       opts,
@@ -125,10 +127,10 @@ function M.post()
   vim.lsp.handlers["textDocument/codeLens"] = require("config.lsp_codelens").on_codelens
   local on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
-    if bufnr ~= nil then
-      vim.cmd("autocmd InsertEnter <buffer=" .. bufnr .. "> lua require('config.lsp').start_signature()")
-      vim.cmd("autocmd InsertLeave <buffer=" .. bufnr .. "> lua require('config.lsp').stop_signature()")
-    end
+    -- if bufnr ~= nil then
+    --   vim.cmd("autocmd InsertEnter <buffer=" .. bufnr .. "> lua require('config.lsp').start_signature()")
+    --   vim.cmd("autocmd InsertLeave <buffer=" .. bufnr .. "> lua require('config.lsp').stop_signature()")
+    -- end
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end

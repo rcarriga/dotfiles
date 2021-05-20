@@ -15,10 +15,12 @@ end
 
 require("packer").startup(
   function(use)
-    use { "lukas-reineke/indent-blankline.nvim", branch = "lua"}
+    use {"steelsojka/pears.nvim", config = "require('config.autopairs').post()"}
+    use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+    use {"eddiebergman/nvim-treesitter-pyfold"}
     use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
     use {"rafcamlet/nvim-luapad", cmd = "Luapad"}
-    use {"mattn/emmet-vim", keys = {"<C-x>"}}
+    use {"mattn/emmet-vim"}
     use {"Konfekt/FastFold"}
     use {"MTDL9/vim-log-highlighting"}
     use {"Yggdroot/hiPairs"}
@@ -54,7 +56,7 @@ require("packer").startup(
       "rcarriga/vim-ultest",
       config = "require('config.ultest').post()",
       keys = {"<Plug>(ultest-run-nearest)", "<Plug>(ultest-run-file)", "<Plug>(ultest-summary-toggle)"},
-      requires = {"janko/vim-test", opt = true}
+      requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}}
     }
     use {"rhysd/clever-f.vim", keys = {"f", "t"}}
     use {"rhysd/conflict-marker.vim"}
@@ -72,18 +74,15 @@ require("packer").startup(
     use {"voldikss/vim-floaterm", cmd = "FloatermNew"}
     use {"wbthomason/packer.nvim"}
     use {"wellle/targets.vim", requires = {"wellle/line-targets.vim"}}
-    use {"windwp/nvim-autopairs", config = "require('config.autopairs').post()"}
     use {
       "nvim-telescope/telescope.nvim",
       config = "require('config.telescope').post()",
       requires = {
         {"nvim-telescope/telescope-fzf-native.nvim", run = "make"},
-        {"nvim-telescope/telescope-fzf-writer.nvim"},
         {"nvim-telescope/telescope-dap.nvim"},
         {"nvim-lua/popup.nvim"},
         {"nvim-lua/plenary.nvim"},
         {"kyazdani42/nvim-web-devicons"},
-        {"nvim-telescope/telescope-fzy-native.nvim"}
       }
     }
     use {
