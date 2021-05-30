@@ -21,7 +21,6 @@ function M.post()
         "--smart-case"
       },
       selection_strategy = "reset",
-      sorting_strategy = "ascending",
       layout_strategy = "horizontal",
       layout_config = {
         preview_width = 0.65

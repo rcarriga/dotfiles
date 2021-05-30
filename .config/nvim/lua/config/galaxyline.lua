@@ -9,6 +9,7 @@ function M.post()
     "dapui_scopes",
     "dapui_stacks",
     "dapui_watches",
+    "dapui_breakpoints",
     "LuaTree",
     "dbui",
     "term",

@@ -1,12 +1,14 @@
 local M = {}
 
 function M.post()
-  require("dapui").setup({
-    floating = {
-      max_width = 0.5,
-      max_height = 0.5,
+  require("dapui").setup(
+    {
+      floating = {
+        max_width = 0.5,
+        max_height = 0.5
+      }
     }
-  })
+  )
 
   vim.fn.sign_define("DapBreakpoint", {text = "🟢", texthl = "Error", linehl = "", numhl = ""})
   vim.fn.sign_define("DapStopped", {text = "🟢", texthl = "Success", linehl = "", numhl = ""})
@@ -80,19 +82,10 @@ function M.post()
     {
       type = "node2",
       request = "launch",
+      program = "${workspaceFolder}/${file}",
       cwd = vim.fn.getcwd(),
+      sourceMaps = true,
       protocol = "inspector",
-      sourceMaps = false,
-      skipFiles = {"<node_internals>/**/*.js"},
-      runTimeArgs = {
-        "node_modules/.bin/jest",
-        "--color=always",
-        "--no-coverage",
-        "-t",
-        "'^Schema with no data doesnt  return any conditional results$'",
-        "--",
-        "test/index.test.js"
-      },
       console = "integratedTerminal"
     }
   }

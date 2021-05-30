@@ -166,7 +166,7 @@ function M.post()
     ]]
   end
 
-  local servers = {"tsserver", "hls", "gopls", "dockerls", "vimls", "bashls"}
+  local servers = {"tsserver", "hls", "gopls", "dockerls", "vimls", "bashls", "clangd"}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {on_attach = on_attach, capabilities = capabilities}
   end

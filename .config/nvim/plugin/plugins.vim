@@ -16,6 +16,7 @@ let g:indent_blankline_filetype_exclude = ['help',
       \ "dapui_scopes",
       \ "dapui_stacks",
       \ "dapui_watches",
+      \ "dapui_breakpoints",
       \ "LuaTree",
       \ "dbui",
       \ "term",
@@ -83,6 +84,7 @@ let g:goyo_linenr = 1
 
 let test#strategy = "floaterm"
 let test#python#runner = "pytest"
+let test#javascript#runner = "jest"
 let test#go#runner = "richgo"
 
 " Open undo tree on right
@@ -94,10 +96,10 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
-let g:ultest_env = {"RICHGO_FORCE_COLOR": "1"}
 let g:ultest_virtual_text = 0
 let g:ultest_output_cols = 120
 let g:ultest_max_threads = 4
+let g:ultest_use_pty = 1
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
