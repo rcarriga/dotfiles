@@ -5,7 +5,6 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
-
 let g:git_messenger_floating_win_opts = {
    \ 'border': 'single'
    \ }
@@ -96,6 +95,7 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
+let g:ultest_attach_width = 180
 let g:ultest_virtual_text = 0
 let g:ultest_output_cols = 120
 let g:ultest_max_threads = 4
@@ -161,8 +161,6 @@ command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 " Plugin Mappings {{{1
 
 autocmd FileType dbui nmap <buffer> l <Plug>(DBUI_SelectLine)
-
-nmap <silent><leader>lf :Format<CR>
 
 nnoremap <silent><leader>x :NvimTreeToggle<CR>
 

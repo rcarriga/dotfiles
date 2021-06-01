@@ -187,7 +187,7 @@ function M.post()
 
   local checkwidth = function()
     local squeeze_width = vim.fn.winwidth(0) / 2
-    if squeeze_width > 40 then
+    if squeeze_width > 60 then
       return true
     end
     return false

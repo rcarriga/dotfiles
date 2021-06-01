@@ -17,7 +17,6 @@ require("packer").startup(
   function(use)
     use {"steelsojka/pears.nvim", config = "require('config.autopairs').post()"}
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
-    use {"eddiebergman/nvim-treesitter-pyfold"}
     use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
     use {"rafcamlet/nvim-luapad", cmd = "Luapad"}
     use {"mattn/emmet-vim"}
@@ -29,7 +28,6 @@ require("packer").startup(
     use {"godlygeek/tabular", cmd = "Tabularize"}
     use {"haya14busa/vim-asterisk", requires = {"haya14busa/is.vim"}}
     use {"AndrewRadev/splitjoin.vim", keys = {"gS", "gJ"}}
-    use {"junegunn/fzf", requires = {{"junegunn/fzf.vim", opt = true}}, cmd = {"Files", "Rg"}}
     use {"junegunn/goyo.vim", cmd = "Goyo"}
     use {"kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()"}
     use {
@@ -39,13 +37,13 @@ require("packer").startup(
       {"kristijanhusak/vim-dadbod-completion", opt = true}
     }
     use {"kyazdani42/nvim-tree.lua"}
-    use {"lukas-reineke/format.nvim", cmd = "Format", config = "require('config.format').pre()"}
     use {"machakann/vim-sandwich"}
     use {"mhinz/vim-signify"}
     use {
       "neovim/nvim-lspconfig",
       config = "require('config.lsp').post()",
       requires = {
+        "kabouzeid/nvim-lspinstall",
         "nvim-lua/lsp-status.nvim",
         {"rcarriga/lspsaga.nvim", branch = "feat/avoidPmenu"},
         {"onsails/lspkind-nvim", config = "require('config.lspkind').post()"},
