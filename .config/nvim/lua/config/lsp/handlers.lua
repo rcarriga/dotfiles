@@ -65,8 +65,16 @@ function M.setup()
     wrap_options({layout_strategy = "vertical", width = 50}, require("telescope.builtin").lsp_code_actions)
   vim.lsp.handlers["textDocument/references"] =
     wrap_options({layout_strategy = "vertical"}, require("telescope.builtin").lsp_references)
-  vim.lsp.handlers["textDocument/definition"] = lsp_definitions
+  vim.lsp.handlers["textDocument/definition"] =
+    wrap_options({layout_strategy = "vertical"}, require("telescope.builtin").lsp_definitions)
   vim.lsp.handlers["textDocument/documentSymbol"] = (require("telescope.builtin").lsp_document_symbols)
   vim.lsp.handlers["textDocument/codeLens"] = require("config.lsp_codelens").on_codelens
+  vim.lsp.handlers["textDocument/hover"] =
+    vim.lsp.with(
+    vim.lsp.handlers.hover,
+    {
+      border = "single"
+    }
+  )
 end
 return M

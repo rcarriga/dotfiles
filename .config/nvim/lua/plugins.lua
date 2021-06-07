@@ -15,6 +15,8 @@ end
 
 require("packer").startup(
   function(use)
+    use {"folke/lua-dev.nvim"}
+    use {"ray-x/lsp_signature.nvim"}
     use {"steelsojka/pears.nvim", config = "require('config.autopairs').post()"}
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
     use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
@@ -95,6 +97,7 @@ require("packer").startup(
       "nvim-treesitter/nvim-treesitter",
       config = "require('config.treesitter').post()",
       requires = {
+        {"mizlan/iswap.nvim", config = "require('iswap').setup({})"},
         {"nvim-treesitter/playground"},
         {"nvim-treesitter/nvim-treesitter-textobjects"},
         {"nvim-treesitter/nvim-treesitter-refactor"},

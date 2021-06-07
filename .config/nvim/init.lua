@@ -21,111 +21,109 @@ augroup END
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
-vim.g.vimsyn_embed = 'lP'
-
 -- Set completeopt to have a better completion experience
-vim.o.completeopt="menu,menuone,noselect"
+vim.opt.completeopt="menu,menuone,noselect"
 
 -- Disable modelines (Vim commands in files)
-vim.o.modeline = false
+vim.opt.modeline = false
 
 -- Always have a sign column
-vim.wo.signcolumn = "yes"
+vim.opt.signcolumn = "yes"
 
 vim.cmd [[color haslo]]
 
 -- Indents word-wrapped lines as much as the 'parent' line
-vim.wo.breakindent = true
+vim.opt.breakindent = true
 
 -- Ensures word-wrap does not split words
-vim.o.formatoptions = "l"
-vim.wo.linebreak = true
+vim.opt.formatoptions = "l"
+vim.opt.linebreak = true
 
 -- Allow filetype specific plugins and indenting
 vim.cmd [[filetype plugin indent on]]
 
 -- Always on statusline
-vim.o.laststatus = 2
+vim.opt.laststatus = 2
 
 -- Hides --insert-- under statusline
-vim.o.showmode = false
+vim.opt.showmode = false
 
-vim.o.updatetime = 4000
+vim.opt.updatetime = 4000
 
 -- Turn on 24 bit color. Delete this line if colors are weird
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
 
 -- Delay to wait for next key in combo
-vim.o.timeoutlen = 1000
+vim.opt.timeoutlen = 1000
 
 -- Show numbers relative to current line
-vim.wo.relativenumber = true
-vim.wo.number = true
+vim.opt.relativenumber = true
+vim.opt.number = true
 
 -- Make backspace work as expected
-vim.o.backspace = "indent,eol,start"
+vim.opt.backspace = "indent,eol,start"
 
 -- Setup tabs to be 4 spaces
 vim.cmd [[set tabstop=2 softtabstop=0 expandtab shiftwidth=0 smarttab]]
 
 -- Opens new panes below and to right of current
-vim.o.splitbelow = true
-vim.o.splitright = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
 
--- vim.o.all code unfolded by default
-vim.wo.foldlevel = 99
-vim.wo.foldmethod = "expr"
-vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.all code unfolded by default
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Update files on change
-vim.o.autoread = true
+vim.opt.autoread = true
 
 -- Save edit history between sessions
 vim.cmd [[ set undofile ]]
-vim.o.undodir = vim.fn.expand "~/.cache/nvim/undodir"
+vim.opt.undodir = vim.fn.expand "~/.cache/nvim/undodir"
 
 -- Don't unload buffers when left
-vim.o.hidden = true
+vim.opt.hidden = true
 
 -- Don't give ins-completion-menu messages
-vim.o.shortmess = vim.o.shortmess .. "c"
+vim.opt.shortmess:append("c")
 
 -- Ignore case in search unless contains capital
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
--- Hide text vim.o.as concealed
-vim.o.conceallevel = 3
+-- Hide text vim.opt.as concealed
+vim.opt.conceallevel = 3
 
 -- Enable mouse so people don't get angry when using my editor...
-vim.o.mouse = "a"
+vim.opt.mouse = "a"
 
 -- Preview changes when using search and replace
-vim.o.inccommand = "nosplit"
--- vim.o.characters for after foldtext, eof, foldcolumn
-vim.o.fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,eob: "
+vim.opt.inccommand = "nosplit"
+-- vim.opt.characters for after foldtext, eof, foldcolumn
+vim.opt.fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,eob: "
 
 
 -- Jump to existing window when opening buffer already opened
-vim.o.switchbuf = "useopen"
+vim.opt.switchbuf = "useopen"
 
 -- Space as leader key
 vim.g.mapleader = " "
 
 -- Save state when using :mkview
-vim.o.viewoptions = "cursor,folds,slash,unix"
+vim.opt.viewoptions = "cursor,folds,slash,unix"
 
 -- Show unwanted characters
 vim.cmd "set listchars=tab:╍╍,nbsp:_,trail:·"
-vim.o.list = false
+vim.opt.list = false
 
 -- Keep a buffer of 10 lines/columns between cursor and edge when scrolling
-vim.o.scrolloff = 10
+vim.opt.scrolloff = 10
 
-vim.o.pyxversion = 3
+vim.opt.pyxversion = 3
 
 -- Disable line wrapping
-vim.wo.wrap = false
+vim.opt.wrap = false
 
 -- Text to appear on folded line
 util.multilineCommand [[
@@ -134,13 +132,13 @@ set foldtext=FoldText()
 ]]
 
 -- Use patience algorithm for diffs
-vim.o.diffopt = "internal,filler,closeoff,algorithm:patience"
+vim.opt.diffopt = "internal,filler,closeoff,algorithm:patience"
 
 -- Don't add newline if missing on write
-vim.o.fixendofline = false
+vim.opt.fixendofline = false
 
 -- Explicitly auto select regex engine
-vim.o.regexpengine = 0
+vim.opt.regexpengine = 0
 -- }}}1
 -- ###################################################################################
 -- Custom Mappings{{{1

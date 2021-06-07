@@ -93,7 +93,7 @@ let g:mundo_right = 1
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
-let g:doge_doc_standard_python = "sphinx"
+let g:doge_doc_standard_python = "numpy"
 
 let g:ultest_attach_width = 180
 let g:ultest_virtual_text = 0
@@ -262,3 +262,5 @@ nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
 nmap <leader>vd <Plug>(ultest-debug-nearest)
+
+nnoremap <silent>sw :ISwap<CR>

@@ -38,12 +38,12 @@ function M.settings()
         }
       },
       python = {
-        {
-          lintCommand = "pydocstyle ${INPUT}",
-          lintStdin = false,
-          lintIgnoreExitCode = true,
-          lintFormats = {"%I%f:%l %.%#:", "%Z%*\\sD%n: %m"}
-        },
+        -- {
+        --   lintCommand = "pydocstyle ${INPUT}",
+        --   lintStdin = false,
+        --   lintIgnoreExitCode = true,
+        --   lintFormats = {"%I%f:%l %.%#:", "%Z%*\\sD%n: %m"}
+        -- },
         {
           formatCommand = "black --quiet -",
           formatStdin = true

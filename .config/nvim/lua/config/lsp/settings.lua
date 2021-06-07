@@ -28,35 +28,22 @@ function M.setup(on_attach, capabilities)
       capabilities = capabilities,
       root_dir = vim.loop.cwd,
       settings = require("config.lsp.efm").settings(),
-      init_options = {documentFormatting = true},
+      init_options = {documentFormatting = true}
     },
-    sumneko_lua = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-            path = vim.split(package.path, ";")
-          },
-          diagnostics = {
-            globals = {"vim"}
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-            }
-          }
+    lua = require("lua-dev").setup(
+      {
+        lspconfig = {
+          on_attach = on_attach,
+          capabilities = capabilities
         }
       }
-    },
-    pyright = {
+    ),
+    python = {
       handlers = lsp_status.extensions.pyls_ms.setup(),
       on_attach = on_attach,
       capabilities = capabilities
     },
-    vuels = {
+    vue = {
       on_attach = on_attach,
       init_options = {
         config = {
@@ -100,7 +87,7 @@ function M.setup(on_attach, capabilities)
         }
       }
     },
-    yamlls = {
+    yaml = {
       on_attach = on_attach,
       init_options = {
         config = {

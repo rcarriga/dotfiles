@@ -1,6 +1,5 @@
 local M = {}
 
-
 function M.post()
   local lsp_status = require("lsp-status")
   lsp_status.register_progress()
@@ -20,29 +19,39 @@ function M.post()
     "LspDiagnosticsSignHint",
     {text = "", texthl = "LspDiagnosticsDefaultHint", numhl = "LspDiagnosticsDefaultHint"}
   )
-  require("lspsaga").init_lsp_saga({
-    border_style = "single",
-    code_action_prompt = {
-      virtual_text = false
+  require("lspsaga").init_lsp_saga(
+    {
+      border_style = "single",
+      code_action_prompt = {
+        virtual_text = false
+      }
     }
-  })
+  )
 
   require("config.lsp.handlers").setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 
+  local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
+    lsp_sig.on_attach(
+      {
+        bind = true,
+        handler_opts = {
+          border = "single"
+        }
+      }
+    )
     local function buf_set_keymap(...)
       vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
     -- Mappings.
     local opts = {noremap = true, silent = true}
-    buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "gd", "<cmd>lua require'lspsaga.provider'.preview_definition()<CR>", opts)
+    buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
     buf_set_keymap("n", "ge", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", opts)
+    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
     buf_set_keymap("n", "<M-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>", opts)
     buf_set_keymap("n", "<M-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>", opts)
     buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
