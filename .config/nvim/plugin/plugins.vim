@@ -5,6 +5,8 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
+lua require('dap').set_log_level('DEBUG')
+
 let g:git_messenger_floating_win_opts = {
    \ 'border': 'single'
    \ }

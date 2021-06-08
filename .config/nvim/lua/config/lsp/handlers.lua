@@ -9,7 +9,12 @@ local lsp_definitions = function(opts)
   opts.tail_path = true
 
   local params = vim.lsp.util.make_position_params()
-  local result = vim.lsp.buf_request_sync(0, "textDocument/definition", params, opts.timeout or 10000)
+  local action =  "textDocument/definition"
+  local result, err = vim.lsp.buf_request_sync(0, action, params, opts.timeout or 10000)
+  if err then
+    vim.api.nvim_err_writeln("Error when executing " .. action .. " : " .. err)
+    return
+  end
   local flattened_results = {}
   for _, server_results in pairs(result) do
     if server_results.result then
@@ -66,9 +71,8 @@ function M.setup()
   vim.lsp.handlers["textDocument/references"] =
     wrap_options({layout_strategy = "vertical"}, require("telescope.builtin").lsp_references)
   vim.lsp.handlers["textDocument/definition"] =
-    wrap_options({layout_strategy = "vertical"}, require("telescope.builtin").lsp_definitions)
+    wrap_options({layout_strategy = "vertical"}, lsp_definitions)
   vim.lsp.handlers["textDocument/documentSymbol"] = (require("telescope.builtin").lsp_document_symbols)
-  vim.lsp.handlers["textDocument/codeLens"] = require("config.lsp_codelens").on_codelens
   vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(
     vim.lsp.handlers.hover,

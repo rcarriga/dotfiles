@@ -15,8 +15,6 @@ end
 
 require("packer").startup(
   function(use)
-    use {"folke/lua-dev.nvim"}
-    use {"ray-x/lsp_signature.nvim"}
     use {"steelsojka/pears.nvim", config = "require('config.autopairs').post()"}
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
     use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
@@ -47,13 +45,14 @@ require("packer").startup(
       requires = {
         "kabouzeid/nvim-lspinstall",
         "nvim-lua/lsp-status.nvim",
-        {"rcarriga/lspsaga.nvim", branch = "feat/avoidPmenu"},
-        {"onsails/lspkind-nvim", config = "require('config.lspkind').post()"},
+        "folke/lua-dev.nvim",
+        {"ray-x/lsp_signature.nvim"},
+        {"onsails/lspkind-nvim", config = "require('lspkind').init({with_text = false})"}
       }
     }
     use {"neovimhaskell/haskell-vim"}
     use {
-      "rcarriga/vim-ultest",
+      "/home/ronan/Dev/repos/vim-ultest",
       config = "require('config.ultest').post()",
       keys = {"<Plug>(ultest-run-nearest)", "<Plug>(ultest-run-file)", "<Plug>(ultest-summary-toggle)"},
       requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}}
@@ -82,7 +81,7 @@ require("packer").startup(
         {"nvim-telescope/telescope-dap.nvim"},
         {"nvim-lua/popup.nvim"},
         {"nvim-lua/plenary.nvim"},
-        {"kyazdani42/nvim-web-devicons"},
+        {"kyazdani42/nvim-web-devicons"}
       }
     }
     use {
@@ -90,7 +89,7 @@ require("packer").startup(
       config = "require('config.dap').post()",
       requires = {
         {"mfussenegger/nvim-dap-python"},
-        {"rcarriga/nvim-dap-ui"}
+        {"/home/ronan/Dev/repos/nvim-dap-ui"}
       }
     }
     use {
@@ -100,8 +99,7 @@ require("packer").startup(
         {"mizlan/iswap.nvim", config = "require('iswap').setup({})"},
         {"nvim-treesitter/playground"},
         {"nvim-treesitter/nvim-treesitter-textobjects"},
-        {"nvim-treesitter/nvim-treesitter-refactor"},
-        {"romgrk/nvim-treesitter-context"}
+        {"nvim-treesitter/nvim-treesitter-refactor"}
       }
     }
     use {

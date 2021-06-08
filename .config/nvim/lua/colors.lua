@@ -62,7 +62,8 @@ local Error = Red
 -- For reference elsewhere
 loadHighlights(
   {
-    Normal = {Grey5},
+    Normal = {Normal},
+    NormalFloat = {Normal},
     Border = {Border},
     FloatBorder = {Border},
     Decoration = {Orange},
@@ -383,6 +384,9 @@ loadHighlights(
     LspSagaAutoPreview = {Yellow},
     LspSagaDefPreviewBorder = {Border},
     IndentBlanklineChar = {Grey2},
-    IndentBlanklineContextChar = {Key}
+    IndentBlanklineContextChar = {Key},
+
+    -- LSP Signature
+    LspSelectedParam = {Normal, "bold,underline"},
   }
 )

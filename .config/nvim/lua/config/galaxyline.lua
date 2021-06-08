@@ -284,120 +284,131 @@ function M.post()
   local function ultest_is_test_file()
     if vim.fn["exists"]("*ultest#is_test_file") == 1 then
       local success, res = pcall(vim.fn["ultest#is_test_file"]())
-      if not success then return 0 end
+      if not success then
+        return 0
+      end
       return res == 1
     end
     return false
   end
 
-  gls.right[1] = {
-    CocStatus = {
-      provider = lsp_status,
-      highlight = {colors.cyan, "none"}
-    }
-  }
+  gls.right = {
+    {
+      CocStatus = {
+        provider = lsp_status,
+        highlight = {colors.cyan, "none"}
+      }
+    },
+    {
+      RightBarrier = {
+        provider = function()
+          return ""
+        end,
+        highlight = {colors.bg, "none"}
+      }
+    },
+    {
+      DiagnosticError = {
+        provider = "DiagnosticError",
+        icon = "   ",
+        highlight = {colors.red, colors.bg}
+      }
+    },
+    {
+      DiagnosticWarn = {
+        provider = "DiagnosticWarn",
+        icon = "   ",
+        highlight = {colors.yellow, colors.bg}
+      }
+    },
+    {
+      DiagnosticInfo = {
+        provider = "DiagnosticInfo",
+        icon = "   ",
+        highlight = {colors.green, colors.bg}
+      }
+    },
+    {
+      DiagnosticHint = {
+        provider = "DiagnosticHint",
+        icon = "   ",
+        highlight = {colors.cyan, colors.bg}
+      }
+    },
+    {
+      CurrentFunction = {
+        provider = function ()
+          local res = vim.b.lsp_current_function
+          return res and res.." "
+        end,
+        icon = "  ",
+        highlight = {colors.violet, colors.bg}
+      }
+    },
 
-  gls.right[2] = {
-    RightBarrier = {
-      provider = function()
-        return ""
-      end,
-      highlight = {colors.bg, "none"}
-    }
-  }
-
-  gls.right[3] = {
-    DiagnosticError = {
-      provider = "DiagnosticError",
-      icon = "   ",
-      highlight = {colors.red, colors.bg}
-    }
-  }
-  gls.right[4] = {
-    DiagnosticWarn = {
-      provider = "DiagnosticWarn",
-      icon = "   ",
-      highlight = {colors.yellow, colors.bg}
-    }
-  }
-  gls.right[5] = {
-    DiagnosticInfo = {
-      provider = "DiagnosticInfo",
-      icon = "   ",
-      highlight = {colors.green, colors.bg}
-    }
-  }
-  gls.right[6] = {
-    DiagnosticHint = {
-      provider = "DiagnosticHint",
-      icon = "   ",
-      highlight = {colors.cyan, colors.bg}
-    }
-  }
-  gls.right[7] = {
-    UltestTests = {
-      provider = function()
+    {
+      UltestTests = {
+        provider = function()
           return vim.fn["ultest#status"]().tests
-      end,
-      icon = "  ",
-      condition = ultest_is_test_file,
-      highlight = {colors.cyan, colors.bg}
-    }
-  }
-  gls.right[8] = {
-    UltestPassed = {
-      provider = function()
-        return vim.fn["ultest#status"]().passed
-      end,
-      icon = "  ● ",
-      condition = ultest_is_test_file,
-      highlight = {colors.green, colors.bg}
-    }
-  }
-  gls.right[9] = {
-    UltestFailed = {
-      provider = function()
-        return vim.fn["ultest#status"]().failed
-      end,
-      icon = "  ● ",
-      condition = ultest_is_test_file,
-      highlight = {colors.red, colors.bg}
-    }
-  }
-  gls.right[10] = {
-    UltestRunning = {
-      provider = function()
-        return vim.fn["ultest#status"]().running
-      end,
-      icon = "  ● ",
-      condition = ultest_is_test_file,
-      highlight = {colors.yellow, colors.bg}
-    }
-  }
-
-  gls.right[11] = {
-    FileFormat = {
-      provider = "FileFormat",
-      separator = " ",
-      separator_highlight = {colors.fg, colors.bg, "bold"},
-      highlight = {colors.fg, colors.bg, "bold"}
-    }
-  }
-  gls.right[12] = {
-    LineInfo = {
-      provider = "LineColumn",
-      separator = " ",
-      separator_highlight = {colors.blue, colors.bg},
-      highlight = {colors.fg, colors.bg}
-    }
-  }
-
-  gls.right[13] = {
-    PerCent = {
-      provider = "LinePercent",
-      separator = " ",
-      separator_highlight = {colors.bg, colors.bg},
-      highlight = {colors.cyan, colors.bg, "bold"}
+        end,
+        icon = "  ",
+        condition = ultest_is_test_file,
+        highlight = {colors.cyan, colors.bg}
+      }
+    },
+    {
+      UltestPassed = {
+        provider = function()
+          return vim.fn["ultest#status"]().passed
+        end,
+        icon = "  ● ",
+        condition = ultest_is_test_file,
+        highlight = {colors.green, colors.bg}
+      }
+    },
+    {
+      UltestFailed = {
+        provider = function()
+          return vim.fn["ultest#status"]().failed
+        end,
+        icon = "  ● ",
+        condition = ultest_is_test_file,
+        highlight = {colors.red, colors.bg}
+      }
+    },
+    {
+      UltestRunning = {
+        provider = function()
+          return vim.fn["ultest#status"]().running
+        end,
+        icon = "  ● ",
+        condition = ultest_is_test_file,
+        highlight = {colors.yellow, colors.bg}
+      }
+    },
+    {
+      FileFormat = {
+        provider = "FileFormat",
+        separator = " ",
+        separator_highlight = {colors.fg, colors.bg, "bold"},
+        highlight = {colors.fg, colors.bg, "bold"}
+      }
+    },
+    {
+      LineInfo = {
+        provider = "LineColumn",
+        separator = " ",
+        separator_highlight = {colors.blue, colors.bg},
+        highlight = {colors.fg, colors.bg}
+      }
+    },
+    {
+      PerCent = {
+        provider = "LinePercent",
+        separator = " ",
+        separator_highlight = {colors.bg, colors.bg},
+        highlight = {colors.cyan, colors.bg, "bold"}
+      }
     }
   }
 

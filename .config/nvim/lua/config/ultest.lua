@@ -28,13 +28,14 @@ function M.post()
     ["go#richgo"] = function(cmd)
       local args = {}
 
-      for i = 3, #cmd - 1, 1 do
+      for i = 3, #cmd, 1 do
         local arg = cmd[i]
         if vim.startswith(arg, "-") then
           arg = "-test." .. string.sub(arg, 2)
         end
         args[#args + 1] = arg
       end
+      print(vim.inspect(args))
       return {
         dap = {
           type = "go",

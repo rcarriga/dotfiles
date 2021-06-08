@@ -4,7 +4,7 @@ augroup FileTypeInit
     au!
     au BufNew,VimEnter *[jJ]enkins* setlocal ft=Jenkinsfile
     au BufNew,VimEnter *\.nix setlocal ft=nix
-   au BufNew,VimEnter *\.purs setlocal ft=purescript
+    au BufNew,VimEnter *\.purs setlocal ft=purescript
     au BufNew,VimEnter *\.dhall setlocal ft=dhall
     au BufNew,VimEnter \.babelrc setlocal ft=json
     au BufNew,VimEnter \.conf setlocal ft=conf

@@ -2,24 +2,7 @@ local M = {}
 
 function M.setup(on_attach, capabilities)
   local lsp_status = require("lsp-status")
-  -- local servers = {"tsserver", "hls", "gopls", "dockerls", "vimls", "bashls", "clangd"}
   require "lspinstall".setup()
-
-  -- local servers = {
-  --   "python",
-  --   "json",
-  --   "html",
-  --   "css",
-  --   "vue",
-  --   "yaml",
-  --   "efm",
-  --   "go",
-  --   "dockerfile",
-  --   "bash",
-  --   "lua",
-  --   "typescript",
-  --   "vim"
-  -- }
 
   local server_configs = {
     efm = {
@@ -32,6 +15,10 @@ function M.setup(on_attach, capabilities)
     },
     lua = require("lua-dev").setup(
       {
+        library = {
+          plugins = false,
+          types = false,
+        },
         lspconfig = {
           on_attach = on_attach,
           capabilities = capabilities
