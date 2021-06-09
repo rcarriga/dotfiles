@@ -6,8 +6,56 @@ function M.lua_map(args)
 end
 
 function M.line_diagnostics(client_id)
-  local win =
-    vim.lsp.diagnostic.show_line_diagnostics({border = "single"}, vim.fn.bufnr(), vim.fn.line(".") - 1, client_id)
+  vim.lsp.diagnostic.show_line_diagnostics({border = "single"}, vim.fn.bufnr(), vim.fn.line(".") - 1, client_id)
+end
+
+local windows = {}
+
+local open_floating_win = function(target, position)
+  local buffer = vim.uri_to_bufnr(target)
+
+  local bufpos = {vim.fn.line(".") - 1, vim.fn.col(".")} -- FOR relative='win'
+
+  local new_window =
+    vim.api.nvim_open_win(
+    buffer,
+    true,
+    {
+      relative = "win",
+      width = 120,
+      height = 15,
+      border = {"↖", "─", "┐", "│", "┘", "─", "└", "│"},
+      bufpos = bufpos,
+      win = vim.api.nvim_get_current_win()
+    }
+  )
+
+  vim.api.nvim_buf_set_option(buffer, "bufhidden", "wipe")
+
+  table.insert(windows, new_window)
+
+  vim.cmd [[
+    augroup close_float
+      au!
+      au WinClosed * lua require('config.lsp.util').remove_curr_win()
+    augroup end
+  ]]
+
+  vim.api.nvim_win_set_cursor(new_window, position)
+end
+
+function M.remove_curr_win()
+  local function tablefind(tab, el)
+    for index, value in pairs(tab) do
+      if value == el then
+        return index
+      end
+    end
+  end
+  local index = tablefind(windows, vim.api.nvim_get_current_win())
+  if index then
+    table.remove(windows, index)
+  end
 end
 
 local function make_prompt(opts)
@@ -56,6 +104,30 @@ function M.rename()
         return true
       end
     }
+  )
+end
+
+function M.preview(request)
+  local params = vim.lsp.util.make_position_params()
+  pcall(
+    vim.lsp.buf_request,
+    0,
+    request,
+    params,
+    function(_, _, result)
+      if not result then
+        return
+      end
+
+      local data = result[1]
+
+      local target = data.targetUri or data.uri
+      local range = data.targetRange or data.range
+
+      local cursor_position = {range.start.line + 1, range.start.character}
+
+      open_floating_win(target, cursor_position)
+    end
   )
 end
 
