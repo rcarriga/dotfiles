@@ -77,7 +77,7 @@ function M.setup()
     vim.lsp.with(
     vim.lsp.handlers.hover,
     {
-      border = "single"
+      border = vim.g.border_chars
     }
   )
 end

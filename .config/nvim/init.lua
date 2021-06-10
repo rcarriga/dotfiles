@@ -139,6 +139,8 @@ vim.opt.fixendofline = false
 
 -- Explicitly auto select regex engine
 vim.opt.regexpengine = 0
+
+vim.g.border_chars =  {"╭", "─", "╮", "│", "╯", "─", "╰", "│",}
 -- }}}1
 -- ###################################################################################
 -- Custom Mappings{{{1

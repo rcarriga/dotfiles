@@ -5,10 +5,10 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
-lua require('dap').set_log_level('DEBUG')
+
 
 let g:git_messenger_floating_win_opts = {
-   \ 'border': 'single'
+   \ 'border': g:border_chars
    \ }
 
 let g:indentLine_char = '🭰'
@@ -243,6 +243,7 @@ tnoremap <silent> <C-a> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent> <C-x> <C-\><C-n>:FloatermToggle<CR>
 tnoremap <silent> <C-n> <C-\><C-n>:FloatermNext<CR>
 tnoremap <silent> <C-p> <C-\><C-n>:FloatermPrev<CR>
+nnoremap <silent><leader>y :lua print(vim.inspect(require('nvim-treesitter.ts_utils').get_node_at_cursor()))<CR>
 
 " Testing functions
 nmap <silent><leader>tn :TestNearest<CR>
@@ -264,5 +265,4 @@ nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
 nmap <leader>vd <Plug>(ultest-debug-nearest)
-
 nnoremap <silent>sw :ISwap<CR>

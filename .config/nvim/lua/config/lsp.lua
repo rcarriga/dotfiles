@@ -41,7 +41,7 @@ function M.post()
         hint_enable = false,
         hi_parameter = "LspSelectedParam",
         handler_opts = {
-          border = "single"
+          border = vim.g.border_chars
         }
       }
     )
@@ -53,6 +53,7 @@ function M.post()
       gq = "vim.lsp.buf.references()",
       gr = "require('config.lsp.util').rename()",
       gD = "require('config.lsp.util').preview('textDocument/definition')",
+      gb = "require('config.lsp.util').previous_win()",
       ["<C-s>"] = "vim.lsp.buf.signature_help()",
       ["<space>la"] = "vim.lsp.buf.code_action()",
       ["<space>lt"] = "vim.lsp.buf.type_definition()",
