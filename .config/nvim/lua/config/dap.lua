@@ -10,8 +10,8 @@ function M.post()
     }
   )
 
-  vim.fn.sign_define("DapBreakpoint", {text = "🟢", texthl = "Error", linehl = "", numhl = ""})
-  vim.fn.sign_define("DapStopped", {text = "🟢", texthl = "Success", linehl = "", numhl = ""})
+  vim.fn.sign_define("DapBreakpoint", {text = "→", texthl = "Error", linehl = "", numhl = ""})
+  vim.fn.sign_define("DapStopped", {text = "→", texthl = "Success", linehl = "", numhl = ""})
 
   local dap = require("dap")
 

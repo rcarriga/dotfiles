@@ -20,7 +20,7 @@ function M.post()
         "--column",
         "--smart-case"
       },
-      file_ignore_patterns = { "workbench/.*"},
+      file_ignore_patterns = { "workbench/.*", "node_modules"},
       selection_strategy = "reset",
       layout_strategy = "horizontal",
       layout_config = {

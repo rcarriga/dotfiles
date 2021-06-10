@@ -42,7 +42,7 @@ local function loadHighlights(highlights)
 end
 
 local Normal = Grey5
-local Border = Orange
+local Border = Grey3
 local Decoration = Orange
 local Hidden = Grey3
 local BuiltIn = Red

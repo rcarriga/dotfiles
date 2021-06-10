@@ -52,7 +52,7 @@ require("packer").startup(
     }
     use {"neovimhaskell/haskell-vim"}
     use {
-      "/home/ronan/Dev/repos/vim-ultest",
+      "rcarriga/vim-ultest",
       config = "require('config.ultest').post()",
       keys = {"<Plug>(ultest-run-nearest)", "<Plug>(ultest-run-file)", "<Plug>(ultest-summary-toggle)"},
       requires = {"janko/vim-test", cmd = {"TestNearest", "TestFile"}}
@@ -68,7 +68,7 @@ require("packer").startup(
     use {"JoosepAlviste/nvim-ts-context-commentstring", requires = {"tpope/vim-commentary"}}
     use {"tpope/vim-abolish", cmd = "S"}
     use {"tpope/vim-eunuch", cmd = {"Rename", "Delete", "Remove", "Chmod"}}
-    use {"tpope/vim-fugitive", requires = {{"tpope/vim-rhubarb"}}}
+    use {"tpope/vim-fugitive", requires = {{"tpope/vim-rhubarb"}, {"shumphrey/fugitive-gitlab.vim"}}}
     use {"tpope/vim-unimpaired"}
     use {"voldikss/vim-floaterm", cmd = "FloatermNew"}
     use {"wbthomason/packer.nvim"}
@@ -89,7 +89,7 @@ require("packer").startup(
       config = "require('config.dap').post()",
       requires = {
         {"mfussenegger/nvim-dap-python"},
-        {"/home/ronan/Dev/repos/nvim-dap-ui"}
+        {"rcarriga/nvim-dap-ui"}
       }
     }
     use {

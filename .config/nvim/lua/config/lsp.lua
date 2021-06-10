@@ -64,6 +64,7 @@ function M.post()
     for keys, mapping in pairs(mappings) do
       lsp_util.lua_map({keys = keys, mapping = mapping, bufnr = bufnr})
     end
+    lsp_util.lua_map({keys = "<space>lf", mapping = "vim.lsp.buf.range_formatting()", bufnr = bufnr, mode = "x"})
   end
 
   require("config.lsp.settings").setup(on_attach, capabilities)

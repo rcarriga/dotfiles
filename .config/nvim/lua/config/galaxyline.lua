@@ -339,7 +339,10 @@ function M.post()
       CurrentFunction = {
         provider = function ()
           local res = vim.b.lsp_current_function
-          return res and res.." "
+          if res and #vim.trim(res) > 0 then
+            return res.." "
+          end
+          return nil
         end,
         icon = "  ",
         highlight = {colors.violet, colors.bg}

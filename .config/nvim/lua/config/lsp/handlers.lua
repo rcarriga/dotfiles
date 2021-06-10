@@ -62,7 +62,7 @@ function M.setup()
       },
       underline = false,
       virtual_text = {
-        prefix = "⚫"
+        prefix = "●"
       }
     }
   )

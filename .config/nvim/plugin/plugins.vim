@@ -5,7 +5,7 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
-
+let g:nvim_tree_disable_netrw = 0
 
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
@@ -13,7 +13,9 @@ let g:git_messenger_floating_win_opts = {
 
 let g:indentLine_char = '🭰'
 let g:indent_blankline_show_first_indent_level = v:false
-let g:indent_blankline_filetype_exclude = ['help',
+let g:indent_blankline_filetype_exclude = [
+      \ "",
+      \ 'help',
       \ "dapui_scopes",
       \ "dapui_stacks",
       \ "dapui_watches",
