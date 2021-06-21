@@ -44,5 +44,5 @@ export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
 export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
 export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad"
-export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/2.7.0/bin/"
+export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:$PATH"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh

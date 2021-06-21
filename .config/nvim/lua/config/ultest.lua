@@ -35,7 +35,6 @@ function M.post()
         end
         args[#args + 1] = arg
       end
-      print(vim.inspect(args))
       return {
         dap = {
           type = "go",

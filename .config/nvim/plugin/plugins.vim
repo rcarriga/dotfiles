@@ -245,7 +245,6 @@ tnoremap <silent> <C-a> <C-\><C-n>:FloatermNew<CR>
 tnoremap <silent> <C-x> <C-\><C-n>:FloatermToggle<CR>
 tnoremap <silent> <C-n> <C-\><C-n>:FloatermNext<CR>
 tnoremap <silent> <C-p> <C-\><C-n>:FloatermPrev<CR>
-nnoremap <silent><leader>y :lua print(vim.inspect(require('nvim-treesitter.ts_utils').get_node_at_cursor()))<CR>
 
 " Testing functions
 nmap <silent><leader>tn :TestNearest<CR>

@@ -33,7 +33,7 @@ function M.settings()
       },
       lua = {
         {
-          formatCommand = "luafmt -i 2 -l 120 --stdin",
+          formatCommand = "lua-format",
           formatStdin = true
         }
       },
