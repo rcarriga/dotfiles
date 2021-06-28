@@ -1,10 +1,5 @@
 local M = {}
 
-function M.lua_map(args)
-  local opts = {noremap = true, silent = true}
-  vim.api.nvim_buf_set_keymap(args.bufnr, args.mode or "n", args.keys, "<cmd>lua " .. args.mapping .. "<CR>", opts)
-end
-
 function M.line_diagnostics(client_id)
   vim.lsp.diagnostic.show_line_diagnostics(
     {border = vim.g.border_chars},

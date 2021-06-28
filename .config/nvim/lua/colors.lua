@@ -11,10 +11,12 @@ local Grey5 = ConstructColour("#F8F8F8")
 
 local Violet = ConstructColour("#D484FF")
 local Blue = ConstructColour("#2f628e")
+local DarkBlue = ConstructColour("#1C5361")
 local Cyan = ConstructColour("#00f1f5")
 local Green = ConstructColour("#A9FF68")
-local Green2 = ConstructColour("#2f7366")
+local DarkGreen = ConstructColour("#1F4D32")
 local Yellow = ConstructColour("#FFF59D")
+local DarkYellow = ConstructColour("#615E46")
 local Orange = ConstructColour("#F79000")
 local Red = ConstructColour("#F70067")
 local FloatBackground = ConstructColour("#132434")
@@ -128,10 +130,10 @@ loadHighlights(
     Conditional = {BuiltIn},
     Constant = {VarName},
     Define = {BuiltIn},
-    DiffAdd = {Success},
-    DiffChange = {Warning},
-    DiffDelete = {Error},
-    DiffText = {Error},
+    DiffAdd = {Background, DarkGreen},
+    DiffChange = {Background, DarkYellow},
+    DiffDelete = {Background, DarkBlue},
+    DiffText = {Background, DarkBlue},
     ErrorMsg = {Error},
     WarningMsg = {Warning},
     Float = {Val},
@@ -166,8 +168,8 @@ loadHighlights(
     haskellDeclKeyword = {BuiltIn},
     haskellLet = {BuiltIn},
     -- Vim Fugitive
-    diffRemoved = {Error},
-    diffAdded = {Success},
+    diffRemoved = {Background, Blue},
+    diffAdded = {Background, DarkGreen},
     -- HTML
     htmlTagName = {Key},
     htmlSpecialTagName = {BuiltIn},
@@ -265,10 +267,10 @@ loadHighlights(
     dosiniValue = {Val},
     dosiniHeader = {BuiltIn},
     -- Conflict Markers
-    ConflictMarkerBegin = {Transparent, Green2},
-    ConflictMarkerOurs = {Transparent, Green2},
-    ConflictMarkerTheirs = {Transparent, Blue},
-    ConflictMarkerEnd = {Transparent, Blue},
+    ConflictMarkerBegin = {Transparent, DarkGreen},
+    ConflictMarkerOurs = {Transparent, DarkGreen},
+    ConflictMarkerTheirs = {Transparent, DarkBlue},
+    ConflictMarkerEnd = {Transparent, DarkBlue},
     ConflictMarkerCommonAncestorsHunk = {Transparent, Red},
     -- TreeSitter
     TSError = {Error},

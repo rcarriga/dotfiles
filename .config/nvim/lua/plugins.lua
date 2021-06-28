@@ -15,6 +15,7 @@ end
 
 require("packer").startup(
   function(use)
+    use {"sindrets/diffview.nvim", config = "require('config.git').post()"}
     use {"steelsojka/pears.nvim", config = "require('config.autopairs').post()"}
     use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
     use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
