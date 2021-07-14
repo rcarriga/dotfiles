@@ -35,6 +35,9 @@ function M.post()
     debug = false,
     min_length = 1,
     preselect = "enable",
+    documentation = {
+      border = vim.g.border_chars
+    },
     source = {
       spell = true,
       path = true,

@@ -390,5 +390,8 @@ loadHighlights(
 
     -- LSP Signature
     LspSelectedParam = {Normal, "bold,underline"},
+
+    -- nvim-compe
+    CompeDocumentationBorder = {Border},
   }
 )

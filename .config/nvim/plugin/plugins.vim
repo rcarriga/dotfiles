@@ -5,7 +5,11 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
+let g:vimspector_enable_mappings = 'HUMAN'
+
 let g:nvim_tree_disable_netrw = 0
+
+lua require('dap').set_log_level('DEBUG')
 
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
@@ -20,6 +24,7 @@ let g:indent_blankline_filetype_exclude = [
       \ "dapui_stacks",
       \ "dapui_watches",
       \ "dapui_breakpoints",
+      \ "dapui_hover",
       \ "LuaTree",
       \ "dbui",
       \ "term",
@@ -80,9 +85,6 @@ let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 0
 
 
-" Set GoYo width
-let g:goyo_width = 100
-let g:goyo_linenr = 1
 
 
 let test#strategy = "floaterm"
@@ -184,7 +186,7 @@ nmap X <plug>(SubversiveSubstituteToEndOfLine)
 nmap <silent><leader>e <plug>WinWin
 
 " Distraction free writing
-nmap <silent><leader>z :Goyo<CR>
+nmap <silent><leader>z :ZenMode<CR>
 
 "Save current buffer
 nnoremap <leader>w :w<CR>

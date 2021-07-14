@@ -67,7 +67,7 @@ function M.setup()
     }
   )
   vim.lsp.handlers["textDocument/codeAction"] =
-    wrap_options({layout_strategy = "vertical", width = 50}, require("telescope.builtin").lsp_code_actions)
+    wrap_options({layout_strategy = "vertical", layout_config = {width = 100}}, require("telescope.builtin").lsp_code_actions)
   vim.lsp.handlers["textDocument/references"] =
     wrap_options({layout_strategy = "vertical"}, require("telescope.builtin").lsp_references)
   vim.lsp.handlers["textDocument/definition"] =

@@ -15,9 +15,11 @@ end
 
 require("packer").startup(
   function(use)
+    use {"folke/twilight.nvim", {"folke/zen-mode.nvim", config = "require('config.zen')"}}
+    use {"puremourning/vimspector"}
     use {"sindrets/diffview.nvim", config = "require('config.git').post()"}
     use {"steelsojka/pears.nvim", config = "require('config.autopairs').post()"}
-    use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+    use {"lukas-reineke/indent-blankline.nvim"}
     use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install"}
     use {"rafcamlet/nvim-luapad", cmd = "Luapad"}
     use {"mattn/emmet-vim"}
@@ -29,7 +31,6 @@ require("packer").startup(
     use {"godlygeek/tabular", cmd = "Tabularize"}
     use {"haya14busa/vim-asterisk", requires = {"haya14busa/is.vim"}}
     use {"AndrewRadev/splitjoin.vim", keys = {"gS", "gJ"}}
-    use {"junegunn/goyo.vim", cmd = "Goyo"}
     use {"kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()"}
     use {
       "kristijanhusak/vim-dadbod-ui",
@@ -104,8 +105,7 @@ require("packer").startup(
       }
     }
     use {
-      "rcarriga/nvim-compe",
-      branch = "feat/doc-border",
+      "hrsh7th/nvim-compe",
       event = {"InsertEnter"},
       config = "require('config.compe').post()",
       requires = {{"hrsh7th/vim-vsnip"}}
