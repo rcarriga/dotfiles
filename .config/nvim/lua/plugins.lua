@@ -48,7 +48,8 @@ require("packer").startup(
         "kabouzeid/nvim-lspinstall",
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
-        {"ray-x/lsp_signature.nvim"},
+        "folke/trouble.nvim",
+        "ray-x/lsp_signature.nvim",
         {"onsails/lspkind-nvim", config = "require('lspkind').init({with_text = false})"}
       }
     }

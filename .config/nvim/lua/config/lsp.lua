@@ -18,6 +18,9 @@ vim.lsp.util.close_preview_autocmd = function(events, winnr)
 end
 
 function M.post()
+  require("trouble").setup({
+    position = "right"
+  })
   local lsp_status = require("lsp-status")
   lsp_status.register_progress()
   util.multilineCommand [[
@@ -46,7 +49,7 @@ function M.post()
       }
     )
     local mappings = {
-      gd = "vim.lsp.buf.definition()",
+      gd = "vim.cmd('Trouble lsp_definitions')",
       ge = "require('config.lsp.util').line_diagnostics(" .. client.id .. ")",
       K = "vim.lsp.buf.hover()",
       gi = "vim.lsp.buf.implementation()",
