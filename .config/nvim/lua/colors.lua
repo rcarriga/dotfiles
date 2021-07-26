@@ -11,12 +11,11 @@ local Grey5 = ConstructColour("#F8F8F8")
 
 local Violet = ConstructColour("#D484FF")
 local Blue = ConstructColour("#2f628e")
-local DarkBlue = ConstructColour("#1C5361")
+local DarkBlue = ConstructColour("#00435f")
 local Cyan = ConstructColour("#00f1f5")
 local Green = ConstructColour("#A9FF68")
-local DarkGreen = ConstructColour("#1F4D32")
+local DarkGreen = ConstructColour("#00695c")
 local Yellow = ConstructColour("#FFF59D")
-local DarkYellow = ConstructColour("#615E46")
 local Orange = ConstructColour("#F79000")
 local Red = ConstructColour("#F70067")
 local FloatBackground = ConstructColour("#132434")
@@ -131,7 +130,7 @@ loadHighlights(
     Constant = {VarName},
     Define = {BuiltIn},
     DiffAdd = {Background, DarkGreen},
-    DiffChange = {Background, DarkYellow},
+    DiffChange = {Background, Grey1},
     DiffDelete = {Background, DarkBlue},
     DiffText = {Background, DarkBlue},
     ErrorMsg = {Error},

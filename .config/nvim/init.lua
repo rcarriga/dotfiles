@@ -101,7 +101,7 @@ vim.opt.mouse = "a"
 -- Preview changes when using search and replace
 vim.opt.inccommand = "nosplit"
 -- vim.opt.characters for after foldtext, eof, foldcolumn
-vim.opt.fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,eob: "
+vim.opt.fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,diff: ,eob: "
 
 
 -- Jump to existing window when opening buffer already opened

@@ -11,6 +11,7 @@ local lsp_definitions = function(opts)
   local params = vim.lsp.util.make_position_params()
   local action =  "textDocument/definition"
   local result, err = vim.lsp.buf_request_sync(0, action, params, opts.timeout or 10000)
+  print(vim.inspect(result))
   if err then
     vim.api.nvim_err_writeln("Error when executing " .. action .. " : " .. err)
     return

@@ -57,6 +57,8 @@ function M.post()
       gr = "require('config.lsp.util').rename()",
       gD = "require('config.lsp.util').preview('textDocument/definition')",
       gb = "require('config.lsp.util').previous_win()",
+      ["]d"] = "require('config.lsp.util').jump_to_diagnostic(1)",
+      ["[d"] = "require('config.lsp.util').jump_to_diagnostic(-1)",
       ["<C-s>"] = "vim.lsp.buf.signature_help()",
       ["<space>la"] = "vim.lsp.buf.code_action()",
       ["<space>lt"] = "vim.lsp.buf.type_definition()",

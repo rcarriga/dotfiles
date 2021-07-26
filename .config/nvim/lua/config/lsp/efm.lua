@@ -3,6 +3,7 @@ local M = {}
 function M.settings()
   local shfmt = {formatCommand = "shfmt -ci -s -bn", formatStdin = true}
   local prettier = {
+    formatStdin = true,
     formatCommand = ([[
         prettier
         ${--config-precedence:configPrecedence}
@@ -13,6 +14,11 @@ function M.settings()
       "\n",
       ""
     )
+  }
+  local cai_lint = {
+    lintCommand = [[cai-lint]],
+    lintStdin = false,
+    lintFormats = {"\\w* %l:%c\\s*%m"}
   }
   return {
     rootMarkers = {".git/"},
@@ -26,7 +32,7 @@ function M.settings()
       bash = {shfmt},
       sh = {shfmt},
       yaml = {prettier},
-      json = {prettier},
+      -- json = {prettier},
       go = {
         {formatCommand = "goimports", formatStdin = true},
         {formatCommand = "gofumpt", formatStdin = true}

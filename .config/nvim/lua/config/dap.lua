@@ -4,7 +4,6 @@ function M.post()
   require("dapui").setup(
     {
       sidebar = {width = 80},
-      tray = {},
       floating = {max_width = 0.9, max_height = 0.9},
     }
   )

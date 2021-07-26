@@ -92,7 +92,7 @@ require("packer").startup(
       config = "require('config.dap').post()",
       requires = {
         {"mfussenegger/nvim-dap-python"},
-        {"rcarriga/nvim-dap-ui"}
+        {"rcarriga/nvim-dap-ui", branch="feat/better-state-management"}
       }
     }
     use {
@@ -102,7 +102,9 @@ require("packer").startup(
         {"mizlan/iswap.nvim", config = "require('iswap').setup({})"},
         {"nvim-treesitter/playground"},
         {"nvim-treesitter/nvim-treesitter-textobjects"},
-        {"nvim-treesitter/nvim-treesitter-refactor"}
+        {"nvim-treesitter/nvim-treesitter-refactor"},
+        {"stsewd/sphinx.nvim"},
+        {"mfussenegger/nvim-ts-hint-textobject"}
       }
     }
     use {

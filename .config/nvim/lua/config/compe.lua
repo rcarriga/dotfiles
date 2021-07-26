@@ -34,6 +34,10 @@ function M.post()
     enabled = true,
     debug = false,
     min_length = 1,
+    documentation = {
+
+    border = vim.g.border_chars,
+    },
     preselect = "enable",
     documentation = {
       border = vim.g.border_chars

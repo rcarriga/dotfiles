@@ -8,7 +8,6 @@ augroup END
 let g:vimspector_enable_mappings = 'HUMAN'
 
 let g:nvim_tree_disable_netrw = 0
-
 lua require('dap').set_log_level('DEBUG')
 
 let g:git_messenger_floating_win_opts = {
@@ -90,7 +89,7 @@ let g:mkdp_auto_close = 0
 let test#strategy = "floaterm"
 let test#python#runner = "pytest"
 let test#javascript#runner = "jest"
-let test#go#runner = "richgo"
+let test#go#runner = "gotest"
 
 " Open undo tree on right
 let g:mundo_right = 1
@@ -99,21 +98,22 @@ let g:mundo_right = 1
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
-let g:doge_doc_standard_python = "numpy"
+let g:doge_doc_standard_python = "sphinx"
 
 let g:ultest_attach_width = 180
 let g:ultest_virtual_text = 0
 let g:ultest_output_cols = 120
 let g:ultest_max_threads = 4
 let g:ultest_use_pty = 1
+let g:ultest_pass_sign = " "
+let g:ultest_fail_sign = " "
+let g:ultest_running_sign = " "
 
 let g:signify_sign_add               = "\u258B"
 let g:signify_sign_delete            = "\u258B"
 let g:signify_sign_delete_first_line = "\u258B"
 let g:signify_sign_change            = "\u258B"
 
-let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.5, 'yoffset': 0.1, 'highlight': 'Border' } }
-let g:fzf_preview_window = 'right:60%'
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -121,14 +121,6 @@ let g:fzf_preview_window = 'right:60%'
 function! s:isOverWhitespace() abort
   let col = col(".") - 1
   return !col || getline(".")[col - 1]  =~# "\s"
-endfunction
-
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
 
 function! CleanNoNameEmptyBuffers()
@@ -154,13 +146,6 @@ augroup NvimAuCommands
   au!
   au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
 augroup END
-
-" }}}1
-" ###################################################################################
-" Custom Commands {{{1
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
 
 " }}}1
 " ###################################################################################
@@ -237,10 +222,6 @@ vnoremap <M-k> <Cmd>lua require'dapui'.eval()<cr>
 nnoremap <silent> <M-m> :lua require'dapui'.float_element()<cr>
 nnoremap <silent> <M-v> :lua require'dapui'.float_element("scopes")<cr>
 nnoremap <silent> <M-r> :lua require'dapui'.float_element("repl")<cr>
-
-inoremap <expr> <c-x><c-f> fzf#vim#complete#path('rg --files --hidden')
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
-inoremap <expr> <c-x><c-l> fzf#vim#complete#line()
 
 nnoremap <silent><leader>f :FloatermToggle<CR>
 tnoremap <silent> <C-a> <C-\><C-n>:FloatermNew<CR>

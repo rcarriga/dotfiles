@@ -4,6 +4,13 @@ function M.setup(on_attach, capabilities)
   local lsp_status = require("lsp-status")
   require"lspinstall".setup()
 
+  local function file_exists(name)
+     local f=io.open(name,"r")
+     if f~=nil then io.close(f) return true else return false end
+  end
+
+  -- local py_path = file_exists("Pipfile") and vim.fn.system("pipenv --py") or "python"
+
   local server_configs = {
     efm = {
       filetypes = {
@@ -43,7 +50,12 @@ function M.setup(on_attach, capabilities)
     python = {
       handlers = lsp_status.extensions.pyls_ms.setup(),
       on_attach = on_attach,
-      capabilities = capabilities,
+      settings = {
+        python = {
+          pythonPath = "python"
+        },
+      },
+      capabilities = capabilities
     },
     vue = {
       on_attach = on_attach,

@@ -23,7 +23,10 @@ function M.post()
           ["<C-k>"] = actions.move_selection_previous,
           ["<esc>"] = actions.close,
         },
-      },
+        n = {
+          ["q"] = actions.close
+        }
+      }
     },
     extensions = {
       fzf = {
