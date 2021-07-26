@@ -5,30 +5,30 @@ T='#DEDEDECC'  # text
 W='#DEDEDECC'  # wrong
 
 i3lock \
---insidevercolor=$B   \
---ringvercolor=$B     \
+--insidever-color=$B   \
+--ringver-color=$B     \
 \
---insidewrongcolor=$B \
---ringwrongcolor=$B   \
+--insidewrong-color=$B \
+--ringwrong-color=$B   \
 \
---insidecolor=$B      \
---ringcolor=$B        \
---linecolor=$B        \
---separatorcolor=$B   \
+--inside-color=$B      \
+--ring-color=$B        \
+--line-color=$B        \
+--separator-color=$B   \
 \
---verifcolor=$B        \
---wrongcolor=$T        \
---timecolor=$T        \
---datecolor=$T        \
---layoutcolor=$B      \
---keyhlcolor=$W       \
---bshlcolor=$W        \
+--verif-color=$B        \
+--wrong-color=$T        \
+--time-color=$T        \
+--date-color=$T        \
+--layout-color=$B      \
+--keyhl-color=$W       \
+--bshl-color=$W        \
 \
 -p win \
 --screen 1            \
 --blur 10              \
 --clock               \
 --indicator           \
---timestr="%H:%M"  \
+--time-str="%H:%M"  \
 --keylayout 1         \
---wrongtext="Incorrect Password"
+--wrong-text="Incorrect Password"
