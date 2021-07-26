@@ -4,3 +4,4 @@ zmodule completion
 zmodule zdharma/fast-syntax-highlighting
 zmodule romkatv/powerlevel10k
 zmodule skywind3000/z.lua -c 'eval "$(lua {}/z.lua --init zsh enhanced once fzf)"'
+zmodule jeffreytse/zsh-vi-mode
