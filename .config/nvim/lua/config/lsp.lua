@@ -1,26 +1,7 @@
 local M = {}
-local lsp_util = require("config.lsp.util")
 local util = require("util")
 
-vim.lsp.util.close_preview_autocmd = function(events, winnr)
-  -- I prefer to keep the preview (especially for signature_help) open while typing in insert mode
-  events =
-    vim.tbl_filter(
-    function(v)
-      return v ~= "CursorMovedI" and v ~= "BufLeave"
-    end,
-    events
-  )
-  vim.api.nvim_command(
-    "autocmd " ..
-      table.concat(events, ",") .. " <buffer> ++once lua pcall(vim.api.nvim_win_close, " .. winnr .. ", true)"
-  )
-end
-
 function M.post()
-  require("trouble").setup({
-    position = "right"
-  })
   local lsp_status = require("lsp-status")
   lsp_status.register_progress()
   util.multilineCommand [[
@@ -35,10 +16,9 @@ function M.post()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 
-  local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
     lsp_status.on_attach(client)
-    lsp_sig.on_attach(
+    require("lsp_signature").on_attach(
       {
         bind = true,
         hint_enable = false,
@@ -53,7 +33,7 @@ function M.post()
       ge = "require('config.lsp.util').line_diagnostics(" .. client.id .. ")",
       K = "vim.lsp.buf.hover()",
       gi = "vim.lsp.buf.implementation()",
-      gq = "vim.lsp.buf.references()",
+      gq = "vim.cmd('Trouble lsp_references')",
       gr = "require('config.lsp.util').rename()",
       gD = "require('config.lsp.util').preview('textDocument/definition')",
       gb = "require('config.lsp.util').previous_win()",

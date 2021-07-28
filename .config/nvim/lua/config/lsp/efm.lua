@@ -39,7 +39,7 @@ function M.settings()
       },
       lua = {
         {
-          formatCommand = "lua-format",
+          formatCommand = "stylua -",
           formatStdin = true
         }
       },

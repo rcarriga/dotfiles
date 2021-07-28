@@ -1,5 +1,6 @@
 local M = {}
 function M.post()
+  require('lspkind').init({with_text = false})
   local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
   end

@@ -45,11 +45,7 @@ let g:nvim_tree_git_hl = 1
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_follow = 1
 let g:nvim_tree_auto_close = 1
-
-map *  <Plug>(asterisk-z*)<Plug>(is-nohl-1)
-map g* <Plug>(asterisk-gz*)<Plug>(is-nohl-1)
-map #  <Plug>(asterisk-z#)<Plug>(is-nohl-1)
-map g# <Plug>(asterisk-gz#)<Plug>(is-nohl-1)
+let g:nvim_tree_width = 45
 
 let g:bufferline = { "closable" : 0  }
 
@@ -57,8 +53,6 @@ let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 let g:Hexokinase_optOutPatterns = [ "colour_names" ]
 
 nnoremap <silent> <leader>a :BufferPick<CR>
-
-let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
 
 let g:twiggy_num_columns = 50
 
@@ -203,7 +197,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
 nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :lua require("telescope.builtin").grep_string({search = ""})<CR>
+nmap <silent><leader>dg :Telescope live_grep debounce=100<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>

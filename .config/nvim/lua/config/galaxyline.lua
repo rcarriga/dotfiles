@@ -36,18 +36,18 @@ function M.post()
     orange = "#F79000",
     red = "#F70067"
   }
-  local function has_vcs_status()
-    local branch = vcs.get_git_branch()
-    if type(branch) == "string" and branch ~= "" then
-      return true
-    end
-    for _, v in pairs({vcs.diff_add(), vcs.diff_modified(), vcs.diff_remove()}) do
-      if v ~= nil then
-        return true
-      end
-    end
-    return false
-  end
+  -- local function has_vcs_status()
+  --   local branch = vcs.get_git_branch()
+  --   if type(branch) == "string" and branch ~= "" then
+  --     return true
+  --   end
+  --   for _, v in pairs({vcs.diff_add(), vcs.diff_modified(), vcs.diff_remove()}) do
+  --     if v ~= nil then
+  --       return true
+  --     end
+  --   end
+  --   return false
+  -- end
 
   local function has_file_type()
     local f_type = vim.bo.filetype
@@ -233,7 +233,7 @@ function M.post()
   }
 
   local spinner_frames = {"⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"}
-  function lsp_status(status)
+  local function lsp_status(status)
     local buf_messages = require("lsp-status").messages()
     if vim.tbl_isempty(buf_messages) then
       return ""

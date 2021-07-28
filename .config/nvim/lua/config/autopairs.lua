@@ -5,6 +5,7 @@ function M.post()
     function(conf)
       conf.preset "tag_matching"
       conf.expand_on_enter(true)
+      conf.disabled_filetypes({"dap-repl", "dapui_watches", "dapui_scopes", "dapui_hover"})
       conf.on_enter(
         function(pears_handle)
           if vim.fn.pumvisible() == 1 and vim.fn.complete_info().selected ~= -1 then

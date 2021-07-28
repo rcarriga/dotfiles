@@ -1,8 +1,4 @@
 local M = {}
-local finders = require("telescope.finders")
-local make_entry = require("telescope.make_entry")
-local pickers = require("telescope.pickers")
-local conf = require("telescope.config").values
 
 local lsp_definitions = function(opts)
   opts = opts or {}
@@ -11,7 +7,6 @@ local lsp_definitions = function(opts)
   local params = vim.lsp.util.make_position_params()
   local action =  "textDocument/definition"
   local result, err = vim.lsp.buf_request_sync(0, action, params, opts.timeout or 10000)
-  print(vim.inspect(result))
   if err then
     vim.api.nvim_err_writeln("Error when executing " .. action .. " : " .. err)
     return
@@ -31,13 +26,14 @@ local lsp_definitions = function(opts)
       print("Error opening locations " .. locations)
       return
     end
-    pickers.new(
+    local conf = require("telescope.config").values
+    require("telescope.pickers").new(
       opts,
       {
         prompt_title = "LSP Definitions",
-        finder = finders.new_table {
+        finder = require("telescope.finders").new_table {
           results = locations,
-          entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts)
+          entry_maker = opts.entry_maker or require("telescope.make_entry").gen_from_quickfix(opts)
         },
         previewer = conf.qflist_previewer(opts),
         sorter = conf.generic_sorter(opts)
@@ -49,7 +45,11 @@ end
 local function wrap_options(custom, handler)
   return function(opts)
     opts = opts and vim.tbl_extend(opts, custom) or custom
-    handler(opts)
+    if type(handler) == "string" then
+      require("telescope.builtin")[handler](opts)
+    else
+      handler(opts)
+    end
   end
 end
 
@@ -68,12 +68,12 @@ function M.setup()
     }
   )
   vim.lsp.handlers["textDocument/codeAction"] =
-    wrap_options({layout_strategy = "vertical", layout_config = {width = 100}}, require("telescope.builtin").lsp_code_actions)
+    wrap_options({layout_strategy = "vertical", layout_config = {width = 100}}, "lsp_code_actions")
   vim.lsp.handlers["textDocument/references"] =
-    wrap_options({layout_strategy = "vertical"}, require("telescope.builtin").lsp_references)
+    wrap_options({layout_strategy = "vertical"}, "lsp_references")
   vim.lsp.handlers["textDocument/definition"] =
     wrap_options({layout_strategy = "vertical"}, lsp_definitions)
-  vim.lsp.handlers["textDocument/documentSymbol"] = (require("telescope.builtin").lsp_document_symbols)
+  vim.lsp.handlers["textDocument/documentSymbol"] = function (opts) require("telescope.builtin").lsp_document_symbols(opts) end
   vim.lsp.handlers["textDocument/hover"] =
     vim.lsp.with(
     vim.lsp.handlers.hover,
