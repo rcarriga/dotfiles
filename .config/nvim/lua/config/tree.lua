@@ -1,6 +1,5 @@
 local M = {}
 
-function M.pre()
-end
+function M.pre() end
 
 return M

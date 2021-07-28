@@ -1,5 +1,5 @@
 local util = require("util")
-util.multilineCommand [[
+util.multilineCommand([[
 augroup FileTypeInit
     au!
     au BufNew,VimEnter *[jJ]enkins* setlocal ft=Jenkinsfile
@@ -10,19 +10,19 @@ augroup FileTypeInit
     au BufNew,VimEnter \.conf setlocal ft=conf
     au Filetype dockerfile setlocal ft=Dockerfile
 augroup END
-]]
+]])
 
-util.multilineCommand [[
+util.multilineCommand([[
 augroup NicerTerminal
     au!
     au BufEnter term://* normal i
 augroup END
-]]
+]])
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt="menu,menuone,noselect"
+vim.opt.completeopt = "menu,menuone,noselect"
 
 -- Disable modelines (Vim commands in files)
 vim.opt.modeline = false
@@ -30,7 +30,7 @@ vim.opt.modeline = false
 -- Always have a sign column
 vim.opt.signcolumn = "yes"
 
-vim.cmd [[color haslo]]
+vim.cmd([[color haslo]])
 
 -- Indents word-wrapped lines as much as the 'parent' line
 vim.opt.breakindent = true
@@ -40,7 +40,7 @@ vim.opt.formatoptions = "l"
 vim.opt.linebreak = true
 
 -- Allow filetype specific plugins and indenting
-vim.cmd [[filetype plugin indent on]]
+vim.cmd([[filetype plugin indent on]])
 
 -- Always on statusline
 vim.opt.laststatus = 2
@@ -64,7 +64,7 @@ vim.opt.number = true
 vim.opt.backspace = "indent,eol,start"
 
 -- Setup tabs to be 4 spaces
-vim.cmd [[set tabstop=2 softtabstop=0 expandtab shiftwidth=0 smarttab]]
+vim.cmd([[set tabstop=2 softtabstop=0 expandtab shiftwidth=0 smarttab]])
 
 -- Opens new panes below and to right of current
 vim.opt.splitbelow = true
@@ -79,8 +79,8 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.autoread = true
 
 -- Save edit history between sessions
-vim.cmd [[ set undofile ]]
-vim.opt.undodir = vim.fn.expand "~/.cache/nvim/undodir"
+vim.cmd([[ set undofile ]])
+vim.opt.undodir = vim.fn.expand("~/.cache/nvim/undodir")
 
 -- Don't unload buffers when left
 vim.opt.hidden = true
@@ -103,7 +103,6 @@ vim.opt.inccommand = "nosplit"
 -- vim.opt.characters for after foldtext, eof, foldcolumn
 vim.opt.fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,diff: ,eob: "
 
-
 -- Jump to existing window when opening buffer already opened
 vim.opt.switchbuf = "useopen"
 
@@ -114,7 +113,7 @@ vim.g.mapleader = " "
 vim.opt.viewoptions = "cursor,folds,slash,unix"
 
 -- Show unwanted characters
-vim.cmd "set listchars=tab:╍╍,nbsp:_,trail:·"
+vim.cmd("set listchars=tab:╍╍,nbsp:_,trail:·")
 vim.opt.list = false
 
 -- Keep a buffer of 10 lines/columns between cursor and edge when scrolling
@@ -126,10 +125,10 @@ vim.opt.pyxversion = 3
 vim.opt.wrap = false
 
 -- Text to appear on folded line
-util.multilineCommand [[
+util.multilineCommand([[
 let FoldText = {-> substitute(getline(v:foldstart),"\s*{{{[0-9]\s*$","","")." ▶"}
 set foldtext=FoldText()
-]]
+]])
 
 -- Use patience algorithm for diffs
 vim.opt.diffopt = "internal,filler,closeoff,algorithm:patience"
@@ -140,11 +139,11 @@ vim.opt.fixendofline = false
 -- Explicitly auto select regex engine
 vim.opt.regexpengine = 0
 
-vim.g.border_chars =  {"╭", "─", "╮", "│", "╯", "─", "╰", "│",}
+vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 -- }}}1
 -- ###################################################################################
 -- Custom Mappings{{{1
-util.multilineCommand [[
+util.multilineCommand([[
 inoremap <TAB> <C-n>
 
 " Don't waste time holding shift for commands
@@ -185,6 +184,6 @@ onoremap ie :exec "normal! ggVG"<cr>
 
 " Find highlight group under cursor for changing colorschemes
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-]]
+]])
 
-vim.cmd [[command! Plugins lua require("plugins").update() ]]
+vim.cmd([[command! Plugins lua require("plugins").update() ]])
