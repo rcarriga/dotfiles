@@ -140,6 +140,9 @@ vim.opt.fixendofline = false
 vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+
+require("notify")
+
 -- }}}1
 -- ###################################################################################
 -- Custom Mappings{{{1
