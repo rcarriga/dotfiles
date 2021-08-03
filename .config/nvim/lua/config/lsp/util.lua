@@ -122,27 +122,4 @@ function M.preview(request)
 	end)
 end
 
-function M.jump_to_diagnostic(direction)
-	local diagnostics = vim.lsp.diagnostic.get(0)
-	local positions = vim.tbl_map(function(val)
-		return { val.range.start.line + 1, val.range.start.character }
-	end, diagnostics)
-	local cur_pos = vim.fn.getcurpos()
-	if direction == 1 then
-		for _, position in ipairs(positions) do
-			if position[1] > cur_pos[2] then
-				vim.fn.setpos(".", { 0, position[1], position[2], cur_pos[4] })
-				return
-			end
-		end
-	else
-		for _, position in ipairs(vim.fn.reverse(positions)) do
-			if position[1] < cur_pos[2] then
-				vim.fn.setpos(".", { 0, position[1], position[2], cur_pos[4] })
-				return
-			end
-		end
-	end
-end
-
 return M

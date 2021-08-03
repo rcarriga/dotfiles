@@ -14,11 +14,11 @@ function M.update()
 end
 
 require("packer").startup(function(use)
+  use({"/home/ronan/Dev/repos/nvim-notify"})
 	use({
 		"folke/twilight.nvim",
 		cmd = "Twilight",
-		opt = true,
-		requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()", opt = true },
+		requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()", cmd = "ZenMode" },
 	})
 	use({ "sindrets/diffview.nvim", cmd = "DiffviewOpen", config = "require('config.git').post()" })
 	use({ "steelsojka/pears.nvim", config = "require('config.autopairs').post()" })
@@ -101,7 +101,7 @@ require("packer").startup(function(use)
 		"hrsh7th/nvim-compe",
 		event = { "InsertEnter" },
 		config = "require('config.compe').post()",
-		requires = { { "hrsh7th/vim-vsnip", opt = true }, { "onsails/lspkind-nvim" } },
+		requires = { { "hrsh7th/vim-vsnip" }, { "onsails/lspkind-nvim" } },
 	})
 end)
 return M
