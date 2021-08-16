@@ -25,7 +25,7 @@ function M.post()
 				},
 			}
 		end,
-		["go#richgo"] = function(cmd)
+		["go#gotest"] = function(cmd)
 			local args = {}
 
 			for i = 3, #cmd, 1 do

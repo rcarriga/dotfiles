@@ -391,4 +391,7 @@ loadHighlights({
 
 	-- nvim-compe
 	CompeDocumentationBorder = { Border },
+
+  --nvim-cmp
+  CmpDocumentationBorder = { Border },
 })

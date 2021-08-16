@@ -1,43 +1,33 @@
 local M = {}
 
+local function setup_null_ls()
+	local null_ls = require("null-ls")
+	local blt = null_ls.builtins
+
+	null_ls.config({
+		sources = {
+			require("null-ls").builtins.formatting.stylua,
+			blt.formatting.black,
+			blt.formatting.goimports,
+			blt.formatting.gofumpt,
+      blt.formatting.isort,
+      blt.formatting.prettier,
+      null_ls.builtins.formatting.shfmt,
+		},
+	})
+end
+
 function M.setup(on_attach, capabilities)
 	local lsp_status = require("lsp-status")
 	require("lspinstall").setup()
 
-	local function file_exists(name)
-		local f = io.open(name, "r")
-		if f ~= nil then
-			io.close(f)
-			return true
-		else
-			return false
-		end
-	end
-
-	-- local py_path = file_exists("Pipfile") and vim.fn.system("pipenv --py") or "python"
+  setup_null_ls()
+	require("lspconfig")["null-ls"].setup({
+		on_attach = on_attach,
+		capabilities = capabilities,
+	})
 
 	local server_configs = {
-		efm = {
-			filetypes = {
-				"python",
-				"typescript",
-				"html",
-				"json",
-				"css",
-				"vue",
-				"javascript",
-				"zsh",
-				"sh",
-				"bash",
-				"go",
-				"lua",
-			},
-			on_attach = on_attach,
-			capabilities = capabilities,
-			root_dir = vim.loop.cwd,
-			settings = require("config.lsp.efm").settings(),
-			init_options = { documentFormatting = true },
-		},
 		lua = require("lua-dev").setup({
 			library = { plugins = { "plenary.nvim" }, types = false },
 			lspconfig = {
@@ -66,24 +56,16 @@ function M.setup(on_attach, capabilities)
 			on_attach = on_attach,
 			init_options = {
 				config = {
-					css = {},
-					emmet = {},
-					html = { suggest = {} },
-					javascript = { format = {} },
-					stylusSupremacy = {},
-					typescript = { format = {} },
 					vetur = {
 						experimental = { templateInterpolationService = true },
 						completion = {
 							autoImport = true,
 							tagCasing = "kebab",
-							useScaffoldSnippets = false,
+							useScaffoldSnippets = true,
 						},
 						format = {
-							defaultFormatter = { js = "none", ts = "none" },
-							defaultFormatterOptions = {},
-							scriptInitialIndent = false,
-							styleInitialIndent = false,
+							scriptInitialIndent = true,
+							styleInitialIndent = true,
 						},
 						useWorkspaceDependencies = false,
 						validation = { script = true, style = true, template = true },

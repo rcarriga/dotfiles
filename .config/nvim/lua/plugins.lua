@@ -15,13 +15,13 @@ end
 
 require("packer").startup(function(use)
   use({"/home/ronan/Dev/repos/nvim-notify"})
+  use({"jose-elias-alvarez/null-ls.nvim"})
 	use({
 		"folke/twilight.nvim",
 		cmd = "Twilight",
 		requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()", cmd = "ZenMode" },
 	})
 	use({ "sindrets/diffview.nvim", cmd = "DiffviewOpen", config = "require('config.git').post()" })
-	use({ "steelsojka/pears.nvim", config = "require('config.autopairs').post()" })
 	use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
 	use({ "MTDL9/vim-log-highlighting" })
 	use({ "glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()" })
@@ -75,7 +75,7 @@ require("packer").startup(function(use)
 		requires = {
 			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 			{ "nvim-lua/popup.nvim" },
-			{ "nvim-lua/plenary.nvim", branch = "async_jobs_v2" },
+			{ "nvim-lua/plenary.nvim" },
 			{ "kyazdani42/nvim-web-devicons" },
 		},
 	})
@@ -98,10 +98,16 @@ require("packer").startup(function(use)
 		},
 	})
 	use({
-		"hrsh7th/nvim-compe",
-		event = { "InsertEnter" },
-		config = "require('config.compe').post()",
-		requires = { { "hrsh7th/vim-vsnip" }, { "onsails/lspkind-nvim" } },
+		"hrsh7th/nvim-cmp",
+		config = "require('config.completion').post()",
+		requires = {
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-calc" },
+			{ "hrsh7th/cmp-vsnip" },
+			{ "hrsh7th/vim-vsnip" },
+			{ "onsails/lspkind-nvim" },
+		},
 	})
 end)
 return M

@@ -7,6 +7,7 @@ augroup END
 
 let g:vimspector_enable_mappings = 'HUMAN'
 
+
 let g:nvim_tree_disable_netrw = 0
 lua require('dap').set_log_level('DEBUG')
 
@@ -148,10 +149,6 @@ augroup END
 autocmd FileType dbui nmap <buffer> l <Plug>(DBUI_SelectLine)
 
 nnoremap <silent><leader>x :NvimTreeToggle<CR>
-
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-
 
 nmap <leader>s <plug>(SubversiveSubstituteRange)
 xmap <leader>s <plug>(SubversiveSubstituteRange)
