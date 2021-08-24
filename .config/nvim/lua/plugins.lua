@@ -97,17 +97,19 @@ require("packer").startup(function(use)
 			{ "mfussenegger/nvim-ts-hint-textobject" },
 		},
 	})
-	use({
-		"hrsh7th/nvim-cmp",
-		config = "require('config.completion').post()",
-		requires = {
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-calc" },
-			{ "hrsh7th/cmp-vsnip" },
-			{ "hrsh7th/vim-vsnip" },
-			{ "onsails/lspkind-nvim" },
-		},
-	})
+	-- use({
+	-- 	"hrsh7th/nvim-cmp",
+	-- 	config = "require('config.completion').post()",
+	-- 	requires = {
+	-- 		{ "hrsh7th/cmp-nvim-lsp" },
+	-- 		{ "hrsh7th/cmp-buffer" },
+	-- 		{ "hrsh7th/cmp-calc" },
+	-- 		{ "hrsh7th/cmp-vsnip" },
+	-- 		{ "hrsh7th/vim-vsnip" },
+	-- 		{ "onsails/lspkind-nvim" },
+	-- 	},
+	-- })
+  use { 'ms-jpq/coq_nvim', branch = 'coq', setup = "require('config.completion').pre()"} -- main one
+  use { 'ms-jpq/coq.artifacts', branch= 'artifacts'} -- 9000+ Snippets
 end)
 return M

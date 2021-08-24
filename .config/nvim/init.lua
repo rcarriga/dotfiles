@@ -147,8 +147,6 @@ vim.notify = require("notify")
 -- ###################################################################################
 -- Custom Mappings{{{1
 util.multilineCommand([[
-inoremap <TAB> <C-n>
-
 " Don't waste time holding shift for commands
 map ; :
 noremap ;; ;
