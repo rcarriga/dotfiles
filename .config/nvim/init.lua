@@ -143,7 +143,9 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-pcall(require, "impatient")
+require("impatient").enable_profile()
+
+pcall(require, "my_packer")
 
 local exists, notify = pcall(require,"notify")
 if exists then
