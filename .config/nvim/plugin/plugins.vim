@@ -119,11 +119,6 @@ let g:ultest_pass_sign = " "
 let g:ultest_fail_sign = " "
 let g:ultest_running_sign = " "
 
-let g:signify_sign_add               = "\u258B"
-let g:signify_sign_delete            = "\u258B"
-let g:signify_sign_delete_first_line = "\u258B"
-let g:signify_sign_change            = "\u258B"
-
 " }}}1
 " ###################################################################################
 " Functions {{{1
@@ -186,23 +181,12 @@ nnoremap <silent><leader>q :BufferClose<CR>
 "Cycle between last two open buffers
 nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
 
-" Open config directory
-
-" Git functions and text objects with vim-fugitive and signify
 nmap <silent><leader>gs :vertical Git \| vertical resize 50 <CR>
 nmap <silent><leader>gp :Git push<CR>
-nmap <silent><leader>gb :Twiggy<CR>
 nmap <silent><leader>gl :Git blame<CR>
-nmap <silent><leader>gf :SignifyFold!<CR>
-nmap <silent><leader>gu :SignifyHunkUndo<CR>
-nmap <silent><leader>gi :SignifyHunkDiff<CR>
 nmap <silent><leader>go :ConflictMarkerOurselves<CR>
 nmap <silent><leader>gt :ConflictMarkerThemselves<CR>
 nmap <silent><leader>gc :ConflictMarkerBoth<CR>
-omap ic <plug>(signify-motion-inner-pending)
-xmap ic <plug>(signify-motion-inner-visual)
-omap ac <plug>(signify-motion-outer-pending)
-xmap ac <plug>(signify-motion-outer-visual)
 
 " Toggle UndoTree window
 nmap <silent><leader>u :MundoToggle<CR>

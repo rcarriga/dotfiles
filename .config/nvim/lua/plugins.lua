@@ -15,15 +15,19 @@ end
 
 require("packer").startup(function(use)
   use({ "Vimjas/vim-python-pep8-indent" })
+  use({ "lewis6991/impatient.nvim" })
   use({ "jose-elias-alvarez/null-ls.nvim" })
   use({ "git@github.com:rcarriga/nvim-notify" })
   use({ "git@github.com:rcarriga/nvim-lift-imports-py" })
   use({
     "folke/twilight.nvim",
-    cmd = "Twilight",
-    requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()", cmd = "ZenMode" },
+    requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()" },
   })
-  use({ "sindrets/diffview.nvim", cmd = "DiffviewOpen", config = "require('config.git').post()" })
+  use({
+    "sindrets/diffview.nvim",
+    requires = { "lewis6991/gitsigns.nvim" },
+    config = "require('config.git').post()",
+  })
   use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
   use({ "MTDL9/vim-log-highlighting" })
   use({ "glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()" })
@@ -37,7 +41,6 @@ require("packer").startup(function(use)
   })
   use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
   use({ "machakann/vim-sandwich" })
-  use({ "mhinz/vim-signify" })
   use({
     "neovim/nvim-lspconfig",
     config = "require('config.lsp').post()",
@@ -45,7 +48,7 @@ require("packer").startup(function(use)
       "kabouzeid/nvim-lspinstall",
       "nvim-lua/lsp-status.nvim",
       "folke/lua-dev.nvim",
-      { "folke/trouble.nvim", cmd = "Trouble", config = "require('trouble').setup({})" },
+      { "folke/trouble.nvim", config = "require('trouble').setup({})" },
       "ray-x/lsp_signature.nvim",
     },
   })

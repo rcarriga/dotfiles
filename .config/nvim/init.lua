@@ -143,7 +143,13 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-vim.notify = require("notify")
+pcall(require, "impatient")
+
+local exists, notify = pcall(require,"notify")
+if exists then
+  vim.notify = notify
+end
+
 
 -- }}}1
 -- ###################################################################################
