@@ -5,22 +5,22 @@ function M.post()
 
   require("gitsigns").setup({
     signs = {
-      add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+      add = { hl = "GitSignsAdd", text = "┃", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
       change = {
         hl = "GitSignsChange",
-        text = "│",
+        text = "┃",
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },
       delete = {
         hl = "GitSignsDelete",
-        text = "_",
+        text = "┃",
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
       topdelete = {
         hl = "GitSignsDelete",
-        text = "‾",
+        text = "┳",
         numhl = "GitSignsDeleteNr",
         linehl = "GitSignsDeleteLn",
       },
@@ -39,13 +39,13 @@ function M.post()
       -- Default keymap options
       noremap = true,
 
-      ["n ]c"] = {
+      ["n ]h"] = {
         expr = true,
-        "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'",
+        "&diff ? ']h' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'",
       },
-      ["n [c"] = {
+      ["n [h"] = {
         expr = true,
-        "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'",
+        "&diff ? '[h' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'",
       },
 
       ["n <leader>hs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',

@@ -45,7 +45,7 @@ function M.post()
       ["<space>la"] = "vim.lsp.buf.code_action()",
       ["<space>lt"] = "vim.lsp.buf.type_definition()",
       ["<space>ls"] = "vim.lsp.buf.document_symbol()",
-      ["<space>lf"] = "vim.lsp.buf.formatting()"
+      ["<space>lf"] = "vim.lsp.buf.formatting_sync()"
     }
 
     for keys, mapping in pairs(mappings) do
