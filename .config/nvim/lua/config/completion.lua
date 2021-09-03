@@ -1,8 +1,30 @@
 local M = {}
 function M.pre()
+  vim.cmd(
+    [[ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"]]
+  )
+
   vim.g.coq_settings = {
-    auto_start = true,
+    auto_start = "shut-up",
+    clients = {
+      lsp = {
+        weight_adjust = 2,
+      },
+      tree_sitter = {
+        weight_adjust = -1,
+      },
+      buffers = {
+        weight_adjust = -0.5,
+      }
+    },
+    keymap = {
+      recommended = false,
+      jump_to_mark = "<C-s>",
+    },
     display = {
+      icons = {
+        mode = "short",
+      },
       preview = {
         positions = { north = 2, south = 3, west = 4, east = 1 },
       },

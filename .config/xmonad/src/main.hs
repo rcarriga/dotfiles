@@ -59,7 +59,7 @@ main = do
   mode <- fromMaybe "xmonad" <$> lookupEnv "XMONAD_MODE"
   let workspaceNameFile = "/tmp/" <> mode
   safeSpawn "mkfifo" [workspaceNameFile]
-  xmonad $
+  launch $
     ewmh $
       ewmhFullscreen $
         docks
@@ -94,6 +94,8 @@ myStartupHook mode = do
   mapM_
     spawn
     [ "pkill polybar; sleep 1; polybar " <> mode,
+      "copyq",
+      "pkill flameshot; flameshot",
       "/usr/lib/notification-daemon-1.0/notification-daemon",
       "pgrep redshift-gtk || redshift-gtk -l 53:-6 -t 6500:2500",
       "pgrep nm-applet || nm-applet",
@@ -142,7 +144,8 @@ myKeys mode =
     ("M-S-b", withFocused toggleBorder),
     ("M-u", setWallpaper),
     ("M-p", spawn "xset r rate 150 40 && setxkbmap -layout gb"),
-    ("M-v", startScript "session")
+    ("M-v", startScript "session"),
+    ("M-m", spawn "kitty -e nvim -c 'startinsert' -c 'set buftype=nofile' -c 'autocmd VimLeave * norm \"+zyie'")
   ]
 
 -- ######################################################################################

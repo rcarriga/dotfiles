@@ -22,7 +22,7 @@ augroup END
 vim.g.python3_host_prog = "/usr/bin/python3"
 
 -- Set completeopt to have a better completion experience
-vim.opt.completeopt = "menu,menuone,noselect"
+vim.opt.completeopt = "menuone,noselect,noinsert"
 
 -- Disable modelines (Vim commands in files)
 vim.opt.modeline = false
@@ -58,6 +58,8 @@ vim.opt.timeoutlen = 1000
 
 -- Show numbers relative to current line
 vim.opt.relativenumber = true
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
 vim.opt.number = true
 
 -- Make backspace work as expected
@@ -178,7 +180,7 @@ inoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
 inoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
 
 " Select entire buffer
-onoremap ie :exec "normal! ggVG"<cr>
+onoremap ie :exec "normal! gg0vG$"<cr>
 
 " Enter normal mode with escape in terminal
 " tnoremap <silent> <ESC> <C-\><C-N>

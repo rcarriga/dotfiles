@@ -47,6 +47,21 @@ let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_follow = 1
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_width = 45
+let g:nvim_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★"
+    \   },
+    \ 'folder': {
+    \   'default': "▾",
+    \   'open': "▸"
+    \   }
+    \ }
 
 let g:bufferline = { "closable" : 0  }
 
