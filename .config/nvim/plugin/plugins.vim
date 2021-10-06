@@ -193,7 +193,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
 nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :Telescope live_grep debounce=100<CR>
+nmap <silent><leader>dg :Telescope grep_string search="" debounce=100<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
@@ -229,6 +229,7 @@ nmap <silent><leader>tm :make test<CR>
 nmap <silent><leader>to :!firefox coverage/index.html<CR>
 nmap <leader>vf <Plug>(ultest-run-file)
 nmap <leader>vn <Plug>(ultest-run-nearest)
+nmap <leader>vl <Plug>(ultest-run-last)
 nmap <leader>vj <Plug>(ultest-next-fail)
 nmap <leader>vk <Plug>(ultest-prev-fail)
 nmap <leader>vg <Plug>(ultest-output-jump)
@@ -239,4 +240,3 @@ nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
 nmap <leader>vd <Plug>(ultest-debug-nearest)
-nnoremap <silent>sw :ISwap<CR>

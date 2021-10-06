@@ -63,7 +63,7 @@ function M.post()
       ["o ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
       ["x ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
     },
-    watch_index = {
+    watch_gitdir = {
       interval = 1000,
       follow_files = true,
     },

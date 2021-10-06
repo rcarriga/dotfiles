@@ -59,7 +59,7 @@ main = do
   mode <- fromMaybe "xmonad" <$> lookupEnv "XMONAD_MODE"
   let workspaceNameFile = "/tmp/" <> mode
   safeSpawn "mkfifo" [workspaceNameFile]
-  launch $
+  xmonad $
     ewmh $
       ewmhFullscreen $
         docks

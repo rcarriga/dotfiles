@@ -1,4 +1,8 @@
 local util = require("util")
+P = function(...)
+  print(vim.inspect(...))
+end
+
 util.multilineCommand([[
 augroup FileTypeInit
     au!
@@ -143,15 +147,14 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-require("impatient").enable_profile()
+require("impatient")
 
 pcall(require, "my_packer")
 
-local exists, notify = pcall(require,"notify")
+local exists, notify = pcall(require, "notify")
 if exists then
   vim.notify = notify
 end
-
 
 -- }}}1
 -- ###################################################################################

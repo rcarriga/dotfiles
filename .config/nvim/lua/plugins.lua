@@ -17,8 +17,12 @@ end
 
 packer.startup({
   config = {
-    compile_path  = fn.stdpath("config") .. "/lua/my_packer.lua",
-    display = { open_fn = function() return require("packer.util").float({ border = vim.g.border_chars }) end },
+    compile_path = fn.stdpath("config") .. "/lua/my_packer.lua",
+    display = {
+      open_fn = function()
+        return require("packer.util").float({ border = vim.g.border_chars })
+      end,
+    },
     profile = { enable = 1 },
   },
   function(use)
@@ -41,12 +45,6 @@ packer.startup({
     use({ "glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()" })
     use({ "godlygeek/tabular", cmd = "Tabularize" })
     use({ "kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()" })
-    use({
-      "kristijanhusak/vim-dadbod-ui",
-      cmd = { "DBUI" },
-      requires = { "tpope/vim-dadbod", opt = true },
-      { "kristijanhusak/vim-dadbod-completion", opt = true },
-    })
     use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
     use({ "machakann/vim-sandwich" })
     use({
@@ -56,7 +54,6 @@ packer.startup({
         "kabouzeid/nvim-lspinstall",
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
-        { "folke/trouble.nvim", config = "require('trouble').setup({})" },
         "ray-x/lsp_signature.nvim",
       },
     })
@@ -67,8 +64,8 @@ packer.startup({
       keys = {
         "<Plug>(ultest-run-nearest)",
         "<Plug>(ultest-run-file)",
-        "<Plug>(ultest-summary-toggle)",
       },
+      cmd = { "UltestSummary" },
       requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" } },
     })
     use({ "rhysd/git-messenger.vim", keys = "<leader>gm" })
@@ -115,7 +112,12 @@ packer.startup({
         { "mfussenegger/nvim-ts-hint-textobject" },
       },
     })
-    use({ "ms-jpq/coq_nvim", branch = "coq", setup = "require('config.completion').pre()" })
+    use({
+      "ms-jpq/coq_nvim",
+      branch = "coq",
+      setup = "require('config.completion').pre()",
+      event = "InsertEnter",
+    })
     use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
   end,
 })
