@@ -10,6 +10,7 @@ export GOPATH="$HOME/.go"
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 export BAT_THEME="Monokai Extended Origin"
 export ZVM_VI_SURROUND_BINDKEY="s-prefix"
+export PIPENV_VENV_IN_PROJECT=1
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" -g \"!undodir\" --hidden --color never --follow"
