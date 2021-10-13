@@ -29,7 +29,7 @@ packer.startup({
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "git@github.com:rcarriga/nvim-notify" })
+    use({ "git@github.com:rcarriga/nvim-notify", config = "require('config.notify').post()" })
     use({ "git@github.com:rcarriga/nvim-lift-imports-py" })
     use({
       "folke/twilight.nvim",
@@ -42,10 +42,10 @@ packer.startup({
     })
     use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
     use({ "MTDL9/vim-log-highlighting" })
-    use({ "glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()" })
+    use({ "NTBBloodbath/galaxyline.nvim", config = "require('config.galaxyline').post()" })
     use({ "godlygeek/tabular", cmd = "Tabularize" })
     use({ "kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()" })
-    use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
+    use({ "kyazdani42/nvim-tree.lua", config = "require('config.filetree').post()" })
     use({ "machakann/vim-sandwich" })
     use({
       "neovim/nvim-lspconfig",

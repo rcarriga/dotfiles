@@ -147,7 +147,7 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-require("impatient")
+pcall(require, "impatient")
 
 pcall(require, "my_packer")
 

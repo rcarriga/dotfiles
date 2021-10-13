@@ -109,7 +109,7 @@ function M.setup(on_attach, capabilities)
   local function setup_servers()
     require("lspinstall").setup()
     local servers = require("lspinstall").installed_servers()
-    for _, server in pairs(vim.list_extend({ "hie" }, servers)) do
+    for _, server in pairs(vim.list_extend({ "hls" }, servers)) do
       nvim_lsp[server].setup(server_configs[server] or {
         on_attach = on_attach,
         capabilities = capabilities,

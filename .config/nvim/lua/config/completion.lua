@@ -8,14 +8,18 @@ function M.pre()
     auto_start = "shut-up",
     clients = {
       lsp = {
-        weight_adjust = 2,
+        weight_adjust = 1,
+      },
+      snippets = {
+        enabled = false,
       },
       tree_sitter = {
         weight_adjust = -1,
       },
       buffers = {
         weight_adjust = -0.5,
-      }
+        enabled = false,
+      },
     },
     keymap = {
       recommended = false,
@@ -32,39 +36,10 @@ function M.pre()
   }
 end
 function M.post()
-  require("lspkind").init({ with_text = false })
-  require("cmp_nvim_lsp").setup({})
-  local cmp = require("cmp")
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-
-    documentation = {
-      border = vim.g.border_chars,
-      winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-    },
-
-    mapping = {
-      ["<C-p>"] = cmp.mapping.prev_item(),
-      ["<C-n>"] = cmp.mapping.next_item(),
-      ["<C-d>"] = cmp.mapping.scroll(-4),
-      ["<C-f>"] = cmp.mapping.scroll(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Replace,
-        select = true,
-      }),
-    },
-    sources = {
-      { name = "nvim_lsp" },
-      { name = "vsnip" },
-      { name = "buffer" },
-      { name = "calc" },
-    },
+  require("coq_3p")({
+    -- { src = "nvimlua", short_name = "nvim" },
+    { src = "bc", short_name = "MATH", precision = 6 },
+    { src = "figlet", short_name = "BIG" },
   })
 end
 return M

@@ -20,7 +20,7 @@ function M.post()
 				"--smart-case",
 				"--hidden",
 			},
-			file_ignore_patterns = { "workbench/.*" },
+			file_ignore_patterns = { "workbench/.*", ".git/.*" },
 			selection_strategy = "reset",
 			layout_strategy = "horizontal",
 			mappings = {

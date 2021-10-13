@@ -88,7 +88,7 @@ local function make_prompt(opts)
 	if opts.initial then
 		vim.cmd("norm i" .. opts.initial)
 	end
-	vim.cmd("startinsert")
+	vim.cmd("startinsert!")
 
 	return prompt_buf, prompt_window
 end
@@ -98,6 +98,7 @@ function M.rename()
 	local params = vim.lsp.util.make_position_params()
 	make_prompt({
 		prompt = " → ",
+    initial = vim.fn.expand("<cword>"),
 		callback = function(new_name)
 			if not (new_name and #new_name > 0) then
 				return true
@@ -111,7 +112,7 @@ end
 
 function M.preview(request)
 	local params = vim.lsp.util.make_position_params()
-	pcall(vim.lsp.buf_request, 0, request, params, function(_, _, result)
+	pcall(vim.lsp.buf_request, 0, request, params, function(_, result, _)
 		if not result then
 			return
 		end
@@ -120,6 +121,11 @@ function M.preview(request)
 		local range = data.targetRange or data.range
 		open_preview_win(target, { range.start.line + 1, range.start.character })
 	end)
+end
+
+function M.show_codelens()
+  local lenses = vim.lsp.codelens.get(0)
+
 end
 
 return M

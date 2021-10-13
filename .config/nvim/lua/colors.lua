@@ -11,13 +11,13 @@ local Grey5 = ConstructColour("#F8F8F8")
 
 local Violet = ConstructColour("#D484FF")
 local Blue = ConstructColour("#2f628e")
-local DarkBlue = ConstructColour("#00435f")
 local Cyan = ConstructColour("#00f1f5")
 local Green = ConstructColour("#A9FF68")
-local DarkGreen = ConstructColour("#00695c")
+local DarkGreen = ConstructColour("#07463e")
 local Yellow = ConstructColour("#FFF59D")
 local Orange = ConstructColour("#F79000")
 local Red = ConstructColour("#F70067")
+local DarkRed = ConstructColour("#8A1F1F")
 local FloatBackground = ConstructColour("#132434")
 local Background = ConstructColour("NONE")
 
@@ -131,8 +131,8 @@ loadHighlights(
     Define = {BuiltIn},
     DiffAdd = {Background, DarkGreen},
     DiffChange = {Background, Grey1},
-    DiffDelete = {Background, DarkBlue},
-    DiffText = {Background, DarkBlue},
+    DiffDelete = {Background, DarkRed},
+    DiffText = {Background, DarkRed},
     ErrorMsg = {Error},
     WarningMsg = {Warning},
     Float = {Val},
@@ -167,7 +167,7 @@ loadHighlights(
     haskellDeclKeyword = {BuiltIn},
     haskellLet = {BuiltIn},
     -- Vim Fugitive
-    diffRemoved = {Background, Blue},
+    diffRemoved = {Background, DarkRed},
     diffAdded = {Background, DarkGreen},
     -- HTML
     htmlTagName = {Key},
@@ -268,8 +268,8 @@ loadHighlights(
     -- Conflict Markers
     ConflictMarkerBegin = {Transparent, DarkGreen},
     ConflictMarkerOurs = {Transparent, DarkGreen},
-    ConflictMarkerTheirs = {Transparent, DarkBlue},
-    ConflictMarkerEnd = {Transparent, DarkBlue},
+    ConflictMarkerTheirs = {Transparent, DarkRed},
+    ConflictMarkerEnd = {Transparent, DarkRed},
     ConflictMarkerCommonAncestorsHunk = {Transparent, Red},
     -- TreeSitter
     TSError = {Error},
@@ -342,10 +342,10 @@ loadHighlights(
     BufferTabpages = {Info, "bold"},
     BufferTabpageFill = {Grey3},
     -- LSP
-    LspDiagnosticsDefaultError = {Error},
-    LspDiagnosticsDefaultWarning = {Warning},
-    LspDiagnosticsDefaultInformation = {Info},
-    LspDiagnosticsDefaultHint = {Hidden},
+    DiagnosticsError = {Error},
+    DiagnosticsWarning = {Warning},
+    DiagnosticsInformation = {Info},
+    DiagnosticsHint = {Hidden},
     -- Lsp saga
     LspFloatWinBorder = {Border},
     ProviderTruncateLine = {Hidden},
@@ -384,6 +384,7 @@ loadHighlights(
     LspSagaCodeActionBorder = {Border},
     LspSagaAutoPreview = {Yellow},
     LspSagaDefPreviewBorder = {Border},
+    LspCodeLens = {TypeName, "italic"},
     IndentBlanklineChar = {Grey2},
     IndentBlanklineContextChar = {Key},
 	-- LSP Signature

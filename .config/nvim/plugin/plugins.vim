@@ -8,7 +8,6 @@ augroup END
 let g:vimspector_enable_mappings = 'HUMAN'
 
 
-let g:nvim_tree_disable_netrw = 0
 lua require('dap').set_log_level('DEBUG')
 
 let g:git_messenger_floating_win_opts = {
@@ -44,9 +43,6 @@ let g:user_emmet_leader_key='<C-X>'
 
 let g:nvim_tree_git_hl = 1
 let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_follow = 1
-let g:nvim_tree_auto_close = 1
-let g:nvim_tree_width = 45
 let g:nvim_tree_icons = {
     \ 'default': '',
     \ 'symlink': '',
