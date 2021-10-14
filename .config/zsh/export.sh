@@ -5,7 +5,7 @@ export TERM=xterm-kitty
 export MANPATH="/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export SCRIPT_DIR=$HOME/.config/scripts
-export MANPAGER="nvim -c \"set ft=man nomod nonumber\" -"
+export MANPAGER='nvim +Man!'
 export GOPATH="$HOME/.go"
 export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 export BAT_THEME="Monokai Extended Origin"

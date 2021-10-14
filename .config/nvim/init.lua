@@ -29,7 +29,7 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 vim.opt.completeopt = "menuone,noselect,noinsert"
 
 -- Disable modelines (Vim commands in files)
-vim.opt.modeline = false
+vim.opt.modeline = true
 
 -- Always have a sign column
 vim.opt.signcolumn = "yes"
@@ -62,7 +62,7 @@ vim.opt.timeoutlen = 1000
 
 -- Show numbers relative to current line
 vim.opt.relativenumber = true
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 vim.opt.cursorlineopt = "number"
 vim.opt.number = true
 
@@ -175,6 +175,8 @@ noremap <Up> <C-y>
 noremap <Down> <C-e>
 noremap <Left> zh
 noremap <Right> zl
+
+nnoremap <S-q> q:
 
 " Switch windows with Ctrl + regular direction keys
 nnoremap <silent> <C-h> <C-w><C-h>

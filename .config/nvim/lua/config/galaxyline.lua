@@ -3,7 +3,7 @@ local M = {}
 function M.post()
 	local gl = require("galaxyline")
 	local gls = gl.section
-	local vcs = require("galaxyline.provider_vcs")
+	local vcs = require("galaxyline.providers.vcs")
 
 	gl.short_line_list = {
 		"dapui_scopes",
@@ -149,7 +149,7 @@ function M.post()
 		FileIcon = {
 			provider = "FileIcon",
 			condition = buffer_not_empty,
-			highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg },
+			highlight = { require("galaxyline.providers.fileinfo").get_file_icon_color, colors.bg },
 		},
 	}
 

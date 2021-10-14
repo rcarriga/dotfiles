@@ -26,6 +26,7 @@ packer.startup({
     profile = { enable = 1 },
   },
   function(use)
+    use({ "nvim-neorg/neorg", config = "require('config.org').post()" })
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
@@ -112,13 +113,15 @@ packer.startup({
         { "mfussenegger/nvim-ts-hint-textobject" },
       },
     })
+    use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
+    use({ "ms-jpq/coq.thirdparty" })
     use({
       "ms-jpq/coq_nvim",
       branch = "coq",
       setup = "require('config.completion').pre()",
+      config = "require('config.completion').post()",
       event = "InsertEnter",
     })
-    use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
   end,
 })
 return M
