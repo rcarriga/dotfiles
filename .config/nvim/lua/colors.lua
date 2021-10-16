@@ -207,6 +207,7 @@ loadHighlights(
     markdownCodeDelimiter = {BuiltIn},
     markdownRule = {BuiltIn},
     markdownUrl = {Key},
+    markdownEscape = {Normal},
     -- Makefile
     makeCommands = {Normal, "bold"},
     -- vim-signature

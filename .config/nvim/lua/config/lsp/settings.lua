@@ -19,7 +19,6 @@ end
 
 function M.setup(on_attach, capabilities)
   local lsp_status = require("lsp-status")
-  require("lspinstall").setup()
 
   setup_null_ls()
   require("lspconfig")["null-ls"].setup({
@@ -51,7 +50,7 @@ function M.setup(on_attach, capabilities)
   end
 
   local server_configs = {
-    lua = require("lua-dev").setup({
+    sumneko_lua = require("lua-dev").setup({
       library = { plugins = { "plenary.nvim" }, types = false },
       lspconfig = {
         on_attach = on_attach,
@@ -65,7 +64,7 @@ function M.setup(on_attach, capabilities)
         },
       },
     }),
-    python = {
+    pyright = {
       handlers = lsp_status.extensions.pyls_ms.setup(),
       on_attach = on_attach,
       before_init = function(_, config)
@@ -78,25 +77,46 @@ function M.setup(on_attach, capabilities)
       },
       capabilities = capabilities,
     },
-    vue = {
+    volar = {
       on_attach = on_attach,
       init_options = {
-        config = {
-          vetur = {
-            -- experimental = { templateInterpolationService = true },
-            completion = {
-              autoImport = true,
-              tagCasing = "kebab",
-              useScaffoldSnippets = true,
-            },
-            useWorkspaceDependencies = false,
-            validation = { script = true, style = true, template = true },
+        documentFeatures = {
+          documentColor = false,
+          documentFormatting = {
+            defaultPrintWidth = 100,
           },
-          flags = { debounce_text_changes = 150 },
+          documentSymbol = true,
+          foldingRange = true,
+          linkedEditingRange = true,
+          selectionRange = true,
+        },
+        languageFeatures = {
+          callHierarchy = true,
+          codeAction = true,
+          codeLens = true,
+          completion = {
+            defaultAttrNameCase = "kebabCase",
+            defaultTagNameCase = "both",
+          },
+          definition = true,
+          diagnostics = true,
+          documentHighlight = true,
+          documentLink = true,
+          hover = true,
+          references = true,
+          rename = true,
+          renameFileRefactoring = true,
+          schemaRequestService = true,
+          semanticTokens = false,
+          signatureHelp = true,
+          typeDefinition = true,
+        },
+        typescript = {
+          serverPath = "",
         },
       },
     },
-    yaml = {
+    yamlls = {
       on_attach = on_attach,
       init_options = {
         config = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
@@ -104,25 +124,14 @@ function M.setup(on_attach, capabilities)
     },
   }
 
-  local nvim_lsp = require("lspconfig")
+  local lsp_installer = require("nvim-lsp-installer")
 
-  local function setup_servers()
-    require("lspinstall").setup()
-    local servers = require("lspinstall").installed_servers()
-    for _, server in pairs(vim.list_extend({ "hls" }, servers)) do
-      nvim_lsp[server].setup(server_configs[server] or {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-    end
-  end
-
-  setup_servers()
-
-  -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-  require("lspinstall").post_install_hook = function()
-    setup_servers() -- reload installed servers
-    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-  end
+  lsp_installer.on_server_ready(function(server)
+    server:setup(server_configs[server.name] or {
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+    vim.cmd([[ do User LspAttachBuffers ]])
+  end)
 end
 return M

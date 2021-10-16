@@ -12,18 +12,6 @@ local function wrap_options(custom, handler)
 end
 
 function M.setup()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      signs = {
-        priority = 5,
-      },
-      underline = false,
-      virtual_text = {
-        prefix = "●",
-      },
-    }
-  )
   vim.lsp.handlers["textDocument/codeAction"] = wrap_options(
     { layout_strategy = "vertical", layout_config = { width = 100 } },
     "lsp_code_actions"
