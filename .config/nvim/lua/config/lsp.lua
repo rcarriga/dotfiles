@@ -5,16 +5,20 @@ function M.post()
   local lsp_status = require("lsp-status")
   lsp_status.register_progress()
   vim.diagnostic.config({
-      signs = {
-        priority = 5,
-      },
-      underline = false,
-      virtual_text = {
-        prefix = "●",
-        source = "always",
-      },
-      severity_sort = true,
-    })
+    signs = {
+      priority = 5,
+    },
+    underline = false,
+    virtual_text = {
+      prefix = "●",
+      source = "always",
+    },
+    float = {
+      show_header = false,
+      border = vim.g.border_chars,
+    },
+    severity_sort = true,
+  })
   util.multilineCommand([[
     sign define DiagnosticSignError text=▶ texthl=DiagnosticsError numhl=DiagnosticsError
     sign define DiagnosticSignWarn text=▶ texthl=DiagnosticsWarning numhl=DiagnosticsWarning
@@ -24,21 +28,21 @@ function M.post()
 
   require("config.lsp.handlers").setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
-	capabilities.textDocument.completion.completionItem.preselectSupport = true
-	capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-	capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-	capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-	capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-	capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-	capabilities.textDocument.completion.completionItem.resolveSupport = {
-		properties = {
-			"documentation",
-			"detail",
-			"additionalTextEdits",
-		},
-	}
+  capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.preselectSupport = true
+  capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+  capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+  capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+  capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+  capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+  capabilities.textDocument.completion.completionItem.resolveSupport = {
+    properties = {
+      "documentation",
+      "detail",
+      "additionalTextEdits",
+    },
+  }
   capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
 
   local lsp_sig = require("lsp_signature")
@@ -61,7 +65,8 @@ function M.post()
 
     local mappings = {
       gd = "vim.lsp.buf.definition()",
-      ge = "require('config.lsp.util').line_diagnostics()",
+      gt = "vim.lsp.buf.type_definition()",
+      ge = "vim.diagnostic.open_float(0, { scope = 'line' })",
       K = "vim.lsp.buf.hover()",
       gi = "vim.lsp.buf.implementation()",
       gq = "vim.lsp.buf.references()",
@@ -69,8 +74,8 @@ function M.post()
       gD = "require('config.lsp.util').preview('textDocument/definition')",
       gb = "require('config.lsp.util').previous_win()",
       gL = "vim.lsp.codelens.run()",
-      ["]d"] = "vim.diagnostic.goto_next({popup_opts = { border = vim.g.border_chars }})",
-      ["[d"] = "vim.diagnostic.goto_prev({popup_opts = { border = vim.g.border_chars }})",
+      ["]d"] = "vim.diagnostic.goto_next()",
+      ["[d"] = "vim.diagnostic.goto_prev()",
       ["<C-s>"] = "vim.lsp.buf.signature_help()",
       ["<space>la"] = "vim.lsp.buf.code_action()",
       ["<space>lt"] = "vim.lsp.buf.type_definition()",

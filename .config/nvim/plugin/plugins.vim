@@ -5,11 +5,6 @@ augroup GalaxylineEvents
   au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
 augroup END
 
-let g:vimspector_enable_mappings = 'HUMAN'
-
-
-lua require('dap').set_log_level('DEBUG')
-
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
    \ }
@@ -93,7 +88,7 @@ let g:mkdp_auto_close = 0
 
 
 let test#strategy = "floaterm"
-let test#python#runner = "pytest"
+let test#python#runner = "pyunit"
 let test#javascript#runner = "jest"
 let test#go#runner = "gotest"
 
@@ -114,6 +109,7 @@ let g:ultest_use_pty = 1
 let g:ultest_pass_sign = " "
 let g:ultest_fail_sign = " "
 let g:ultest_running_sign = " "
+let g:ultest_output_on_run = 0
 
 " }}}1
 " ###################################################################################

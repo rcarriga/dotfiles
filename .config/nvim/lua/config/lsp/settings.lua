@@ -6,7 +6,9 @@ local function setup_null_ls()
 
   null_ls.config({
     sources = {
-      require("null-ls").builtins.formatting.stylua,
+      blt.formatting.stylua.with({
+        extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
+      }),
       blt.formatting.black,
       blt.formatting.goimports,
       blt.formatting.gofumpt,

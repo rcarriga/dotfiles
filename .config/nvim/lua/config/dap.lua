@@ -4,7 +4,7 @@ function M.post()
   require("dapui").setup({
     mappings = {
       -- Use a table to apply multiple mappings
-      expand = { "<CR>", "<LeftMouse>", "w" },
+      expand = { "<CR>", "<LeftMouse>" },
       open = "o",
       remove = "d",
       edit = "e",
@@ -23,31 +23,32 @@ function M.post()
   local dap_python = require("dap-python")
 
   dap_python.setup("~/.cache/virtualenvs/debugpy/bin/python", { include_configs = false })
-  dap.configurations.python = dap.configurations.python or {}
-  table.insert(dap.configurations.python, {
-    type = "python",
-    request = "launch",
-    name = "Launch file",
-    justMyCode = false,
-    program = "${file}",
-    console = "internalConsole",
-  })
-  table.insert(dap.configurations.python, {
-    type = "python",
-    request = "attach",
-    name = "Attach remote",
-    justMyCode = false,
-    host = function()
-      local value = vim.fn.input("Host [127.0.0.1]: ")
-      if value ~= "" then
-        return value
-      end
-      return "127.0.0.1"
-    end,
-    port = function()
-      return tonumber(vim.fn.input("Port [5678]: ")) or 5678
-    end,
-  })
+  dap.configurations.python = {
+    {
+      type = "python",
+      request = "launch",
+      name = "Launch file",
+      justMyCode = false,
+      program = "${file}",
+      console = "internalConsole",
+    },
+    {
+      type = "python",
+      request = "attach",
+      name = "Attach remote",
+      justMyCode = false,
+      host = function()
+        local value = vim.fn.input("Host [127.0.0.1]: ")
+        if value ~= "" then
+          return value
+        end
+        return "127.0.0.1"
+      end,
+      port = function()
+        return tonumber(vim.fn.input("Port [5678]: ")) or 5678
+      end,
+    },
+  }
 
   dap_python.test_runner = "pytest"
 
