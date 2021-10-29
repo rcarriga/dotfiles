@@ -26,12 +26,13 @@ packer.startup({
     profile = { enable = 1 },
   },
   function(use)
+    use ({"lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()"})
     use({ "nvim-neorg/neorg", config = "require('config.org').post()" })
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "git@github.com:rcarriga/nvim-notify", config = "require('config.notify').post()" })
-    use({ "git@github.com:rcarriga/nvim-lift-imports-py" })
+    use({ "/home/ronan/Dev/repos/lift-imports-py" })
+    use({ "/home/ronan/Dev/repos/nvim-notify", config = "require('config.notify').post()" })
     use({
       "folke/twilight.nvim",
       requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()" },
@@ -60,7 +61,7 @@ packer.startup({
     })
     use({ "neovimhaskell/haskell-vim" })
     use({
-      "rcarriga/vim-ultest",
+      "/home/ronan/Dev/repos/vim-ultest",
       config = "require('config.ultest').post()",
       keys = {
         "<Plug>(ultest-run-nearest)",
@@ -100,7 +101,7 @@ packer.startup({
       config = "require('config.dap').post()",
       requires = {
         { "mfussenegger/nvim-dap-python" },
-        { "rcarriga/nvim-dap-ui" },
+        { "/home/ronan/Dev/repos/nvim-dap-ui" },
       },
     })
     use({

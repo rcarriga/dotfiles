@@ -9,26 +9,6 @@ let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
    \ }
 
-let g:indentLine_char = '🭰'
-let g:indent_blankline_show_first_indent_level = v:false
-let g:indent_blankline_filetype_exclude = [
-      \ "",
-      \ 'help',
-      \ "dapui_scopes",
-      \ "dapui_stacks",
-      \ "dapui_watches",
-      \ "dapui_breakpoints",
-      \ "dapui_hover",
-      \ "LuaTree",
-      \ "dbui",
-      \ "term",
-      \ "fugitive",
-      \ "fugitiveblame",
-      \ "NvimTree",
-      \ "UltestSummary",
-      \ "packer",
-      \ "UltestOutput",
-      \ ]
 
 let g:auto_session_root_dir = expand("~/.cache/nvim/sessions")
 
@@ -88,7 +68,7 @@ let g:mkdp_auto_close = 0
 
 
 let test#strategy = "floaterm"
-let test#python#runner = "pyunit"
+let test#python#runner = "pytest"
 let test#javascript#runner = "jest"
 let test#go#runner = "gotest"
 
@@ -204,6 +184,7 @@ vnoremap <M-k> <Cmd>lua require'dapui'.eval()<cr>
 nnoremap <silent> <M-m> :lua require'dapui'.float_element()<cr>
 nnoremap <silent> <M-v> :lua require'dapui'.float_element("scopes")<cr>
 nnoremap <silent> <M-r> :lua require'dapui'.float_element("repl")<cr>
+nnoremap <silent> <M-q> :lua require'dap'.disconnect()<cr>
 
 nnoremap <silent><leader>f :FloatermToggle<CR>
 tnoremap <silent> <C-a> <C-\><C-n>:FloatermNew<CR>
