@@ -26,7 +26,7 @@ packer.startup({
     profile = { enable = 1 },
   },
   function(use)
-    use ({"lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()"})
+    use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
     use({ "nvim-neorg/neorg", config = "require('config.org').post()" })
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
@@ -114,14 +114,26 @@ packer.startup({
         { "mfussenegger/nvim-ts-hint-textobject" },
       },
     })
-    use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
-    use({ "ms-jpq/coq.thirdparty" })
+    -- use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
+    -- use({ "ms-jpq/coq.thirdparty" })
+    -- use({
+    --   "ms-jpq/coq_nvim",
+    --   branch = "coq",
+    --   setup = "require('config.completion').pre()",
+    --   config = "require('config.completion').post()",
+    --   event = "InsertEnter",
+    -- })
     use({
-      "ms-jpq/coq_nvim",
-      branch = "coq",
-      setup = "require('config.completion').pre()",
+      "hrsh7th/nvim-cmp",
       config = "require('config.completion').post()",
-      event = "InsertEnter",
+      requires = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-vsnip",
+        "hrsh7th/vim-vsnip",
+      },
     })
   end,
 })
