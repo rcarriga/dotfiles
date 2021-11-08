@@ -92,7 +92,7 @@ loadHighlights({
   LineNr = { Hidden },
   CursorLineNr = { Success, "bold" },
   VertSplit = { Hidden },
-  MatchParen = { Success, "underline" },
+  MatchParen = { Key, "underline" },
   StatusLine = { Normal },
   StatusLineNC = { Hidden },
   IncSearch = { Green, "bold,underline" },
@@ -393,5 +393,8 @@ loadHighlights({
   CompeDocumentationBorder = { Border },
 
   --nvim-cmp
+  CmpItemAbbr = {Normal},
   CmpDocumentationBorder = { Border },
+  CmpItemAbbrMatch = {Normal, "bold"},
+  CmpItemAbbrMatchFuzzy = {Normal, "bold"}
 })

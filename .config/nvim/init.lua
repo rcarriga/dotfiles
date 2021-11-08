@@ -14,6 +14,11 @@ augroup FileTypeInit
     au BufNew,VimEnter \.conf setlocal ft=conf
     au Filetype dockerfile setlocal ft=Dockerfile
 augroup END
+
+augroup NvimAuCommands
+  au!
+  au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+augroup END
 ]])
 
 util.multilineCommand([[

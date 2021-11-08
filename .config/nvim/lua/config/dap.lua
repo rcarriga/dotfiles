@@ -12,7 +12,7 @@ function M.post()
     },
     sidebar = { size = 80 },
     tray = { size = 10 },
-    floating = { max_width = 0.9, max_height = 0.5 },
+    floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
 
   vim.fn.sign_define("DapBreakpoint", { text = "→", texthl = "Error", linehl = "", numhl = "" })

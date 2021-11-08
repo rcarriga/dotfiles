@@ -93,6 +93,7 @@ packer.startup({
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
+        {'yamatsum/nvim-nonicons',},
         { "kyazdani42/nvim-web-devicons" },
       },
     })
@@ -114,25 +115,18 @@ packer.startup({
         { "mfussenegger/nvim-ts-hint-textobject" },
       },
     })
-    -- use({ "ms-jpq/coq.artifacts", branch = "artifacts" })
-    -- use({ "ms-jpq/coq.thirdparty" })
-    -- use({
-    --   "ms-jpq/coq_nvim",
-    --   branch = "coq",
-    --   setup = "require('config.completion').pre()",
-    --   config = "require('config.completion').post()",
-    --   event = "InsertEnter",
-    -- })
     use({
       "hrsh7th/nvim-cmp",
       config = "require('config.completion').post()",
       requires = {
+        "onsails/lspkind-nvim",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-vsnip",
         "hrsh7th/vim-vsnip",
+        "lukas-reineke/cmp-rg",
       },
     })
   end,

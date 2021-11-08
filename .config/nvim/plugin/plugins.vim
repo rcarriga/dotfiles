@@ -1,38 +1,8 @@
 " ###################################################################################
 " Plugin Settings {{{1
-augroup GalaxylineEvents
-  au!
-  au User UltestPositionsUpdate lua require("galaxyline").load_galaxyline()
-augroup END
-
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
    \ }
-
-
-let g:auto_session_root_dir = expand("~/.cache/nvim/sessions")
-
-let g:UltiSnipsExpandTrigger="<C-}>"
-
-let g:user_emmet_leader_key='<C-X>'
-
-let g:nvim_tree_git_hl = 1
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★"
-    \   },
-    \ 'folder': {
-    \   'default': "▾",
-    \   'open': "▸"
-    \   }
-    \ }
 
 let g:bufferline = { "closable" : 0  }
 
@@ -51,21 +21,12 @@ let g:conflict_marker_highlight_group = ''
 
 let g:hiPairs_enable_matchParen = 0
 
-
-let g:vue_pre_processors = ["typescript", "scss"]
-
-" Disable default windowswap mappings
-let g:windowswap_map_keys = 0
-
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
 " Don"t open preview window after entering the markdown buffer
 let g:mkdp_auto_start = 0
 " Auto close current preview window when change
 let g:mkdp_auto_close = 0
-
-
-
 
 let test#strategy = "floaterm"
 let test#python#runner = "pytest"
@@ -74,7 +35,6 @@ let test#go#runner = "gotest"
 
 " Open undo tree on right
 let g:mundo_right = 1
-
 
 let g:doge_mapping = "\<leader\>i"
 let g:doge_mapping_comment_jump_forward = "\<C-\]>"
@@ -95,11 +55,6 @@ let g:ultest_output_on_run = 0
 " ###################################################################################
 " Functions {{{1
 
-function! s:isOverWhitespace() abort
-  let col = col(".") - 1
-  return !col || getline(".")[col - 1]  =~# "\s"
-endfunction
-
 function! CleanNoNameEmptyBuffers()
     let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
     if !empty(buffers)
@@ -119,10 +74,6 @@ augroup CleanEmpty
   au BufEnter * call CleanNoNameEmptyBuffers()
 augroup END
 
-augroup NvimAuCommands
-  au!
-  au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
-augroup END
 
 " }}}1
 " ###################################################################################
@@ -166,6 +117,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 " Fuzzy finding mappings
 nmap <silent><leader>df :Telescope find_files<CR>
 nmap <silent><leader>dg :Telescope grep_string search="" debounce=100<CR>
+nmap <silent><leader>dG :Telescope live_grep<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>
 nmap <silent><leader>dh :Telescope help_tags<CR>
