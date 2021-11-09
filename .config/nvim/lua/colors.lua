@@ -346,6 +346,9 @@ loadHighlights({
   DiagnosticsWarning = { Warning },
   DiagnosticsInformation = { Info },
   DiagnosticsHint = { Hidden },
+  LspReferenceText = {Normal, "bold,underline"},
+  LspReferenceRead = {Normal, "bold,underline"},
+  LspReferenceWrite = {Normal, "bold,underline"},
   -- Lsp saga
   LspFloatWinBorder = { Border },
   ProviderTruncateLine = { Hidden },

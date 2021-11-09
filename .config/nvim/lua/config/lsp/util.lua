@@ -57,7 +57,11 @@ function M.previous_win()
   end
 end
 
-local function make_prompt(opts)
+function M.rename()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local params = vim.lsp.util.make_position_params()
+  vim.lsp.buf.document_highlight()
+  local initial = vim.fn.expand("<cword>")
   local prompt_buf = vim.api.nvim_create_buf(false, true)
 
   vim.api.nvim_buf_set_option(prompt_buf, "buftype", "prompt")
@@ -71,38 +75,38 @@ local function make_prompt(opts)
     border = vim.g.border_chars,
     style = "minimal",
   })
-  vim.fn.prompt_setprompt(prompt_buf, opts.prompt)
+  vim.cmd(
+    "au BufHidden <buffer> lua pcall(require('config.lsp.util')._close_rename,"
+      .. prompt_window
+      .. ","
+      .. prompt_buf
+      .. ","
+      .. bufnr
+      .. ")"
+  )
+  vim.fn.prompt_setprompt(prompt_buf, " → ")
 
-  vim.fn.prompt_setcallback(prompt_buf, function(text)
-    if opts.callback(text) then
-      vim.api.nvim_win_close(prompt_window, true)
-      vim.api.nvim_buf_delete(prompt_buf, { force = true })
+  vim.fn.prompt_setcallback(prompt_buf, function(new_name)
+    if not (new_name and #new_name > 0) then
+      return
     end
+    params.newName = new_name
+    vim.cmd("norm <C-W>p")
+    vim.lsp.buf_request(bufnr, "textDocument/rename", params)
+    M._close_rename(prompt_window, prompt_buf, bufnr)
   end)
 
-  if opts.initial then
-    vim.cmd("norm i" .. opts.initial)
-  end
+  vim.cmd("norm i" .. initial)
   vim.cmd("startinsert!")
-
-  return prompt_buf, prompt_window
 end
 
-function M.rename()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local params = vim.lsp.util.make_position_params()
-  make_prompt({
-    prompt = " → ",
-    initial = vim.fn.expand("<cword>"),
-    callback = function(new_name)
-      if not (new_name and #new_name > 0) then
-        return true
-      end
-      params.newName = new_name
-      vim.lsp.buf_request(bufnr, "textDocument/rename", params)
-      return true
-    end,
-  })
+function M._close_rename(prompt_window, prompt_buf, origin_buf)
+  vim.schedule(function()
+    pcall(vim.api.nvim_win_close, prompt_window, true)
+    pcall(vim.api.nvim_buf_delete, prompt_buf, { force = true })
+    vim.lsp.util.buf_clear_references(origin_buf)
+    vim.cmd("stopinsert")
+  end)
 end
 
 function M.preview(request)
