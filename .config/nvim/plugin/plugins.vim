@@ -3,6 +3,7 @@
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
    \ }
+lua require('dap').set_log_level('DEBUG')
 
 let g:bufferline = { "closable" : 0  }
 
@@ -159,7 +160,7 @@ nmap <leader>vj <Plug>(ultest-next-fail)
 nmap <leader>vk <Plug>(ultest-prev-fail)
 nmap <leader>vg <Plug>(ultest-output-jump)
 nmap <leader>vo <Plug>(ultest-output-show)
-nmap <leader>vs <Plug>(ultest-summary-toggle)
+nnoremap <silent><leader>vs :UltestSummary<CR>
 nmap <leader>vS <Plug>(ultest-summary-jump)
 nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)

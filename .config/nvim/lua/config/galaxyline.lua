@@ -4,6 +4,7 @@ function M.post()
   local gl = require("galaxyline")
   local gls = gl.section
   local vcs = require("galaxyline.providers.vcs")
+  local devicons = require("nvim-web-devicons")
 
   gl.short_line_list = {
     "dapui_scopes",
@@ -102,6 +103,19 @@ function M.post()
     return false
   end
 
+  local function file_icon(buf)
+    local file = vim.api.nvim_buf_get_name(buf)
+    local f_name, f_extension = vim.fn.fnamemodify(file, ":t"), vim.fn.expand(file, ":e")
+    return devicons.get_icon(f_name, f_extension)
+  end
+
+  local function file_icon_color(buf)
+    local icon, iconhl = file_icon(buf)
+    if icon ~= nil then
+      return vim.fn.synIDattr(vim.fn.hlID(iconhl), "fg")
+    end
+  end
+
   local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
   local function lsp_status(status)
     local buf_messages = require("lsp-status").messages()
@@ -174,10 +188,10 @@ function M.post()
 
     {
       FileIcon = {
-        provider = "FileIcon",
+        provider = file_icon,
         condition = buffer_not_empty,
         separator = " ",
-        highlight = { require("galaxyline.providers.fileinfo").get_file_icon_color, colors.bg },
+        highlight = { file_icon_color, colors.bg },
       },
     },
 
@@ -288,6 +302,22 @@ function M.post()
     },
   }
 
+  local function providers_text(provider_groups)
+    local all_providers = {}
+    for _, providers in pairs(provider_groups) do
+      for name, provider in pairs(providers) do
+        all_providers[name] = provider
+      end
+    end
+    local sum = ""
+    for name, provider in pairs(all_providers) do
+      if not provider.condition or provider.condition() then
+        sum = sum .. gl.component_decorator(name) .. (provider.separator or "")
+      end
+    end
+    return sum
+  end
+
   gls.mid = {
     {
       WinBar = {
@@ -297,24 +327,9 @@ function M.post()
             colour = colors.cyan
           end
           vim.cmd("hi GalaxyFileStatus guifg=" .. colour)
-          local all_providers = {}
-          for _, providers in pairs(gls.left) do
-            for name, provider in pairs(providers) do
-              all_providers[name] = provider
-            end
-          end
-          for _, providers in pairs(gls.right) do
-            for name, provider in pairs(providers) do
-              all_providers[name] = provider
-            end
-          end
-          local sum = ""
-          for name, provider in pairs(all_providers) do
-            if not provider.condition or provider.condition() then
-              sum = sum .. gl.component_decorator(name) .. (provider.separator or "")
-            end
-          end
-          local width = vim.fn.winwidth(0) - vim.str_utfindex(sum)
+          local existing_text = providers_text(gls.left)
+          existing_text = existing_text .. providers_text(gls.right)
+          local width = vim.fn.winwidth(0) - vim.str_utfindex(existing_text)
           return "├" .. string.rep("─", width - 2) .. "┤"
         end,
         highlight = "GalaxyFileStatus",
@@ -332,19 +347,21 @@ function M.post()
 
     {
       FileIcon = {
-        provider = "FileIcon",
+        provider = file_icon,
         condition = buffer_not_empty,
         separator = " ",
-        highlight = { require("galaxyline.providers.fileinfo").get_file_icon_color, colors.bg },
+        highlight = { file_icon_color, colors.bg },
       },
     },
     {
       Bar = {
         provider = function()
-          local width = vim.fn.winwidth(0)
-          return string.rep("─", width - 2)
+          local existing_text = providers_text({ gls.short_line_left[1], gls.short_line_left[2] })
+          local width = vim.fn.winwidth(0) - vim.str_utfindex(existing_text)
+          return string.rep("─", width)
         end,
-        highlight = {colors.grey2}
+        -- separator = "%>",
+        highlight = { colors.grey2 },
       },
     },
   }

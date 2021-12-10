@@ -35,14 +35,14 @@ function M.post()
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
-    vim.cmd([[
-    augroup LspReferences
-      au!
-      au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-      au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-      au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]])
+    -- vim.cmd([[
+    -- augroup LspReferences
+    --   au!
+    --   au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+    --   au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+    --   au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    -- augroup END
+    -- ]])
 
     lsp_status.on_attach(client)
     lsp_sig.on_attach({

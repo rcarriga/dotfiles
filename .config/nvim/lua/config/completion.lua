@@ -26,7 +26,7 @@ function M.post()
     experimental = {
       ghost_text = {
         hl_group = "Comment",
-      }
+      },
     },
     documentation = {
       border = vim.g.border_chars,
@@ -45,8 +45,8 @@ function M.post()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "vsnip" },
+      { name = "orgmode" },
     }, {
-      { name = "rg" },
       { name = "buffer" },
     }),
   })

@@ -2,14 +2,6 @@ local M = {}
 
 function M.post()
   require("dapui").setup({
-    mappings = {
-      -- Use a table to apply multiple mappings
-      expand = { "<CR>", "<LeftMouse>" },
-      open = "o",
-      remove = "d",
-      edit = "e",
-      repl = "r",
-    },
     sidebar = { size = 80 },
     tray = { size = 10 },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
@@ -31,12 +23,15 @@ function M.post()
       justMyCode = false,
       program = "${file}",
       console = "internalConsole",
+      pythonPath = require("util").get_python_path(),
+
     },
     {
       type = "python",
       request = "attach",
       name = "Attach remote",
       justMyCode = false,
+      pythonPath = require("util").get_python_path(),
       host = function()
         local value = vim.fn.input("Host [127.0.0.1]: ")
         if value ~= "" then

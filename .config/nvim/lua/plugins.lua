@@ -27,11 +27,16 @@ packer.startup({
   },
   function(use)
     use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
-    use({ "nvim-neorg/neorg", config = "require('config.org').post()" })
+    use({
+      "kristijanhusak/orgmode.nvim",
+      config = "require('config.org').post()",
+      requires = { "akinsho/org-bullets.nvim", "lukas-reineke/headlines.nvim" },
+    })
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
     use({ "/home/ronan/Dev/repos/lift-imports-py" })
+    use({ "/home/ronan/Dev/repos/neotest" })
     use({ "/home/ronan/Dev/repos/nvim-notify", config = "require('config.notify').post()" })
     use({
       "folke/twilight.nvim",
@@ -93,7 +98,7 @@ packer.startup({
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },
-        {'yamatsum/nvim-nonicons',},
+        { "yamatsum/nvim-nonicons" },
         { "kyazdani42/nvim-web-devicons" },
       },
     })
