@@ -14,8 +14,8 @@ function M.post()
       untracked = "★",
     },
     folder = {
-      default = "▾",
-      open = "▸",
+      default = "▸",
+      open = "▾",
     },
   }
   require("nvim-tree").setup({

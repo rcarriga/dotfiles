@@ -1,10 +1,14 @@
 local M = {}
 
-local function setup_null_ls()
+function M.setup(on_attach, capabilities)
+  local lsp_status = require("lsp-status")
+
   local null_ls = require("null-ls")
   local blt = null_ls.builtins
 
-  null_ls.config({
+  null_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
     sources = {
       blt.formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
@@ -14,29 +18,21 @@ local function setup_null_ls()
       blt.formatting.gofumpt,
       blt.formatting.isort,
       blt.formatting.prettier,
-      null_ls.builtins.formatting.shfmt,
+      blt.formatting.shfmt,
     },
   })
-end
-
-function M.setup(on_attach, capabilities)
-  local lsp_status = require("lsp-status")
-
-  setup_null_ls()
-  require("lspconfig")["null-ls"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
 
   local server_configs = {
     sumneko_lua = require("lua-dev").setup({
-      library = { plugins = true, types = true },
+      library = { plugins = { "plenary.nvim", "neotest" }, types = true },
       lspconfig = {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           Lua = {
+            IntelliSense = {
+              traceLocalSet = true
+            },
             diagnostics = {
               globals = { "describe", "it", "before_each", "after_each", "vim" },
             },

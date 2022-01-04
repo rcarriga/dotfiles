@@ -51,6 +51,7 @@ let g:ultest_pass_sign = " "
 let g:ultest_fail_sign = " "
 let g:ultest_running_sign = " "
 let g:ultest_output_on_run = 0
+let g:ultest_output_on_line = 1
 
 " }}}1
 " ###################################################################################
@@ -101,9 +102,6 @@ nmap <silent><leader>z :ZenMode<CR>
 "Save current buffer
 nnoremap <leader>w :w<CR>
 nnoremap <silent><leader>q :BufferClose<CR>
-
-"Cycle between last two open buffers
-nnoremap <silent><leader>n :exec "silent !pandoc"expand("%")" -o /tmp/pandoc.pdf && (pkill zathura;  zathura /tmp/pandoc.pdf) &"<CR>
 
 nmap <silent><leader>gs :vertical Git \| vertical resize 50 <CR>
 nmap <silent><leader>gp :Git push<CR>
@@ -166,3 +164,14 @@ nmap <leader>va <Plug>(ultest-attach)
 nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
 nmap <leader>vd <Plug>(ultest-debug-nearest)
+
+nnoremap <silent><leader>nr <cmd>lua require("neotest").run(vim.fn.expand("%"))<CR>
+nnoremap <silent><leader>ns <cmd>lua require("neotest").run(vim.fn.getcwd())<CR>
+nnoremap <silent><leader>nn <cmd>lua require("neotest").run()<CR>
+nnoremap <silent><leader>nd <cmd>lua require("neotest").run({strategy = "dap"})<CR>
+nnoremap <silent><leader>na <cmd>lua require("neotest").attach()<CR>
+nnoremap <silent><leader>no <cmd>lua require("neotest").output.open()<CR>
+nnoremap <silent><leader>nO <cmd>lua require("neotest").output.open({enter = true, short = true})<CR>
+nnoremap <silent><leader>np <cmd>lua require("neotest").summary.toggle()<CR>
+
+nnoremap <silent><leader>p <cmd>lua require("notify").dismiss()<CR>

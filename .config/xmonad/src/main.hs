@@ -176,7 +176,9 @@ myWindowIcons =
       ("Postman", "\xf1d8"),
       ("Slack", "\xf9b0"),
       ("Keybase", "\xf084"),
-      ("vlc", "\xfa7b")
+      ("vlc", "\xfa7b"),
+      ("mpv", "\xf03d"),
+      ("dolphin", "\xf413")
     ]
 
 highlight :: String -> String
@@ -226,7 +228,7 @@ prettyWindowIconList workspace = case W.stack workspace of
     winIcons <- windowIcons curWindows
     let focusedIndex = fromMaybe (-1) $ elemIndex (W.focus curStack) curWindows
     isWorkspaceFocused <- (==) (W.tag workspace) . W.tag . W.workspace . W.current . windowset <$> get
-    return $ zipWith (\icon i -> if i == focusedIndex && isWorkspaceFocused then highlight icon else normal icon) winIcons [0 ..]
+    return $ reverse $ zipWith (\icon i -> if i == focusedIndex && isWorkspaceFocused then highlight icon else normal icon) winIcons [0 ..]
 
 windowIcons :: [Window] -> X [String]
 windowIcons winIds = do

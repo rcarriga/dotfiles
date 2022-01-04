@@ -1,6 +1,12 @@
 local M = {}
 
 function M.post()
+  require("neotest").setup({
+    adapters = {
+      require("neotest-python"),
+      require("neotest-plenary"),
+    },
+  })
   require("dapui").setup({
     sidebar = { size = 80 },
     tray = { size = 10 },
@@ -24,7 +30,6 @@ function M.post()
       program = "${file}",
       console = "internalConsole",
       pythonPath = require("util").get_python_path(),
-
     },
     {
       type = "python",
@@ -83,7 +88,7 @@ function M.post()
   }
   dap.configurations.typescript = dap.configurations.javascript
 
-  dap.adapters.rust = {
+  dap.adapters.lldb = {
     type = "executable",
     attach = { pidProperty = "pid", pidSelect = "ask" },
     command = "lldb-vscode",
@@ -102,6 +107,18 @@ function M.post()
         local target_dir = metadata.target_directory
         return target_dir .. "/debug/" .. target_name
       end,
+    },
+  }
+
+  dap.configurations.c = {
+    {
+      -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+      --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+      name = "Attach to process",
+      type = "lldb", -- Adjust this to match your adapter name (`dap.adapters.<name>`)
+      request = "attach",
+      pid = require("dap.utils").pick_process,
+      args = {},
     },
   }
 end

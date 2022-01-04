@@ -26,6 +26,7 @@ packer.startup({
     profile = { enable = 1 },
   },
   function(use)
+    use({"David-Kunz/jester"})
     use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
     use({
       "kristijanhusak/orgmode.nvim",
@@ -36,7 +37,13 @@ packer.startup({
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
     use({ "/home/ronan/Dev/repos/lift-imports-py" })
-    use({ "/home/ronan/Dev/repos/neotest" })
+    use({
+      "/home/ronan/Dev/repos/neotest",
+      requires = {
+        "/home/ronan/Dev/repos/neotest-python",
+        "/home/ronan/Dev/repos/neotest-plenary",
+      },
+    })
     use({ "/home/ronan/Dev/repos/nvim-notify", config = "require('config.notify').post()" })
     use({
       "folke/twilight.nvim",

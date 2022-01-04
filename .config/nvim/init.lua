@@ -2,14 +2,13 @@ local util = require("util")
 P = function(...)
   print(vim.inspect(...))
 end
-PP = function(...)
+PP = vim.schedule_wrap(function(...)
   local buf = vim.api.nvim_create_buf(false, true)
   local lines = vim.split(vim.inspect(...), "\n", { plain = true })
   vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
   vim.cmd("vsplit")
   vim.api.nvim_win_set_buf(0, buf)
-end
-
+end)
 
 util.multilineCommand([[
 augroup FileTypeInit

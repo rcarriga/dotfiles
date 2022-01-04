@@ -12,10 +12,6 @@ local function wrap_options(custom, handler)
 end
 
 function M.setup()
-  vim.lsp.handlers["textDocument/codeAction"] = wrap_options(
-    { layout_strategy = "vertical", layout_config = { width = 100 } },
-    "lsp_code_actions"
-  )
   vim.lsp.handlers["textDocument/references"] = wrap_options(
     { layout_strategy = "vertical" },
     "lsp_references"
@@ -32,11 +28,15 @@ function M.setup()
       vim.notify(err.message)
       return
     end
+    if result == nil then
+      vim.notify("Location not found")
+      return
+    end
     if vim.tbl_islist(result) then
       vim.lsp.util.jump_to_location(result[1])
 
       if #result > 1 then
-        vim.lsp.util.set_qflist(vim.lsp.util.locations_to_items(result))
+        vim.fn.setqflist(vim.lsp.util.locations_to_items(result))
         vim.api.nvim_command("copen")
       end
     else

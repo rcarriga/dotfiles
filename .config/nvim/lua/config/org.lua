@@ -12,6 +12,7 @@ function M.post()
     org = {
       headline_signs = { "Headline1", "Headline2" },
     },
+    markdown = false,
   })
   require("org-bullets").setup({
     symbols = { "◉", "○", "✸", "✿" },

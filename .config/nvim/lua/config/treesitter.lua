@@ -18,6 +18,11 @@ function M.post()
     },
     filetype = "org",
   }
+
+  vim.cmd([[
+    omap     <silent> m <cmd><C-U>lua require('tsht').nodes()<CR>
+    vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
+  ]])
   require("nvim-treesitter.configs").setup({
     highlight = {
       enable = true,

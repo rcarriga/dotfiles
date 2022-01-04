@@ -5,6 +5,7 @@ function M.post()
     buftype_exclude = { "terminal" },
     show_first_indent_level = false,
     show_current_context = true,
+    context_patterns = { "class", "function", "method", "if_statement", "block" },
     filetype_exclude = {
       "",
       "help",
@@ -22,6 +23,7 @@ function M.post()
       "UltestSummary",
       "packer",
       "UltestOutput",
+      "neotest-summary",
     },
   })
 end

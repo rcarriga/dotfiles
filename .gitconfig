@@ -18,3 +18,5 @@
 [interactive]
   diffFilter = delta --color-only
   path = ~/.gitconfig.local
+[init]
+	defaultBranch = master
