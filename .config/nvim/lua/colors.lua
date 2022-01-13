@@ -13,11 +13,11 @@ local Violet = ConstructColour("#D484FF")
 local Blue = ConstructColour("#2f628e")
 local Cyan = ConstructColour("#00f1f5")
 local Green = ConstructColour("#A9FF68")
-local DarkGreen = ConstructColour("#07463e")
+local DarkBlue = ConstructColour("#000063")
 local Yellow = ConstructColour("#FFF59D")
 local Orange = ConstructColour("#F79000")
 local Red = ConstructColour("#F70067")
-local DarkRed = ConstructColour("#8A1F1F")
+local DarkRed = ConstructColour("#880e4f")
 local FloatBackground = ConstructColour("#132434")
 local Background = ConstructColour("NONE")
 
@@ -128,7 +128,7 @@ loadHighlights({
   Conditional = { BuiltIn },
   Constant = { VarName },
   Define = { BuiltIn },
-  DiffAdd = { Background, DarkGreen },
+  DiffAdd = { Background, DarkBlue },
   DiffChange = { Background, Grey1 },
   DiffDelete = { Background, DarkRed },
   DiffText = { Background, DarkRed },
@@ -167,7 +167,7 @@ loadHighlights({
   haskellLet = { BuiltIn },
   -- Vim Fugitive
   diffRemoved = { Background, DarkRed },
-  diffAdded = { Background, DarkGreen },
+  diffAdded = { Background, DarkBlue },
   -- HTML
   htmlTagName = { Key },
   htmlSpecialTagName = { BuiltIn },
@@ -266,8 +266,8 @@ loadHighlights({
   dosiniValue = { Val },
   dosiniHeader = { BuiltIn },
   -- Conflict Markers
-  ConflictMarkerBegin = { Transparent, DarkGreen },
-  ConflictMarkerOurs = { Transparent, DarkGreen },
+  ConflictMarkerBegin = { Transparent, DarkBlue },
+  ConflictMarkerOurs = { Transparent, DarkBlue },
   ConflictMarkerTheirs = { Transparent, DarkRed },
   ConflictMarkerEnd = { Transparent, DarkRed },
   ConflictMarkerCommonAncestorsHunk = { Transparent, Red },

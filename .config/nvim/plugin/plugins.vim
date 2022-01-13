@@ -129,7 +129,7 @@ nnoremap <silent> <M-up> :lua require'dap'.step_out()<CR>
 nnoremap <silent> <M-x> :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <M-t> :lua require('dapui').toggle()<CR>
 vnoremap <silent> <M-c> <ESC>:lua require('dap-python').debug_selection()<CR>
-nnoremap <silent> <M-l> :lua require'dap'.run_last()<cr>
+nnoremap <silent> <M-l> :lua require"osv".launch()<CR>
 nnoremap <silent> <M-k> :lua require'dapui'.eval()<cr>
 vnoremap <M-k> <Cmd>lua require'dapui'.eval()<cr>
 nnoremap <silent> <M-m> :lua require'dapui'.float_element()<cr>

@@ -15,6 +15,25 @@ function M.update()
   vim.cmd([[ PackerSync ]])
 end
 
+local function exists(path)
+  local ok, err, code = os.rename(path, path)
+  if not ok then
+    if code == 13 then
+      -- Permission denied, but it exists
+      return true
+    end
+  end
+  return ok, err
+end
+
+local function maybe_local(path)
+  if exists(path) then
+    return path
+  end
+  local elems = vim.split(path, "/", { plain = true })
+  return "git@github.com:rcarriga/" .. elems[#elems]
+end
+
 packer.startup({
   config = {
     compile_path = fn.stdpath("config") .. "/lua/my_packer.lua",
@@ -23,10 +42,8 @@ packer.startup({
         return require("packer.util").float({ border = vim.g.border_chars })
       end,
     },
-    profile = { enable = 1 },
   },
   function(use)
-    use({"David-Kunz/jester"})
     use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
     use({
       "kristijanhusak/orgmode.nvim",
@@ -36,18 +53,17 @@ packer.startup({
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "/home/ronan/Dev/repos/lift-imports-py" })
+    use({ maybe_local("/home/ronan/Dev/repos/lift-imports-py") })
     use({
-      "/home/ronan/Dev/repos/neotest",
+      maybe_local("/home/ronan/Dev/repos/neotest"),
       requires = {
-        "/home/ronan/Dev/repos/neotest-python",
-        "/home/ronan/Dev/repos/neotest-plenary",
+        maybe_local("/home/ronan/Dev/repos/neotest-python"),
+        maybe_local("/home/ronan/Dev/repos/neotest-plenary"),
       },
     })
-    use({ "/home/ronan/Dev/repos/nvim-notify", config = "require('config.notify').post()" })
     use({
-      "folke/twilight.nvim",
-      requires = { "folke/zen-mode.nvim", config = "require('config.zen').post()" },
+      maybe_local("/home/ronan/Dev/repos/nvim-notify"),
+      config = "require('config.notify').post()",
     })
     use({
       "sindrets/diffview.nvim",
@@ -73,7 +89,7 @@ packer.startup({
     })
     use({ "neovimhaskell/haskell-vim" })
     use({
-      "/home/ronan/Dev/repos/vim-ultest",
+      maybe_local("/home/ronan/Dev/repos/vim-ultest"),
       config = "require('config.ultest').post()",
       keys = {
         "<Plug>(ultest-run-nearest)",
@@ -114,7 +130,8 @@ packer.startup({
       config = "require('config.dap').post()",
       requires = {
         { "mfussenegger/nvim-dap-python" },
-        { "/home/ronan/Dev/repos/nvim-dap-ui" },
+        { maybe_local("/home/ronan/Dev/repos/nvim-dap-ui") },
+        { "jbyuki/one-small-step-for-vimkind" },
       },
     })
     use({
@@ -135,10 +152,8 @@ packer.startup({
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-vsnip",
         "hrsh7th/vim-vsnip",
-        "lukas-reineke/cmp-rg",
       },
     })
   end,
