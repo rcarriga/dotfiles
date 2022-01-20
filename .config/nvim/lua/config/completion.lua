@@ -1,12 +1,12 @@
 local M = {}
 
 function M.post()
-  -- require("coq_3p")({
-  --   -- { src = "nvimlua", short_name = "nvim" },
-  --   { src = "bc", short_name = "MATH", precision = 6 },
-  --   { src = "figlet", short_name = "BIG" },
-  -- })
-
+  vim.cmd([[
+    imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+    smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+    imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+    smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  ]])
   -- Setup nvim-cmp.
   local cmp = require("cmp")
 
@@ -68,3 +68,4 @@ function M.post()
   })
 end
 return M
+
