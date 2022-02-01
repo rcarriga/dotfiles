@@ -1,5 +1,8 @@
 " ###################################################################################
 " Plugin Settings {{{1
+
+let g:cursorhold_updatetime = 100
+
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
    \ }
@@ -56,7 +59,7 @@ let g:ultest_output_on_line = 1
 " }}}1
 " ###################################################################################
 " Functions {{{1
-
+"
 function! CleanNoNameEmptyBuffers()
     let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
     if !empty(buffers)
@@ -115,7 +118,7 @@ nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
 nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :Telescope grep_string search="" debounce=100<CR>
+nmap <silent><leader>dg :Telescope grep_string search="" debounce=30<CR>
 nmap <silent><leader>dG :Telescope live_grep<CR>
 nmap <silent><leader>db :Telescope buffers<CR>
 nmap <silent><leader>dt :Telescope treesitter<CR>

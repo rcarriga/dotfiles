@@ -24,6 +24,8 @@ function M.post()
       "packer",
       "UltestOutput",
       "neotest-summary",
+      "Outline",
+      "lsp-installer",
     },
   })
 end

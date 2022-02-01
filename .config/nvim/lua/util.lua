@@ -46,4 +46,16 @@ function M.get_python_path(workspace)
   return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
 end
 
+function M.kitty_scrollback()
+  vim.cmd("silent! write! /tmp/kitty_scrollback")
+  
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_set_current_buf(buf)
+  local data = io.open("/tmp/kitty_scrollback", "r"):read("*a"):gsub("\n", "\r\n")
+  local term = vim.api.nvim_open_term(0, {})
+  vim.api.nvim_chan_send(term, data)
+
+    -- vim.api.nvim_buf_delete(buf, {force = true})
+end
+
 return M

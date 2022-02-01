@@ -1,5 +1,59 @@
 local M = {}
 local util = require("util")
+function M.pre()
+  vim.g.symbols_outline = {
+    highlight_hovered_item = true,
+    show_guides = true,
+    auto_preview = true,
+    position = "right",
+    relative_width = true,
+    width = 25,
+    auto_close = false,
+    show_numbers = false,
+    show_relative_numbers = false,
+    show_symbol_details = true,
+    preview_bg_highlight = "Normal",
+    keymaps = { -- These keymaps can be a string or a table for multiple keys
+      close = { "<Esc>", "q" },
+      goto_location = "<Cr>",
+      focus_location = "o",
+      hover_symbol = "<C-space>",
+      toggle_preview = "K",
+      rename_symbol = "r",
+      code_actions = "a",
+    },
+    lsp_blacklist = {},
+    symbol_blacklist = {},
+    symbols = {
+      File = { icon = "", hl = "TSURI" },
+      Module = { icon = "", hl = "TSNamespace" },
+      Namespace = { icon = "", hl = "TSNamespace" },
+      Package = { icon = "", hl = "TSNamespace" },
+      Class = { icon = "ﴯ", hl = "TSType" },
+      Method = { icon = "ƒ", hl = "TSMethod" },
+      Property = { icon = "", hl = "TSMethod" },
+      Field = { icon = "", hl = "TSField" },
+      Constructor = { icon = "", hl = "TSConstructor" },
+      Enum = { icon = "ℰ", hl = "TSType" },
+      Interface = { icon = "ﰮ", hl = "TSType" },
+      Function = { icon = "", hl = "TSFunction" },
+      Variable = { icon = "", hl = "TSConstant" },
+      Constant = { icon = "", hl = "TSConstant" },
+      String = { icon = "𝓐", hl = "TSString" },
+      Number = { icon = "#", hl = "TSNumber" },
+      Boolean = { icon = "⊨", hl = "TSBoolean" },
+      Array = { icon = "", hl = "TSConstant" },
+      Object = { icon = "⦿", hl = "TSType" },
+      Key = { icon = "🔐", hl = "TSType" },
+      Null = { icon = "NULL", hl = "TSType" },
+      EnumMember = { icon = "", hl = "TSField" },
+      Struct = { icon = "𝓢", hl = "TSType" },
+      Event = { icon = "🗲", hl = "TSType" },
+      Operator = { icon = "+", hl = "TSOperator" },
+      TypeParameter = { icon = "𝙏", hl = "TSParameter" },
+    },
+  }
+end
 
 function M.post()
   local lsp_status = require("lsp-status")
@@ -33,14 +87,15 @@ function M.post()
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
-    -- vim.cmd([[
-    -- augroup LspReferences
-    --   au!
-    --   au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-    --   au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-    --   au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    -- augroup END
-    -- ]])
+    if client.resolved_capabilities.document_highlight then
+      vim.cmd([[
+        augroup LspReferences
+          au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+          au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+          au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+        augroup END
+      ]])
+    end
 
     lsp_status.on_attach(client)
     lsp_sig.on_attach({
@@ -73,9 +128,10 @@ function M.post()
       ["[d"] = "vim.diagnostic.goto_prev()",
       ["<C-s>"] = "vim.lsp.buf.signature_help()",
       ["<space>la"] = "vim.lsp.buf.code_action()",
-      ["<space>lt"] = "vim.lsp.buf.type_definition()",
+      -- ["<space>lt"] = "vim.lsp.buf.type_definition()",
       ["<space>ls"] = "vim.lsp.buf.document_symbol()",
       ["<space>lf"] = "vim.lsp.buf.formatting_sync()",
+      ["<space>lt"] = "vim.cmd[[SymbolsOutline]]",
     }
 
     for keys, mapping in pairs(mappings) do

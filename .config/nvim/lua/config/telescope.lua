@@ -10,6 +10,15 @@ function M.post()
       grep_previewer = previewers.vim_buffer_vimgrep.new,
       qflist_previewer = previewers.vim_buffer_qflist.new,
       prompt_prefix = " ❯ ",
+      find_command = {
+        "fd",
+        "--type",
+        "f",
+        "--no-ignore-vcs",
+        "--color=never",
+        "--hidden",
+        "--follow",
+      },
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -20,7 +29,7 @@ function M.post()
         "--smart-case",
         "--hidden",
       },
-      file_ignore_patterns = { "workbench/.*", ".git/.*" },
+      file_ignore_patterns = { "workbench/.*", ".git/.*", ".venv/.*", "*.png", "*.jpg", "node_modules" },
       selection_strategy = "reset",
       layout_strategy = "horizontal",
       mappings = {
@@ -54,7 +63,7 @@ function M.post()
     local conf = require("telescope.config").values
 
     local entry_maker = function(item)
-      local formatted = opts.format_item(item)
+      local formatted = opts.format_item and opts.format_item(item)  or item
       return {
         display = formatted,
         ordinal = formatted,

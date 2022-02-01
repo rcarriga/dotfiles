@@ -8,6 +8,9 @@ function M.post()
       }),
       require("neotest-plenary"),
     },
+    icons = {
+      running = "⟳",
+    },
   })
   require("dapui").setup({
     sidebar = { size = 80 },
@@ -150,3 +153,4 @@ function M.post()
 end
 
 return M
+

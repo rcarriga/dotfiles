@@ -16,9 +16,7 @@ function M.setup()
     { layout_strategy = "vertical" },
     "lsp_references"
   )
-  vim.lsp.handlers["textDocument/documentSymbol"] = function(opts)
-    require("telescope.builtin").lsp_document_symbols(opts)
-  end
+  vim.lsp.handlers["textDocument/documentSymbol"] = require("telescope.builtin").lsp_document_symbols
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = vim.g.border_chars,
   })
@@ -32,7 +30,7 @@ function M.setup()
       vim.notify("Location not found")
       return
     end
-    if vim.tbl_islist(result) then
+    if vim.tbl_islist(result) and result[1] then
       vim.lsp.util.jump_to_location(result[1])
 
       if #result > 1 then

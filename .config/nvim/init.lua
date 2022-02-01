@@ -20,6 +20,8 @@ augroup FileTypeInit
     au BufNew,VimEnter \.babelrc setlocal ft=json
     au BufNew,VimEnter \.conf setlocal ft=conf
     au Filetype dockerfile setlocal ft=Dockerfile
+    au Filetype yaml if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
+    au Filetype mustache if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
 augroup END
 
 augroup NvimAuCommands

@@ -9,6 +9,7 @@ function M.setup(on_attach, capabilities)
   null_ls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
+    autostart = true,
     sources = {
       blt.formatting.stylua.with({
         extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
@@ -53,45 +54,63 @@ function M.setup(on_attach, capabilities)
       },
       capabilities = capabilities,
     },
-    volar = {
+    vuels = {
       on_attach = on_attach,
       init_options = {
-        documentFeatures = {
-          documentColor = false,
-          documentFormatting = {
-            defaultPrintWidth = 100,
+        config = {
+          vetur = {
+            -- experimental = { templateInterpolationService = true },
+            completion = {
+              autoImport = true,
+              tagCasing = "kebab",
+              useScaffoldSnippets = true,
+            },
+            useWorkspaceDependencies = false,
+            validation = { script = true, style = true, template = true },
           },
-          documentSymbol = true,
-          foldingRange = true,
-          linkedEditingRange = true,
-          selectionRange = true,
-        },
-        languageFeatures = {
-          callHierarchy = true,
-          codeAction = true,
-          codeLens = true,
-          completion = {
-            defaultAttrNameCase = "kebabCase",
-            defaultTagNameCase = "both",
-          },
-          definition = true,
-          diagnostics = true,
-          documentHighlight = true,
-          documentLink = true,
-          hover = true,
-          references = true,
-          rename = true,
-          renameFileRefactoring = true,
-          schemaRequestService = true,
-          semanticTokens = false,
-          signatureHelp = true,
-          typeDefinition = true,
-        },
-        typescript = {
-          serverPath = "",
+          flags = { debounce_text_changes = 150 },
         },
       },
     },
+    -- volar = {
+    --   on_attach = on_attach,
+    --   init_options = {
+    --     documentFeatures = {
+    --       documentColor = false,
+    --       documentFormatting = {
+    --         defaultPrintWidth = 100,
+    --       },
+    --       documentSymbol = true,
+    --       foldingRange = true,
+    --       linkedEditingRange = true,
+    --       selectionRange = true,
+    --     },
+    --     languageFeatures = {
+    --       callHierarchy = true,
+    --       codeAction = true,
+    --       codeLens = true,
+    --       completion = {
+    --         defaultAttrNameCase = "kebabCase",
+    --         defaultTagNameCase = "both",
+    --       },
+    --       definition = true,
+    --       diagnostics = true,
+    --       documentHighlight = true,
+    --       documentLink = true,
+    --       hover = true,
+    --       references = true,
+    --       rename = true,
+    --       renameFileRefactoring = true,
+    --       schemaRequestService = true,
+    --       semanticTokens = false,
+    --       signatureHelp = true,
+    --       typeDefinition = true,
+    --     },
+    --     typescript = {
+    --       serverPath = "",
+    --     },
+    --   },
+    -- },
     yamlls = {
       on_attach = on_attach,
       init_options = {

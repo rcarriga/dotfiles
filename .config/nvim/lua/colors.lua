@@ -210,6 +210,7 @@ loadHighlights({
   -- Markdown
   markdownHeadingDelimiter = { BuiltIn },
   markdownCodeDelimiter = { BuiltIn },
+  markdownCode = {Hidden},
   markdownRule = { BuiltIn },
   markdownUrl = { Key },
   markdownEscape = { Normal },
@@ -352,9 +353,9 @@ loadHighlights({
   DiagnosticsWarning = { Warning },
   DiagnosticsInformation = { Info },
   DiagnosticsHint = { Hidden },
-  LspReferenceText = { Normal, "bold,underline" },
-  LspReferenceRead = { Normal, "bold,underline" },
-  LspReferenceWrite = { Normal, "bold,underline" },
+  LspReferenceText = {Background, "bold,underline"},
+  LspReferenceRead = {Background, "bold,underline"},
+  LspReferenceWrite = {Background, "bold,underline"},
   -- Lsp saga
   LspFloatWinBorder = { Border },
   ProviderTruncateLine = { Hidden },
@@ -415,4 +416,14 @@ loadHighlights({
   CmpItemKindKeyword = { BuiltIn, "bold" },
   CmpItemKindProperty = { Key, "bold" },
   CmpItemKindUnit = { Yellow, "bold" },
+
+  --neorg
+  NeorgHeading1Title = {Normal, "bold"},
+
+  logDate = {Info},
+  logLevelDebug = {Grey3},
+  logLevelInfo = {Info},
+
+  --symbols-outline.nvim
+  FocusedSymbol = {Background, "bold"}
 })

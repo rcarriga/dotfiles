@@ -3,6 +3,17 @@ local M = {}
 function M.post()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
+  require("nvim-biscuits").setup({
+    -- show_on_start = true, -- defaults to false
+    toggle_keybind = "<leader>cb",
+    default_config = {
+      max_length = 50,
+      min_distance = 5,
+      prefix_string = " ↳ ",
+    },
+  })
+  vim.cmd("nnoremap <silent> <leader>cb <CMD>lua require('nvim-biscuits').toggle_biscuits()<CR>")
+
   parser_configs.norg = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg",
@@ -10,6 +21,7 @@ function M.post()
       branch = "main",
     },
   }
+
   parser_configs.org = {
     install_info = {
       url = "https://github.com/milisims/tree-sitter-org",
@@ -19,14 +31,29 @@ function M.post()
     filetype = "org",
   }
 
+
   vim.cmd([[
     omap     <silent> m <cmd><C-U>lua require('tsht').nodes()<CR>
     vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
   ]])
+
   require("spellsitter").setup({
     -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
     enable = true,
   })
+
+
+  parser_configs.gotmpl = {
+    install_info = {
+      url = "https://github.com/ngalaiko/tree-sitter-go-template",
+      files = { "src/parser.c" },
+    },
+    filetype = "gotmpl",
+    used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
+
+  }
+
+
   require("nvim-treesitter.configs").setup({
     highlight = {
       enable = true,

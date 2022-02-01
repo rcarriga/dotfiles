@@ -44,16 +44,20 @@ packer.startup({
     },
   },
   function(use)
+    use({ "antoinemadec/FixCursorHold.nvim" })
     use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
     use({
       "kristijanhusak/orgmode.nvim",
       config = "require('config.org').post()",
       requires = { "akinsho/org-bullets.nvim", "lukas-reineke/headlines.nvim" },
     })
+    use({
+      "luukvbaal/stabilize.nvim",
+      config = "require('config.stabilize').post()",
+    })
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ maybe_local("/home/ronan/Dev/repos/lift-imports-py") })
     use({
       maybe_local("/home/ronan/Dev/repos/neotest"),
       requires = {
@@ -85,6 +89,7 @@ packer.startup({
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
+        { "simrat39/symbols-outline.nvim", setup = "require('config.lsp').pre()" },
       },
     })
     use({ "neovimhaskell/haskell-vim" })
@@ -94,6 +99,7 @@ packer.startup({
       keys = {
         "<Plug>(ultest-run-nearest)",
         "<Plug>(ultest-run-file)",
+        "<Plug>(ultest-summary-toggle)",
       },
       cmd = { "UltestSummary" },
       requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" } },
@@ -156,6 +162,7 @@ packer.startup({
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-vsnip",
         "hrsh7th/vim-vsnip",
+        "lukas-reineke/cmp-under-comparator",
       },
     })
   end,
