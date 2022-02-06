@@ -2,8 +2,6 @@ local M = {}
 local util = require("util")
 
 function M.post()
-  local lsp_status = require("lsp-status")
-  lsp_status.register_progress()
   vim.diagnostic.config({
     signs = {
       priority = 5,
@@ -28,10 +26,7 @@ function M.post()
 
   require("config.lsp.handlers").setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = vim.tbl_extend("keep", capabilities or {}, lsp_status.capabilities)
-  capabilities = require("cmp_nvim_lsp").update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  )
+  capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
@@ -44,7 +39,7 @@ function M.post()
     -- augroup END
     -- ]])
 
-    lsp_status.on_attach(client)
+    -- lsp_status.on_attach(client)
     lsp_sig.on_attach({
       floating_window_above_cur_line = true,
       bind = true,

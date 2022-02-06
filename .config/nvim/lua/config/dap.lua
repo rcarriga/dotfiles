@@ -3,7 +3,14 @@ local M = {}
 function M.post()
   require("neotest").setup({
     adapters = {
-      require("neotest-python"),
+      require("neotest-python")({
+        strategy_config = function(strategy, config)
+          if strategy == "dap" then
+            config.justMyCode = false
+          end
+          return config
+        end,
+      }),
       require("neotest-plenary"),
     },
   })

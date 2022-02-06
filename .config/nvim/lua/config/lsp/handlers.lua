@@ -12,6 +12,7 @@ local function wrap_options(custom, handler)
 end
 
 function M.setup()
+  require("config.lsp.status")
   vim.lsp.handlers["textDocument/references"] = wrap_options(
     { layout_strategy = "vertical" },
     "lsp_references"

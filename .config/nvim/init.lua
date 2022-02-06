@@ -1,7 +1,7 @@
 local util = require("util")
-P = function(...)
+P = vim.schedule_wrap(function(...)
   print(vim.inspect(...))
-end
+end)
 PP = vim.schedule_wrap(function(...)
   local buf = vim.api.nvim_create_buf(false, true)
   local lines = vim.split(vim.inspect(...), "\n", { plain = true })

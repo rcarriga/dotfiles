@@ -74,7 +74,7 @@ packer.startup({
     use({ "MTDL9/vim-log-highlighting" })
     use({ "NTBBloodbath/galaxyline.nvim", config = "require('config.galaxyline').post()" })
     use({ "godlygeek/tabular", cmd = "Tabularize" })
-    use({ "kkoomen/vim-doge", cmd = "DogeGenerate", run = ":call doge#install()" })
+    use({ "danymat/neogen" , config = "require('config.docs').post()"})
     use({ "kyazdani42/nvim-tree.lua", config = "require('config.filetree').post()" })
     use({ "machakann/vim-sandwich" })
     use({
@@ -159,3 +159,4 @@ packer.startup({
   end,
 })
 return M
+
