@@ -46,7 +46,7 @@ vim.opt.modeline = true
 -- Always have a sign column
 vim.opt.signcolumn = "yes"
 
-vim.cmd([[color haslo]])
+require("colors")
 
 -- Indents word-wrapped lines as much as the 'parent' line
 vim.opt.breakindent = true
@@ -81,8 +81,12 @@ vim.opt.number = true
 -- Make backspace work as expected
 vim.opt.backspace = "indent,eol,start"
 
--- Setup tabs to be 4 spaces
-vim.cmd([[set tabstop=2 softtabstop=0 expandtab shiftwidth=0 smarttab]])
+-- Setup tabs to be 2 spaces
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 0
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 0
+vim.opt.smarttab = true
 
 -- Opens new panes below and to right of current
 vim.opt.splitbelow = true

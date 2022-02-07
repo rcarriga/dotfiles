@@ -4,12 +4,7 @@ function M.post()
   require("neotest").setup({
     adapters = {
       require("neotest-python")({
-        strategy_config = function(strategy, config)
-          if strategy == "dap" then
-            config.justMyCode = false
-          end
-          return config
-        end,
+        dap = { justMyCode = false },
       }),
       require("neotest-plenary"),
     },

@@ -104,7 +104,7 @@ function M.post()
   end
 
   local function file_icon(buf)
-    local file = vim.api.nvim_buf_get_name(buf)
+    local file = vim.api.nvim_buf_get_name(buf or 0)
     local f_name, f_extension = vim.fn.fnamemodify(file, ":t"), vim.fn.expand(file, ":e")
     return devicons.get_icon(f_name, f_extension)
   end

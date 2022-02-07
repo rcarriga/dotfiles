@@ -24,7 +24,7 @@ local Background = ConstructColour("NONE")
 local function setHighlight(group, args)
   local fg = args[1]
   local bg = Background
-  local attrs = "none"
+  local attrs
   if type(args[2]) == "table" then
     bg = args[2]
     if type(args[3]) == "string" then
@@ -33,7 +33,13 @@ local function setHighlight(group, args)
   elseif type(args[2]) == "string" then
     attrs = args[2]
   end
-  vim.cmd("hi " .. group .. " guifg=" .. fg.gui .. " guibg=" .. bg.gui .. " gui=" .. attrs)
+  local args = { fg = fg.gui, bg = bg.gui }
+  if attrs then
+    for val in vim.gsplit(attrs, ",") do
+      args[val] = true
+    end
+  end
+  vim.api.nvim_set_hl(0, group, args)
 end
 
 local function loadHighlights(highlights)
@@ -346,9 +352,9 @@ loadHighlights({
   DiagnosticsWarning = { Warning },
   DiagnosticsInformation = { Info },
   DiagnosticsHint = { Hidden },
-  LspReferenceText = {Normal, "bold,underline"},
-  LspReferenceRead = {Normal, "bold,underline"},
-  LspReferenceWrite = {Normal, "bold,underline"},
+  LspReferenceText = { Normal, "bold,underline" },
+  LspReferenceRead = { Normal, "bold,underline" },
+  LspReferenceWrite = { Normal, "bold,underline" },
   -- Lsp saga
   LspFloatWinBorder = { Border },
   ProviderTruncateLine = { Hidden },
@@ -396,8 +402,8 @@ loadHighlights({
   CompeDocumentationBorder = { Border },
 
   --nvim-cmp
-  CmpItemAbbr = {Normal},
+  CmpItemAbbr = { Normal },
   CmpDocumentationBorder = { Border },
-  CmpItemAbbrMatch = {Normal, "bold"},
-  CmpItemAbbrMatchFuzzy = {Normal, "bold"}
+  CmpItemAbbrMatch = { Normal, "bold" },
+  CmpItemAbbrMatchFuzzy = { Normal, "bold" },
 })

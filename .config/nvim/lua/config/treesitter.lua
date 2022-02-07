@@ -23,6 +23,10 @@ function M.post()
     omap     <silent> m <cmd><C-U>lua require('tsht').nodes()<CR>
     vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
   ]])
+  require("spellsitter").setup({
+    -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
+    enable = true,
+  })
   require("nvim-treesitter.configs").setup({
     highlight = {
       enable = true,

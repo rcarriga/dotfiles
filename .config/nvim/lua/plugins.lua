@@ -138,6 +138,7 @@ packer.startup({
       "nvim-treesitter/nvim-treesitter",
       config = "require('config.treesitter').post()",
       requires = {
+        { "lewis6991/spellsitter.nvim" },
         { "nvim-treesitter/playground" },
         { "nvim-treesitter/nvim-treesitter-textobjects" },
         { "nvim-treesitter/nvim-treesitter-refactor" },
