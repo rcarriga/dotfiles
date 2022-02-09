@@ -161,8 +161,6 @@ vim.opt.fixendofline = false
 -- Explicitly auto select regex engine
 vim.opt.regexpengine = 0
 
-vim.opt.pumblend = 15
-
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 pcall(require, "impatient")

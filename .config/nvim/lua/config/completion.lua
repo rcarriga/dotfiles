@@ -10,7 +10,43 @@ function M.post()
   -- Setup nvim-cmp.
   local cmp = require("cmp")
 
+  local cmp_kinds = {
+    Text = "  ",
+    Method = "  ",
+    Function = "  ",
+    Constructor = "  ",
+    Field = "  ",
+    Variable = "  ",
+    Class = "  ",
+    Interface = "  ",
+    Module = "  ",
+    Property = "  ",
+    Unit = "  ",
+    Value = "  ",
+    Enum = "  ",
+    Keyword = "  ",
+    Snippet = "  ",
+    Color = "  ",
+    File = "  ",
+    Reference = "  ",
+    Folder = "  ",
+    EnumMember = "  ",
+    Constant = "  ",
+    Struct = "  ",
+    Event = "  ",
+    Operator = "  ",
+    TypeParameter = "  ",
+  }
+
   cmp.setup({
+    window = {
+      completion = {
+        border = vim.g.border_chars,
+      },
+      documentation = {
+        border = vim.g.border_chars,
+      },
+    },
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
@@ -21,7 +57,11 @@ function M.post()
       end,
     },
     formatting = {
-      format = require("lspkind").cmp_format({ with_text = false, maxwidth = 50 }),
+      fields = { "kind", "abbr" },
+      format = function(_, vim_item)
+        vim_item.kind = cmp_kinds[vim_item.kind] or ""
+        return vim_item
+      end,
     },
     experimental = {
       ghost_text = {
@@ -49,6 +89,9 @@ function M.post()
     }, {
       { name = "buffer" },
     }),
+    view = {
+      entries = "custom",
+    },
   })
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -68,4 +111,3 @@ function M.post()
   })
 end
 return M
-

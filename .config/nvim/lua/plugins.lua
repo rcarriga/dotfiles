@@ -146,7 +146,8 @@ packer.startup({
       },
     })
     use({
-      "hrsh7th/nvim-cmp",
+      "Iron-E/nvim-cmp",
+      branch = "feat/completion-menu-borders",
       config = "require('config.completion').post()",
       requires = {
         "onsails/lspkind-nvim",
