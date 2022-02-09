@@ -320,7 +320,7 @@ loadHighlights({
   TSStrong = { Transparent, "bold" },
   TSEmphasis = { Transparent, "bold,underline" },
   TSUnderline = { Transparent, "underline" },
-  TSTitle = { BuiltIn },
+  TSTitle = { Key, "bold" },
   TSLiteral = { Decoration },
   TSURI = { Info },
   TSVariable = { VarName },

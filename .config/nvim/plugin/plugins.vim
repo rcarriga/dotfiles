@@ -6,7 +6,6 @@ let g:cursorhold_updatetime = 100
 let g:git_messenger_floating_win_opts = {
    \ 'border': g:border_chars
    \ }
-lua require('dap').set_log_level('DEBUG')
 
 let g:bufferline = { "closable" : 0  }
 

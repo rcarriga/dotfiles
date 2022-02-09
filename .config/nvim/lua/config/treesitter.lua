@@ -3,17 +3,6 @@ local M = {}
 function M.post()
   local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
-  require("nvim-biscuits").setup({
-    -- show_on_start = true, -- defaults to false
-    toggle_keybind = "<leader>cb",
-    default_config = {
-      max_length = 50,
-      min_distance = 5,
-      prefix_string = " ↳ ",
-    },
-  })
-  vim.cmd("nnoremap <silent> <leader>cb <CMD>lua require('nvim-biscuits').toggle_biscuits()<CR>")
-
   parser_configs.norg = {
     install_info = {
       url = "https://github.com/nvim-neorg/tree-sitter-norg",

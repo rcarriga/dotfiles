@@ -29,9 +29,20 @@ function M.post()
         "--smart-case",
         "--hidden",
       },
-      file_ignore_patterns = { "workbench/.*", ".git/.*", ".venv/.*", "*.png", "*.jpg", "node_modules" },
+      file_ignore_patterns = {
+        "workbench/.*",
+        ".git/.*",
+        ".venv/.*",
+        "*.png",
+        "*.jpg",
+        "node_modules",
+      },
       selection_strategy = "reset",
+      sorting_strategy = "ascending",
       layout_strategy = "horizontal",
+      layout_config = {
+        prompt_position = "top",
+      },
       mappings = {
         i = {
           ["<C-j>"] = actions.move_selection_next,
@@ -63,7 +74,7 @@ function M.post()
     local conf = require("telescope.config").values
 
     local entry_maker = function(item)
-      local formatted = opts.format_item and opts.format_item(item)  or item
+      local formatted = opts.format_item and opts.format_item(item) or item
       return {
         display = formatted,
         ordinal = formatted,

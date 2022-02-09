@@ -74,7 +74,7 @@ function M.post()
       virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
       delay = 300,
     },
-    sign_priority = 6,
+    sign_priority = 3,
     update_debounce = 100,
     preview_config = {
       border = vim.g.border_chars,

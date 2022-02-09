@@ -78,7 +78,7 @@ packer.startup({
     use({ "MTDL9/vim-log-highlighting" })
     use({ "NTBBloodbath/galaxyline.nvim", config = "require('config.galaxyline').post()" })
     use({ "godlygeek/tabular", cmd = "Tabularize" })
-    use({ "danymat/neogen" , config = "require('config.docs').post()"})
+    use({ "danymat/neogen", config = "require('config.docs').post()" })
     use({ "kyazdani42/nvim-tree.lua", config = "require('config.filetree').post()" })
     use({ "machakann/vim-sandwich" })
     use({
@@ -90,6 +90,7 @@ packer.startup({
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
         { "simrat39/symbols-outline.nvim", setup = "require('config.lsp').pre()" },
+        "onsails/diaglist.nvim",
       },
     })
     use({ "neovimhaskell/haskell-vim" })
@@ -168,4 +169,3 @@ packer.startup({
   end,
 })
 return M
-

@@ -167,7 +167,10 @@ vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 pcall(require, "impatient")
 
-pcall(require, "my_packer")
+local loaded, err = pcall(require, "my_packer")
+if not loaded then
+  vim.notify(err, "error")
+end
 
 local exists, notify = pcall(require, "notify")
 if exists then

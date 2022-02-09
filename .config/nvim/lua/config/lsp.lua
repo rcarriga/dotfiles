@@ -4,7 +4,7 @@ function M.pre()
   vim.g.symbols_outline = {
     highlight_hovered_item = true,
     show_guides = true,
-    auto_preview = true,
+    auto_preview = false,
     position = "right",
     relative_width = true,
     width = 25,
@@ -84,17 +84,29 @@ function M.post()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend("force", capabilities, lsp_status.capabilities)
   capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+  require("diaglist").init({
+    -- optional settings
+    -- below are defaults
+    debug = false,
+
+    -- increase for noisy servers
+    debounce_ms = 150,
+  })
+  vim.cmd[[
+    nmap <space>dw <cmd>lua require('diaglist').open_all_diagnostics()<cr>
+    nmap <space>d0 <cmd>lua require('diaglist').open_buffer_diagnostics()<cr>
+  ]]
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
     if client.resolved_capabilities.document_highlight then
-      vim.cmd([[
-        augroup LspReferences
-          au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-          au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-          au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]])
+      -- vim.cmd([[
+      -- augroup LspReferences
+      -- au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+      -- au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+      -- au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      -- augroup END
+      -- ]])
     end
 
     lsp_status.on_attach(client)
