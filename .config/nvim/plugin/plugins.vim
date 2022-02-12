@@ -4,7 +4,7 @@
 let g:cursorhold_updatetime = 100
 
 let g:git_messenger_floating_win_opts = {
-   \ 'border': g:border_chars
+   \ 'border': get(g:, "border_chars", "rounded")
    \ }
 
 let g:bufferline = { "closable" : 0  }

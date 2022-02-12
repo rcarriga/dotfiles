@@ -122,8 +122,4 @@ function M.preview(request)
   end)
 end
 
-function M.show_codelens()
-  local lenses = vim.lsp.codelens.get(0)
-end
-
 return M

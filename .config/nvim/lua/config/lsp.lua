@@ -125,36 +125,42 @@ function M.post()
       vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")
     end
 
+    local lsp_util = require("config.lsp.util")
     local mappings = {
-      gd = "vim.lsp.buf.definition()",
-      gt = "vim.lsp.buf.type_definition()",
-      ge = "vim.diagnostic.open_float(0, { scope = 'line' })",
-      K = "vim.lsp.buf.hover()",
-      gi = "vim.lsp.buf.implementation()",
-      gq = "vim.lsp.buf.references()",
-      gr = "require('config.lsp.util').rename()",
-      gD = "require('config.lsp.util').preview('textDocument/definition')",
-      gb = "require('config.lsp.util').previous_win()",
-      gL = "vim.lsp.codelens.run()",
-      ["]d"] = "vim.diagnostic.goto_next()",
-      ["[d"] = "vim.diagnostic.goto_prev()",
-      ["<C-s>"] = "vim.lsp.buf.signature_help()",
-      ["<space>la"] = "vim.lsp.buf.code_action()",
-      -- ["<space>lt"] = "vim.lsp.buf.type_definition()",
-      ["<space>ls"] = "vim.lsp.buf.document_symbol()",
-      ["<space>lf"] = "vim.lsp.buf.formatting_sync()",
-      ["<space>lt"] = "vim.cmd[[SymbolsOutline]]",
+      gd = vim.lsp.buf.definition,
+      gt = vim.lsp.buf.type_definition,
+      ge = function()
+        vim.diagnostic.open_float(0, { scope = "line" })
+      end,
+      K = vim.lsp.buf.hover,
+      gi = vim.lsp.buf.implementation,
+      gq = vim.lsp.buf.references,
+      gr = lsp_util.rename,
+      gD = function()
+        lsp_util.preview("textDocument/definition")
+      end,
+      gb = lsp_util.previous_win,
+      gL = vim.lsp.codelens.run,
+      ["]d"] = vim.diagnostic.goto_next,
+      ["[d"] = vim.diagnostic.goto_prev,
+      ["<C-s>"] = vim.lsp.buf.signature_help,
+      ["<space>la"] = vim.lsp.buf.code_action,
+      ["<space>lt"] = vim.lsp.buf.type_definition,
+      ["<space>ls"] = vim.lsp.buf.document_symbol,
+      ["<space>lf"] = vim.lsp.buf.formatting_sync,
+      ["<space>lt"] = function() vim.cmd[[SymbolsOutline]] end,
     }
 
     for keys, mapping in pairs(mappings) do
-      util.lua_map({ keys = keys, mapping = mapping, bufnr = bufnr })
+      vim.api.nvim_buf_set_keymap(bufnr, "n", keys, "", { callback = mapping })
     end
-    util.lua_map({
-      keys = "<space>lf",
-      mapping = "vim.lsp.buf.range_formatting()",
-      bufnr = bufnr,
-      mode = "x",
-    })
+    vim.api.nvim_buf_set_keymap(
+      bufnr,
+      "x",
+      "<space>lf",
+      "",
+      { callback = vim.lsp.buf.range_formatting }
+    )
   end
 
   require("config.lsp.settings").setup(on_attach, capabilities)
