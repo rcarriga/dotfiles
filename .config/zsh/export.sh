@@ -24,7 +24,7 @@ export FZF_COMPLETION_TRIGGER="#"
 
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
 export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-export XDG_DATA_HOME="${XDG_CACHE_HOME:-$HOME/.local/share}"
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
 if [ ! -w ${XDG_RUNTIME_DIR:="/run/user/$UID"} ]; then
     echo "\$XDG_RUNTIME_DIR ($XDG_RUNTIME_DIR) not writable. Setting to /tmp." >&2
     XDG_RUNTIME_DIR=/tmp
@@ -46,6 +46,7 @@ export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
 export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
 export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad"
-export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:$PATH"
+export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-11.0/lib64:/usr/local/lib"
+export HELM_EXPERIMENTAL_OCI=1
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh
