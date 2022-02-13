@@ -2,7 +2,7 @@
 
 module Main where
 
-import Data.List (elemIndex, sortOn)
+import Data.List
 import qualified Data.Map as M
 import Data.Maybe (fromMaybe)
 import Data.Ratio ((%))
@@ -15,9 +15,9 @@ import Graphics.X11.Xlib.Extras
 import System.Environment (lookupEnv)
 import XMonad
 import XMonad.Actions.CycleRecentWS (toggleRecentNonEmptyWS)
-import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
-import XMonad.Hooks.ManageDocks (AvoidStruts, avoidStruts, docks)
-import XMonad.Hooks.ManageHelpers ()
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Layout.LayoutModifier (ModifiedLayout ())
 import XMonad.Layout.MouseResizableTile
@@ -43,7 +43,7 @@ import XMonad.Layout.Spacing
     toggleWindowSpacingEnabled,
   )
 import qualified XMonad.StackSet as W
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.EZConfig
 import XMonad.Util.NamedScratchpad
   ( NamedScratchpad (NS),
     defaultFloating,
@@ -62,20 +62,20 @@ main = do
   xmonad $
     ewmh $
       ewmhFullscreen $
-        docks
+        docks $
           def
             { terminal = "kitty",
               modMask = mod4Mask,
               workspaces = myWorkspaces,
               normalBorderColor = "#3E3D32",
               focusedBorderColor = "#bdbdbd",
-              handleEventHook = def handleEventHook,
+              manageHook = checkDock --> XMonad.Hooks.ManageHelpers.doLower,
               layoutHook = myLayoutHook,
               startupHook = myStartupHook mode,
               logHook = sendWorkspaceNames workspaceNameFile,
               borderWidth = 2
             }
-          `additionalKeysP` myKeys mode
+            `additionalKeysP` myKeys mode
 
 myScratchpads :: [NamedScratchpad]
 myScratchpads =

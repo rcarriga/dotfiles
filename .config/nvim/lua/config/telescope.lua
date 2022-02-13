@@ -55,16 +55,43 @@ function M.post()
       },
     },
     extensions = {
+      ["zf-native"] = {
+        -- options for sorting file-like items
+        file = {
+          -- override default telescope file sorter
+          enable = true,
+
+          -- highlight matching text in results
+          highlight_results = true,
+
+          -- enable zf filename match priority
+          match_filename = true,
+        },
+
+        -- options for sorting all other items
+        generic = {
+          -- override default telescope generic item sorter
+          enable = true,
+
+          -- highlight matching text in results
+          highlight_results = true,
+
+          -- disable zf filename match priority
+          match_filename = false,
+        },
+      },
       fzf = {
         fuzzy = true,
         override_generic_sorter = true,
-        override_file_sorter = true,
+        override_file_sorter = false,
         case_mode = "smart_case",
       },
     },
   })
 
   telescope.load_extension("fzf")
+  telescope.load_extension("zf-native")
+
   vim.ui.select = function(items, opts, on_choice)
     local themes = require("telescope.themes")
     local actions = require("telescope.actions")

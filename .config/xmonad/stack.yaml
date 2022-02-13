@@ -39,9 +39,10 @@ packages:
 # (e.g., acme-missiles-0.3)
 extra-deps:
   - github: xmonad/xmonad-contrib 
-    commit: 252e6e4d0074dcd0eda531177ac2e17939a9d3d7
+    commit: ee3ea2402dee7876eccb32fc8a83bb2f3d3198bc
   - github: xmonad/xmonad
-    commit: 78b967198b70373f27291b232e10470ca7748d6f
+    commit: 906b9d34b3e272ffbeaa2497ce09131d4a203515
+  - X11-1.10.1@sha256:962d3bedba2d3463f24c278cf04e0694d7d231e7f3cec856bc7c9205e7068524,3705
 # Override default flag values for local packages and extra-deps
 # flags: {}
 

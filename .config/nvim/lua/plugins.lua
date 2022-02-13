@@ -125,6 +125,7 @@ packer.startup({
       "nvim-telescope/telescope.nvim",
       config = "require('config.telescope').post()",
       requires = {
+        { "natecraddock/telescope-zf-native.nvim" },
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-lua/popup.nvim" },
         { "nvim-lua/plenary.nvim" },

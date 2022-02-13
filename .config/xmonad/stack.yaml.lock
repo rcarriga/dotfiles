@@ -5,27 +5,34 @@
 
 packages:
 - completed:
-    size: 555204
-    url: https://github.com/xmonad/xmonad-contrib/archive/252e6e4d0074dcd0eda531177ac2e17939a9d3d7.tar.gz
+    size: 641493
+    url: https://github.com/xmonad/xmonad-contrib/archive/ee3ea2402dee7876eccb32fc8a83bb2f3d3198bc.tar.gz
     name: xmonad-contrib
-    version: '0.16'
-    sha256: c1540a74e32de4f922d4fd75c55b146f4ff22633d9656c4266391c3bc40b32c6
+    version: 0.17.0.9
+    sha256: e5bd4c1ba1952a1dc4101e4c4e8ae14732a75a30db80b786e18036b609839dcb
     pantry-tree:
-      size: 20376
-      sha256: 253a170dce7fa121aa8ca69b8b55121cc141505c8a13259ca859d4cc0ff81f79
+      size: 23470
+      sha256: 1851d323fd68399a6a7fa8c67cd5a1a31b45c89874b83e78abfd3dab723cfb1e
   original:
-    url: https://github.com/xmonad/xmonad-contrib/archive/252e6e4d0074dcd0eda531177ac2e17939a9d3d7.tar.gz
+    url: https://github.com/xmonad/xmonad-contrib/archive/ee3ea2402dee7876eccb32fc8a83bb2f3d3198bc.tar.gz
 - completed:
-    size: 73816
-    url: https://github.com/xmonad/xmonad/archive/78b967198b70373f27291b232e10470ca7748d6f.tar.gz
+    size: 104963
+    url: https://github.com/xmonad/xmonad/archive/906b9d34b3e272ffbeaa2497ce09131d4a203515.tar.gz
     name: xmonad
-    version: '0.15'
-    sha256: 2196dbbe3cabb912a74a467368b6f1a12ba2ceac747c0f7bbff163d5a42b34e3
+    version: 0.17.0.9
+    sha256: 03b3c8dac72223b4870b5f8f01a74c1f1c9858aea9a2207e8590d7eaf6ec7960
     pantry-tree:
-      size: 2978
-      sha256: e9f62b2ecd3fd1674be71373bfd4025973b18ca9ccde57f18fcb533dec8b7707
+      size: 3649
+      sha256: d807c8aab1ad11c693261ad2073b81d3aa45a523df8df2458c86fc41ad4db1b0
   original:
-    url: https://github.com/xmonad/xmonad/archive/78b967198b70373f27291b232e10470ca7748d6f.tar.gz
+    url: https://github.com/xmonad/xmonad/archive/906b9d34b3e272ffbeaa2497ce09131d4a203515.tar.gz
+- completed:
+    hackage: X11-1.10.1@sha256:962d3bedba2d3463f24c278cf04e0694d7d231e7f3cec856bc7c9205e7068524,3705
+    pantry-tree:
+      size: 2860
+      sha256: 0f5b3e653b46d3fd592886b294600da4d2eb09982ad63fb8bbc300f0c6fb5b9a
+  original:
+    hackage: X11-1.10.1@sha256:962d3bedba2d3463f24c278cf04e0694d7d231e7f3cec856bc7c9205e7068524,3705
 snapshots:
 - completed:
     size: 524164
