@@ -17,7 +17,6 @@ import XMonad
 import XMonad.Actions.CycleRecentWS (toggleRecentNonEmptyWS)
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName (setWMName)
 import XMonad.Layout.LayoutModifier (ModifiedLayout ())
 import XMonad.Layout.MouseResizableTile
@@ -62,14 +61,12 @@ main = do
   xmonad $
     ewmh $
       ewmhFullscreen $
-        docks $
           def
             { terminal = "kitty",
               modMask = mod4Mask,
               workspaces = myWorkspaces,
               normalBorderColor = "#3E3D32",
               focusedBorderColor = "#bdbdbd",
-              manageHook = checkDock --> XMonad.Hooks.ManageHelpers.doLower,
               layoutHook = myLayoutHook,
               startupHook = myStartupHook mode,
               logHook = sendWorkspaceNames workspaceNameFile,
