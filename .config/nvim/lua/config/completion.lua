@@ -38,6 +38,8 @@ function M.post()
     TypeParameter = "  ",
   }
 
+  require("cmp_git").setup({})
+
   cmp.setup({
     window = {
       completion = {
@@ -96,6 +98,7 @@ function M.post()
     },
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
+      { name = "cmp_git" },
       { name = "vsnip" },
       { name = "orgmode" },
     }, {

@@ -1,7 +1,7 @@
 local M = {}
 
 function M.post()
-  require("telescope").load_extension("notify")
+  pcall(function() require("telescope").load_extension("notify") end)
 
   local notify_renderers = require("notify.render")
 

@@ -118,7 +118,11 @@ function M.post()
 
   local spinner_frames = { "⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷" }
   local function lsp_status(status)
-    local buf_messages = require("lsp-status").messages()
+    local success, lsp_status = pcall(require, "lsp-status")
+    if not success then
+      return ""
+    end
+    local buf_messages = lsp_status.messages()
     if vim.tbl_isempty(buf_messages) then
       return ""
     end

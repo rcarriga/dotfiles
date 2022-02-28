@@ -11,16 +11,6 @@ function M.post()
     },
   }
 
-  parser_configs.org = {
-    install_info = {
-      url = "https://github.com/milisims/tree-sitter-org",
-      revision = "main",
-      files = { "src/parser.c", "src/scanner.cc" },
-    },
-    filetype = "org",
-  }
-
-
   vim.cmd([[
     omap     <silent> m <cmd><C-U>lua require('tsht').nodes()<CR>
     vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
@@ -49,7 +39,7 @@ function M.post()
       disable = { "org" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
       additional_vim_regex_highlighting = { "org" }, -- Required since TS highlighter doesn't support all syntax features (conceal)
     },
-    ensure_installed = { "norg", "python", "lua", "javascript", "vue", "html", "css" },
+    ensure_installed = "all",
     indent = { enable = false },
     incremental_selection = {
       enable = true,
