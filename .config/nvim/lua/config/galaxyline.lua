@@ -25,9 +25,10 @@ function M.post()
     normal = "#F8F8F8",
     grey = "#132434",
     grey1 = "#262626",
-    grey2 = "#8B8B8B",
-    grey3 = "#bdbdbd",
-    grey4 = "#F8F8F8",
+    grey2 = "#424242",
+    grey3 = "#8B8B8B",
+    grey4 = "#bdbdbd",
+    grey5 = "#F8F8F8",
     violet = "#D484FF",
     blue = "#2f628e",
     cyan = "#00f1f5",
@@ -220,7 +221,7 @@ function M.post()
           return " " .. branch .. " "
         end,
         condition = checkwidth,
-        highlight = { colors.grey2, colors.bg, "bold" },
+        highlight = { colors.grey3, colors.bg, "bold" },
       },
     },
 
@@ -254,7 +255,7 @@ function M.post()
     {
       LspStatus = {
         provider = lsp_status,
-        highlight = { colors.grey2, colors.bg },
+        highlight = { colors.grey3, colors.bg },
       },
     },
     {
@@ -333,7 +334,7 @@ function M.post()
           vim.cmd("hi GalaxyFileStatus guifg=" .. colour)
           local existing_text = providers_text(gls.left)
           existing_text = existing_text .. providers_text(gls.right)
-          local width = vim.fn.winwidth(0) - vim.str_utfindex(existing_text)
+          local width = vim.opt.columns:get() - vim.str_utfindex(existing_text)
           return "├" .. string.rep("─", width - 2) .. "┤"
         end,
         highlight = "GalaxyFileStatus",
@@ -345,7 +346,7 @@ function M.post()
     {
       LongFileName = {
         provider = long_filename,
-        highight = { colors.grey2, colors.bg },
+        highight = { colors.grey3, colors.bg },
       },
     },
 
@@ -361,7 +362,7 @@ function M.post()
       Bar = {
         provider = function()
           local existing_text = providers_text({ gls.short_line_left[1], gls.short_line_left[2] })
-          local width = vim.fn.winwidth(0) - vim.str_utfindex(existing_text)
+          local width = vim.opt.columns:get() - vim.str_utfindex(existing_text)
           return string.rep("─", width)
         end,
         -- separator = "%>",

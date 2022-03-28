@@ -10,7 +10,7 @@ PP = vim.schedule_wrap(function(...)
   vim.cmd("vsplit")
   vim.api.nvim_win_set_buf(0, buf)
 end)
-
+-- vim.lsp.set_log_level(vim.lsp.log_levels.DEBUG)
 util.multilineCommand([[
 augroup FileTypeInit
     au!
@@ -40,6 +40,8 @@ augroup END
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
+vim.g.do_filetype_lua = 1
+
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = "menuone,noselect,menu"
 
@@ -62,7 +64,7 @@ vim.opt.linebreak = true
 vim.cmd([[filetype plugin indent on]])
 
 -- Always on statusline
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
 
 -- Hides --insert-- under statusline
 vim.opt.showmode = false
@@ -166,7 +168,7 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-pcall(require, "impatient")
+require( "impatient").enable_profile()
 
 local loaded, err = pcall(require, "my_packer")
 if not loaded then

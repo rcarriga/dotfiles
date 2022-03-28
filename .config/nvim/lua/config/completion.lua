@@ -1,12 +1,33 @@
 local M = {}
 
 function M.post()
-  vim.cmd([[
-    imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-    smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-    imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-    smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  ]])
+  require("luasnip.loaders.from_vscode").lazy_load()
+
+  local luasnip = require("luasnip")
+
+  local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  end
+
+  local tab_complete = function()
+    if luasnip.expand_or_jumpable() then
+      return t("<Plug>luasnip-expand-or-jump")
+    end
+    return t("<Tab>")
+  end
+  local s_tab_complete = function()
+    if luasnip.jumpable(-1) then
+      return t("<Plug>luasnip-jump-prev")
+    end
+    return t("<S-Tab>")
+  end
+
+  vim.api.nvim_set_keymap("i", "<Tab>", "", { callback = tab_complete, expr = true })
+  vim.api.nvim_set_keymap("s", "<Tab>", "", { callback = tab_complete, expr = true })
+  vim.api.nvim_set_keymap("i", "<S-Tab>", "", { callback = s_tab_complete, expr = true})
+  vim.api.nvim_set_keymap("s", "<S-Tab>", "", { callback = s_tab_complete, expr = true })
+  vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
+  vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
   -- Setup nvim-cmp.
   local cmp = require("cmp")
 
@@ -50,12 +71,8 @@ function M.post()
       },
     },
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-        -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-        -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
+        require("luasnip").lsp_expand(args.body)
       end,
     },
     sorting = {
@@ -99,7 +116,7 @@ function M.post()
     sources = cmp.config.sources({
       { name = "nvim_lsp" },
       { name = "cmp_git" },
-      { name = "vsnip" },
+      { name = "luasnip" },
       { name = "orgmode" },
     }, {
       { name = "buffer" },

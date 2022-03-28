@@ -137,7 +137,7 @@ vnoremap <M-k> <Cmd>lua require'dapui'.eval()<cr>
 nnoremap <silent> <M-m> :lua require'dapui'.float_element()<cr>
 nnoremap <silent> <M-v> :lua require'dapui'.float_element("scopes")<cr>
 nnoremap <silent> <M-r> :lua require'dapui'.float_element("repl")<cr>
-nnoremap <silent> <M-q> :lua require'dap'.disconnect()<cr>
+nnoremap <silent> <M-q> :lua require'dap'.terminate()<cr>
 
 nnoremap <silent><leader>f :FloatermToggle<CR>
 tnoremap <silent> <C-a> <C-\><C-n>:FloatermNew<CR>
@@ -172,7 +172,7 @@ nnoremap <silent><leader>ns <cmd>lua require("neotest").run(vim.fn.getcwd())<CR>
 nnoremap <silent><leader>nn <cmd>lua require("neotest").run()<CR>
 nnoremap <silent><leader>nd <cmd>lua require("neotest").run({strategy = "dap"})<CR>
 nnoremap <silent><leader>na <cmd>lua require("neotest").attach()<CR>
-nnoremap <silent><leader>no <cmd>lua require("neotest").output.open()<CR>
+nnoremap <silent><leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
 nnoremap <silent><leader>nO <cmd>lua require("neotest").output.open({enter = true, short = true})<CR>
 nnoremap <silent><leader>np <cmd>lua require("neotest").summary.toggle()<CR>
 

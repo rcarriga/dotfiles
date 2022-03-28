@@ -127,6 +127,7 @@ loadHighlights({
   NotificationInfo = { Normal, FloatBackground },
   NotificationError = { Error, FloatBackground },
   NotificationWarning = { Warning, FloatBackground },
+  WinSeparator = { Grey2 },
   -- General
   Boolean = { Val },
   Character = { Val },

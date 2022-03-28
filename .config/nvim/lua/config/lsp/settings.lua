@@ -1,7 +1,7 @@
 local M = {}
 
 function M.setup(on_attach, capabilities)
-  local lsp_status = require("lsp-status")
+  local has_status, lsp_status = pcall(require, "lsp-status")
 
   local null_ls = require("null-ls")
   local blt = null_ls.builtins
@@ -42,7 +42,7 @@ function M.setup(on_attach, capabilities)
       },
     }),
     pyright = {
-      handlers = lsp_status.extensions.pyls_ms.setup(),
+      handlers = has_status and lsp_status.extensions.pyls_ms.setup() or nil,
       on_attach = on_attach,
       before_init = function(_, config)
         config.settings.python.pythonPath = require("util").get_python_path(config.root_dir)

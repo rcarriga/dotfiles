@@ -1,22 +1,15 @@
 local M = {}
 
 function M.post()
-  require("neotest").setup({
-    adapters = {
-      require("neotest-python")({
-        dap = { justMyCode = false },
-      }),
-      require("neotest-plenary"),
-    },
-    icons = {
-      running = "⟳",
-    },
-  })
   require("dapui").setup({
     sidebar = { size = 80 },
     tray = { size = 10 },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
+
+  vim.keymap.set({ "n", "v" }, "<Leader>t", function()
+    package.loaded.dapui.eval()
+  end, { silent = true })
 
   vim.fn.sign_define("DapBreakpoint", { text = "→", texthl = "Error", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = "→", texthl = "Success", linehl = "", numhl = "" })
@@ -153,4 +146,3 @@ function M.post()
 end
 
 return M
-

@@ -18,9 +18,9 @@ function M.post()
       open = "▾",
     },
   }
+  vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
   require("nvim-tree").setup({
     disable_netrw = false,
-    auto_close = 1,
     view = {
       width = 45,
     },

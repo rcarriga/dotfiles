@@ -56,8 +56,10 @@ function M.pre()
 end
 
 function M.post()
-  local lsp_status = require("lsp-status")
-  lsp_status.register_progress()
+  local has_status, lsp_status = pcall(require, "lsp-status")
+  if has_status then
+    lsp_status.register_progress()
+  end
   vim.diagnostic.config({
     signs = {
       priority = 5,
@@ -82,7 +84,9 @@ function M.post()
 
   require("config.lsp.handlers").setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities = vim.tbl_deep_extend("force", capabilities, lsp_status.capabilities)
+  if has_status then
+    capabilities = vim.tbl_deep_extend("force", capabilities, lsp_status.capabilities)
+  end
   pcall(function()
     capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
   end)
@@ -111,7 +115,9 @@ function M.post()
       -- ]])
     end
 
-    lsp_status.on_attach(client)
+    if has_status then
+      lsp_status.on_attach(client)
+    end
     lsp_sig.on_attach({
       floating_window_above_cur_line = true,
       bind = true,
@@ -147,7 +153,6 @@ function M.post()
       ["[d"] = vim.diagnostic.goto_prev,
       ["<C-s>"] = vim.lsp.buf.signature_help,
       ["<space>la"] = vim.lsp.buf.code_action,
-      ["<space>lt"] = vim.lsp.buf.type_definition,
       ["<space>ls"] = vim.lsp.buf.document_symbol,
       ["<space>lf"] = vim.lsp.buf.formatting_sync,
       ["<space>lt"] = function() vim.cmd[[SymbolsOutline]] end,
