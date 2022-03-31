@@ -91,17 +91,9 @@ function M.post()
     capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
   end)
   require("diaglist").init({
-    -- optional settings
-    -- below are defaults
-    debug = false,
-
     -- increase for noisy servers
     debounce_ms = 150,
   })
-  vim.cmd[[
-    nmap <space>dw <cmd>lua require('diaglist').open_all_diagnostics()<cr>
-    nmap <space>d0 <cmd>lua require('diaglist').open_buffer_diagnostics()<cr>
-  ]]
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
@@ -156,6 +148,8 @@ function M.post()
       ["<space>ls"] = vim.lsp.buf.document_symbol,
       ["<space>lf"] = vim.lsp.buf.formatting_sync,
       ["<space>lt"] = function() vim.cmd[[SymbolsOutline]] end,
+      ["<space>ld"] = require('diaglist').open_all_diagnostics,
+      ["<space>lb"] = require('diaglist').open_buffer_diagnostics,
     }
 
     for keys, mapping in pairs(mappings) do

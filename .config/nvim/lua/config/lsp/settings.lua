@@ -59,7 +59,7 @@ function M.setup(on_attach, capabilities)
       init_options = {
         config = {
           vetur = {
-            -- experimental = { templateInterpolationService = true },
+            experimental = { templateInterpolationService = true },
             completion = {
               autoImport = true,
               tagCasing = "kebab",

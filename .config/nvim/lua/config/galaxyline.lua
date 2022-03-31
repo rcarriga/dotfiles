@@ -97,7 +97,7 @@ function M.post()
   end
 
   local checkwidth = function()
-    local squeeze_width = vim.fn.winwidth(0) / 2
+    local squeeze_width = vim.opt.columns:get() / 2
     if squeeze_width > 60 then
       return true
     end
@@ -150,7 +150,7 @@ function M.post()
         if msg.uri then
           local filename = vim.uri_to_fname(msg.uri)
           filename = vim.fn.fnamemodify(filename, ":~:.")
-          local space = math.min(60, math.floor(0.6 * vim.fn.winwidth(0)))
+          local space = math.min(60, math.floor(0.6 * vim.opt.columns:get()))
           if #filename > space then
             filename = vim.fn.pathshorten(filename)
           end

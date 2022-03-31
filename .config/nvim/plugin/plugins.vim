@@ -36,6 +36,7 @@ let test#python#runner = "pytest"
 let test#javascript#runner = "jest"
 let test#go#runner = "gotest"
 
+let g:floaterm_autoclose = 0
 " Open undo tree on right
 let g:mundo_right = 1
 

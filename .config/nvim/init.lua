@@ -77,6 +77,8 @@ vim.opt.termguicolors = true
 -- Delay to wait for next key in combo
 vim.opt.timeoutlen = 1000
 
+vim.opt.textwidth = 120
+
 -- Show numbers relative to current line
 vim.opt.relativenumber = true
 -- vim.opt.cursorline = true

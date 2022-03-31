@@ -11,6 +11,9 @@ function M.post()
     },
     icons = {
       running = "⟳",
+      passed = "",
+      failed = "",
+      skipped = "",
     },
   })
 end

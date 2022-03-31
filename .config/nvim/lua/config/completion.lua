@@ -30,6 +30,7 @@ function M.post()
   vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
   -- Setup nvim-cmp.
   local cmp = require("cmp")
+  local types = require("cmp.types")
 
   local cmp_kinds = {
     Text = "  ",
@@ -99,10 +100,6 @@ function M.post()
         hl_group = "Comment",
       },
     },
-    documentation = {
-      border = vim.g.border_chars,
-      winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-    },
     mapping = {
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
@@ -114,6 +111,7 @@ function M.post()
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
     },
     sources = cmp.config.sources({
+      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "cmp_git" },
       { name = "luasnip" },
