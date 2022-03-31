@@ -158,6 +158,9 @@ packer.startup({
        branch = "dev",
        config = "require('config.completion').post()",
        requires = {
+         "rafamadriz/friendly-snippets",
+         "L3MON4D3/LuaSnip",
+         "saadparwaiz1/cmp_luasnip",
          "github/copilot.vim",
          "hrsh7th/cmp-copilot",
          "petertriho/cmp-git",

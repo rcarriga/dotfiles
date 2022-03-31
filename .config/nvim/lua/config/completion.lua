@@ -13,7 +13,7 @@ function M.post()
     if luasnip.expand_or_jumpable() then
       return t("<Plug>luasnip-expand-or-jump")
     end
-    return t("<Tab>")
+    return vim.fn["copilot#Accept"]()
   end
   local s_tab_complete = function()
     if luasnip.jumpable(-1) then
@@ -30,7 +30,6 @@ function M.post()
   vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
   -- Setup nvim-cmp.
   local cmp = require("cmp")
-  local types = require("cmp.types")
 
   local cmp_kinds = {
     Text = "  ",

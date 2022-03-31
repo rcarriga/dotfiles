@@ -1,5 +1,7 @@
 " ###################################################################################
 " Plugin Settings {{{1
+let g:copilot_no_tab_map = 1
+let g:copilot_assume_mapped = 1
 
 let g:cursorhold_updatetime = 100
 
