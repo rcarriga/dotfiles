@@ -2,7 +2,7 @@ local M = {}
 
 function M.post()
   vim.g.nvim_tree_git_hl = 1
-  vim.g.nvim_tree_indent_markers = 1
+  
   vim.g.nvim_tree_icons = {
     default = "",
     symlink = "",
@@ -17,8 +17,15 @@ function M.post()
       default = "▸",
       open = "▾",
     },
+    renderer = {
+      indent_markers = {
+        enable = true,
+      },
+    },
   }
-  vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])
+  vim.cmd(
+    [[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]]
+  )
   require("nvim-tree").setup({
     disable_netrw = false,
     view = {

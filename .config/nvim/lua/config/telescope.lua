@@ -14,7 +14,7 @@ function M.post()
         "fd",
         "--type",
         "f",
-        "--no-ignore-vcs",
+        "--no-ignore",
         "--color=never",
         "--hidden",
         "--follow",

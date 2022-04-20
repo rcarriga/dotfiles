@@ -2,6 +2,7 @@ local util = require("util")
 P = vim.schedule_wrap(function(...)
   print(vim.inspect(...))
 end)
+
 PP = vim.schedule_wrap(function(...)
   local is_string = select("#", ...) == 1 and type(select(1, ...)) == "string"
   local buf = vim.api.nvim_create_buf(false, true)

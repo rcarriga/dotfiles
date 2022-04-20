@@ -7,7 +7,9 @@ function M.post()
         dap = { justMyCode = false },
       }),
       require("neotest-plenary"),
-      require("neotest-vim-test"),
+      require("neotest-vim-test")({
+        ignore_file_types = { "python", "vim" },
+      }),
     },
     icons = {
       running = "⟳",

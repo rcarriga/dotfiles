@@ -13,7 +13,7 @@ function M.post()
     if luasnip.expand_or_jumpable() then
       return t("<Plug>luasnip-expand-or-jump")
     end
-    return vim.fn["copilot#Accept"]()
+    return t("<Tab>")
   end
   local s_tab_complete = function()
     if luasnip.jumpable(-1) then
@@ -28,6 +28,9 @@ function M.post()
   vim.api.nvim_set_keymap("s", "<S-Tab>", "", { callback = s_tab_complete, expr = true })
   vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
   vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
+  vim.api.nvim_set_keymap("i", "<C-w>", "copilot#Accept()", {expr = true})
+  vim.api.nvim_set_keymap("s", "<C-w>", "copilot#Accept()", {expr = true})
+
   -- Setup nvim-cmp.
   local cmp = require("cmp")
 
@@ -110,7 +113,7 @@ function M.post()
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
     },
     sources = cmp.config.sources({
-      { name = "copilot" },
+      -- { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "cmp_git" },
       { name = "luasnip" },
