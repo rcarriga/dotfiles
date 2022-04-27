@@ -68,7 +68,6 @@ function M.post()
 
   vim.ui.select = function(items, opts, on_choice)
     local themes = require("telescope.themes")
-    local actions = require("telescope.actions")
     local state = require("telescope.actions.state")
     local pickers = require("telescope.pickers")
     local finders = require("telescope.finders")

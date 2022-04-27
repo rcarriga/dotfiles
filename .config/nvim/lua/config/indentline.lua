@@ -9,6 +9,7 @@ function M.post()
     filetype_exclude = {
       "",
       "help",
+      "markdown",
       "dapui_scopes",
       "dapui_stacks",
       "dapui_watches",

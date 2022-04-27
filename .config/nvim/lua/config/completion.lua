@@ -24,12 +24,12 @@ function M.post()
 
   vim.api.nvim_set_keymap("i", "<Tab>", "", { callback = tab_complete, expr = true })
   vim.api.nvim_set_keymap("s", "<Tab>", "", { callback = tab_complete, expr = true })
-  vim.api.nvim_set_keymap("i", "<S-Tab>", "", { callback = s_tab_complete, expr = true})
+  vim.api.nvim_set_keymap("i", "<S-Tab>", "", { callback = s_tab_complete, expr = true })
   vim.api.nvim_set_keymap("s", "<S-Tab>", "", { callback = s_tab_complete, expr = true })
   vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
   vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
-  vim.api.nvim_set_keymap("i", "<C-w>", "copilot#Accept()", {expr = true})
-  vim.api.nvim_set_keymap("s", "<C-w>", "copilot#Accept()", {expr = true})
+  vim.api.nvim_set_keymap("i", "<C-w>", "copilot#Accept()", { expr = true })
+  vim.api.nvim_set_keymap("s", "<C-w>", "copilot#Accept()", { expr = true })
 
   -- Setup nvim-cmp.
   local cmp = require("cmp")
@@ -65,6 +65,10 @@ function M.post()
   require("cmp_git").setup({})
 
   cmp.setup({
+    enabled = function()
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+        or require("cmp_dap").is_dap_buffer()
+    end,
     window = {
       completion = {
         border = vim.g.border_chars,
@@ -113,13 +117,11 @@ function M.post()
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
     },
     sources = cmp.config.sources({
-      -- { name = "copilot" },
+      { name = "dap" },
       { name = "nvim_lsp" },
       { name = "cmp_git" },
       { name = "luasnip" },
       { name = "orgmode" },
-    }, {
-      { name = "buffer" },
     }),
     view = {
       entries = "custom",

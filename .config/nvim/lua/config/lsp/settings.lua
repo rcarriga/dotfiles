@@ -25,7 +25,7 @@ function M.setup(on_attach, capabilities)
 
   local server_configs = {
     sumneko_lua = require("lua-dev").setup({
-      library = { plugins = { "plenary.nvim", "neotest" }, types = true },
+      library = { plugins = { "nvim-cmp", "plenary.nvim", "neotest" }, types = true },
       lspconfig = {
         on_attach = on_attach,
         capabilities = capabilities,

@@ -44,6 +44,8 @@ packer.startup({
     },
   },
   function(use)
+    use({"mzlogin/vim-markdown-toc"})
+    use {"MunifTanjim/nui.nvim"}
     use({ "wbthomason/packer.nvim" })
     use({ "nvim-lua/plenary.nvim" })
     use({ "antoinemadec/FixCursorHold.nvim" })
@@ -139,6 +141,7 @@ packer.startup({
        requires = {
          { "mfussenegger/nvim-dap-python" },
          { maybe_local("/home/ronan/Dev/repos/nvim-dap-ui") },
+         { maybe_local("/home/ronan/Dev/repos/cmp-dap") },
          { "jbyuki/one-small-step-for-vimkind" },
        },
      })
@@ -155,7 +158,6 @@ packer.startup({
      })
      use({
        "hrsh7th/nvim-cmp",
-       branch = "dev",
        config = "require('config.completion').post()",
        requires = {
          "rafamadriz/friendly-snippets",
