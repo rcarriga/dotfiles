@@ -60,7 +60,8 @@ main = do
   safeSpawn "mkfifo" [workspaceNameFile]
   xmonad $
     ewmh $
-      ewmhFullscreen $
+      docks $
+        ewmhFullscreen $
           def
             { terminal = "kitty",
               modMask = mod4Mask,
@@ -93,7 +94,8 @@ myStartupHook mode = do
     [ "pkill polybar; sleep 1; polybar " <> mode,
       "copyq",
       "pkill flameshot; flameshot",
-      "/usr/lib/notification-daemon-1.0/notification-daemon",
+      -- "/usr/lib/notification-daemon-1.0/notification-daemon",
+      "deadd-notification-center",
       "pgrep redshift-gtk || redshift-gtk -l 53:-6 -t 6500:2500",
       "pgrep nm-applet || nm-applet",
       "(pgrep kdeconnectd || /usr/lib/kdeconnectd) && pkill kdeconnect-indic && kdeconnect-indicator",
