@@ -64,7 +64,8 @@ function M.post()
 
   require("cmp_git").setup({})
 
-  cmp.setup({
+  ---@type cmp.ConfigSchema
+  local args = {
     enabled = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
         or require("cmp_dap").is_dap_buffer()
@@ -115,6 +116,8 @@ function M.post()
         c = cmp.mapping.close(),
       }),
       ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+      ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     },
     sources = cmp.config.sources({
       { name = "dap" },
@@ -126,7 +129,8 @@ function M.post()
     view = {
       entries = "custom",
     },
-  })
+  }
+  cmp.setup(args)
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   -- cmp.setup.cmdline("/", {
@@ -136,12 +140,11 @@ function M.post()
   -- })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  -- cmp.setup.cmdline(":", {
-  --   sources = cmp.config.sources({
-  --     { name = "path" },
-  --   }, {
-  --     { name = "cmdline" },
-  --   }),
-  -- })
+  cmp.setup.cmdline(":", {
+    sources = cmp.config.sources({
+      { name = "cmdline" },
+      { name = "path" },
+    }, {}),
+  })
 end
 return M

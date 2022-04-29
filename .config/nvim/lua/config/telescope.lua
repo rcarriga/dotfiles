@@ -95,7 +95,7 @@ function M.post()
       attach_mappings = function(prompt_bufnr)
         actions.select_default:replace(function()
           local selection = state.get_selected_entry()
-          actions._close(prompt_bufnr, false)
+          -- actions._close(prompt_bufnr, false)
           if not selection then
             -- User did not select anything.
             on_choice(nil, nil)

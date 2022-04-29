@@ -14,16 +14,29 @@ end
 function M.setup()
   if pcall(require, "telescope") then
     vim.lsp.handlers["textDocument/references"] = wrap_options(
-    { layout_strategy = "vertical" },
-    "lsp_references"
+      { layout_strategy = "vertical" },
+      "lsp_references"
     )
     vim.lsp.handlers["textDocument/documentSymbol"] =
-    require("telescope.builtin").lsp_document_symbols
+      require("telescope.builtin").lsp_document_symbols
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
       border = vim.g.border_chars,
     })
   end
   vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.codelens.on_codelens
+  local severity = {
+    "error",
+    "warn",
+    "info",
+    "info", -- map both hint and info to info?
+  }
+  vim.lsp.handlers["window/showMessage"] = function(_, method, params, client_id)
+    vim.notify(
+      method.message,
+      severity[params.type],
+      { title = vim.lsp.get_client_by_id(client_id).name }
+    )
+  end
   vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
     local client_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
     if err then
