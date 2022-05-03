@@ -97,7 +97,7 @@ function M.post()
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
-    if client.resolved_capabilities.document_highlight then
+    -- if client.resolved_capabilities.document_highlight then
       -- vim.cmd([[
       -- augroup LspReferences
       -- au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
@@ -105,7 +105,7 @@ function M.post()
       -- au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       -- augroup END
       -- ]])
-    end
+    -- end
 
     if has_status then
       lsp_status.on_attach(client)
@@ -121,7 +121,7 @@ function M.post()
       },
     })
 
-    if client.resolved_capabilities.code_lens then
+    if client.server_capabilities.codeLensProvider then
       vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")
     end
 
@@ -146,7 +146,7 @@ function M.post()
       ["<C-s>"] = vim.lsp.buf.signature_help,
       ["<space>la"] = vim.lsp.buf.code_action,
       ["<space>ls"] = vim.lsp.buf.document_symbol,
-      ["<space>lf"] = vim.lsp.buf.formatting_sync,
+      ["<space>lf"] = vim.lsp.buf.format,
       ["<space>lt"] = function() vim.cmd[[SymbolsOutline]] end,
       ["<space>ld"] = require('diaglist').open_all_diagnostics,
       ["<space>lb"] = require('diaglist').open_buffer_diagnostics,

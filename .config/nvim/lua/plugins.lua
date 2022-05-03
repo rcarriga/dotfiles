@@ -44,8 +44,9 @@ packer.startup({
     },
   },
   function(use)
-    use({"mzlogin/vim-markdown-toc"})
-    use {"MunifTanjim/nui.nvim"}
+    use({ "mzlogin/vim-markdown-toc" })
+    use({ "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope", "Pocco81/TrueZen.nvim" } })
+    use({ "MunifTanjim/nui.nvim" })
     use({ "wbthomason/packer.nvim" })
     use({ "nvim-lua/plenary.nvim" })
     use({ "antoinemadec/FixCursorHold.nvim" })
@@ -112,70 +113,70 @@ packer.startup({
       cmd = { "UltestSummary" },
       requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" } },
     })
-     use({ "rhysd/git-messenger.vim", keys = "<leader>gm" })
-     use({ "romgrk/barbar.nvim" })
-     use({ "rrethy/vim-hexokinase", run = "make hexokinase", cmd = "HexokinaseTurnOn" })
-     use({ "simnalamburt/vim-mundo", cmd = "MundoToggle" })
-     use({ "svermeulen/vim-subversive" })
-     use({ "JoosepAlviste/nvim-ts-context-commentstring", requires = { "tpope/vim-commentary" } })
-     use({ "tpope/vim-abolish", cmd = "S" })
-     use({ "tpope/vim-eunuch", cmd = { "Rename", "Delete", "Remove", "Chmod" } })
-     use({
-       "tpope/vim-fugitive",
-       requires = { { "tpope/vim-rhubarb" }, { "shumphrey/fugitive-gitlab.vim" } },
-     })
-     use({ "tpope/vim-unimpaired" })
-     use({ "voldikss/vim-floaterm", cmd = "FloatermNew" })
-     use({ "wellle/targets.vim", requires = { "wellle/line-targets.vim" } })
-     use({
-       "nvim-telescope/telescope.nvim",
-       config = "require('config.telescope').post()",
-       requires = {
-         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-         { "nvim-lua/popup.nvim" },
-       },
-     })
-     use({
-       "mfussenegger/nvim-dap",
-       config = "require('config.dap').post()",
-       requires = {
-         { "mfussenegger/nvim-dap-python" },
-         { maybe_local("/home/ronan/Dev/repos/nvim-dap-ui") },
-         { maybe_local("/home/ronan/Dev/repos/cmp-dap") },
-         { "jbyuki/one-small-step-for-vimkind" },
-       },
-     })
-     use({
-       "nvim-treesitter/nvim-treesitter",
-       config = "require('config.treesitter').post()",
-       requires = {
-         { "lewis6991/spellsitter.nvim" },
-         { "nvim-treesitter/playground" },
-         { "nvim-treesitter/nvim-treesitter-textobjects" },
-         { "nvim-treesitter/nvim-treesitter-refactor" },
-         { "mfussenegger/nvim-ts-hint-textobject" },
-       },
-     })
-     use({
-       "hrsh7th/nvim-cmp",
-       config = "require('config.completion').post()",
-       requires = {
-         "rafamadriz/friendly-snippets",
-         "L3MON4D3/LuaSnip",
-         "saadparwaiz1/cmp_luasnip",
-         "github/copilot.vim",
-         "hrsh7th/cmp-copilot",
-         "petertriho/cmp-git",
-         "onsails/lspkind-nvim",
-         "hrsh7th/cmp-nvim-lsp",
-         "hrsh7th/cmp-buffer",
-         "hrsh7th/cmp-cmdline",
-         "hrsh7th/cmp-path",
-         "hrsh7th/cmp-vsnip",
-         "hrsh7th/vim-vsnip",
-         "lukas-reineke/cmp-under-comparator",
-       },
-     })
+    use({ "rhysd/git-messenger.vim", keys = "<leader>gm" })
+    use({ "romgrk/barbar.nvim" })
+    use({ "rrethy/vim-hexokinase", run = "make hexokinase", cmd = "HexokinaseTurnOn" })
+    use({ "simnalamburt/vim-mundo", cmd = "MundoToggle" })
+    use({ "svermeulen/vim-subversive" })
+    use({ "JoosepAlviste/nvim-ts-context-commentstring", requires = { "tpope/vim-commentary" } })
+    use({ "tpope/vim-abolish", cmd = "S" })
+    use({ "tpope/vim-eunuch", cmd = { "Rename", "Delete", "Remove", "Chmod" } })
+    use({
+      "tpope/vim-fugitive",
+      requires = { { "tpope/vim-rhubarb" }, { "shumphrey/fugitive-gitlab.vim" } },
+    })
+    use({ "tpope/vim-unimpaired" })
+    use({ "voldikss/vim-floaterm", cmd = "FloatermNew" })
+    use({ "wellle/targets.vim", requires = { "wellle/line-targets.vim" } })
+    use({
+      "nvim-telescope/telescope.nvim",
+      config = "require('config.telescope').post()",
+      requires = {
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+        { "nvim-lua/popup.nvim" },
+      },
+    })
+    use({
+      "mfussenegger/nvim-dap",
+      config = "require('config.dap').post()",
+      requires = {
+        { "mfussenegger/nvim-dap-python" },
+        { maybe_local("/home/ronan/Dev/repos/nvim-dap-ui") },
+        { maybe_local("/home/ronan/Dev/repos/cmp-dap") },
+        { "jbyuki/one-small-step-for-vimkind" },
+      },
+    })
+    use({
+      "nvim-treesitter/nvim-treesitter",
+      config = "require('config.treesitter').post()",
+      requires = {
+        { "lewis6991/spellsitter.nvim" },
+        { "nvim-treesitter/playground" },
+        { "nvim-treesitter/nvim-treesitter-textobjects" },
+        { "nvim-treesitter/nvim-treesitter-refactor" },
+        { "mfussenegger/nvim-ts-hint-textobject" },
+      },
+    })
+    use({
+      "hrsh7th/nvim-cmp",
+      config = "require('config.completion').post()",
+      requires = {
+        "rafamadriz/friendly-snippets",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "github/copilot.vim",
+        "hrsh7th/cmp-copilot",
+        "petertriho/cmp-git",
+        "onsails/lspkind-nvim",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-vsnip",
+        "hrsh7th/vim-vsnip",
+        "lukas-reineke/cmp-under-comparator",
+      },
+    })
   end,
 })
 return M

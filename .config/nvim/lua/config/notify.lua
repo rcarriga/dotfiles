@@ -7,6 +7,7 @@ function M.post()
 
   require("notify").setup({
     background_colour = "#121212",
+    fps = 60,
   })
 end
 

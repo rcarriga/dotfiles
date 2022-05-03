@@ -329,6 +329,7 @@ loadHighlights({
   TSDefinition = { Transparent, "bold,underline" },
   TSDefinitionUsage = { Transparent, "bold,underline" },
   TSCurrentScope = { Transparent, "bold" },
+  TSTextReference = { Normal, "bold,underline" },
   -- Golang
   goFunctionCall = { FuncName },
   goVarDefs = { VarName },

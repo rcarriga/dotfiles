@@ -11,12 +11,6 @@ function M.post()
         ignore_file_types = { "python", "vim", "lua" },
       }),
     },
-    icons = {
-      running = "⟳",
-      passed = "",
-      failed = "",
-      skipped = "",
-    },
   })
 end
 
