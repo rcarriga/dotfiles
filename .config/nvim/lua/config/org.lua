@@ -5,21 +5,85 @@ function M.post()
     require("neorg").setup({
       load = {
         ["core.defaults"] = {},
+        ["core.keybinds"] = {
+          config = {
+            hook = function(keybinds)
+              keybinds.map_event_to_mode("norg", {
+                n = {
+                  { "<M-k>", "core.norg.manoeuvre.item_up" },
+                  { "<M-j>", "core.norg.manoeuvre.item_down" },
+                  { "ah", "core.norg.manoeuvre.textobject.around-heading" },
+                  { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
+                  { "at", "core.norg.manoeuvre.textobject.around-tag" },
+                  { "it", "core.norg.manoeuvre.textobject.inner-tag" },
+                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
+                },
+              }, {
+                silent = true,
+                noremap = true,
+              })
+            end,
+          },
+        },
         ["core.norg.dirman"] = {
           config = {
             workspaces = {
-              work = "~/notes/work",
-              home = "~/notes/home",
-              example_gtd = "~/Dev/repos/example_workspaces/gtd",
+              notes = "~/org/notes",
+              gtd = "~/org/gtd",
             },
           },
         },
+        ["core.norg.manoeuvre"] = {},
         ["core.norg.completion"] = {
           config = {
             engine = "nvim-cmp",
           },
         },
-        ["core.norg.concealer"] = {},
+        ["core.norg.concealer"] = {
+          config = {
+            completion_level = {
+              enabled = true,
+
+              queries = vim.tbl_deep_extend(
+                "keep",
+                {},
+                (function()
+                  local result = {}
+
+                  for i = 1, 6 do
+                    result["heading" .. i] = {
+                      text = {
+                        "(",
+                        { "<done>", "Info" },
+                        " / ",
+                        { "<total>", "Info" },
+                        ") [",
+                        { "<percentage>%", "Success" },
+                        "]",
+                      },
+
+                      highlight = "DiagnosticVirtualTextHint",
+                    }
+                  end
+
+                  return result
+                end)()
+                --[[ (function()
+                local result = {}
+
+                for i = 1, 6 do
+                    result["todo_item" .. i] = {
+                        text = "[<done>/<total>]",
+                        highlight = "DiagnosticVirtualTextHint",
+                    }
+                end
+
+                return result
+            end)() ]]
+              ),
+            },
+          },
+        },
         ["core.integrations.telescope"] = {},
         ["core.export"] = {
           config = {
@@ -27,14 +91,14 @@ function M.post()
           },
         },
         ["core.presenter"] = { config = {
-          zen_mode = "truezen",
+          zen_mode = "zen-mode",
         } },
         ["core.export.markdown"] = {},
         ["core.norg.qol.toc"] = {},
         ["core.norg.journal"] = {},
         ["core.gtd.base"] = {
           config = {
-            workspace = "example_gtd",
+            workspace = "gtd",
           },
         },
       },

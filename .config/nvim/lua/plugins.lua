@@ -45,8 +45,7 @@ packer.startup({
   },
   function(use)
     use({ "mzlogin/vim-markdown-toc" })
-    use({ "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope", "Pocco81/TrueZen.nvim" } })
-    use({ "MunifTanjim/nui.nvim" })
+    use({ "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope", "folke/zen-mode.nvim" } })
     use({ "wbthomason/packer.nvim" })
     use({ "nvim-lua/plenary.nvim" })
     use({ "antoinemadec/FixCursorHold.nvim" })

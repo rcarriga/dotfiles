@@ -8,6 +8,7 @@ function M.post()
     context_patterns = { "class", "function", "method", "if_statement", "block" },
     filetype_exclude = {
       "",
+      "norg",
       "help",
       "markdown",
       "dapui_scopes",

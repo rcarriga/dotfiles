@@ -1,75 +1,178 @@
+/*
+ *
+ * Author  : Aditya Shakya
+ * Mail    : adi1090x@gmail.com
+ * Github  : @adi1090x
+ * Twitter : @adi1090x
+ *
+ */
+
 configuration {
-  drun-display-format: "{icon} {name}";
-  display-drun: "";
-  display-ssh: "";
-  display-run: "";
-  show-icons: true;
-  terminal: "kitty";
+  font:							"Roboto 40";
+  show-icons:                     true;
+  icon-theme: 					"Papirus";
+  display-drun: 					"";
+  drun-display-format:            "{name}";
+  disable-history:                false;
+  sidebar-mode: 					false;
 }
+
+
+/* -- Gray -- */
 
 * {
-  query-background    : #5b6f8299;
-  list-background     : #5b6f8222;
-  selected-background : #5b6f8299;
-  selected-foreground : #F8F8F8;
-  list-foreground     : #bdbdbd;
-  prompt-foreground   : #F8F8F8;
-  background-color    : #00000000;
+  shade1: #212121;
+  shade2: #424242;
+  shade3: #616161;
+  shade4: #757575;
+  shade5: #9E9E9E;
+  shade6: #BDBDBD;
+  shade7: #D4D4D460;
+  shade8: #EEEEEE60;
 }
 
-#window {
-  location: north;
-  y-offset: 15%;
-  width: 30%;
+/**** Comment One First To Use Another ****/
+
+/* -- Dark -- */
+* {
+  border:               			@shade1;
+  border-alt:               		@shade2;
+  background:                     @shade3;
+  background-alt:                 @shade3;
+  selected:               		@shade4;
+  foreground:                     #ffffff;
+  urgent:                         #DA4453;
 }
 
-#inputbar {
-  background-color: @query-background;
-  text-color: @prompt-foreground;
-  border-radius: 5 5 0 0;
-  margin: 0px 0px -2px 0px;
+/* -- light -- */
+* {
+  border:               			@shade8;
+  border-alt:               		@shade7;
+  background:                     @shade6;
+  background-alt:                 @shade6;
+  selected:               		@shade5;
+  foreground:                     #303030;
+  urgent:                         #DA4453;
 }
 
-#prompt {
-  str: "";
-  expand: false;
-  padding: 0.8% 1.5%;
-  font: "DejaVuSansMono 40";
-  text-color: inherit;
+window {
+  transparency:                   "real";
+  background-color:               @background;
+  text-color:                     @foreground;
+  border:							2% 1% 2% 1%;
+  border-color:					@border;
+  border-radius:                  0% 0% 0% 0%;
+  height:                         70%;
+  width:                          70%;
+  location:                       center;
+  x-offset:                       0;
+  y-offset:                       0;
 }
 
-#entry {
-  font: "Roboto 20";
-  text-color: inherit;
-  padding: 2% 0px;
+prompt {
+  enabled: 						true;
+  padding: 						0% 1% 0% 0%;
+  background-color: 				@background;
+  text-color: 					@foreground;
+  font:							"Roboto 60";
 }
 
+entry {
+  background-color:               @background;
+  text-color:                     @foreground;
+  placeholder-color:              @foreground;
+  expand:                         true;
+  horizontal-align:               0;
+  placeholder:                    "Search Applications";
+  padding:                        0.15% 0% 0% 0%;
+  blink:                          true;
+}
 
-#listview {
-  background-color: @list-background;
-  spacing: 0;
-  scrollbar: false;
-  lines: 5;
-  fixed-height: false;
-  dynamic: true;
-  padding: 2% 0px;
+inputbar {
+  children: 						[ prompt, entry ];
+  background-color:               @background;
+  text-color:                     @foreground;
+  expand:                         false;
+  border:							0% 0% 0.3% 0%;
+  border-radius:                  0% 0% 0% 0%;
+  border-color:					@border-alt;
+  margin:                         0% 38.25% 0% 0%;
+  padding:                        1%;
+  position:                       center;
+}
+
+listview {
+  background-color:               @background;
+  columns:                        8;
+  spacing:                        1%;
+  cycle:                          false;
+  dynamic:                        true;
+  layout:                         vertical;
+}
+
+mainbox {
+  background-color:               @background;
+  border:							2% 1% 2% 1%;
+  border-radius:                  0% 0% 0% 0%;
+  border-color:					@border-alt;
+  children:                       [ inputbar, listview ];
+  spacing:                       	2%;
+  padding:                        6% 3% 6% 3%;
 }
 
 element {
-  text-color: @list-foreground;
-  padding: 1.5%;
-  children: [element-text, element-icon];
-}
-
-element-text {
-  font: "Roboto 16";
+  background-color:               @background;
+  text-color:                     @foreground;
+  orientation:                    vertical;
+  border-radius:                  0%;
+  padding:                        1% 0% 1% 0%;
 }
 
 element-icon {
-  size: 3%;
+  background-color: 				inherit;
+  text-color:       				inherit;
+  horizontal-align:               0.5;
+  vertical-align:                 0.5;
+  size:                           64px;
+  border:                         0px;
 }
 
-element.selected {
-  background-color: @selected-background;
-  text-color: @selected-foreground;
+element-text {
+  background-color: 				inherit;
+  text-color:       				inherit;
+  expand:                         true;
+  horizontal-align:               0.5;
+  vertical-align:                 0.5;
+  margin:                         0.5% 1% 0% 1%;
+}
+
+element normal.urgent,
+element alternate.urgent {
+  background-color:               @urgent;
+  text-color:                     @foreground;
+  border-radius:                  1%;
+}
+
+element normal.active,
+element alternate.active {
+  background-color:               @background-alt;
+  text-color:                     @foreground;
+}
+
+element selected {
+  background-color:               @selected;
+  text-color:                     @foreground;
+  border:							0% 0% 0.3% 0%;
+  border-radius:                  0% 0% 0% 0%;
+  border-color:                  	@border-alt;
+}
+
+element selected.urgent {
+  background-color:               @urgent;
+  text-color:                     @foreground;
+}
+
+element selected.active {
+  background-color:               @background-alt;
+  color:                          @foreground;
 }

@@ -22,7 +22,7 @@ augroup FileTypeInit
     au BufNew,VimEnter \.babelrc setlocal ft=json
     au BufNew,VimEnter \.conf setlocal ft=conf
     au Filetype dockerfile setlocal ft=Dockerfile
-    au Filetype yaml if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
+    " au Filetype yaml if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
     au Filetype mustache if search('{{.\+}}', 'nw') | setlocal filetype=gotmpl | endif
 augroup END
 
@@ -214,10 +214,10 @@ tnoremap <silent> <C-h> <C-\><C-N><C-w><C-h>
 tnoremap <silent> <C-j> <C-\><C-N><C-w><C-j>
 tnoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
 tnoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
-inoremap <silent> <C-h> <C-\><C-N><C-w><C-h>
-inoremap <silent> <C-j> <C-\><C-N><C-w><C-j>
-inoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
-inoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
+" inoremap <silent> <C-h> <C-\><C-N><C-w><C-h>
+" inoremap <silent> <C-j> <C-\><C-N><C-w><C-j>
+" inoremap <silent> <C-k> <C-\><C-N><C-w><C-k>
+" inoremap <silent> <C-l> <C-\><C-N><C-w><C-l>
 
 " Select entire buffer
 onoremap ie :exec "normal! gg0vG$"<cr>

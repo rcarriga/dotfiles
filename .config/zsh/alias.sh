@@ -57,4 +57,6 @@ else
   alias v=nvim
 fi
 
+alias tp="telepresence"
+
 [[ -f "$HOME/.config/system/local.alias.sh" ]] && source "$HOME/.config/system/local.alias.sh"

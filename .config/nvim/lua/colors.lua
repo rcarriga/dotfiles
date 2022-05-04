@@ -422,6 +422,12 @@ loadHighlights({
 
   --neorg
   NeorgHeading1Title = { Normal, "bold" },
+  NeorgHeading2Title = { Normal, "bold" },
+  NeorgHeading3Title = { Normal, "bold" },
+  NeorgHeading4Title = { Normal, "bold" },
+  NeorgHeading5Title = { Normal, "bold" },
+  NeorgHeading6Title = { Normal, "bold" },
+  NeorgTodoItem1Done = { Success, "bold" }, -- y in "x of y" complete status
 
   logDate = { Info },
   logLevelDebug = { Grey3 },
