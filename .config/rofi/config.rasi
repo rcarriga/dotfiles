@@ -1,0 +1,10 @@
+configuration {
+	modi: "drun,ssh,run";
+	show-icons: true;
+	terminal: "kitty";
+	drun-display-format: "{icon} {name}";
+	display-run: "";
+	display-ssh: "";
+	display-drun: "";
+}
+@theme "~/.config/rofi/theme.rasi"

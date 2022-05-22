@@ -1,178 +1,109 @@
-/*
- *
- * Author  : Aditya Shakya
- * Mail    : adi1090x@gmail.com
- * Github  : @adi1090x
- * Twitter : @adi1090x
- *
- */
+/* vim: set filetype=css: */
+* {
+  font: "Noto Sans 10";
 
-configuration {
-  font:							"Roboto 40";
-  show-icons:                     true;
-  icon-theme: 					"Papirus";
-  display-drun: 					"";
-  drun-display-format:            "{name}";
-  disable-history:                false;
-  sidebar-mode: 					false;
+  bg0    : #1f1f1f88;
+  bg1    : #20202088;
+  bg2    : #2c2c2c;
+  bg3    : #393939bf;
+  fg0    : #ffffff;
+  fg1    : #cecece;
+  accent : #60cdff;
+
+  background-color : transparent;
+  text-color       : @fg0;
+  urgent: "#ff0000";
+
+  margin  : 0;
+  padding : 0;
+  spacing : 0;
 }
 
-
-/* -- Gray -- */
-
-* {
-  shade1: #212121;
-  shade2: #424242;
-  shade3: #616161;
-  shade4: #757575;
-  shade5: #9E9E9E;
-  shade6: #BDBDBD;
-  shade7: #D4D4D460;
-  shade8: #EEEEEE60;
-}
-
-/**** Comment One First To Use Another ****/
-
-/* -- Dark -- */
-* {
-  border:               			@shade1;
-  border-alt:               		@shade2;
-  background:                     @shade3;
-  background-alt:                 @shade3;
-  selected:               		@shade4;
-  foreground:                     #ffffff;
-  urgent:                         #DA4453;
-}
-
-/* -- light -- */
-* {
-  border:               			@shade8;
-  border-alt:               		@shade7;
-  background:                     @shade6;
-  background-alt:                 @shade6;
-  selected:               		@shade5;
-  foreground:                     #303030;
-  urgent:                         #DA4453;
+element-icon, element-text, scrollbar {
+  cursor: pointer;
 }
 
 window {
-  transparency:                   "real";
-  background-color:               @background;
-  text-color:                     @foreground;
-  border:							2% 1% 2% 1%;
-  border-color:					@border;
-  border-radius:                  0% 0% 0% 0%;
-  height:                         70%;
-  width:                          70%;
-  location:                       center;
-  x-offset:                       0;
-  y-offset:                       0;
-}
+  location : southwest;
+  width    : 600px;
+  height   : 600px;
+  y-offset : -40px;
 
-prompt {
-  enabled: 						true;
-  padding: 						0% 1% 0% 0%;
-  background-color: 				@background;
-  text-color: 					@foreground;
-  font:							"Roboto 60";
-}
-
-entry {
-  background-color:               @background;
-  text-color:                     @foreground;
-  placeholder-color:              @foreground;
-  expand:                         true;
-  horizontal-align:               0;
-  placeholder:                    "Search Applications";
-  padding:                        0.15% 0% 0% 0%;
-  blink:                          true;
-}
-
-inputbar {
-  children: 						[ prompt, entry ];
-  background-color:               @background;
-  text-color:                     @foreground;
-  expand:                         false;
-  border:							0% 0% 0.3% 0%;
-  border-radius:                  0% 0% 0% 0%;
-  border-color:					@border-alt;
-  margin:                         0% 38.25% 0% 0%;
-  padding:                        1%;
-  position:                       center;
-}
-
-listview {
-  background-color:               @background;
-  columns:                        8;
-  spacing:                        1%;
-  cycle:                          false;
-  dynamic:                        true;
-  layout:                         vertical;
+  background-color : @bg1;
+  /* border-radius    : 8px; */
 }
 
 mainbox {
-  background-color:               @background;
-  border:							2% 1% 2% 1%;
-  border-radius:                  0% 0% 0% 0%;
-  border-color:					@border-alt;
-  children:                       [ inputbar, listview ];
-  spacing:                       	2%;
-  padding:                        6% 3% 6% 3%;
+  padding : 24px;
+  spacing : 24px;
+}
+
+inputbar {
+  padding          : 8px;
+  spacing          : 4px;
+  children         : [ icon-search, entry ];
+  border           : 0 0 2px 0 solid;
+  border-color     : @accent;
+  border-radius    : 2px;
+  background-color : @bg0;
+}
+
+icon-search, entry, element-icon, element-text {
+  vertical-align: 0.5;
+}
+
+icon-search {
+  expand   : false;
+  filename : "search-symbolic";
+  size     : 24px;
+}
+
+entry {
+  font              : "Noto Sans 12";
+  placeholder       : "";
+  placeholder-color : @fg1;
+}
+
+textbox {
+  padding          : 4px 8px;
+  background-color : @bg2;
+}
+
+listview {
+  require-input : true;
+  columns       : 2;
+  spacing       : 8px;
+  fixed-height  : true;
+  fixed-columns : true;
 }
 
 element {
-  background-color:               @background;
-  text-color:                     @foreground;
-  orientation:                    vertical;
-  border-radius:                  0%;
-  padding:                        1% 0% 1% 0%;
+  spacing       : 1em;
+  padding       : 8px;
+  border-radius : 2px;
 }
 
-element-icon {
-  background-color: 				inherit;
-  text-color:       				inherit;
-  horizontal-align:               0.5;
-  vertical-align:                 0.5;
-  size:                           64px;
-  border:                         0px;
+element normal urgent {
+  text-color: @urgent;
 }
 
-element-text {
-  background-color: 				inherit;
-  text-color:       				inherit;
-  expand:                         true;
-  horizontal-align:               0.5;
-  vertical-align:                 0.5;
-  margin:                         0.5% 1% 0% 1%;
-}
-
-element normal.urgent,
-element alternate.urgent {
-  background-color:               @urgent;
-  text-color:                     @foreground;
-  border-radius:                  1%;
-}
-
-element normal.active,
-element alternate.active {
-  background-color:               @background-alt;
-  text-color:                     @foreground;
+element normal active {
+  text-color: @accent;
 }
 
 element selected {
-  background-color:               @selected;
-  text-color:                     @foreground;
-  border:							0% 0% 0.3% 0%;
-  border-radius:                  0% 0% 0% 0%;
-  border-color:                  	@border-alt;
+  background-color: @bg3;
 }
 
-element selected.urgent {
-  background-color:               @urgent;
-  text-color:                     @foreground;
+element selected urgent {
+  background-color: @urgent;
 }
 
-element selected.active {
-  background-color:               @background-alt;
-  color:                          @foreground;
+element-icon {
+  size: 1.5em;
 }
+
+element-text {
+  text-color: inherit;
+}
+
