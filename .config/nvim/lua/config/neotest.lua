@@ -4,7 +4,7 @@ function M.post()
   require("neotest").setup({
     adapters = {
       require("neotest-python")({
-        dap = { justMyCode = false },
+        dap = { justMyCode = false, console = "integratedTerminal" },
       }),
       require("neotest-plenary"),
       require("neotest-vim-test")({

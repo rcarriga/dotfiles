@@ -22,6 +22,7 @@ function M.post()
           module = cmd[module_index],
           args = args,
           justMyCode = false,
+          console = "integratedTerminal"
         },
       }
     end,

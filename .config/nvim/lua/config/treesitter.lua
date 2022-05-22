@@ -49,7 +49,7 @@ function M.post()
         node_decremental = "<Up>",
       },
     },
-    refactor = { highlight_definitions = { enable = true } },
+    refactor = { highlight_definitions = { enable = false } },
     context_commentstring = { enable = true },
     query_linter = {
       enable = true,

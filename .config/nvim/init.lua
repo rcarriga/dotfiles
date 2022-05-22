@@ -43,6 +43,28 @@ vim.g.python3_host_prog = "/usr/bin/python3"
 
 vim.g.do_filetype_lua = 1
 
+function WinBar()
+  local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
+  local path = vim.api.nvim_buf_get_name(buf)
+  path = path:gsub(os.getenv("HOME"), "~")
+  local elems = vim.split(path, "/", { trimempty = true })
+  return "%#WinBarPath#" .. table.concat(elems, " %#WinBarSep# %#WinBarPath#") .. " %#WinBar#"
+end
+
+vim.opt.winbar = ""
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    local buf = tonumber(vim.fn.expand("<abuf>"))
+    local winbar = ""
+    if vim.api.nvim_buf_get_option(buf, "buftype") == "" then
+      winbar = "%!v:lua.WinBar()"
+    end
+    local win = vim.fn.bufwinid(buf)
+    vim.api.nvim_win_set_option(win, "winbar", winbar)
+  end,
+})
+
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = "menuone,noselect,menu"
 
@@ -171,7 +193,7 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-require( "impatient").enable_profile()
+require("impatient").enable_profile()
 
 local loaded, err = pcall(require, "my_packer")
 if not loaded then

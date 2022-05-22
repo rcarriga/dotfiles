@@ -119,13 +119,6 @@ nmap <silent><leader>gc :ConflictMarkerBoth<CR>
 nmap <silent><leader>u :MundoToggle<CR>
 
 " Fuzzy finding mappings
-nmap <silent><leader>df :Telescope find_files<CR>
-nmap <silent><leader>dg :Telescope grep_string search="" debounce=30<CR>
-nmap <silent><leader>dG :Telescope live_grep<CR>
-nmap <silent><leader>db :Telescope buffers<CR>
-nmap <silent><leader>dt :Telescope treesitter<CR>
-nmap <silent><leader>dh :Telescope help_tags<CR>
-nmap <silent><leader>dc :Telescope find_files cwd=~/.config/nvim<CR>
 
 nnoremap <silent> <M-c> :lua require'dap'.continue()<CR>
 nnoremap <silent> <M-right> :lua require'dap'.step_over()<CR>

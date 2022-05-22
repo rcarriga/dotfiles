@@ -26,7 +26,7 @@ function M.post()
       name = "Launch file",
       justMyCode = false,
       program = "${file}",
-      console = "internalConsole",
+      console = "integratedTerminal",
       pythonPath = require("util").get_python_path(),
     },
     {

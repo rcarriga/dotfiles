@@ -32,7 +32,7 @@ function M.setup(on_attach, capabilities)
         settings = {
           Lua = {
             IntelliSense = {
-              traceLocalSet = true
+              traceLocalSet = true,
             },
             diagnostics = {
               globals = { "describe", "it", "before_each", "after_each", "vim" },
@@ -72,61 +72,27 @@ function M.setup(on_attach, capabilities)
         },
       },
     },
-    -- volar = {
-    --   on_attach = on_attach,
-    --   init_options = {
-    --     documentFeatures = {
-    --       documentColor = false,
-    --       documentFormatting = {
-    --         defaultPrintWidth = 100,
-    --       },
-    --       documentSymbol = true,
-    --       foldingRange = true,
-    --       linkedEditingRange = true,
-    --       selectionRange = true,
-    --     },
-    --     languageFeatures = {
-    --       callHierarchy = true,
-    --       codeAction = true,
-    --       codeLens = true,
-    --       completion = {
-    --         defaultAttrNameCase = "kebabCase",
-    --         defaultTagNameCase = "both",
-    --       },
-    --       definition = true,
-    --       diagnostics = true,
-    --       documentHighlight = true,
-    --       documentLink = true,
-    --       hover = true,
-    --       references = true,
-    --       rename = true,
-    --       renameFileRefactoring = true,
-    --       schemaRequestService = true,
-    --       semanticTokens = false,
-    --       signatureHelp = true,
-    --       typeDefinition = true,
-    --     },
-    --     typescript = {
-    --       serverPath = "",
-    --     },
-    --   },
-    -- },
     yamlls = {
       on_attach = on_attach,
       init_options = {
         config = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
       },
     },
+    bashls = { on_attach = on_attach },
+    clangd = { on_attach = on_attach },
+    gopls = { on_attach = on_attach },
+    hls = { on_attach = on_attach },
+    jsonls = { on_attach = on_attach },
+    rust_analyzer = { on_attach = on_attach },
+    vimls = { on_attach = on_attach },
   }
 
-  local lsp_installer = require("nvim-lsp-installer")
+  require("nvim-lsp-installer").setup({
+    automatic_installation = true,
+  })
 
-  lsp_installer.on_server_ready(function(server)
-    server:setup(server_configs[server.name] or {
-      on_attach = on_attach,
-      capabilities = capabilities,
-    })
-    vim.cmd([[ do User LspAttachBuffers ]])
-  end)
+  for server, settings in pairs(server_configs) do
+    require("lspconfig")[server].setup(settings)
+  end
 end
 return M

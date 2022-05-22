@@ -66,59 +66,76 @@ function M.post()
 
   telescope.load_extension("fzf")
 
-  vim.ui.select = function(items, opts, on_choice)
-    local themes = require("telescope.themes")
-    local state = require("telescope.actions.state")
-    local pickers = require("telescope.pickers")
-    local finders = require("telescope.finders")
-    local conf = require("telescope.config").values
+  local builtin = require("telescope.builtin")
+  local finders = require("telescope.finders")
+  local make_entry = require("telescope.make_entry")
+  local pickers = require("telescope.pickers")
+  local utils = require("telescope.utils")
+  local conf = require("telescope.config").values
 
-    local entry_maker = function(item)
-      local formatted = opts.format_item and opts.format_item(item) or item
-      return {
-        display = formatted,
-        ordinal = formatted,
-        value = item,
-      }
+  local yadm_files = function(opts)
+    opts = opts or {}
+    if opts.is_bare then
+      utils.notify("builtin.git_files", {
+        msg = "This operation must be run in a work tree",
+        level = "ERROR",
+      })
+      return
     end
 
-    local picker_opts = themes.get_dropdown({
-      previewer = false,
-    })
-    pickers.new(picker_opts, {
-      prompt_title = opts.prompt,
-      finder = finders.new_table({
-        results = items,
-        entry_maker = entry_maker,
-      }),
-      sorter = conf.generic_sorter(opts),
-      attach_mappings = function(prompt_bufnr)
-        actions.select_default:replace(function()
-          local selection = state.get_selected_entry()
-          -- actions._close(prompt_bufnr, false)
-          if not selection then
-            -- User did not select anything.
-            on_choice(nil, nil)
-            return
-          end
-          local idx = nil
-          for i, item in ipairs(items) do
-            if item == selection.value then
-              idx = i
-              break
-            end
-          end
-          on_choice(selection.value, idx)
-        end)
+    local show_untracked = utils.get_default(opts.show_untracked, false)
+    local recurse_submodules = utils.get_default(opts.recurse_submodules, false)
+    if show_untracked and recurse_submodules then
+      utils.notify("builtin.git_files", {
+        msg = "Git does not support both --others and --recurse-submodules",
+        level = "ERROR",
+      })
+      return
+    end
 
-        actions.close:replace(function()
-          actions._close(prompt_bufnr, false)
-          on_choice(nil, nil)
-        end)
+    -- By creating the entry maker after the cwd options,
+    -- we ensure the maker uses the cwd options when being created.
+    opts.entry_maker = vim.F.if_nil(opts.entry_maker, make_entry.gen_from_file(opts))
+    local git_command = vim.F.if_nil(
+      opts.git_command,
+      { "yadm", "ls-files", "--exclude-standard", "--cached" }
+    )
 
-        return true
-      end,
+    pickers.new(opts, {
+      prompt_title = "Git Files",
+      finder = finders.new_oneshot_job(
+        vim.tbl_flatten({
+          git_command,
+          show_untracked and "--others" or nil,
+          recurse_submodules and "--recurse-submodules" or nil,
+        }),
+        opts
+      ),
+      previewer = conf.file_previewer(opts),
+      sorter = conf.file_sorter(opts),
     }):find()
   end
+
+  local keys = {
+    ["<leader>df"] = { builtin.find_files },
+    ["<leader>dg"] = { builtin.grep_string, { search = "", debounce = 30 } },
+    ["<leader>dG"] = { builtin.live_grep },
+    ["<leader>db"] = { builtin.buffers },
+    ["<leader>dt"] = { builtin.treesitter },
+    ["<leader>dh"] = { builtin.help_tags },
+    ["<leader>dc"] = { yadm_files },
+  }
+
+  for key, map in pairs(keys) do
+    local callback, args = unpack(map)
+    vim.api.nvim_set_keymap("n", key, "", {
+      callback = function()
+        callback(args)
+      end,
+      noremap = true,
+      silent = true,
+    })
+  end
 end
+
 return M
