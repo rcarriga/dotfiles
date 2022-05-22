@@ -193,7 +193,9 @@ vim.opt.regexpengine = 0
 
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-require("impatient").enable_profile()
+pcall(function()
+  require("impatient").enable_profile()
+end)
 
 local loaded, err = pcall(require, "my_packer")
 if not loaded then

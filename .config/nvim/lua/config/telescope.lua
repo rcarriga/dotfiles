@@ -70,47 +70,16 @@ function M.post()
   local finders = require("telescope.finders")
   local make_entry = require("telescope.make_entry")
   local pickers = require("telescope.pickers")
-  local utils = require("telescope.utils")
   local conf = require("telescope.config").values
 
   local yadm_files = function(opts)
     opts = opts or {}
-    if opts.is_bare then
-      utils.notify("builtin.git_files", {
-        msg = "This operation must be run in a work tree",
-        level = "ERROR",
-      })
-      return
-    end
-
-    local show_untracked = utils.get_default(opts.show_untracked, false)
-    local recurse_submodules = utils.get_default(opts.recurse_submodules, false)
-    if show_untracked and recurse_submodules then
-      utils.notify("builtin.git_files", {
-        msg = "Git does not support both --others and --recurse-submodules",
-        level = "ERROR",
-      })
-      return
-    end
-
-    -- By creating the entry maker after the cwd options,
-    -- we ensure the maker uses the cwd options when being created.
-    opts.entry_maker = vim.F.if_nil(opts.entry_maker, make_entry.gen_from_file(opts))
-    local git_command = vim.F.if_nil(
-      opts.git_command,
-      { "yadm", "ls-files", "--exclude-standard", "--cached" }
-    )
+    opts.cwd = vim.env.HOME
+    opts.entry_maker = make_entry.gen_from_file(opts)
 
     pickers.new(opts, {
-      prompt_title = "Git Files",
-      finder = finders.new_oneshot_job(
-        vim.tbl_flatten({
-          git_command,
-          show_untracked and "--others" or nil,
-          recurse_submodules and "--recurse-submodules" or nil,
-        }),
-        opts
-      ),
+      prompt_title = "Yadm Files",
+      finder = finders.new_oneshot_job({ "yadm", "ls-files", "--exclude-standard", "--cached",  }, opts),
       previewer = conf.file_previewer(opts),
       sorter = conf.file_sorter(opts),
     }):find()
