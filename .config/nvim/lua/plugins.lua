@@ -45,14 +45,17 @@ packer.startup({
   },
   function(use)
     use({ "mzlogin/vim-markdown-toc" })
-    use({ "nvim-neorg/neorg", requires = { "nvim-neorg/neorg-telescope", "folke/zen-mode.nvim" } })
+    use({
+      "nvim-neorg/neorg",
+      config = "require('config.org').post()",
+      requires = { "nvim-neorg/neorg-telescope", "folke/zen-mode.nvim" },
+    })
     use({ "wbthomason/packer.nvim" })
     use({ "nvim-lua/plenary.nvim" })
     use({ "antoinemadec/FixCursorHold.nvim" })
     use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
     use({
       "kristijanhusak/orgmode.nvim",
-      config = "require('config.org').post()",
       requires = { "akinsho/org-bullets.nvim", "lukas-reineke/headlines.nvim" },
     })
     use({
@@ -133,6 +136,8 @@ packer.startup({
       requires = {
         { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
         { "nvim-lua/popup.nvim" },
+        { "nvim-telescope/telescope-ui-select.nvim" },
+        { "someone-stole-my-name/yaml-companion.nvim" },
       },
     })
     use({

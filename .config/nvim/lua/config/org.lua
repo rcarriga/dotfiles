@@ -1,6 +1,20 @@
 local M = {}
 
 function M.post()
+    vim.api.nvim_set_keymap("n", "<leader>o", "", {
+      noremap = true,
+      silent = true,
+      callback = function()
+        vim.cmd("NeorgStart")
+        vim.api.nvim_del_keymap("n", "<leader>o")
+        vim.api.nvim_set_keymap(
+          "n",
+          "<leader>oj",
+          "<cmd>Neorg journal today<CR>",
+          { silent = true, noremap = true }
+        )
+      end,
+    })
   pcall(function()
     require("neorg").setup({
       load = {
@@ -17,6 +31,15 @@ function M.post()
                   { "at", "core.norg.manoeuvre.textobject.around-tag" },
                   { "it", "core.norg.manoeuvre.textobject.inner-tag" },
                   { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
+                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
+                },
+              }, {
+                silent = true,
+                noremap = true,
+              })
+              keybinds.map_to_mode("norg", {
+                n = {
+                  { "<localleader>c", "<cmd>Neorg toc split<CR>" },
                 },
               }, {
                 silent = true,
@@ -29,6 +52,7 @@ function M.post()
           config = {
             workspaces = {
               notes = "~/org/notes",
+              journal = "~/org/journal",
               gtd = "~/org/gtd",
             },
           },
@@ -84,7 +108,7 @@ function M.post()
             },
           },
         },
-        ["core.integrations.telescope"] = {},
+        -- ["core.integrations.telescope"] = {},
         ["core.export"] = {
           config = {
             export_dir = "~/notes/export",
@@ -94,8 +118,14 @@ function M.post()
           zen_mode = "zen-mode",
         } },
         ["core.export.markdown"] = {},
-        ["core.norg.qol.toc"] = {},
-        ["core.norg.journal"] = {},
+        ["core.norg.qol.toc"] = {
+          config = { keep_buf = true },
+        },
+        ["core.norg.journal"] = {
+          config = {
+            workspace = "journal",
+          },
+        },
         ["core.gtd.base"] = {
           config = {
             workspace = "gtd",

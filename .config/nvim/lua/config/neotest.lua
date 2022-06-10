@@ -2,6 +2,9 @@ local M = {}
 
 function M.post()
   require("neotest").setup({
+    icons = {
+      running = "↻",
+    },
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false, console = "integratedTerminal" },

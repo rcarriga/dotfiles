@@ -88,9 +88,9 @@ function M.post()
 
   require("diffview").setup({
     diff_binaries = false, -- Show diffs for binaries
-    file_panel = {
+    file_panel = { win_config = {
       width = 50,
-    },
+    } },
     key_bindings = {
       disable_defaults = false, -- Disable the default key bindings
       -- The `view` bindings are active in the diff buffers, only when the current

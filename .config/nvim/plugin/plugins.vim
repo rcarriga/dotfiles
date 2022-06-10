@@ -2,6 +2,9 @@
 " Plugin Settings {{{1
 let g:copilot_no_tab_map = 1
 let g:copilot_assume_mapped = 1
+let g:copilot_filetypes = {
+      \ 'dap-repl': v:false,
+      \ }
 
 let g:cursorhold_updatetime = 100
 
@@ -57,30 +60,6 @@ let g:ultest_fail_sign = " "
 let g:ultest_running_sign = " "
 let g:ultest_output_on_run = 0
 let g:ultest_output_on_line = 1
-
-" }}}1
-" ###################################################################################
-" Functions {{{1
-"
-function! CleanNoNameEmptyBuffers()
-    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && empty(bufname(v:val)) && bufwinnr(v:val) < 0 && (getbufline(v:val, 1, "$") == [""])')
-    if !empty(buffers)
-      try
-        exe 'BufferClose '.join(buffers, ' ')
-      catch /.*/
-      endtry
-    endif
-endfunction
-
-" }}}1
-" ###################################################################################
-" Autocommands {{{1
-
-augroup CleanEmpty
-  au!
-  au BufEnter * call CleanNoNameEmptyBuffers()
-augroup END
-
 
 " }}}1
 " ###################################################################################
@@ -163,11 +142,11 @@ nmap <leader>vc <Plug>(ultest-stop-nearest)
 nmap <leader>vx <Plug>(ultest-stop-file)
 nmap <leader>vd <Plug>(ultest-debug-nearest)
 
-nnoremap <silent><leader>nr <cmd>lua require("neotest").run(vim.fn.expand("%"))<CR>
-nnoremap <silent><leader>ns <cmd>lua require("neotest").run(vim.fn.getcwd())<CR>
-nnoremap <silent><leader>nn <cmd>lua require("neotest").run()<CR>
-nnoremap <silent><leader>nd <cmd>lua require("neotest").run({strategy = "dap"})<CR>
-nnoremap <silent><leader>na <cmd>lua require("neotest").attach()<CR>
+nnoremap <silent><leader>nr <cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>
+nnoremap <silent><leader>ns <cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>
+nnoremap <silent><leader>nn <cmd>lua require("neotest").run.run()<CR>
+nnoremap <silent><leader>nd <cmd>lua require("neotest").run.run({strategy = "dap"})<CR>
+nnoremap <silent><leader>na <cmd>lua require("neotest").run.attach()<CR>
 nnoremap <silent><leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
 nnoremap <silent><leader>nO <cmd>lua require("neotest").output.open({enter = true, short = true})<CR>
 nnoremap <silent><leader>np <cmd>lua require("neotest").summary.toggle()<CR>

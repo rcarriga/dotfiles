@@ -72,12 +72,12 @@ function M.setup(on_attach, capabilities)
         },
       },
     },
-    yamlls = {
+    yamlls = require("yaml-companion").setup({
       on_attach = on_attach,
       init_options = {
         config = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
       },
-    },
+    }),
     bashls = { on_attach = on_attach },
     clangd = { on_attach = on_attach },
     gopls = { on_attach = on_attach },

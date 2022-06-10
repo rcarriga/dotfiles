@@ -98,13 +98,13 @@ function M.post()
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
     -- if client.resolved_capabilities.document_highlight then
-      -- vim.cmd([[
-      -- augroup LspReferences
-      -- au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-      -- au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-      -- au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      -- augroup END
-      -- ]])
+    -- vim.cmd([[
+    -- augroup LspReferences
+    -- au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+    -- au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+    -- au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    -- augroup END
+    -- ]])
     -- end
 
     if has_status then
@@ -146,21 +146,23 @@ function M.post()
       ["<C-s>"] = vim.lsp.buf.signature_help,
       ["<space>la"] = vim.lsp.buf.code_action,
       ["<space>ls"] = vim.lsp.buf.document_symbol,
-      ["<space>lf"] = vim.lsp.buf.format,
-      ["<space>lt"] = function() vim.cmd[[SymbolsOutline]] end,
-      ["<space>ld"] = require('diaglist').open_all_diagnostics,
-      ["<space>lb"] = require('diaglist').open_buffer_diagnostics,
+      ["<space>lf"] = function() vim.lsp.buf.format({ async = false }) end,
+      ["<space>lt"] = function()
+        vim.cmd([[SymbolsOutline]])
+      end,
+      ["<space>ld"] = require("diaglist").open_all_diagnostics,
+      ["<space>lb"] = require("diaglist").open_buffer_diagnostics,
     }
 
     for keys, mapping in pairs(mappings) do
-      vim.api.nvim_buf_set_keymap(bufnr, "n", keys, "", { callback = mapping })
+      vim.api.nvim_buf_set_keymap(bufnr, "n", keys, "", { callback = mapping, noremap = true })
     end
     vim.api.nvim_buf_set_keymap(
       bufnr,
       "x",
       "<space>lf",
       "",
-      { callback = vim.lsp.buf.range_formatting }
+      { callback = vim.lsp.buf.range_formatting, noremap = true }
     )
   end
 
