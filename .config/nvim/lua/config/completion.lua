@@ -122,7 +122,7 @@ function M.post()
     sources = cmp.config.sources({
       { name = "dap" },
       { name = "nvim_lsp" },
-      { name = "cmp_git" },
+      { name = "git" },
       { name = "luasnip" },
       { name = "orgmode" },
     }),
@@ -131,6 +131,7 @@ function M.post()
     },
   }
   cmp.setup(args)
+  ---@type cmp.ConfirmOption
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
   -- cmp.setup.cmdline("/", {

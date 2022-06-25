@@ -30,7 +30,6 @@ function M.post()
           },
         },
       },
-
       indent_markers = {
         enable = true,
       },

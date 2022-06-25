@@ -2,8 +2,32 @@ local M = {}
 
 function M.post()
   require("dapui").setup({
-    sidebar = { size = 80 },
-    tray = { size = 10 },
+    layouts = {
+      {
+        elements = {
+          "scopes",
+          "breakpoints",
+          "stacks",
+          "watches",
+        },
+        size = 80,
+        position = "left",
+      },
+      {
+        elements = {
+          "repl",
+        },
+        size = 10,
+        position = "bottom",
+      },
+      {
+        elements = {
+          "console",
+        },
+        size = 60,
+        position = "right",
+      },
+    },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
 
@@ -16,6 +40,7 @@ function M.post()
 
   local dap = require("dap")
 
+  dap.set_log_level("DEBUG")
   local dap_python = require("dap-python")
 
   dap_python.setup("~/.cache/virtualenvs/debugpy/bin/python", { include_configs = false })
@@ -116,6 +141,23 @@ function M.post()
     command = "lldb-vscode",
     env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
   }
+
+  dap.adapters.rust = dap.adapters.lldb
+  dap.adapters.cpp = dap.adapters.lldb
+
+  dap.configurations.cpp = {
+  {
+    name = 'Launch',
+    type = 'lldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
+  },
+}
 
   dap.configurations.rust = {
     {

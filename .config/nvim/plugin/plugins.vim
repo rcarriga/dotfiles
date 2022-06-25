@@ -50,6 +50,7 @@ let g:doge_mapping_comment_jump_forward = "\<C-\]>"
 let g:doge_mapping_comment_jump_backward = "\<C-[\>"
 let g:doge_doc_standard_python = "sphinx"
 
+let g:ultest_deprecation_notice = 0
 let g:ultest_attach_width = 180
 let g:ultest_virtual_text = 0
 let g:ultest_output_cols = 120
@@ -146,9 +147,13 @@ nnoremap <silent><leader>nr <cmd>lua require("neotest").run.run(vim.fn.expand("%
 nnoremap <silent><leader>ns <cmd>lua require("neotest").run.run(vim.fn.getcwd())<CR>
 nnoremap <silent><leader>nn <cmd>lua require("neotest").run.run()<CR>
 nnoremap <silent><leader>nd <cmd>lua require("neotest").run.run({strategy = "dap"})<CR>
+nnoremap <silent><leader>nl <cmd>lua require("neotest").run.run_last()<CR>
+nnoremap <silent><leader>nD <cmd>lua require("neotest").run.run_last({ strategy = "dap" })<CR>
 nnoremap <silent><leader>na <cmd>lua require("neotest").run.attach()<CR>
 nnoremap <silent><leader>no <cmd>lua require("neotest").output.open({ enter = true })<CR>
 nnoremap <silent><leader>nO <cmd>lua require("neotest").output.open({enter = true, short = true})<CR>
 nnoremap <silent><leader>np <cmd>lua require("neotest").summary.toggle()<CR>
+nnoremap <silent>[n <cmd>lua require("neotest").jump.prev({ status = "failed" })<CR>
+nnoremap <silent>]n <cmd>lua require("neotest").jump.next({ status = "failed" })<CR>
 
 nnoremap <silent><leader>p <cmd>lua require("notify").dismiss()<CR>

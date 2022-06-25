@@ -10,8 +10,9 @@ function M.post()
         dap = { justMyCode = false, console = "integratedTerminal" },
       }),
       require("neotest-plenary"),
+      require("neotest-go"),
       require("neotest-vim-test")({
-        ignore_file_types = { "python", "vim", "lua" },
+        allow_file_types = {"ruby", "typescript"},
       }),
     },
   })

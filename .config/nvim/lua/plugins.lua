@@ -69,6 +69,7 @@ packer.startup({
       maybe_local("/home/ronan/Dev/repos/neotest"),
       config = "require('config.neotest').post()",
       requires = {
+        "akinsho/neotest-go",
         maybe_local("/home/ronan/Dev/repos/neotest-python"),
         maybe_local("/home/ronan/Dev/repos/neotest-plenary"),
         maybe_local("/home/ronan/Dev/repos/neotest-vim-test"),
