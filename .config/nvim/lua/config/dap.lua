@@ -1,7 +1,9 @@
 local M = {}
 
 function M.post()
-  require("dapui").setup({
+  local dap = require("dap")
+  local dapui = require("dapui")
+  dapui.setup({
     layouts = {
       {
         elements = {
@@ -14,9 +16,7 @@ function M.post()
         position = "left",
       },
       {
-        elements = {
-          "repl",
-        },
+        elements = { "repl" },
         size = 10,
         position = "bottom",
       },
@@ -31,14 +31,26 @@ function M.post()
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
 
-  vim.keymap.set({ "n", "v" }, "<Leader>t", function()
-    package.loaded.dapui.eval()
-  end, { silent = true })
+  local mappings = {
+    ["<M-c>"] = dap.continue,
+    ["<M-right>"] = dap.step_over,
+    ["<M-down>"] = dap.step_into,
+    ["<M-up>"] = dap.step_out,
+    ["<M-x>"] = dap.toggle_breakpoint,
+    ["<M-t>"] = dapui.toggle,
+    ["<M-k>"] = dapui.eval,
+    ["<M-m>"] = dapui.float_element,
+    ["<M-v>"] = function() dapui.float_element("scopes") end,
+    ["<M-r>"] = function() dapui.float_element("repl") end,
+    ["<M-q>"] = dap.terminate,
+  }
+  for keys, mapping in pairs(mappings) do
+    vim.api.nvim_set_keymap("n", keys, "", { callback = mapping, noremap = true })
+  end
 
+  vim.api.nvim_set_keymap("v", "<M-k>", "", { callback = dapui.eval })
   vim.fn.sign_define("DapBreakpoint", { text = "→", texthl = "Error", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = "→", texthl = "Success", linehl = "", numhl = "" })
-
-  local dap = require("dap")
 
   dap.set_log_level("DEBUG")
   local dap_python = require("dap-python")
@@ -146,18 +158,18 @@ function M.post()
   dap.adapters.cpp = dap.adapters.lldb
 
   dap.configurations.cpp = {
-  {
-    name = 'Launch',
-    type = 'lldb',
-    request = 'launch',
-    program = function()
-      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-    args = {},
-  },
-}
+    {
+      name = "Launch",
+      type = "lldb",
+      request = "launch",
+      program = function()
+        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+      end,
+      cwd = "${workspaceFolder}",
+      stopOnEntry = false,
+      args = {},
+    },
+  }
 
   dap.configurations.rust = {
     {

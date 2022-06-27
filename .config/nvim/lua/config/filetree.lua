@@ -4,6 +4,14 @@ function M.post()
   vim.cmd(
     [[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]]
   )
+
+  vim.api.nvim_set_keymap(
+    "n",
+    "<leader>x",
+    "<CMD>NvimTreeToggle<CR>",
+    { silent = true, noremap = true }
+  )
+
   require("nvim-tree").setup({
     disable_netrw = false,
     view = {

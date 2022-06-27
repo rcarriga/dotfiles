@@ -1,6 +1,14 @@
 local M = {}
 
 function M.post()
+  -- Something is causing telescope to enter insert mode when picking entry
+  vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+      if vim.api.nvim_buf_get_option(0, "filetype") ~= "" then
+        vim.cmd("stopinsert")
+      end
+    end,
+  })
   local telescope = require("telescope")
   local actions = require("telescope.actions")
   local previewers = require("telescope.previewers")
@@ -84,7 +92,10 @@ function M.post()
 
     pickers.new(opts, {
       prompt_title = "Yadm Files",
-      finder = finders.new_oneshot_job({ "yadm", "ls-files", "--exclude-standard", "--cached",  }, opts),
+      finder = finders.new_oneshot_job(
+        { "yadm", "ls-files", "--exclude-standard", "--cached" },
+        opts
+      ),
       previewer = conf.file_previewer(opts),
       sorter = conf.file_sorter(opts),
     }):find()
