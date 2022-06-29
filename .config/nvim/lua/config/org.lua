@@ -26,9 +26,19 @@ function M.post()
                 n = {
                   { "<M-k>", "core.norg.manoeuvre.item_up" },
                   { "<M-j>", "core.norg.manoeuvre.item_down" },
+                },
+                x = {
                   { "ah", "core.norg.manoeuvre.textobject.around-heading" },
-                  { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
                   { "at", "core.norg.manoeuvre.textobject.around-tag" },
+                  { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
+                  { "it", "core.norg.manoeuvre.textobject.inner-tag" },
+                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
+                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
+                },
+                o = {
+                  { "ah", "core.norg.manoeuvre.textobject.around-heading" },
+                  { "at", "core.norg.manoeuvre.textobject.around-tag" },
+                  { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
                   { "it", "core.norg.manoeuvre.textobject.inner-tag" },
                   { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
                   { "al", "core.norg.manoeuvre.textobject.around-whole-list" },

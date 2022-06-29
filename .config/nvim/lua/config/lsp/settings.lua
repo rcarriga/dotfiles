@@ -85,6 +85,7 @@ function M.setup(on_attach, capabilities)
     jsonls = { on_attach = on_attach },
     rust_analyzer = { on_attach = on_attach },
     vimls = { on_attach = on_attach },
+    tsserver = { on_attach = on_attach },
   }
 
   require("nvim-lsp-installer").setup({

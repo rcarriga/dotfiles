@@ -146,7 +146,7 @@ function M.post()
       ["<C-s>"] = vim.lsp.buf.signature_help,
       ["<space>la"] = vim.lsp.buf.code_action,
       ["<space>ls"] = vim.lsp.buf.document_symbol,
-      ["<space>lf"] = function() vim.lsp.buf.format({ async = false }) end,
+      ["<space>lf"] = function() vim.lsp.buf.format({ timeout_ms = 5000 }) end,
       ["<space>lt"] = function()
         vim.cmd([[SymbolsOutline]])
       end,

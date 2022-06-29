@@ -7,6 +7,11 @@ function M.post()
     icons = {
       running = "↻",
     },
+    strategies = {
+      integrated = {
+        width = 180
+      },
+    },
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false, console = "integratedTerminal" },
