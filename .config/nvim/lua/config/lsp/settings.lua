@@ -11,9 +11,7 @@ function M.setup(on_attach, capabilities)
     capabilities = capabilities,
     autostart = true,
     sources = {
-      blt.formatting.stylua.with({
-        extra_args = { "--config-path", vim.fn.expand("~/.config/stylua.toml") },
-      }),
+      blt.formatting.stylua,
       blt.formatting.black,
       blt.formatting.goimports,
       blt.formatting.gofumpt,

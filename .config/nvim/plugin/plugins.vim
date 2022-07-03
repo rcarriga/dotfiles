@@ -1,9 +1,3 @@
-let g:copilot_no_tab_map = 1
-let g:copilot_assume_mapped = 1
-let g:copilot_filetypes = {
-      \ 'dap-repl': v:false,
-      \ }
-
 let g:cursorhold_updatetime = 100
 
 let g:git_messenger_floating_win_opts = {
@@ -52,7 +46,6 @@ nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 nmap x <plug>(SubversiveSubstitute)
 nmap xx <plug>(SubversiveSubstituteLine)
 nmap X <plug>(SubversiveSubstituteToEndOfLine)
-
 nmap <silent><leader>gs :vertical Git \| vertical resize 50 <CR>
 nmap <silent><leader>gl :Git blame<CR>
 

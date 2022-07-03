@@ -2,7 +2,6 @@ local M = {}
 
 function M.post()
   local neotest = require("neotest")
-
   neotest.setup({
     icons = {
       running = "↻",
@@ -29,7 +28,7 @@ function M.post()
       neotest.run.run(vim.fn.expand("%"))
     end,
     ["<leader>ns"] = function()
-      neotest.run.run(vim.fn.getcwd())
+      neotest.run.run({ suite = true })
     end,
     ["<leader>nn"] = neotest.run.run,
     ["<leader>nd"] = function()
@@ -47,6 +46,7 @@ function M.post()
       neotest.output.open({ enter = true, short = true })
     end,
     ["<leader>np"] = neotest.summary.toggle,
+    ["<leader>nm"] = neotest.summary.run_marked,
     ["[n"] = function()
       neotest.jump.prev({ status = "failed" })
     end,

@@ -16,16 +16,9 @@ function M.post()
         position = "left",
       },
       {
-        elements = { "repl" },
-        size = 10,
+        elements = { "repl", "console" },
+        size = 0.25,
         position = "bottom",
-      },
-      {
-        elements = {
-          "console",
-        },
-        size = 60,
-        position = "right",
       },
     },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
@@ -37,11 +30,17 @@ function M.post()
     ["<M-down>"] = dap.step_into,
     ["<M-up>"] = dap.step_out,
     ["<M-x>"] = dap.toggle_breakpoint,
-    ["<M-t>"] = dapui.toggle,
+    ["<M-t>"] = function()
+      dapui.toggle({ reset = true })
+    end,
     ["<M-k>"] = dapui.eval,
     ["<M-m>"] = dapui.float_element,
-    ["<M-v>"] = function() dapui.float_element("scopes") end,
-    ["<M-r>"] = function() dapui.float_element("repl") end,
+    ["<M-v>"] = function()
+      dapui.float_element("scopes")
+    end,
+    ["<M-r>"] = function()
+      dapui.float_element("repl")
+    end,
     ["<M-q>"] = dap.terminate,
   }
   for keys, mapping in pairs(mappings) do
