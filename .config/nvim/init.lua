@@ -28,8 +28,6 @@ augroup END
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
-vim.g.do_filetype_lua = 1
-
 function WinBar()
   local buf = vim.api.nvim_win_get_buf(vim.g.statusline_winid)
   local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":p")
@@ -50,7 +48,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       winbar = "%!v:lua.WinBar()"
     end
     local win = vim.fn.bufwinid(buf)
-    vim.api.nvim_win_set_option(win, "winbar", winbar)
+    if vim.api.nvim_win_get_config(win).relative == "" then
+      vim.api.nvim_win_set_option(win, "winbar", winbar)
+    end
   end,
 })
 

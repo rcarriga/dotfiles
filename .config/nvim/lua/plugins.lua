@@ -71,7 +71,6 @@ packer.startup({
     use({
       maybe_local("/home/ronan/Dev/repos/neotest"),
       config = "require('config.neotest').post()",
-      keys = "<leader>n",
       requires = {
         { "akinsho/neotest-go", module = "neotest-go" },
         { maybe_local("/home/ronan/Dev/repos/neotest-python"), module = "neotest-python" },
@@ -166,7 +165,7 @@ packer.startup({
       "mfussenegger/nvim-dap",
       config = "require('config.dap').post()",
       keys = { "<M-t>", "<M-c>" },
-      module = "dap",
+      module = {"dap", "dapui"},
       opt = true,
       requires = {
         { "mfussenegger/nvim-dap-python", module = "dap-python" },

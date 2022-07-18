@@ -6,9 +6,13 @@ function M.post()
     icons = {
       running = "↻",
     },
+    status = {
+      virtual_text = true,
+      signs = false,
+    },
     strategies = {
       integrated = {
-        width = 180
+        width = 180,
       },
     },
     adapters = {
@@ -28,7 +32,9 @@ function M.post()
       neotest.run.run(vim.fn.expand("%"))
     end,
     ["<leader>ns"] = function()
-      neotest.run.run({ suite = true })
+      for _, adapter_id in ipairs(neotest.run.adapters()) do
+        neotest.run.run({ suite = true, adapter = adapter_id })
+      end
     end,
     ["<leader>nn"] = neotest.run.run,
     ["<leader>nd"] = function()
