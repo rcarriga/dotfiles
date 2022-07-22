@@ -1,9 +1,16 @@
 local M = {}
 
 function M.post()
-  require("luasnip.loaders.from_vscode").lazy_load()
-
   local luasnip = require("luasnip")
+
+  luasnip.config.set_config({
+    history = true,
+    ext_base_prio = 200,
+    ext_prio_increase = 2,
+    enable_autosnippets = true,
+  })
+  require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/snippets" })
+  require("luasnip.loaders.from_vscode").lazy_load()
 
   local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -68,7 +75,7 @@ function M.post()
   local args = {
     enabled = function()
       return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-        or require("cmp_dap").is_dap_buffer()
+          or require("cmp_dap").is_dap_buffer()
     end,
     window = {
       completion = {
@@ -120,7 +127,7 @@ function M.post()
       ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     },
     sources = cmp.config.sources({
-      { name = "dap" },
+      -- { name = "dap" },
       { name = "nvim_lsp" },
       { name = "git" },
       { name = "luasnip" },
@@ -131,6 +138,11 @@ function M.post()
     },
   }
   cmp.setup(args)
+  cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+    sources = {
+      { name = "dap" },
+    },
+  })
   ---@type cmp.ConfirmOption
 
   -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -148,4 +160,5 @@ function M.post()
     }, {}),
   })
 end
+
 return M

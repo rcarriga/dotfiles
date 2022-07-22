@@ -43,6 +43,7 @@ packer.startup({
     },
   },
   function(use)
+    use { "williamboman/mason.nvim", branch = "alpha" }
     use({ "echasnovski/mini.nvim" })
     use({ "mzlogin/vim-markdown-toc" })
     use({
@@ -104,7 +105,7 @@ packer.startup({
       "neovim/nvim-lspconfig",
       config = "require('config.lsp').post()",
       requires = {
-        "williamboman/nvim-lsp-installer",
+        -- "williamboman/nvim-lsp-installer",
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
@@ -164,7 +165,7 @@ packer.startup({
     use({
       "mfussenegger/nvim-dap",
       config = "require('config.dap').post()",
-      keys = { "<M-t>", "<M-c>" },
+      keys = { "<M-t>", "<M-c>", "<M-x" },
       module = {"dap", "dapui"},
       opt = true,
       requires = {

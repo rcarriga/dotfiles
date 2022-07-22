@@ -76,22 +76,37 @@ function M.setup(on_attach, capabilities)
         config = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
       },
     }),
-    bashls = { on_attach = on_attach },
-    clangd = { on_attach = on_attach },
-    gopls = { on_attach = on_attach },
-    hls = { on_attach = on_attach },
-    jsonls = { on_attach = on_attach },
-    rust_analyzer = { on_attach = on_attach },
-    vimls = { on_attach = on_attach },
-    tsserver = { on_attach = on_attach },
   }
 
-  require("nvim-lsp-installer").setup({
-    automatic_installation = true,
-  })
-
+  local lspconfig = require("lspconfig")
+  local mason_handlers = {
+    function(server_name)
+      lspconfig[server_name].setup({ on_attach = on_attach })
+    end,
+  }
   for server, settings in pairs(server_configs) do
-    require("lspconfig")[server].setup(settings)
+    mason_handlers[server] = function()
+      lspconfig[server].setup(settings)
+    end
   end
+  require("mason").setup({
+    ui = {
+      border = vim.g.border_chars,
+    },
+  })
+  require("mason-lspconfig").setup({
+    ensure_installed = vim.list_extend(vim.tbl_keys(server_configs), {
+      "bashls",
+      "clangd",
+      "gopls",
+      "hls",
+      "jsonls",
+      "rust_analyzer",
+      "vimls",
+      "tsserver",
+    }),
+  })
+  require("mason-lspconfig").setup_handlers(mason_handlers)
 end
+
 return M
