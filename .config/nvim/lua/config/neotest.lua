@@ -3,9 +3,6 @@ local M = {}
 function M.post()
   local neotest = require("neotest")
   neotest.setup({
-    icons = {
-      running = "↻",
-    },
     status = {
       virtual_text = true,
       signs = false,

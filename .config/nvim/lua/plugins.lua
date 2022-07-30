@@ -43,7 +43,10 @@ packer.startup({
     },
   },
   function(use)
-    use { "williamboman/mason.nvim", branch = "alpha" }
+    use({
+      "williamboman/mason.nvim",
+      requires = { "williamboman/mason-lspconfig.nvim" },
+    })
     use({ "echasnovski/mini.nvim" })
     use({ "mzlogin/vim-markdown-toc" })
     use({
@@ -74,9 +77,11 @@ packer.startup({
       config = "require('config.neotest').post()",
       requires = {
         { "akinsho/neotest-go", module = "neotest-go" },
+        { "andythigpen/nvim-coverage" },
         { maybe_local("/home/ronan/Dev/repos/neotest-python"), module = "neotest-python" },
         { maybe_local("/home/ronan/Dev/repos/neotest-plenary"), module = "neotest-plenary" },
         { maybe_local("/home/ronan/Dev/repos/neotest-vim-test"), module = "neotest-vim-test" },
+        { "rouge8/neotest-rust" },
       },
     })
     use({
@@ -166,7 +171,7 @@ packer.startup({
       "mfussenegger/nvim-dap",
       config = "require('config.dap').post()",
       keys = { "<M-t>", "<M-c>", "<M-x" },
-      module = {"dap", "dapui"},
+      module = { "dap", "dapui" },
       opt = true,
       requires = {
         { "mfussenegger/nvim-dap-python", module = "dap-python" },
