@@ -90,6 +90,10 @@ function M.post()
   pcall(function()
     capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
   end)
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
+  }
   require("diaglist").init({
     -- increase for noisy servers
     debounce_ms = 150,
@@ -125,6 +129,8 @@ function M.post()
       vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")
     end
 
+    local fold_win
+
     local lsp_util = require("config.lsp.util")
     local mappings = {
       gd = vim.lsp.buf.definition,
@@ -132,7 +138,18 @@ function M.post()
       ge = function()
         vim.diagnostic.open_float(0, { scope = "line" })
       end,
-      K = vim.lsp.buf.hover,
+      K = function()
+        if fold_win and vim.api.nvim_win_is_valid(fold_win) then
+          vim.api.nvim_set_current_win(fold_win)
+        end
+        fold_win = require("ufo").peekFoldedLinesUnderCursor()
+        if not fold_win then
+          vim.lsp.buf.hover()
+        else
+          vim.api.nvim_win_set_option(fold_win, "winhl", "Normal:Normal")
+          vim.api.nvim_win_set_option(fold_win, "winblend", 0)
+        end
+      end,
       gi = vim.lsp.buf.implementation,
       gq = vim.lsp.buf.references,
       gr = lsp_util.rename,
@@ -146,7 +163,9 @@ function M.post()
       ["<C-s>"] = vim.lsp.buf.signature_help,
       ["<space>la"] = vim.lsp.buf.code_action,
       ["<space>ls"] = vim.lsp.buf.document_symbol,
-      ["<space>lf"] = function() vim.lsp.buf.format({ timeout_ms = 5000 }) end,
+      ["<space>lf"] = function()
+        vim.lsp.buf.format({ timeout_ms = 5000 })
+      end,
       ["<space>lt"] = function()
         vim.cmd([[SymbolsOutline]])
       end,
@@ -167,6 +186,7 @@ function M.post()
   end
 
   require("config.lsp.settings").setup(on_attach, capabilities)
+  require("ufo").setup()
 end
 
 return M
