@@ -29,6 +29,10 @@ function M.setup(on_attach, capabilities)
         capabilities = capabilities,
         settings = {
           Lua = {
+            hint = {
+              enable = true,
+              setType = true,
+            },
             IntelliSense = {
               traceLocalSet = true,
             },

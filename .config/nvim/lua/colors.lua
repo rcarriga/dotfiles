@@ -408,6 +408,9 @@ loadHighlights({
   -- nvim-compe
   CompeDocumentationBorder = { Border },
 
+  --lsp-inlayhints.nvim
+  LspInlayHint = { Hidden },
+
   --nvim-cmp
   CmpItemAbbr = { Normal },
   CmpDocumentationBorder = { Border },

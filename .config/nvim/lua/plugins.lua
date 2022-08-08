@@ -111,7 +111,7 @@ packer.startup({
       "neovim/nvim-lspconfig",
       config = "require('config.lsp').post()",
       requires = {
-        -- "williamboman/nvim-lsp-installer",
+        "lvimuser/lsp-inlayhints.nvim",
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
