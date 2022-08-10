@@ -1,11 +1,11 @@
 local M = {}
-local execute = vim.api.nvim_command
+
 local fn = vim.fn
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
 end
 
 local packer = require("packer")
@@ -44,10 +44,10 @@ packer.startup({
   },
   function(use)
     use({"kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async"})
-    use({
-      "williamboman/mason.nvim",
-      requires = { "williamboman/mason-lspconfig.nvim" },
-    })
+    use({ "ldelossa/litee.nvim" })
+    use({ "ldelossa/litee-calltree.nvim" })
+    use({ "williamboman/mason.nvim", requires = { "williamboman/mason-lspconfig.nvim" } })
+    use({ "ThePrimeagen/refactoring.nvim", config = 'require("config.refactoring").post()' })
     use({ "echasnovski/mini.nvim" })
     use({ "mzlogin/vim-markdown-toc" })
     use({
@@ -189,25 +189,25 @@ packer.startup({
         { "nvim-treesitter/nvim-treesitter-textobjects" },
         { "nvim-treesitter/nvim-treesitter-refactor" },
         { "mfussenegger/nvim-ts-hint-textobject" },
+        { "mizlan/iswap.nvim" },
       },
     })
     use({
-      { "rafamadriz/friendly-snippets", event = "InsertEnter" },
-      { "L3MON4D3/LuaSnip", event = "InsertEnter" },
-      { "saadparwaiz1/cmp_luasnip", event = "InsertEnter" },
-      { "github/copilot.vim", event = "InsertEnter" },
-      { "hrsh7th/cmp-copilot", event = "InsertEnter" },
+      { "hrsh7th/nvim-cmp" },
+      { "rafamadriz/friendly-snippets" },
       { "petertriho/cmp-git" },
-      { "onsails/lspkind-nvim", event = "InsertEnter" },
-      { "hrsh7th/cmp-nvim-lsp", event = "InsertEnter" },
-      { "hrsh7th/cmp-buffer", event = "InsertEnter" },
-      { "hrsh7th/cmp-cmdline", event = "InsertEnter" },
-      { "hrsh7th/cmp-path", event = "InsertEnter" },
+      { "zbirenbaum/copilot.lua" },
+      { "zbirenbaum/copilot-cmp" },
+      { "onsails/lspkind-nvim" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-cmdline" },
+      { "hrsh7th/cmp-path" },
       { "lukas-reineke/cmp-under-comparator" },
-      { maybe_local("/home/ronan/Dev/repos/cmp-dap"), event = "InsertEnter" },
+      { maybe_local("/home/ronan/Dev/repos/cmp-dap") },
+      { "L3MON4D3/LuaSnip" },
       {
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+        "saadparwaiz1/cmp_luasnip",
         config = "require('config.completion').post()",
       },
     })

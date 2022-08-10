@@ -186,6 +186,7 @@ function M.post()
       gD = function()
         lsp_util.preview("textDocument/definition")
       end,
+      gC = vim.lsp.buf.outgoing_calls,
       gb = lsp_util.previous_win,
       gL = vim.lsp.codelens.run,
       ["]d"] = vim.diagnostic.goto_next,

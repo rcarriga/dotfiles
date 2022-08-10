@@ -71,7 +71,7 @@ for opt, val in pairs({
   foldexpr = "nvim_treesitter#foldexpr()",
   foldlevel = 99,
   foldmethod = "expr",
-  formatoptions = "l",
+  formatoptions = "lnjqr",
   ignorecase = true,
   inccommand = "split",
   laststatus = 3,
@@ -160,3 +160,26 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 ]])
 
 vim.cmd([[command! Plugins lua require("plugins").update() ]])
+
+-- From vim-unimpaired
+local function putline(how)
+  local body, type = vim.fn.getreg(vim.v.register), vim.fn.getregtype(vim.v.register)
+  if type == "V" then
+    vim.api.nvim_exec('normal! "' .. vim.v.register .. how, false)
+  else
+    vim.fn.setreg(vim.v.register, body, "l")
+    vim.api.nvim_exec('normal! "' .. vim.v.register .. how, false)
+    vim.fn.setreg(vim.v.register, body, type)
+  end
+end
+
+k("n", "[p", "", {
+  callback = function()
+    putline("[p")
+  end,
+})
+k("n", "[p", "", {
+  callback = function()
+    putline("]p")
+  end,
+})

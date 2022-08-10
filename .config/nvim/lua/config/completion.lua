@@ -35,8 +35,6 @@ function M.post()
   vim.api.nvim_set_keymap("s", "<S-Tab>", "", { callback = s_tab_complete, expr = true })
   vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
   vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
-  vim.api.nvim_set_keymap("i", "<C-w>", "copilot#Accept()", { expr = true })
-  vim.api.nvim_set_keymap("s", "<C-w>", "copilot#Accept()", { expr = true })
 
   -- Setup nvim-cmp.
   local cmp = require("cmp")
@@ -73,10 +71,6 @@ function M.post()
 
   ---@type cmp.ConfigSchema
   local args = {
-    enabled = function()
-      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-          or require("cmp_dap").is_dap_buffer()
-    end,
     window = {
       completion = {
         border = vim.g.border_chars,
@@ -103,9 +97,13 @@ function M.post()
       },
     },
     formatting = {
-      fields = { "kind", "abbr" },
-      format = function(_, vim_item)
-        vim_item.kind = cmp_kinds[vim_item.kind] or ""
+      format = function(entry, vim_item)
+        if entry.source.name == "copilot" then
+          vim_item.kind = ""
+          vim_item.kind_hl_group = "CmpItemKindCopilt"
+        else
+          vim_item.kind = cmp_kinds[vim_item.kind] or ""
+        end
         return vim_item
       end,
     },
@@ -122,12 +120,12 @@ function M.post()
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
       }),
-      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      ["<CR>"] = cmp.mapping.confirm({}),
       ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
       ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     },
     sources = cmp.config.sources({
-      -- { name = "dap" },
+      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "git" },
       { name = "luasnip" },
@@ -137,20 +135,13 @@ function M.post()
       entries = "custom",
     },
   }
+
   cmp.setup(args)
   cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
     sources = {
       { name = "dap" },
     },
   })
-  ---@type cmp.ConfirmOption
-
-  -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-  -- cmp.setup.cmdline("/", {
-  --   sources = {
-  --     { name = "buffer" },
-  --   },
-  -- })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
   cmp.setup.cmdline(":", {
@@ -159,6 +150,17 @@ function M.post()
       { name = "path" },
     }, {}),
   })
+
+  vim.defer_fn(function()
+    require("copilot").setup({ ft_disable = { "dap-repl" } })
+    cmp.setup(args)
+    cmp.setup.cmdline(":", {
+      sources = cmp.config.sources({
+        { name = "cmdline" },
+        { name = "path" },
+      }, {}),
+    })
+  end, 100)
 end
 
 return M

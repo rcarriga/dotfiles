@@ -116,7 +116,7 @@ loadHighlights({
   MoreMsg = { Yellow },
   cursorim = { Violet },
   Pmenu = { Grey4 },
-  PmenuSel = { Transparent, Grey3, "bold" },
+  PmenuSel = { Transparent, Grey2, "bold" },
   PMenuSbar = { Transparent },
   PMenuThumb = { Transparent, Grey4 },
   Visual = { Transparent, Grey1, "bold,underline" },
@@ -425,6 +425,7 @@ loadHighlights({
   CmpItemKindKeyword = { BuiltIn, "bold" },
   CmpItemKindProperty = { Key, "bold" },
   CmpItemKindUnit = { Yellow, "bold" },
+  CmpItemKindCopilt = { Green, "bold" },
   CmpBorderedWindow_FloatBorder = { Border },
 
   --neorg

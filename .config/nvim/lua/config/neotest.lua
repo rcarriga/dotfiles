@@ -33,6 +33,12 @@ function M.post()
         neotest.run.run({ suite = true, adapter = adapter_id })
       end
     end,
+    ["<leader>nw"] = function()
+      neotest.watch.watch()
+    end,
+    ["<leader>nx"] = function()
+      neotest.run.stop()
+    end,
     ["<leader>nn"] = neotest.run.run,
     ["<leader>nd"] = function()
       neotest.run.run({ strategy = "dap" })

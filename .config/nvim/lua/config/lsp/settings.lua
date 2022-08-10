@@ -12,7 +12,7 @@ function M.setup(on_attach, capabilities)
     autostart = true,
     sources = {
       blt.formatting.stylua,
-      blt.formatting.black,
+      blt.formatting.black.with({ args = { "--quiet", "-" } }),
       blt.formatting.goimports,
       blt.formatting.gofumpt,
       blt.formatting.isort,
@@ -56,28 +56,13 @@ function M.setup(on_attach, capabilities)
       },
       capabilities = capabilities,
     },
-    vuels = {
-      on_attach = on_attach,
-      init_options = {
-        config = {
-          vetur = {
-            experimental = { templateInterpolationService = true },
-            completion = {
-              autoImport = true,
-              tagCasing = "kebab",
-              useScaffoldSnippets = true,
-            },
-            useWorkspaceDependencies = false,
-            validation = { script = true, style = true, template = true },
-          },
-          flags = { debounce_text_changes = 150 },
-        },
-      },
+    volar = {
+      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
     },
     yamlls = require("yaml-companion").setup({
-      on_attach = on_attach,
-      init_options = {
-        config = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
+      lspconfig = {
+        on_attach = on_attach,
+        settings = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
       },
     }),
   }
