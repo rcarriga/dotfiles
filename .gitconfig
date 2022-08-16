@@ -20,3 +20,5 @@
   path = ~/.gitconfig.local
 [init]
 	defaultBranch = master
+[push]
+	autoSetupRemote = true
