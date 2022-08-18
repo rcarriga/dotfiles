@@ -13,10 +13,6 @@ end
 
 function M.setup()
   if pcall(require, "telescope") then
-    vim.lsp.handlers["textDocument/references"] = wrap_options(
-      { layout_strategy = "vertical" },
-      "lsp_references"
-    )
     vim.lsp.handlers["textDocument/documentSymbol"] =
       require("telescope.builtin").lsp_document_symbols
     vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -37,14 +33,14 @@ function M.setup()
       { title = vim.lsp.get_client_by_id(client_id).name }
     )
   end
-  vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
+  local handle_locations = function(err, result, ctx, config)
     local client_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
     if err then
       vim.notify(err.message)
       return
     end
     if result == nil then
-      vim.notify("Location not found")
+      vim.notify("Location not found", "LSP")
       return
     end
     if vim.tbl_islist(result) and result[1] then
@@ -52,11 +48,13 @@ function M.setup()
 
       if #result > 1 then
         vim.fn.setqflist(vim.lsp.util.locations_to_items(result, client_encoding))
-        vim.api.nvim_command("copen")
+        vim.cmd("TroubleToggle quickfix")
       end
     else
       vim.lsp.util.jump_to_location(result, client_encoding)
     end
   end
+  vim.lsp.handlers["textDocument/definition"] = handle_locations
+  vim.lsp.handlers["textDocument/references"] = handle_locations
 end
 return M

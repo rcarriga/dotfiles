@@ -2,19 +2,20 @@ local M = {}
 
 function M.post()
   -- Something is causing telescope to enter insert mode when picking entry
-  vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-      if vim.api.nvim_buf_get_option(0, "filetype") ~= "" then
-        vim.cmd("stopinsert")
-      end
-    end,
-  })
+  -- vim.api.nvim_create_autocmd("BufEnter", {
+  --   callback = function()
+  --     if vim.api.nvim_buf_get_option(0, "filetype") ~= "" then
+  --       vim.cmd("stopinsert")
+  --     end
+  --   end,
+  -- })
   local telescope = require("telescope")
   local actions = require("telescope.actions")
   local previewers = require("telescope.previewers")
+  local trouble = require("trouble.providers.telescope")
   telescope.setup({
     defaults = {
-      preview =  {
+      preview = {
         filesize_limit = 5,
         timeout = 50,
       },
@@ -22,6 +23,7 @@ function M.post()
       grep_previewer = previewers.vim_buffer_vimgrep.new,
       qflist_previewer = previewers.vim_buffer_qflist.new,
       prompt_prefix = " ❯ ",
+      initial_mode = "insert",
       find_command = {
         "fd",
         "--type",
@@ -60,9 +62,11 @@ function M.post()
           ["<C-j>"] = actions.move_selection_next,
           ["<C-k>"] = actions.move_selection_previous,
           ["<esc>"] = actions.close,
+          ["<c-t>"] = trouble.open_with_trouble,
         },
         n = {
           ["q"] = actions.close,
+          ["<c-t>"] = trouble.open_with_trouble,
         },
       },
     },
@@ -94,15 +98,17 @@ function M.post()
     opts.cwd = vim.env.HOME
     opts.entry_maker = make_entry.gen_from_file(opts)
 
-    pickers.new(opts, {
-      prompt_title = "Yadm Files",
-      finder = finders.new_oneshot_job(
-        { "yadm", "ls-files", "--exclude-standard", "--cached" },
-        opts
-      ),
-      previewer = conf.file_previewer(opts),
-      sorter = conf.file_sorter(opts),
-    }):find()
+    pickers
+        .new(opts, {
+          prompt_title = "Yadm Files",
+          finder = finders.new_oneshot_job(
+            { "yadm", "ls-files", "--exclude-standard", "--cached" },
+            opts
+          ),
+          previewer = conf.file_previewer(opts),
+          sorter = conf.file_sorter(opts),
+        })
+        :find()
   end
 
   local keys = {

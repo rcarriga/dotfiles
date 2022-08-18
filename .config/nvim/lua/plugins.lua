@@ -111,12 +111,12 @@ packer.startup({
       "neovim/nvim-lspconfig",
       config = "require('config.lsp').post()",
       requires = {
+        "folke/trouble.nvim",
         "lvimuser/lsp-inlayhints.nvim",
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
         { "simrat39/symbols-outline.nvim", setup = "require('config.lsp').pre()" },
-        "onsails/diaglist.nvim",
       },
     })
     use({

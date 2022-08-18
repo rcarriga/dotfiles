@@ -94,11 +94,6 @@ function M.post()
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
-  require("diaglist").init({
-    -- increase for noisy servers
-    debounce_ms = 150,
-  })
-
   require("lsp-inlayhints").setup({
     inlay_hints = {
       parameter_hints = {
@@ -200,8 +195,9 @@ function M.post()
       ["<space>lt"] = function()
         vim.cmd([[SymbolsOutline]])
       end,
-      ["<space>ld"] = require("diaglist").open_all_diagnostics,
-      ["<space>lb"] = require("diaglist").open_buffer_diagnostics,
+      ["<space>lc"] = function ()
+        vim.cmd("TroubleClose")
+      end
     }
 
     for keys, mapping in pairs(mappings) do

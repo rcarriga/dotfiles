@@ -11,7 +11,6 @@ function M.post()
     fps = 60,
   })
   vim.api.nvim_set_keymap("n", "<leader>p", "", { callback = notify.dismiss })
-
 end
 
 return M
