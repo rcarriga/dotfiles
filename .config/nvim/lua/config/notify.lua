@@ -5,6 +5,7 @@ function M.post()
     require("telescope").load_extension("notify")
   end)
 
+  local stages_util = require("notify.stages.util")
   local notify = require("notify")
   notify.setup({
     background_colour = "#121212",

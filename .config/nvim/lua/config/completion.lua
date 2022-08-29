@@ -134,6 +134,10 @@ function M.post()
     view = {
       entries = "custom",
     },
+    enabled = function()
+      return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+          or require("cmp_dap").is_dap_buffer()
+    end,
   }
 
   cmp.setup(args)
@@ -152,7 +156,7 @@ function M.post()
   })
 
   vim.defer_fn(function()
-    require("copilot").setup({ ft_disable = { "dap-repl" } })
+    require("copilot").setup({ ft_disable = { "dap-repl", "c" } })
     cmp.setup(args)
     cmp.setup.cmdline(":", {
       sources = cmp.config.sources({
