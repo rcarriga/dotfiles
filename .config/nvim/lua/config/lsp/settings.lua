@@ -58,11 +58,14 @@ function M.setup(on_attach, capabilities)
     },
     volar = {
       filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+      capabilities = capabilities,
     },
     yamlls = require("yaml-companion").setup({
       lspconfig = {
         on_attach = on_attach,
         settings = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
+        flags = { debounce_text_changes = 150 },
+        capabilities = capabilities,
       },
     }),
   }

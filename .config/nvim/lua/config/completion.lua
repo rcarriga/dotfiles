@@ -69,6 +69,10 @@ function M.post()
 
   require("cmp_git").setup({})
 
+  local function is_auto_import(item)
+    return item.data and item.data.autoImportText
+  end
+
   ---@type cmp.ConfigSchema
   local args = {
     window = {
@@ -88,8 +92,34 @@ function M.post()
       comparators = {
         cmp.config.compare.offset,
         cmp.config.compare.exact,
+        -- Pyright suggests autoimports in a weird order. This will attempt to prioritise builtin modules and then
+        -- higher level modules, instead of the default of random modules ahead of builtins and module of definition
+        -- being suggested. Not perfect but better than default.
+        function(a, b)
+          a, b = a.completion_item, b.completion_item
+          if not is_auto_import(a) or not is_auto_import(b) then
+            return
+          end
+          if not a.labelDetails and b.labelDetails then
+            return
+          end
+          if not a.labelDetails then
+            return true
+          end
+          if not b.labelDetails then
+            return false
+          end
+          return #a.labelDetails.description < #b.labelDetails.description
+        end,
+        function(a, b)
+          local a_under = select(2, a.completion_item.label:find("^_+")) or 0
+          local b_under = select(2, b.completion_item.label:find("^_+")) or 0
+          if a_under == b_under then
+            return nil
+          end
+          return a_under < b_under
+        end,
         cmp.config.compare.score,
-        require("cmp-under-comparator").under,
         cmp.config.compare.kind,
         cmp.config.compare.sort_text,
         cmp.config.compare.length,

@@ -46,7 +46,7 @@ packer.startup({
     use({"kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async"})
     use({ "ldelossa/litee.nvim" })
     use({ "ldelossa/litee-calltree.nvim" })
-    use({ "williamboman/mason.nvim", requires = { "williamboman/mason-lspconfig.nvim" } })
+    use({ "williamboman/mason.nvim", branch = "main", requires = { "williamboman/mason-lspconfig.nvim" } })
     use({ "ThePrimeagen/refactoring.nvim", config = 'require("config.refactoring").post()' })
     use({ "echasnovski/mini.nvim" })
     use({ "mzlogin/vim-markdown-toc" })
@@ -203,7 +203,6 @@ packer.startup({
       { "hrsh7th/cmp-buffer" },
       { "hrsh7th/cmp-cmdline" },
       { "hrsh7th/cmp-path" },
-      { "lukas-reineke/cmp-under-comparator" },
       { maybe_local("/home/ronan/Dev/repos/cmp-dap") },
       { "L3MON4D3/LuaSnip" },
       {
