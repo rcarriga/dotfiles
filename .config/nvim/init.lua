@@ -130,7 +130,7 @@ set foldtext=FoldText()
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 pcall(function()
-  require("impatient").enable_profile()
+  require("impatient")
 end)
 
 vim.notify = function(...)

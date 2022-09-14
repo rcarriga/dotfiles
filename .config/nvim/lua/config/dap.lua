@@ -80,6 +80,17 @@ function M.post()
     },
     {
       type = "python",
+      request = "launch",
+      name = "Launch Module",
+      justMyCode = false,
+      module = function()
+        return string.gsub(vim.fn.expand("%:.:r"), "/", ".")
+      end,
+      console = "integratedTerminal",
+      pythonPath = require("util").get_python_path(),
+    },
+    {
+      type = "python",
       request = "attach",
       name = "Attach remote",
       justMyCode = false,

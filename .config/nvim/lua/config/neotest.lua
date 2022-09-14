@@ -23,7 +23,15 @@ function M.post()
     return env
   end
   neotest.setup({
-    -- log_level = vim.log.levels.DEBUG,
+    log_level = vim.log.levels.INFO,
+    discovery = {
+      filter_dir = function(_, rel_path)
+        return vim.startswith(rel_path, "tests")
+      end,
+    },
+    running = {
+      concurrent = false,
+    },
     status = {
       virtual_text = true,
       signs = true,
@@ -65,7 +73,7 @@ function M.post()
     end,
     ["<leader>ns"] = function()
       for _, adapter_id in ipairs(neotest.run.adapters()) do
-        neotest.run.run({ suite = true, adapter = adapter_id })
+        neotest.run.run({ suite = true, adapter = adapter_id, env = get_env() })
       end
     end,
     ["<leader>nw"] = function()
@@ -78,7 +86,7 @@ function M.post()
       neotest.run.run({ env = get_env() })
     end,
     ["<leader>nd"] = function()
-      neotest.run.run({ strategy = "dap" })
+      neotest.run.run({ strategy = "dap", env = get_env() })
     end,
     ["<leader>nl"] = neotest.run.run_last,
     ["<leader>nD"] = function()

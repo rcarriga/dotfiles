@@ -17,22 +17,13 @@ function M.post()
     defaults = {
       preview = {
         filesize_limit = 5,
-        timeout = 50,
+        timeout = 100,
       },
       file_previewer = previewers.vim_buffer_cat.new,
       grep_previewer = previewers.vim_buffer_vimgrep.new,
       qflist_previewer = previewers.vim_buffer_qflist.new,
       prompt_prefix = " ❯ ",
       initial_mode = "insert",
-      find_command = {
-        "fd",
-        "--type",
-        "f",
-        "--no-ignore",
-        "--color=never",
-        "--hidden",
-        "--follow",
-      },
       vimgrep_arguments = {
         "rg",
         "--color=never",
@@ -46,7 +37,8 @@ function M.post()
       file_ignore_patterns = {
         "workbench/.*",
         ".git/.*",
-        ".venv/.*",
+        ".mypy_cache/.*",
+        "__pycache__/*",
         "*.png",
         "*.jpg",
         "node_modules",
@@ -93,6 +85,15 @@ function M.post()
   local pickers = require("telescope.pickers")
   local conf = require("telescope.config").values
 
+  local file_tiebreak = function(current_entry, existing_entry, _)
+    if vim.startswith(current_entry[1], "./tests/") then
+      return false
+    end
+    if vim.startswith(existing_entry[1], "./tests/") then
+      return true
+    end
+    return #current_entry.ordinal < #existing_entry.ordinal
+  end
   local yadm_files = function(opts)
     opts = opts or {}
     opts.cwd = vim.env.HOME
@@ -112,7 +113,33 @@ function M.post()
   end
 
   local keys = {
-    ["<leader>df"] = { builtin.find_files },
+    ["<leader>df"] = {
+      builtin.find_files,
+      {
+        find_command = {
+          "fd",
+          "--type",
+          "f",
+          "--color=never",
+        },
+        tiebreak = file_tiebreak
+      },
+    },
+    ["<leader>dF"] = {
+      builtin.find_files,
+      {
+        find_command = {
+          "fd",
+          "--type",
+          "f",
+          "--color=never",
+        },
+        hidden = true,
+        follow = true,
+        no_ignore = true,
+        tiebreak = file_tiebreak
+      },
+    },
     ["<leader>dg"] = { builtin.grep_string, { search = "", debounce = 30 } },
     ["<leader>dG"] = { builtin.live_grep },
     ["<leader>db"] = { builtin.buffers },

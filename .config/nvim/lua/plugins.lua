@@ -45,6 +45,12 @@ packer.startup({
   function(use)
     use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
     use({
+      "dccsillag/magma-nvim",
+      config = 'require("config.notebook").post()',
+      run = ":UpdateRemotePlugins",
+    })
+    use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+    use({
       "williamboman/mason.nvim",
       branch = "main",
       requires = { "williamboman/mason-lspconfig.nvim" },
