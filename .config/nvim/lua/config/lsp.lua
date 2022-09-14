@@ -1,5 +1,4 @@
 local M = {}
-local util = require("util")
 function M.pre()
   vim.g.symbols_outline = {
     highlight_hovered_item = true,
@@ -75,7 +74,7 @@ function M.post()
     },
     severity_sort = true,
   })
-  util.multilineCommand([[
+  vim.cmd([[
     sign define DiagnosticSignError text=▶ texthl=DiagnosticsError numhl=DiagnosticsError
     sign define DiagnosticSignWarn text=▶ texthl=DiagnosticsWarning numhl=DiagnosticsWarning
     sign define DiagnosticSignInfo text=▶ texthl=DiagnosticsInformation numhl=DiagnosticsInformation
@@ -123,21 +122,12 @@ function M.post()
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
-    -- if client.resolved_capabilities.document_highlight then
-    -- vim.cmd([[
-    -- augroup LspReferences
-    -- au CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-    -- au CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-    -- au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    -- augroup END
-    -- ]])
-    -- end
 
     if has_status then
       lsp_status.on_attach(client)
     end
     pcall(function()
-      require("lsp-inlayhints").on_attach(bufnr, client)
+      require("lsp-inlayhints").on_attach(client, bufnr)
     end)
     lsp_sig.on_attach({
       floating_window_above_cur_line = true,

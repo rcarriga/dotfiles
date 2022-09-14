@@ -1,3 +1,3 @@
-; (("then") @BuiltIn (#set! conceal "{"))
-; (("do") @BuiltIn (#set! conceal "{"))
-; (("end") @BuiltIn (#set! conceal "}"))
+; extends
+
+(function_declaration name: ((method_index_expression table: (identifier) @type (#set! "priority" 105))))

@@ -25,6 +25,13 @@ augroup NicerTerminal
 augroup END
 ]])
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "dap-repl",
+  callback = function(args)
+    vim.api.nvim_buf_set_option(args.buf, "buflisted", false)
+  end,
+})
+
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
@@ -99,6 +106,7 @@ for opt, val in pairs({
   showmode = false,
   signcolumn = "yes",
   smartcase = true,
+  spelloptions = "noplainbuffer",
   splitbelow = true,
   splitright = true,
   switchbuf = "useopen",

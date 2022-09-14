@@ -43,13 +43,14 @@ packer.startup({
     },
   },
   function(use)
-    use({"kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async"})
-    use({ "ldelossa/litee.nvim" })
-    use({ "ldelossa/litee-calltree.nvim" })
-    use({ "williamboman/mason.nvim", branch = "main", requires = { "williamboman/mason-lspconfig.nvim" } })
+    use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+    use({
+      "williamboman/mason.nvim",
+      branch = "main",
+      requires = { "williamboman/mason-lspconfig.nvim" },
+    })
     use({ "ThePrimeagen/refactoring.nvim", config = 'require("config.refactoring").post()' })
     use({ "echasnovski/mini.nvim" })
-    use({ "mzlogin/vim-markdown-toc" })
     use({
       "nvim-neorg/neorg",
       config = "require('config.org').post()",
@@ -62,14 +63,6 @@ packer.startup({
     use({ "nvim-lua/plenary.nvim" })
     use({ "antoinemadec/FixCursorHold.nvim" })
     use({ "lukas-reineke/indent-blankline.nvim", config = "require('config.indentline').post()" })
-    use({
-      "kristijanhusak/orgmode.nvim",
-      requires = { "akinsho/org-bullets.nvim", "lukas-reineke/headlines.nvim" },
-    })
-    use({
-      "luukvbaal/stabilize.nvim",
-      config = "require('config.stabilize').post()",
-    })
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
@@ -98,7 +91,7 @@ packer.startup({
     use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
     use({ "MTDL9/vim-log-highlighting" })
     use({ "NTBBloodbath/galaxyline.nvim", config = "require('config.galaxyline').post()" })
-    use({ "kyazdani42/nvim-web-devicons", requires = { "yamatsum/nvim-nonicons" } })
+    use({ "kyazdani42/nvim-web-devicons" })
     use({ "godlygeek/tabular", cmd = "Tabularize" })
     use({ "danymat/neogen", cmd = "Neogen", config = "require('config.docs').post()" })
     use({
@@ -116,6 +109,7 @@ packer.startup({
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
+        "simrat39/rust-tools.nvim",
         { "simrat39/symbols-outline.nvim", setup = "require('config.lsp').pre()" },
       },
     })
@@ -168,23 +162,19 @@ packer.startup({
         { "someone-stole-my-name/yaml-companion.nvim" },
       },
     })
+    use({ "hiberabyss/nvim-dbg" })
     use({
       "mfussenegger/nvim-dap",
       config = "require('config.dap').post()",
-      keys = { "<M-t>", "<M-c>", "<M-x" },
-      module = { "dap", "dapui" },
-      opt = true,
       requires = {
-        { "mfussenegger/nvim-dap-python", module = "dap-python" },
-        { maybe_local("/home/ronan/Dev/repos/nvim-dap-ui"), module = "dapui" },
-        { "jbyuki/one-small-step-for-vimkind" },
+        { "mfussenegger/nvim-dap-python" },
+        { maybe_local("/home/ronan/Dev/repos/nvim-dap-ui") },
       },
     })
     use({
       "nvim-treesitter/nvim-treesitter",
       config = "require('config.treesitter').post()",
       requires = {
-        { "lewis6991/spellsitter.nvim" },
         { "nvim-treesitter/playground" },
         { "nvim-treesitter/nvim-treesitter-textobjects" },
         { "nvim-treesitter/nvim-treesitter-refactor" },

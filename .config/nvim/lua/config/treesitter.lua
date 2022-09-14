@@ -16,11 +16,6 @@ function M.post()
     vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
   ]])
 
-  require("spellsitter").setup({
-    -- Whether enabled, can be a list of filetypes, e.g. {'python', 'lua'}
-    enable = true,
-  })
-
 
   parser_configs.gotmpl = {
     install_info = {
@@ -36,8 +31,6 @@ function M.post()
   require("nvim-treesitter.configs").setup({
     highlight = {
       enable = true,
-      disable = { "org" }, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-      additional_vim_regex_highlighting = { "org" }, -- Required since TS highlighter doesn't support all syntax features (conceal)
     },
     ensure_installed = "all",
     indent = { enable = false },

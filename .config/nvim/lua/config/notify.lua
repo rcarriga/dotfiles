@@ -5,11 +5,11 @@ function M.post()
     require("telescope").load_extension("notify")
   end)
 
-  local stages_util = require("notify.stages.util")
   local notify = require("notify")
   notify.setup({
     background_colour = "#121212",
     fps = 60,
+    top_down = false,
   })
   vim.api.nvim_set_keymap("n", "<leader>p", "", { callback = notify.dismiss })
 end

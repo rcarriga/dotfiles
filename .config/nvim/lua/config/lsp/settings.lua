@@ -11,7 +11,9 @@ function M.setup(on_attach, capabilities)
     capabilities = capabilities,
     autostart = true,
     sources = {
-      blt.formatting.stylua,
+      blt.formatting.stylua.with({
+        extra_args = { "--config-path", vim.fs.normalize("~/.config/stylua.toml") },
+      }),
       blt.formatting.black.with({ args = { "--quiet", "-" } }),
       blt.formatting.goimports,
       blt.formatting.gofumpt,
@@ -21,28 +23,68 @@ function M.setup(on_attach, capabilities)
     },
   })
 
+  local opts = {
+    tools = {
+      executor = require("rust-tools/executors").termopen,
+      on_initialized = nil,
+      reload_workspace_from_cargo_toml = true,
+      inlay_hints = {
+        auto = true,
+        only_current_line = false,
+        show_parameter_hints = true,
+        parameter_hints_prefix = "<- ",
+        other_hints_prefix = "=> ",
+        max_len_align = false,
+        max_len_align_padding = 1,
+        right_align = false,
+        right_align_padding = 7,
+        highlight = "Comment",
+      },
+
+      crate_graph = {
+        backend = "x11",
+        output = nil,
+        full = true,
+      },
+    },
+
+    server = {
+      standalone = false,
+    },
+    dap = {
+      adapter = {
+        type = "executable",
+        command = "lldb-vscode",
+        name = "rt_lldb",
+      },
+    },
+  }
+
+  require('rust-tools').setup(opts)
+
+  require("lua-dev").setup({
+    library = { plugins = { "nvim-cmp", "plenary.nvim", "neotest" }, types = true },
+    plugin_library = { plugins = { "nvim-cmp", "plenary.nvim", "neotest" }, types = true },
+  })
   local server_configs = {
-    sumneko_lua = require("lua-dev").setup({
-      library = { plugins = { "nvim-cmp", "plenary.nvim", "neotest" }, types = true },
-      lspconfig = {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            hint = {
-              enable = true,
-              setType = true,
-            },
-            IntelliSense = {
-              traceLocalSet = true,
-            },
-            diagnostics = {
-              globals = { "describe", "it", "before_each", "after_each", "vim" },
-            },
+    sumneko_lua = {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          hint = {
+            enable = true,
+            setType = true,
+          },
+          IntelliSense = {
+            traceLocalSet = true,
+          },
+          diagnostics = {
+            globals = { "describe", "it", "before_each", "after_each", "vim" },
           },
         },
       },
-    }),
+    },
     pyright = {
       handlers = has_status and lsp_status.extensions.pyls_ms.setup() or nil,
       on_attach = on_attach,
@@ -57,7 +99,14 @@ function M.setup(on_attach, capabilities)
       capabilities = capabilities,
     },
     volar = {
-      filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+      filetypes = {
+        "typescript",
+        "javascript",
+        "javascriptreact",
+        "typescriptreact",
+        "vue",
+        "json",
+      },
       capabilities = capabilities,
     },
     yamlls = require("yaml-companion").setup({

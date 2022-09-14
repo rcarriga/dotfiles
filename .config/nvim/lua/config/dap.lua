@@ -21,8 +21,12 @@ function M.post()
         position = "bottom",
       },
     },
+    render = {
+      max_value_lines = 3,
+    },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
+  dap.set_log_level("DEBUG")
 
   local mappings = {
     ["<M-c>"] = dap.continue,
@@ -59,6 +63,10 @@ function M.post()
     mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python",
     { include_configs = false }
   )
+
+  dap.adapters.nlua = function(callback, config)
+    callback({ type = "server", host = config.host, port = config.port })
+  end
 
   dap.configurations.python = {
     {

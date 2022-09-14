@@ -2,33 +2,45 @@ local M = {}
 
 function M.post()
   local neotest = require("neotest")
+  local lib = require("neotest.lib")
   local get_env = function()
     local env = {}
-    for _, file in ipairs({ ".env" }) do
-      if vim.fn.empty(vim.fn.glob(file)) ~= 0 then
-        break
-      end
+    local file = ".env"
+    if not lib.files.exists(file) then
+      return {}
+    end
 
-      for _, line in ipairs(vim.fn.readfile(file)) do
-        for name, value in string.gmatch(line, "(.+)=['\"]?(.*)['\"]?") do
-          local str_end = string.sub(value, -1, -1)
-          if str_end == "'" or str_end == '"' then
-            value = string.sub(value, 1, -2)
-          end
-
-          env[name] = value
+    for _, line in ipairs(vim.fn.readfile(file)) do
+      for name, value in string.gmatch(line, "(.+)=['\"]?(.*)['\"]?") do
+        local str_end = string.sub(value, -1, -1)
+        if str_end == "'" or str_end == '"' then
+          value = string.sub(value, 1, -2)
         end
+
+        env[name] = value
       end
     end
     return env
   end
   neotest.setup({
-    running = {
-      concurrent = false,
-    },
+    -- log_level = vim.log.levels.DEBUG,
     status = {
       virtual_text = true,
-      signs = false,
+      signs = true,
+    },
+    icons = {
+      running_animated = {
+        "",
+        "🞅",
+        "🞈",
+        "🞉",
+        "",
+        "",
+        "🞉",
+        "🞈",
+        "🞅",
+        "",
+      },
     },
     strategies = {
       integrated = {
@@ -45,16 +57,11 @@ function M.post()
         allow_file_types = { "ruby", "typescript" },
       }),
     },
-    projects = {
-      ["/home/ronan/Dev/repos/pydantic"] = {
-        discovery = { enabled = false },
-      },
-    },
   })
 
   local mappings = {
     ["<leader>nr"] = function()
-      neotest.run.run({ vim.fn.expand("%"), env = get_env() })
+      neotest.run.run({ suite = true, env = get_env() })
     end,
     ["<leader>ns"] = function()
       for _, adapter_id in ipairs(neotest.run.adapters()) do

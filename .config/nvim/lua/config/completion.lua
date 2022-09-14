@@ -186,7 +186,7 @@ function M.post()
   })
 
   vim.defer_fn(function()
-    require("copilot").setup({ ft_disable = { "dap-repl", "c" } })
+    require("copilot").setup({ ft_disable = { "dap-repl", "c", "cpp" } })
     cmp.setup(args)
     cmp.setup.cmdline(":", {
       sources = cmp.config.sources({
