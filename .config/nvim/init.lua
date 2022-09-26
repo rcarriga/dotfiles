@@ -14,7 +14,7 @@ end)
 vim.cmd([[
 augroup NvimAuCommands
   au!
-  au TextYankPost * silent! lua vim.highlight.on_yank {on_visual=false}
+  au TextYankPost * silent! lua vim.highlight.on_yank {on_visual = false, timeout = 50}
 augroup END
 ]])
 
@@ -206,3 +206,5 @@ k("n", "[p", "", {
     putline("]p")
   end,
 })
+
+k("n", "<C-[>", "<cmd>noh<cr>", { noremap = true })

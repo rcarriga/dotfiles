@@ -1,18 +1,16 @@
 local M = {}
 
 function M.post()
-  -- Something is causing telescope to enter insert mode when picking entry
-  -- vim.api.nvim_create_autocmd("BufEnter", {
-  --   callback = function()
-  --     if vim.api.nvim_buf_get_option(0, "filetype") ~= "" then
-  --       vim.cmd("stopinsert")
-  --     end
-  --   end,
-  -- })
   local telescope = require("telescope")
   local actions = require("telescope.actions")
   local previewers = require("telescope.previewers")
   local trouble = require("trouble.providers.telescope")
+  local builtin = require("telescope.builtin")
+  local finders = require("telescope.finders")
+  local make_entry = require("telescope.make_entry")
+  local pickers = require("telescope.pickers")
+  local conf = require("telescope.config").values
+
   telescope.setup({
     defaults = {
       preview = {
@@ -79,12 +77,6 @@ function M.post()
   telescope.load_extension("ui-select")
   telescope.load_extension("yaml_schema")
 
-  local builtin = require("telescope.builtin")
-  local finders = require("telescope.finders")
-  local make_entry = require("telescope.make_entry")
-  local pickers = require("telescope.pickers")
-  local conf = require("telescope.config").values
-
   local file_tiebreak = function(current_entry, existing_entry, _)
     if vim.startswith(current_entry[1], "./tests/") then
       return false
@@ -122,7 +114,7 @@ function M.post()
           "f",
           "--color=never",
         },
-        tiebreak = file_tiebreak
+        tiebreak = file_tiebreak,
       },
     },
     ["<leader>dF"] = {
@@ -137,7 +129,7 @@ function M.post()
         hidden = true,
         follow = true,
         no_ignore = true,
-        tiebreak = file_tiebreak
+        tiebreak = file_tiebreak,
       },
     },
     ["<leader>dg"] = { builtin.grep_string, { search = "", debounce = 30 } },

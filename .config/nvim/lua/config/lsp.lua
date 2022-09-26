@@ -65,7 +65,7 @@ function M.post()
     },
     underline = false,
     virtual_text = {
-      prefix = "●",
+      prefix = "",
       source = "always",
     },
     float = {
@@ -122,7 +122,6 @@ function M.post()
 
   local lsp_sig = require("lsp_signature")
   local on_attach = function(client, bufnr)
-
     if has_status then
       lsp_status.on_attach(client)
     end
@@ -165,7 +164,6 @@ function M.post()
           vim.api.nvim_win_set_option(fold_win, "winblend", 0)
         end
       end,
-      gi = vim.lsp.buf.implementation,
       gq = vim.lsp.buf.references,
       gr = lsp_util.rename,
       gD = function()
@@ -185,9 +183,9 @@ function M.post()
       ["<space>lt"] = function()
         vim.cmd([[SymbolsOutline]])
       end,
-      ["<space>lc"] = function ()
+      ["<space>lc"] = function()
         vim.cmd("TroubleClose")
-      end
+      end,
     }
 
     for keys, mapping in pairs(mappings) do

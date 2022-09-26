@@ -75,6 +75,11 @@ function M.post()
 
   ---@type cmp.ConfigSchema
   local args = {
+    performance = {
+      debounce = 30,
+      throttle = 10,
+      fetching_timeout = 100,
+    },
     window = {
       completion = {
         border = vim.g.border_chars,
@@ -90,6 +95,8 @@ function M.post()
     },
     sorting = {
       comparators = {
+        require("copilot_cmp.comparators").prioritize,
+        require("copilot_cmp.comparators").score,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         -- Pyright suggests autoimports in a weird order. This will attempt to prioritise builtin modules and then
@@ -185,16 +192,17 @@ function M.post()
     }, {}),
   })
 
-  vim.defer_fn(function()
-    require("copilot").setup({ ft_disable = { "dap-repl", "c", "cpp" } })
-    cmp.setup(args)
-    cmp.setup.cmdline(":", {
-      sources = cmp.config.sources({
-        { name = "cmdline" },
-        { name = "path" },
-      }, {}),
-    })
-  end, 100)
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    once = true,
+    callback = vim.schedule_wrap(function()
+      require("copilot").setup({
+        method = "getCompletionsCycling",
+        ft_disable = { "dap-repl", "c", "cpp" },
+        copilot_node_command = vim.fs.normalize("~/.nvm/versions/node/v16.15.1/bin/node"),
+      })
+      require("copilot_cmp").setup()
+    end),
+  })
 end
 
 return M

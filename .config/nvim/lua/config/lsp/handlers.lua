@@ -15,9 +15,22 @@ function M.setup()
   if pcall(require, "telescope") then
     vim.lsp.handlers["textDocument/documentSymbol"] =
     require("telescope.builtin").lsp_document_symbols
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-      border = vim.g.border_chars,
-    })
+    vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+      config = config or {}
+      config.focus_id = ctx.method
+      config.border = vim.g.border_chars
+      if not (result and result.contents) then
+        vim.notify("No information available", "warn", { title = "LSP" })
+        return
+      end
+      local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+      markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+      if vim.tbl_isempty(markdown_lines) then
+        vim.notify("No information available")
+        return
+      end
+      return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
+    end
   end
   vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.codelens.on_codelens
   local severity = {
@@ -28,11 +41,7 @@ function M.setup()
   }
   vim.lsp.handlers["window/showMessage"] = function(_, method, params, client_id)
     local client = vim.lsp.get_client_by_id(client_id)
-    vim.notify(
-      method.message,
-      severity[params.type],
-      { title = client and client.name }
-    )
+    vim.notify(method.message, severity[params.type], { title = client and client.name })
   end
 
   local base_logger = vim.lsp.handlers["window/logMessage"]
@@ -94,6 +103,7 @@ function M.setup()
     end
   end
   vim.lsp.handlers["textDocument/definition"] = handle_locations
+  vim.lsp.handlers["textDocument/typeDefinition"] = handle_locations
   vim.lsp.handlers["textDocument/references"] = handle_locations
 end
 

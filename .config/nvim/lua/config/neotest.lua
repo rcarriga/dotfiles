@@ -23,15 +23,12 @@ function M.post()
     return env
   end
   neotest.setup({
-    log_level = vim.log.levels.INFO,
-    discovery = {
-      filter_dir = function(_, rel_path)
-        return vim.startswith(rel_path, "tests")
-      end,
-    },
-    running = {
-      concurrent = false,
-    },
+    log_level = vim.log.levels.WARN,
+    -- discovery = {
+    --   filter_dir = function(_, rel_path)
+    --     return vim.startswith(rel_path, "tests")
+    --   end,
+    -- },
     status = {
       virtual_text = true,
       signs = true,
