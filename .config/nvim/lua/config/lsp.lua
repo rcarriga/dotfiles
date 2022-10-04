@@ -1,58 +1,4 @@
 local M = {}
-function M.pre()
-  vim.g.symbols_outline = {
-    highlight_hovered_item = true,
-    show_guides = true,
-    auto_preview = false,
-    position = "right",
-    relative_width = true,
-    width = 25,
-    auto_close = false,
-    show_numbers = false,
-    show_relative_numbers = false,
-    show_symbol_details = true,
-    preview_bg_highlight = "Normal",
-    keymaps = { -- These keymaps can be a string or a table for multiple keys
-      close = { "<Esc>", "q" },
-      goto_location = "<Cr>",
-      focus_location = "o",
-      hover_symbol = "<C-space>",
-      toggle_preview = "K",
-      rename_symbol = "r",
-      code_actions = "a",
-    },
-    lsp_blacklist = {},
-    symbol_blacklist = {},
-    symbols = {
-      File = { icon = "", hl = "TSURI" },
-      Module = { icon = "", hl = "TSNamespace" },
-      Namespace = { icon = "", hl = "TSNamespace" },
-      Package = { icon = "", hl = "TSNamespace" },
-      Class = { icon = "ﴯ", hl = "TSType" },
-      Method = { icon = "ƒ", hl = "TSMethod" },
-      Property = { icon = "", hl = "TSMethod" },
-      Field = { icon = "", hl = "TSField" },
-      Constructor = { icon = "", hl = "TSConstructor" },
-      Enum = { icon = "ℰ", hl = "TSType" },
-      Interface = { icon = "ﰮ", hl = "TSType" },
-      Function = { icon = "", hl = "TSFunction" },
-      Variable = { icon = "", hl = "TSConstant" },
-      Constant = { icon = "", hl = "TSConstant" },
-      String = { icon = "𝓐", hl = "TSString" },
-      Number = { icon = "#", hl = "TSNumber" },
-      Boolean = { icon = "⊨", hl = "TSBoolean" },
-      Array = { icon = "", hl = "TSConstant" },
-      Object = { icon = "⦿", hl = "TSType" },
-      Key = { icon = "🔐", hl = "TSType" },
-      Null = { icon = "NULL", hl = "TSType" },
-      EnumMember = { icon = "", hl = "TSField" },
-      Struct = { icon = "𝓢", hl = "TSType" },
-      Event = { icon = "🗲", hl = "TSType" },
-      Operator = { icon = "+", hl = "TSOperator" },
-      TypeParameter = { icon = "𝙏", hl = "TSParameter" },
-    },
-  }
-end
 
 function M.post()
   local has_status, lsp_status = pcall(require, "lsp-status")
@@ -75,10 +21,10 @@ function M.post()
     severity_sort = true,
   })
   vim.cmd([[
-    sign define DiagnosticSignError text=▶ texthl=DiagnosticsError numhl=DiagnosticsError
-    sign define DiagnosticSignWarn text=▶ texthl=DiagnosticsWarning numhl=DiagnosticsWarning
-    sign define DiagnosticSignInfo text=▶ texthl=DiagnosticsInformation numhl=DiagnosticsInformation
-    sign define DiagnosticSignHint text=▶ texthl=DiagnosticsHint numhl=DiagnosticsHint
+    sign define DiagnosticSignError text=▶ texthl=DiagnosticError numhl=DiagnosticsError
+    sign define DiagnosticSignWarn text=▶ texthl=DiagnosticWarn numhl=DiagnosticsWarning
+    sign define DiagnosticSignInfo text=▶ texthl=DiagnosticInfo numhl=DiagnosticsInformation
+    sign define DiagnosticSignHint text=▶ texthl=DiagnosticHint numhl=DiagnosticsHint
   ]])
 
   require("config.lsp.handlers").setup()
@@ -121,6 +67,19 @@ function M.post()
   })
 
   local lsp_sig = require("lsp_signature")
+  local aerial = require("aerial")
+  aerial.setup({
+    on_attach = function(bufnr)
+      -- Toggle the aerial window with <leader>a
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>AerialToggle!<CR>", {})
+      -- Jump forwards/backwards with '{' and '}'
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "{", "<cmd>AerialPrev<CR>", {})
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "}", "<cmd>AerialNext<CR>", {})
+      -- Jump up the tree with '[[' or ']]'
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "[[", "<cmd>AerialPrevUp<CR>", {})
+      vim.api.nvim_buf_set_keymap(bufnr, "n", "]]", "<cmd>AerialNextUp<CR>", {})
+    end,
+  })
   local on_attach = function(client, bufnr)
     if has_status then
       lsp_status.on_attach(client)
@@ -128,6 +87,7 @@ function M.post()
     pcall(function()
       require("lsp-inlayhints").on_attach(client, bufnr)
     end)
+    aerial.on_attach(client, bufnr)
     lsp_sig.on_attach({
       floating_window_above_cur_line = true,
       bind = true,
@@ -179,9 +139,6 @@ function M.post()
       ["<space>ls"] = vim.lsp.buf.document_symbol,
       ["<space>lf"] = function()
         vim.lsp.buf.format({ timeout_ms = 5000 })
-      end,
-      ["<space>lt"] = function()
-        vim.cmd([[SymbolsOutline]])
       end,
       ["<space>lc"] = function()
         vim.cmd("TroubleClose")

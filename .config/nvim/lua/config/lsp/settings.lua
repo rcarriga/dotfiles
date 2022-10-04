@@ -60,11 +60,20 @@ function M.setup(on_attach, capabilities)
     },
   }
 
-  require('rust-tools').setup(opts)
+  require("rust-tools").setup(opts)
 
   require("lua-dev").setup({
-    library = { plugins = { "nvim-cmp", "plenary.nvim", "neotest" }, types = true },
-    plugin_library = { plugins = { "nvim-cmp", "plenary.nvim", "neotest" }, types = true },
+    library = {
+      enabled = true,
+      runtime = true,
+      types = true,
+      plugins = true,
+    },
+    setup_jsonls = true,
+    override = function(_, options)
+      options.enabled = true
+      options.plugins = { "nvim-cmp", "plenary.nvim", "neotest" }
+    end,
   })
   local server_configs = {
     sumneko_lua = {

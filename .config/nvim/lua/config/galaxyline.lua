@@ -327,15 +327,15 @@ function M.post()
     {
       WinBar = {
         provider = function()
-          local colour = colors.grey2
-          if vim.bo.modified then
-            colour = colors.cyan
-          end
-          vim.cmd("hi GalaxyFileStatus guifg=" .. colour)
-          local existing_text = providers_text(gls.left)
-          existing_text = existing_text .. providers_text(gls.right)
-          local width = vim.opt.columns:get() - vim.str_utfindex(existing_text)
-          return "├" .. string.rep("─", width - 2) .. "┤"
+          -- local colour = colors.grey2
+          -- if vim.bo.modified then
+          --   colour = colors.cyan
+          -- end
+          -- vim.cmd("hi GalaxyFileStatus guifg=" .. colour)
+          -- local existing_text = providers_text(gls.left)
+          -- existing_text = existing_text .. providers_text(gls.right)
+          -- local width = vim.opt.columns:get() - vim.str_utfindex(existing_text)
+          -- return "├" .. string.rep("─", width - 2) .. "┤"
         end,
         highlight = "GalaxyFileStatus",
       },

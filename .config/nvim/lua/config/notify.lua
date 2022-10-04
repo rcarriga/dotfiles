@@ -9,7 +9,6 @@ function M.post()
   notify.setup({
     background_colour = "#121212",
     fps = 60,
-    render = "simple",
     max_width = 80,
   })
   vim.api.nvim_set_keymap("n", "<leader>p", "", { callback = notify.dismiss })

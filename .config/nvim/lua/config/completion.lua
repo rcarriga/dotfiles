@@ -73,6 +73,7 @@ function M.post()
     return item.data and item.data.autoImportText
   end
 
+  local x = require("cmp.types")
   ---@type cmp.ConfigSchema
   local args = {
     performance = {

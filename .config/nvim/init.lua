@@ -79,6 +79,10 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 require("colors")
 vim.cmd([[filetype plugin indent on]])
 
+local function set(opt, val)
+  vim.opt[opt] = val
+end
+
 for opt, val in pairs({
   backspace = "indent,eol,start",
   breakindent = true,
@@ -94,6 +98,7 @@ for opt, val in pairs({
   foldlevel = 99,
   foldmethod = "expr",
   formatoptions = "lnjqr",
+  guicursor = "",
   ignorecase = true,
   inccommand = "split",
   laststatus = 3,
@@ -118,7 +123,10 @@ for opt, val in pairs({
   viewoptions = "cursor,folds,slash,unix",
   wrap = false,
 }) do
-  vim.opt[opt] = val
+  local suc, err = pcall(set, opt, val)
+  if not suc then
+    print("Error setting option " .. opt .. ": " .. err)
+  end
 end
 
 vim.g.mapleader = " "

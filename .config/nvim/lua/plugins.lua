@@ -43,7 +43,6 @@ packer.startup({
     },
   },
   function(use)
-    use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
     use({
       "dccsillag/magma-nvim",
       config = 'require("config.notebook").post()',
@@ -116,7 +115,7 @@ packer.startup({
         "folke/lua-dev.nvim",
         "ray-x/lsp_signature.nvim",
         "simrat39/rust-tools.nvim",
-        { "simrat39/symbols-outline.nvim", setup = "require('config.lsp').pre()" },
+        "stevearc/aerial.nvim",
       },
     })
     use({
@@ -131,8 +130,7 @@ packer.startup({
       requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" } },
     })
     use({ "rhysd/git-messenger.vim", keys = "<leader>gm" })
-    use({ "romgrk/barbar.nvim" })
-    use({ "rrethy/vim-hexokinase", run = "make hexokinase", cmd = "HexokinaseTurnOn" })
+    use({ "uga-rosa/ccc.nvim", config = "require('config.colourpicker').post()" })
     use({ "simnalamburt/vim-mundo", cmd = "MundoToggle" })
     use({
       "svermeulen/vim-subversive",
