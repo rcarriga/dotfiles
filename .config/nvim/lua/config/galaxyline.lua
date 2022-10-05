@@ -3,7 +3,7 @@ local M = {}
 function M.post()
   local gl = require("galaxyline")
   local gls = gl.section
-  local vcs = require("galaxyline.providers.vcs")
+  local vcs = require("galaxyline.provider_vcs")
   local devicons = require("nvim-web-devicons")
 
   gl.short_line_list = {

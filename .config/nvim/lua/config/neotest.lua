@@ -57,10 +57,6 @@ function M.post()
         dap = { justMyCode = false, console = "integratedTerminal" },
       }),
       require("neotest-plenary"),
-      require("neotest-go"),
-      require("neotest-vim-test")({
-        allow_file_types = { "ruby", "typescript" },
-      }),
     },
   })
 

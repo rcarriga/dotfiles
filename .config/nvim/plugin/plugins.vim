@@ -1,15 +1,8 @@
-let g:cursorhold_updatetime = 100
+let g:cursorhold_updatetime = 50
 
 let g:git_messenger_floating_win_opts = {
    \ 'border': get(g:, "border_chars", "rounded")
    \ }
-
-let g:bufferline = { "closable" : 0  }
-
-let g:Hexokinase_refreshEvents = ["BufRead", "TextChanged", "InsertLeave"]
-let g:Hexokinase_optOutPatterns = [ "colour_names" ]
-
-nnoremap <silent> <leader>a :BufferPick<CR>
 
 " Markdown preview default browser
 let g:mkdp_browser = "firefox"
@@ -46,7 +39,5 @@ nmap <leader>ss <plug>(SubversiveSubstituteWordRange)
 nmap x <plug>(SubversiveSubstitute)
 nmap xx <plug>(SubversiveSubstituteLine)
 nmap X <plug>(SubversiveSubstituteToEndOfLine)
-nmap <silent><leader>gs :vertical Git \| vertical resize 50 <CR>
-nmap <silent><leader>gl :Git blame<CR>
 
 nmap <silent><leader>u :MundoToggle<CR>

@@ -1,7 +1,5 @@
 local M = {}
 
-local fn = vim.fn
-
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -74,13 +72,12 @@ packer.startup({
     use({
       maybe_local("/home/ronan/Dev/repos/neotest"),
       config = "require('config.neotest').post()",
+      module = "neotest",
+      keys = "<leader>n",
       requires = {
-        { "akinsho/neotest-go", module = "neotest-go" },
         { "andythigpen/nvim-coverage" },
         { maybe_local("/home/ronan/Dev/repos/neotest-python"), module = "neotest-python" },
         { maybe_local("/home/ronan/Dev/repos/neotest-plenary"), module = "neotest-plenary" },
-        { maybe_local("/home/ronan/Dev/repos/neotest-vim-test"), module = "neotest-vim-test" },
-        { "rouge8/neotest-rust" },
       },
     })
     use({
@@ -90,12 +87,12 @@ packer.startup({
     })
     use({
       "sindrets/diffview.nvim",
-      requires = { "lewis6991/gitsigns.nvim" },
+      requires = { "lewis6991/gitsigns.nvim", "ruifm/gitlinker.nvim" },
       config = "require('config.git').post()",
     })
     use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
     use({ "MTDL9/vim-log-highlighting" })
-    use({ "NTBBloodbath/galaxyline.nvim", config = "require('config.galaxyline').post()" })
+    use({ "glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()" })
     use({ "kyazdani42/nvim-web-devicons" })
     use({ "godlygeek/tabular", cmd = "Tabularize" })
     use({ "danymat/neogen", cmd = "Neogen", config = "require('config.docs').post()" })
@@ -149,10 +146,6 @@ packer.startup({
     })
     use({ "tpope/vim-abolish", cmd = "S" })
     use({ "tpope/vim-eunuch", cmd = { "Rename", "Delete", "Remove", "Chmod" } })
-    use({
-      "tpope/vim-fugitive",
-      requires = { { "tpope/vim-rhubarb" }, { "shumphrey/fugitive-gitlab.vim" } },
-    })
     use({ "voldikss/vim-floaterm", cmd = "FloatermNew" })
     use({ "wellle/targets.vim", requires = { "wellle/line-targets.vim" } })
     use({

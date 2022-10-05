@@ -2,6 +2,7 @@ local M = {}
 
 function M.post()
   local cb = require("diffview.config").diffview_callback
+  require"gitlinker".setup()
 
   require("gitsigns").setup({
     signs = {
@@ -31,8 +32,8 @@ function M.post()
         linehl = "GitSignsChangeLn",
       },
     },
-    signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-    numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+    signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
+    numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
     linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
     keymaps = {
@@ -55,8 +56,7 @@ function M.post()
       ["v <leader>hr"] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
       ["n <leader>hR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
       ["n <leader>hp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-      ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
-      ["n <leader>hS"] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
+      ["n <leader>hb"] = '<cmd>lua require"gitsigns".blame_line({full = true})<CR>',
       ["n <leader>hU"] = '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',
 
       -- Text objects
@@ -67,7 +67,7 @@ function M.post()
       interval = 1000,
       follow_files = true,
     },
-    attach_to_untracked = true,
+    attach_to_untracked = false,
     current_line_blame = false,
     current_line_blame_opts = {
       virt_text = true,
