@@ -1,21 +1,51 @@
 local M = {}
 
 function M.post()
-    vim.api.nvim_set_keymap("n", "<leader>o", "", {
-      noremap = true,
-      silent = true,
-      callback = function()
-        vim.cmd("NeorgStart")
-        vim.api.nvim_del_keymap("n", "<leader>o")
-        vim.api.nvim_set_keymap(
-          "n",
-          "<leader>oj",
-          "<cmd>Neorg journal today<CR>",
-          { silent = true, noremap = true }
-        )
-      end,
-    })
+  vim.api.nvim_set_keymap("n", "<leader>o", "", {
+    noremap = true,
+    silent = true,
+    callback = function()
+      vim.cmd("NeorgStart")
+      vim.api.nvim_del_keymap("n", "<leader>o")
+      vim.api.nvim_set_keymap(
+        "n",
+        "<leader>oj",
+        "<cmd>Neorg journal today<CR>",
+        { silent = true, noremap = true }
+      )
+    end,
+  })
   pcall(function()
+    require("zen-mode").setup({
+      window = {
+        backdrop = 1,
+        width = 140,
+        height = 1,
+        options = {
+          wrap = true,
+          signcolumn = "no",
+          number = false,
+          relativenumber = false,
+          cursorline = false,
+          cursorcolumn = false,
+          foldcolumn = "0",
+          list = false,
+        },
+      },
+      plugins = {
+        options = {
+          enabled = true,
+          ruler = false,
+          showcmd = false,
+        },
+        twilight = { enabled = true },
+        gitsigns = { enabled = false },
+        kitty = {
+          enabled = true,
+          font = "+4",
+        },
+      },
+    })
     require("neorg").setup({
       load = {
         ["core.defaults"] = {},
@@ -102,7 +132,7 @@ function M.post()
 
                   return result
                 end)()
-                --[[ (function()
+              --[[ (function()
                 local result = {}
 
                 for i = 1, 6 do
@@ -143,6 +173,8 @@ function M.post()
         },
       },
     })
+
+    require("colors").set()
   end)
 end
 

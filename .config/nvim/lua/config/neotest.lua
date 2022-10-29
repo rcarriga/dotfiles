@@ -11,7 +11,7 @@ function M.post()
     end
 
     for _, line in ipairs(vim.fn.readfile(file)) do
-      for name, value in string.gmatch(line, "(.+)=['\"]?(.*)['\"]?") do
+      for name, value in string.gmatch(line, "(%S+)=['\"]?(.*)['\"]?") do
         local str_end = string.sub(value, -1, -1)
         if str_end == "'" or str_end == '"' then
           value = string.sub(value, 1, -2)
@@ -34,18 +34,7 @@ function M.post()
       signs = true,
     },
     icons = {
-      running_animated = {
-        "",
-        "🞅",
-        "🞈",
-        "🞉",
-        "",
-        "",
-        "🞉",
-        "🞈",
-        "🞅",
-        "",
-      },
+      running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
     },
     strategies = {
       integrated = {
@@ -62,7 +51,7 @@ function M.post()
 
   local mappings = {
     ["<leader>nr"] = function()
-      neotest.run.run({ suite = true, env = get_env() })
+      neotest.run.run({ vim.fn.expand("%:p"), env = get_env() })
     end,
     ["<leader>ns"] = function()
       for _, adapter_id in ipairs(neotest.run.adapters()) do

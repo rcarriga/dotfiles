@@ -62,7 +62,7 @@ function M.setup(on_attach, capabilities)
 
   require("rust-tools").setup(opts)
 
-  require("lua-dev").setup({
+  require("neodev").setup({
     library = {
       enabled = true,
       runtime = true,

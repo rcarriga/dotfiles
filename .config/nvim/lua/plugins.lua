@@ -53,7 +53,7 @@ packer.startup({
       requires = { "williamboman/mason-lspconfig.nvim" },
     })
     use({ "ThePrimeagen/refactoring.nvim", config = 'require("config.refactoring").post()' })
-    use({ "echasnovski/mini.nvim" })
+    use({ "echasnovski/mini.nvim", config = 'require("config.mini").post()'})
     use({
       "nvim-neorg/neorg",
       config = "require('config.org').post()",

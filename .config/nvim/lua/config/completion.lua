@@ -96,8 +96,8 @@ function M.post()
     },
     sorting = {
       comparators = {
-        require("copilot_cmp.comparators").prioritize,
-        require("copilot_cmp.comparators").score,
+        -- require("copilot_cmp.comparators").prioritize,
+        -- require("copilot_cmp.comparators").score,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         -- Pyright suggests autoimports in a weird order. This will attempt to prioritise builtin modules and then
@@ -106,6 +106,9 @@ function M.post()
         function(a, b)
           a, b = a.completion_item, b.completion_item
           if not is_auto_import(a) or not is_auto_import(b) then
+            return
+          end
+          if a.label ~= a.label then
             return
           end
           if not a.labelDetails and b.labelDetails then
@@ -186,18 +189,17 @@ function M.post()
   })
 
   -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(":", {
-    sources = cmp.config.sources({
-      { name = "cmdline" },
-      { name = "path" },
-    }, {}),
-  })
+  -- cmp.setup.cmdline(":", {
+  --   sources = cmp.config.sources({
+  --     { name = "cmdline" },
+  --     { name = "path" },
+  --   }, {}),
+  -- })
 
   vim.api.nvim_create_autocmd("InsertEnter", {
     once = true,
     callback = vim.schedule_wrap(function()
       require("copilot").setup({
-        method = "getCompletionsCycling",
         ft_disable = { "dap-repl", "c", "cpp" },
         copilot_node_command = vim.fs.normalize("~/.nvm/versions/node/v16.15.1/bin/node"),
       })

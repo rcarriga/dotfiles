@@ -32,7 +32,7 @@ function M.post()
     highlight = {
       enable = true,
     },
-    -- ensure_installed = "all",
+    ensure_installed = {},
     indent = { enable = false },
     incremental_selection = {
       enable = true,

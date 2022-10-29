@@ -76,7 +76,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-require("colors")
+require("colors").set()
 vim.cmd([[filetype plugin indent on]])
 
 local function set(opt, val)
@@ -87,7 +87,7 @@ for opt, val in pairs({
   backspace = "indent,eol,start",
   breakindent = true,
   completeopt = "menuone,noselect,menu",
-  concealcursor = "n",
+  concealcursor = "",
   conceallevel = 2,
   cursorlineopt = "number",
   diffopt = "internal,filler,closeoff,algorithm:patience",
