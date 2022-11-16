@@ -71,14 +71,11 @@ function M.post()
   local aerial = require("aerial")
   aerial.setup({
     on_attach = function(bufnr)
-      -- Toggle the aerial window with <leader>a
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>a", "<cmd>AerialToggle!<CR>", {})
-      -- Jump forwards/backwards with '{' and '}'
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "{", "<cmd>AerialPrev<CR>", {})
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "}", "<cmd>AerialNext<CR>", {})
-      -- Jump up the tree with '[[' or ']]'
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "[[", "<cmd>AerialPrevUp<CR>", {})
-      vim.api.nvim_buf_set_keymap(bufnr, "n", "]]", "<cmd>AerialNextUp<CR>", {})
+      vim.keymap.set("n", "<leader>a", aerial.toggle, { buffer = bufnr })
+      vim.keymap.set("n", "{", aerial.prev, { buffer = bufnr })
+      vim.keymap.set("n", "}", aerial.next, { buffer = bufnr })
+      vim.keymap.set("n", "[[", aerial.prev_up, { buffer = bufnr })
+      vim.keymap.set("n", "]]", aerial.next_up, { buffer = bufnr })
     end,
   })
   local on_attach = function(client, bufnr)
@@ -88,7 +85,6 @@ function M.post()
     pcall(function()
       require("lsp-inlayhints").on_attach(client, bufnr)
     end)
-    aerial.on_attach(client, bufnr)
     lsp_sig.on_attach({
       floating_window_above_cur_line = true,
       bind = true,

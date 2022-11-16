@@ -26,7 +26,6 @@ function M.post()
     },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
-  dap.set_log_level("DEBUG")
   require('dap.ext.vscode').load_launchjs()
 
   local mappings = {

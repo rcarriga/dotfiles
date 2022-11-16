@@ -49,6 +49,29 @@ function M.post()
     },
   })
 
+  local group = vim.api.nvim_create_augroup("NeotestConfig", {})
+  for _, ft in ipairs({ "output", "attach" }) do
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "neotest-" .. ft,
+      group = group,
+      callback = function(opts)
+        vim.keymap.set("n", "q", function()
+          pcall(vim.api.nvim_win_close, 0, true)
+        end, {
+          buffer = opts.buf,
+        })
+      end,
+    })
+  end
+
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "neotest-output-panel",
+    group = group,
+    callback = function()
+      vim.cmd("norm G")
+    end,
+  })
+
   local mappings = {
     ["<leader>nr"] = function()
       neotest.run.run({ vim.fn.expand("%:p"), env = get_env() })
@@ -76,6 +99,9 @@ function M.post()
     end,
     ["<leader>na"] = neotest.run.attach,
     ["<leader>no"] = function()
+      neotest.output.open({ enter = true, last_run = true })
+    end,
+    ["<leader>ni"] = function()
       neotest.output.open({ enter = true })
     end,
     ["<leader>nO"] = function()
@@ -83,6 +109,7 @@ function M.post()
     end,
     ["<leader>np"] = neotest.summary.toggle,
     ["<leader>nm"] = neotest.summary.run_marked,
+    ["<leader>ne"] = neotest.output_panel.toggle,
     ["[n"] = function()
       neotest.jump.prev({ status = "failed" })
     end,

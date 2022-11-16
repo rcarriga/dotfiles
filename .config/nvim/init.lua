@@ -90,7 +90,7 @@ for opt, val in pairs({
   concealcursor = "",
   conceallevel = 2,
   cursorlineopt = "number",
-  diffopt = "internal,filler,closeoff,algorithm:patience",
+  diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60",
   expandtab = true,
   fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,diff: ,eob: ",
   fixendofline = false,
