@@ -72,7 +72,7 @@ function M.setup(on_attach, capabilities)
     setup_jsonls = true,
     override = function(_, options)
       options.enabled = true
-      options.plugins = { "nvim-cmp", "plenary.nvim", "neotest" }
+      options.plugins = { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui" }
     end,
   })
   local server_configs = {
