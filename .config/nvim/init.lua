@@ -10,6 +10,10 @@ PP = vim.schedule_wrap(function(...)
   vim.cmd("vsplit")
   vim.api.nvim_win_set_buf(0, buf)
 end)
+    vim.cmd([[
+        hi NotifyINFOIcon guifg=#6b8e23
+        hi NotifyINFOTitle guifg=#6b8e23
+    ]])
 
 vim.cmd([[
 augroup NvimAuCommands
@@ -117,7 +121,7 @@ for opt, val in pairs({
   switchbuf = "useopen",
   tabstop = 2,
   termguicolors = true,
-  textwidth = 120,
+  textwidth = 80,
   undodir = vim.fn.expand("~/.cache/nvim/undodir"),
   undofile = true,
   viewoptions = "cursor,folds,slash,unix",

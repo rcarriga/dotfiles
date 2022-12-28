@@ -67,7 +67,6 @@ function M.post()
     },
   })
 
-  local lsp_sig = require("lsp_signature")
   local aerial = require("aerial")
   aerial.setup({
     on_attach = function(bufnr)
@@ -85,16 +84,16 @@ function M.post()
     pcall(function()
       require("lsp-inlayhints").on_attach(client, bufnr)
     end)
-    lsp_sig.on_attach({
-      floating_window_above_cur_line = true,
-      bind = true,
-      hint_enable = false,
-      hi_parameter = "LspSelectedParam",
-      zindex = 50,
-      handler_opts = {
-        border = vim.g.border_chars,
-      },
-    })
+    -- lsp_sig.on_attach({
+    --   floating_window_above_cur_line = true,
+    --   bind = true,
+    --   hint_enable = false,
+    --   hi_parameter = "LspSelectedParam",
+    --   zindex = 50,
+    --   handler_opts = {
+    --     border = vim.g.border_chars,
+    --   },
+    -- })
 
     if client.server_capabilities.codeLensProvider then
       vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")

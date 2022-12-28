@@ -69,15 +69,18 @@ packer.startup({
     use({ "Vimjas/vim-python-pep8-indent" })
     use({ "lewis6991/impatient.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
+    use({ "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim" } })
     use({
       maybe_local("/home/ronan/Dev/repos/neotest"),
       config = "require('config.neotest').post()",
-      module = "neotest",
-      keys = "<leader>n",
+      -- module = "neotest",
+      -- keys = "<leader>n",
       requires = {
         { "andythigpen/nvim-coverage" },
-        { maybe_local("/home/ronan/Dev/repos/neotest-python"), module = "neotest-python" },
-        { maybe_local("/home/ronan/Dev/repos/neotest-plenary"), module = "neotest-plenary" },
+        { maybe_local("/home/ronan/Dev/repos/neotest-python") },
+        { maybe_local("/home/ronan/Dev/repos/neotest-plenary") },
+        { maybe_local("/home/ronan/Dev/repos/neotest-vim-test") },
+        { "nvim-neotest/neotest-go" },
       },
     })
     use({
@@ -110,7 +113,6 @@ packer.startup({
         "lvimuser/lsp-inlayhints.nvim",
         "nvim-lua/lsp-status.nvim",
         "folke/lua-dev.nvim",
-        "ray-x/lsp_signature.nvim",
         "simrat39/rust-tools.nvim",
         "stevearc/aerial.nvim",
       },
@@ -124,7 +126,7 @@ packer.startup({
         "<Plug>(ultest-summary-toggle)",
       },
       cmd = { "UltestSummary" },
-      requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" } },
+      requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" }, module = "neotest" },
     })
     use({ "rhysd/git-messenger.vim", keys = "<leader>gm" })
     use({ "uga-rosa/ccc.nvim", config = "require('config.colourpicker').post()" })

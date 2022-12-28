@@ -200,7 +200,7 @@ function M.post()
     once = true,
     callback = vim.schedule_wrap(function()
       require("copilot").setup({
-        ft_disable = { "dap-repl", "c", "cpp" },
+        ft_disable = { "dap-repl", "c", "cpp", "dapui_watches", "dapui_scopes" },
         copilot_node_command = vim.fs.normalize("~/.nvm/versions/node/v16.15.1/bin/node"),
       })
       require("copilot_cmp").setup()

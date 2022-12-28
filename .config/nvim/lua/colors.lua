@@ -104,7 +104,7 @@ local highlights = {
   -- General
   Boolean = { fg = c.val },
   Character = { fg = c.val },
-  Comment = { fg = c.hidden, italic = true },
+  Comment = { fg = c.hidden },
   Conditional = { fg = c.built_in },
   Constant = { fg = c.var_name },
   Define = { fg = c.built_in },
@@ -146,7 +146,7 @@ local highlights = {
   dosiniHeader = { fg = c.built_in },
   -- TreeSitter
   ["@error"] = { fg = c.error },
-  ["@comment"] = { fg = c.hidden, italic = true },
+  ["@comment"] = { fg = c.hidden },
   ["@punct.delimiter"] = { fg = c.decoration },
   ["@punct.bracket"] = { fg = c.decoration },
   ["@punct.special"] = { fg = c.decoration },
@@ -191,7 +191,7 @@ local highlights = {
   ["@uri"] = { fg = c.info },
   ["@variable"] = { fg = c.var_name },
   ["@variable.builtin"] = { fg = c.built_in },
-  ["@definition"] = { fg = c.transparent, bold = true, underline = true },
+  ["@definition"] = { fg = c.transparent, bold = true },
   ["@definition.usage"] = { fg = c.transparent, bold = true, underline = true },
   ["@current.scope"] = { fg = c.transparent, bold = true },
   ["@text.reference"] = { fg = c.normal, bold = true, underline = true },

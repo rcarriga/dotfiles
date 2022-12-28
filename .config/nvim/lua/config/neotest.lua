@@ -50,7 +50,7 @@ function M.post()
   })
 
   local group = vim.api.nvim_create_augroup("NeotestConfig", {})
-  for _, ft in ipairs({ "output", "attach" }) do
+  for _, ft in ipairs({ "output", "attach", "summary" }) do
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "neotest-" .. ft,
       group = group,
@@ -80,9 +80,6 @@ function M.post()
       for _, adapter_id in ipairs(neotest.run.adapters()) do
         neotest.run.run({ suite = true, adapter = adapter_id, env = get_env() })
       end
-    end,
-    ["<leader>nw"] = function()
-      neotest.watch.watch()
     end,
     ["<leader>nx"] = function()
       neotest.run.stop()

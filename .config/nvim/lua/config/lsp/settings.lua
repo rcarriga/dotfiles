@@ -65,14 +65,14 @@ function M.setup(on_attach, capabilities)
   require("neodev").setup({
     library = {
       enabled = true,
-      runtime = true,
+      runtime = false,
       types = true,
       plugins = true,
     },
     setup_jsonls = true,
     override = function(_, options)
       options.enabled = true
-      options.plugins = { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui" }
+      options.plugins = { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui", "nvim-lspconfig", }
     end,
   })
   local server_configs = {
@@ -90,6 +90,22 @@ function M.setup(on_attach, capabilities)
           },
           diagnostics = {
             globals = { "describe", "it", "before_each", "after_each", "vim" },
+          },
+          runtime = {
+            path = {
+              "tests/?.lua",
+              "lua/?.lua",
+              "lua/?/init.lua",
+            },
+          },
+          workspace = {
+            library = {
+
+vim.fn.expand("$VIMRUNTIME"),
+              require("neodev.config").types(),
+              "${3rd}/busted/library",
+              "${3rd}/luassert/library",
+            },
           },
         },
       },

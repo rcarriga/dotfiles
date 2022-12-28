@@ -16,6 +16,7 @@ function M.post()
       "dapui_watches",
       "dapui_breakpoints",
       "dapui_hover",
+      "dap-repl",
       "LuaTree",
       "dbui",
       "term",
