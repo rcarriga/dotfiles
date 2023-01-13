@@ -93,7 +93,6 @@ function M.post()
             workspaces = {
               notes = "~/org/notes",
               journal = "~/org/journal",
-              gtd = "~/org/gtd",
             },
           },
         },
@@ -164,11 +163,6 @@ function M.post()
         ["core.norg.journal"] = {
           config = {
             workspace = "journal",
-          },
-        },
-        ["core.gtd.base"] = {
-          config = {
-            workspace = "gtd",
           },
         },
       },

@@ -72,7 +72,8 @@ function M.setup(on_attach, capabilities)
     setup_jsonls = true,
     override = function(_, options)
       options.enabled = true
-      options.plugins = { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui", "nvim-lspconfig", }
+      options.plugins =
+      { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui", "nvim-lspconfig" }
     end,
   })
   local server_configs = {
@@ -93,15 +94,15 @@ function M.setup(on_attach, capabilities)
           },
           runtime = {
             path = {
-              "tests/?.lua",
               "lua/?.lua",
               "lua/?/init.lua",
             },
+            pathStrict = true,
+            -- plugin = "scripts/lspdoc.old.lua",
           },
           workspace = {
             library = {
-
-vim.fn.expand("$VIMRUNTIME"),
+              vim.fn.expand("$VIMRUNTIME"),
               require("neodev.config").types(),
               "${3rd}/busted/library",
               "${3rd}/luassert/library",

@@ -10,7 +10,7 @@ function M.post()
     enable_autosnippets = true,
   })
   require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/snippets" })
-  require("luasnip.loaders.from_vscode").lazy_load()
+  -- require("luasnip.loaders.from_vscode").lazy_load()
 
   local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -36,7 +36,6 @@ function M.post()
   vim.api.nvim_set_keymap("i", "<C-E>", "<Plug>luasnip-next-choice", {})
   vim.api.nvim_set_keymap("s", "<C-E>", "<Plug>luasnip-next-choice", {})
 
-  -- Setup nvim-cmp.
   local cmp = require("cmp")
 
   local cmp_kinds = {
@@ -73,7 +72,6 @@ function M.post()
     return item.data and item.data.autoImportText
   end
 
-  local x = require("cmp.types")
   ---@type cmp.ConfigSchema
   local args = {
     performance = {

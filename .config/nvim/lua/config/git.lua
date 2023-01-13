@@ -2,7 +2,7 @@ local M = {}
 
 function M.post()
   local cb = require("diffview.config").diffview_callback
-  require"gitlinker".setup()
+  require("gitlinker").setup()
 
   require("gitsigns").setup({
     signs = {
@@ -117,6 +117,63 @@ function M.post()
         ["<s-tab>"] = cb("select_prev_entry"),
         ["<leader>e"] = cb("focus_files"),
         ["<leader>b"] = cb("toggle_files"),
+      },
+    },
+  })
+
+  require("neogit").setup({
+    disable_signs = false,
+    disable_hint = false,
+    disable_context_highlighting = false,
+    disable_commit_confirmation = false,
+    auto_refresh = true,
+    disable_builtin_notifications = false,
+    use_magit_keybindings = false,
+    kind = "vsplit",
+    console_timeout = 2000,
+    auto_show_console = true,
+    commit_popup = {
+      kind = "split",
+    },
+    popup = {
+      kind = "split",
+    },
+    signs = {
+      section = { "", "" },
+      item = { "", "" },
+      hunk = { "", "" },
+    },
+    integrations = {
+      diffview = true,
+    },
+    -- Setting any section to `false` will make the section not render at all
+    sections = {
+      untracked = {
+        folded = true,
+      },
+      unstaged = {
+        folded = false,
+      },
+      staged = {
+        folded = false,
+      },
+      stashes = {
+        folded = true,
+      },
+      unpulled = {
+        folded = true,
+      },
+      unmerged = {
+        folded = false,
+      },
+      recent = {
+        folded = true,
+      },
+    },
+    mappings = {
+      status = {
+        ["<CR>"] = "Toggle",
+        ["<tab>"] = "",
       },
     },
   })

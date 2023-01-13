@@ -269,6 +269,12 @@ local highlights = {
   MiniMapSymbolCount = { fg = c.info },
   MiniMapSymbolLine = { fg = c.cyan },
   MiniMapSymbolView = { fg = c.hidden },
+
+  NeogitDiffAddHighlight = {  fg = "#859900" },
+  NeogitDiffDeleteHighlight = {  fg = "#dc322f" },
+  NeogitDiffContextHighlight = {  fg = "#b2b2b2" },
+  NeogitHunkHeader = { fg = "#cccccc", },
+  NeogitHunkHeaderHighlight = { fg = "#cccccc", },
 }
 
 local M = {}

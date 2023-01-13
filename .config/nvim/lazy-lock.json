@@ -1,0 +1,8 @@
+{
+  "FixCursorHold.nvim": { "branch": "master", "commit": "70a9516a64668cbfe59f31b66d0a21678c5e9b12" },
+  "lazy.nvim": { "branch": "main", "commit": "d6b5d6e756a596304fd4acbc46f9fa553ea880a2" },
+  "neotest": { "branch": "master", "commit": "5a04da5b0c30242a5c761ad53d0913a9806f6367" },
+  "neotest-jest": { "branch": "main", "commit": "205168630d00bd9eb24870328d3bda5844cc596d" },
+  "nvim-treesitter": { "branch": "master", "commit": "f00d610256b63cef3e35af2cbaf45212625b4cc5" },
+  "plenary.nvim": { "branch": "master", "commit": "4b7e52044bbb84242158d977a50c4cbcd85070c7" }
+}

@@ -29,6 +29,9 @@ function M.post()
     --     return vim.startswith(rel_path, "tests")
     --   end,
     -- },
+    quickfix = {
+      open = false,
+    },
     status = {
       virtual_text = true,
       signs = true,
