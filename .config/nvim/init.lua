@@ -3,10 +3,6 @@ augroup NvimAuCommands
   au!
   au TextYankPost * silent! lua vim.highlight.on_yank {on_visual = false, timeout = 50}
 augroup END
-augroup NicerTerminal
-    au!
-    au BufEnter term://* normal i
-augroup END
 ]])
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -57,7 +53,7 @@ for opt, val in pairs({
   spelloptions = "noplainbuffer",
   splitbelow = true,
   splitright = true,
-  switchbuf = "useopen",
+  switchbuf = "useopen,uselast",
   tabstop = 2,
   termguicolors = true,
   textwidth = 80,

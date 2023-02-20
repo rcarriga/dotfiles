@@ -275,6 +275,8 @@ local highlights = {
   NeogitDiffContextHighlight = {  fg = "#b2b2b2" },
   NeogitHunkHeader = { fg = "#cccccc", },
   NeogitHunkHeaderHighlight = { fg = "#cccccc", },
+
+  FzfLuaBorder = { fg = c.border },
 }
 
 local M = {}

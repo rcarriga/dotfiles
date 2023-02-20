@@ -1,16 +1,5 @@
 local M = {}
 
-local function wrap_options(custom, handler)
-  return function(opts)
-    opts = opts and vim.tbl_extend(opts, custom) or custom
-    if type(handler) == "string" then
-      require("telescope.builtin")[handler](opts)
-    else
-      handler(opts)
-    end
-  end
-end
-
 function M.setup()
   require("noice").setup({
     cmdline = {
@@ -204,11 +193,6 @@ function M.setup()
     debug = false,
     log_max_size = 1024 * 1024 * 2, -- 10MB
   })
-  if pcall(require, "telescope") then
-    vim.lsp.handlers["textDocument/documentSymbol"] =
-    require("telescope.builtin").lsp_document_symbols
-    -- vim.lsp.handlers["textDocument/hover"] = require("noice.lsp.hover")
-  end
   vim.lsp.handlers["textDocument/codeLens"] = vim.lsp.codelens.on_codelens
   local severity = {
     "error",

@@ -73,11 +73,11 @@ function M.setup(on_attach, capabilities)
     override = function(_, options)
       options.enabled = true
       options.plugins =
-      { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui", "nvim-lspconfig" }
+      { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui", "nvim-lspconfig", "nvim-notify", "nui.nvim", }
     end,
   })
   local server_configs = {
-    sumneko_lua = {
+    lua_ls = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
@@ -97,7 +97,6 @@ function M.setup(on_attach, capabilities)
               "lua/?.lua",
               "lua/?/init.lua",
             },
-            pathStrict = true,
             -- plugin = "scripts/lspdoc.old.lua",
           },
           workspace = {

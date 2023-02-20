@@ -37,11 +37,6 @@ function M.update()
       },
     },
     function(use)
-      use({
-        "dccsillag/magma-nvim",
-        config = 'require("config.notebook").post()',
-        run = ":UpdateRemotePlugins",
-      })
       use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
       use({
         "williamboman/mason.nvim",
@@ -55,8 +50,8 @@ function M.update()
         config = "require('config.org').post()",
         cmd = "Neorg",
         ft = "norg",
-        after = { "nvim-treesitter", "telescope.nvim" },
-        requires = { "nvim-neorg/neorg-telescope", "folke/zen-mode.nvim" },
+        after = { "nvim-treesitter" },
+        requires = { "folke/zen-mode.nvim" },
       })
       use({ "wbthomason/packer.nvim" })
       use({ "nvim-lua/plenary.nvim" })
@@ -77,6 +72,7 @@ function M.update()
           { maybe_local("/home/ronan/Dev/repos/neotest-plenary") },
           { maybe_local("/home/ronan/Dev/repos/neotest-vim-test") },
           { "nvim-neotest/neotest-go" },
+          { "janko/vim-test", cmd = { "TestNearest", "TestFile" }, module = "neotest" },
         },
       })
       use({
@@ -92,7 +88,7 @@ function M.update()
       use({ "iamcco/markdown-preview.nvim", run = "cd app && yarn install" })
       use({ "MTDL9/vim-log-highlighting" })
       use({ "glepnir/galaxyline.nvim", config = "require('config.galaxyline').post()" })
-      use({ "kyazdani42/nvim-web-devicons" })
+      use({ "nvim-tree/nvim-web-devicons" })
       use({ "godlygeek/tabular", cmd = "Tabularize" })
       use({ "danymat/neogen", cmd = "Neogen", config = "require('config.docs').post()" })
       use({
@@ -112,17 +108,6 @@ function M.update()
           "simrat39/rust-tools.nvim",
           "stevearc/aerial.nvim",
         },
-      })
-      use({
-        maybe_local("/home/ronan/Dev/repos/vim-ultest"),
-        config = "require('config.ultest').post()",
-        keys = {
-          "<Plug>(ultest-run-nearest)",
-          "<Plug>(ultest-run-file)",
-          "<Plug>(ultest-summary-toggle)",
-        },
-        cmd = { "UltestSummary" },
-        requires = { "janko/vim-test", cmd = { "TestNearest", "TestFile" }, module = "neotest" },
       })
       use({ "rhysd/git-messenger.vim", keys = "<leader>gm" })
       use({ "uga-rosa/ccc.nvim", config = "require('config.colourpicker').post()" })
@@ -147,17 +132,11 @@ function M.update()
       use({ "voldikss/vim-floaterm", cmd = "FloatermNew" })
       use({ "wellle/targets.vim", requires = { "wellle/line-targets.vim" } })
       use({
-        "nvim-telescope/telescope.nvim",
-        config = "require('config.telescope').post()",
-        keys = { "<leader>d" },
-        requires = {
-          { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-          { "nvim-lua/popup.nvim" },
-          { "nvim-telescope/telescope-ui-select.nvim" },
-          { "someone-stole-my-name/yaml-companion.nvim" },
-        },
+        "ibhagwan/fzf-lua",
+        config = "require('config.fuzzy').post()",
       })
       use({ "hiberabyss/nvim-dbg" })
+      use({ "someone-stole-my-name/yaml-companion.nvim" })
       use({
         "mfussenegger/nvim-dap",
         config = "require('config.dap').post()",

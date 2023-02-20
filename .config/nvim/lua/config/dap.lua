@@ -4,6 +4,12 @@ function M.post()
   local dap = require("dap")
   local dapui = require("dapui")
   dapui.setup({
+    force_buffers = false,
+    element_mappings = {
+      scopes = {
+        edit = "l",
+      },
+    },
     layouts = {
       {
         elements = {
@@ -11,6 +17,7 @@ function M.post()
           "breakpoints",
           "stacks",
           "watches",
+          "something",
         },
         size = 80,
         position = "left",
@@ -26,7 +33,7 @@ function M.post()
     },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
-  pcall(require('dap.ext.vscode').load_launchjs)
+  pcall(require("dap.ext.vscode").load_launchjs)
 
   local mappings = {
     ["<M-c>"] = dap.continue,
@@ -38,6 +45,7 @@ function M.post()
       dapui.toggle({ reset = true })
     end,
     ["<M-k>"] = dapui.eval,
+    ["<M-w>"] = dapui.elements.watches.add,
     ["<M-m>"] = dapui.float_element,
     ["<M-v>"] = function()
       dapui.float_element("scopes")

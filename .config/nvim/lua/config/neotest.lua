@@ -23,7 +23,7 @@ function M.post()
     return env
   end
   neotest.setup({
-    log_level = vim.log.levels.WARN,
+    log_level = vim.log.levels.DEBUG,
     -- discovery = {
     --   filter_dir = function(_, rel_path)
     --     return vim.startswith(rel_path, "tests")

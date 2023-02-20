@@ -102,6 +102,7 @@ function M.post()
     local fold_win
 
     local lsp_util = require("config.lsp.util")
+    local fzf = require("fzf-lua")
     local mappings = {
       gd = vim.lsp.buf.definition,
       gt = vim.lsp.buf.type_definition,
@@ -125,14 +126,14 @@ function M.post()
       gD = function()
         lsp_util.preview("textDocument/definition")
       end,
-      gC = vim.lsp.buf.outgoing_calls,
+      gC = fzf.lsp_outgoing_calls,
       gb = lsp_util.previous_win,
       gL = vim.lsp.codelens.run,
       ["]d"] = vim.diagnostic.goto_next,
       ["[d"] = vim.diagnostic.goto_prev,
       ["<C-s>"] = vim.lsp.buf.signature_help,
-      ["<space>la"] = vim.lsp.buf.code_action,
-      ["<space>ls"] = vim.lsp.buf.document_symbol,
+      ["<space>la"] = fzf.code_actions,
+      ["<space>ls"] = fzf.lsp_document_symbols,
       ["<space>lf"] = function()
         vim.lsp.buf.format({ timeout_ms = 5000 })
       end,
