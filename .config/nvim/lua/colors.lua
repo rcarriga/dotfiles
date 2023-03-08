@@ -270,13 +270,18 @@ local highlights = {
   MiniMapSymbolLine = { fg = c.cyan },
   MiniMapSymbolView = { fg = c.hidden },
 
-  NeogitDiffAddHighlight = {  fg = "#859900" },
-  NeogitDiffDeleteHighlight = {  fg = "#dc322f" },
-  NeogitDiffContextHighlight = {  fg = "#b2b2b2" },
-  NeogitHunkHeader = { fg = "#cccccc", },
-  NeogitHunkHeaderHighlight = { fg = "#cccccc", },
+  NeogitDiffAddHighlight = { fg = "#859900" },
+  NeogitDiffDeleteHighlight = { fg = "#dc322f" },
+  NeogitDiffContextHighlight = { fg = "#b2b2b2" },
+  NeogitHunkHeader = { fg = "#cccccc" },
+  NeogitHunkHeaderHighlight = { fg = "#cccccc" },
 
   FzfLuaBorder = { fg = c.border },
+
+  NeotestPassedWinBar = { fg = c.success, bg = c.grey1 },
+  NeotestFailedWinBar = { fg = c.error, bg = c.grey1 },
+  NeotestRunningWinBar = { fg = c.yellow, bg = c.grey1 },
+  NeotestSkippedWinBar = { fg = c.cyan, bg = c.grey1 },
 }
 
 local M = {}

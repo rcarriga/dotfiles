@@ -6,22 +6,18 @@ function M.post()
 
   notify.setup({
     render = "compact",
-    top_down = false,
-    -- on_open = function(win)
-    --   vim.fn.setwinvar(win, "winhl", vim.api.nvim_win_get_option(win, "winhl") .. ",Search:Error")
-    -- end,
-    -- stages = {
-    --   function(...)
-    --     local opts = base_stages[1](...)
-    --     if not opts then
-    --       return
-    --     end
-    --     opts.border = "none"
-    --     opts.row = opts.row + 2
-    --     return opts
-    --   end,
-    --   unpack(base_stages, 2),
-    -- },
+    stages = {
+      function(...)
+        local opts = base_stages[1](...)
+        if not opts then
+          return
+        end
+        opts.border = "none"
+        opts.row = opts.row + 2
+        return opts
+      end,
+      unpack(base_stages, 2),
+    },
     background_colour = "#121212",
     max_width = 120,
   })

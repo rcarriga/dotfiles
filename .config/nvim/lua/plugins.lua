@@ -71,6 +71,7 @@ function M.update()
           { maybe_local("/home/ronan/Dev/repos/neotest-python") },
           { maybe_local("/home/ronan/Dev/repos/neotest-plenary") },
           { maybe_local("/home/ronan/Dev/repos/neotest-vim-test") },
+          { maybe_local("/home/ronan/Dev/repos/neotest-adapters/neotest-jest") },
           { "nvim-neotest/neotest-go" },
           { "janko/vim-test", cmd = { "TestNearest", "TestFile" }, module = "neotest" },
         },

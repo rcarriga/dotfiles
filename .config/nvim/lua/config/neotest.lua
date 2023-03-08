@@ -23,12 +23,7 @@ function M.post()
     return env
   end
   neotest.setup({
-    log_level = vim.log.levels.DEBUG,
-    -- discovery = {
-    --   filter_dir = function(_, rel_path)
-    --     return vim.startswith(rel_path, "tests")
-    --   end,
-    -- },
+    log_level = vim.log.levels.WARN,
     quickfix = {
       open = false,
     },
@@ -49,6 +44,12 @@ function M.post()
         dap = { justMyCode = false, console = "integratedTerminal" },
       }),
       require("neotest-plenary"),
+      require("neotest-jest")({
+        cwd = function(path)
+          local cwd = require("neotest-jest.util").find_package_json_ancestor(path)
+          return cwd
+        end,
+      }),
     },
   })
 

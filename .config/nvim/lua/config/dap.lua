@@ -63,14 +63,17 @@ function M.post()
   vim.fn.sign_define("DapBreakpoint", { text = "→", texthl = "Error", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = "→", texthl = "Success", linehl = "", numhl = "" })
 
-  local dap_python = require("dap-python")
+  -- Prevent race condition where mason isn't setup
+  -- TODO: Find a better way to do this
+  vim.schedule(function()
+    local dap_python = require("dap-python")
 
-  local mason_registry = require("mason-registry")
-
-  dap_python.setup(
-    mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python",
-    { include_configs = false }
-  )
+    local mason_registry = require("mason-registry")
+    dap_python.setup(
+      mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python",
+      { include_configs = false }
+    )
+  end)
 
   dap.adapters.nlua = function(callback, config)
     callback({ type = "server", host = config.host, port = config.port })
