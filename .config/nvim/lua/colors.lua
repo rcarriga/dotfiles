@@ -212,6 +212,10 @@ local highlights = {
   LspCodeLens = { fg = c.type_name, italic = true },
   IndentBlanklineChar = { fg = c.grey2 },
   IndentBlanklineContextChar = { fg = c.key },
+
+  ["@lsp.type.property.lua"] = { fg = c.key },
+  ["@lsp.mod.defaultLibrary.lua"] = { fg = c.built_in },
+
   -- LSP Signature
   LspSelectedParam = { fg = c.normal, bold = true, underline = true },
 

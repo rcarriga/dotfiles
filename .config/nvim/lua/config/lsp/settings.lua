@@ -1,10 +1,54 @@
 local M = {}
 
 function M.setup(on_attach, capabilities)
-  local has_status, lsp_status = pcall(require, "lsp-status")
-
   local null_ls = require("null-ls")
   local blt = null_ls.builtins
+  local lspconfig = require("lspconfig")
+  local lsputil = require("lspconfig.util")
+
+  require("lspconfig.configs").pyright = {
+    default_config = {
+      name = "pyright",
+      autostart = true,
+      single_file_support = true,
+      cmd = {
+        "node",
+        vim.fn.expand("$HOME/.local/share/pyright/server.bundle.js"),
+        "--stdio",
+      },
+      filetypes = { "python" },
+      root_dir = function(fname)
+        local markers = {
+          "Pipfile",
+          "pyproject.toml",
+          "pyrightconfig.json",
+          "setup.py",
+          "setup.cfg",
+          "requirements.txt",
+        }
+        return lsputil.root_pattern(unpack(markers))(fname)
+            or lsputil.find_git_ancestor(fname)
+            or lsputil.path.dirname(fname)
+      end,
+      settings = {
+        python = {
+          analysis = vim.empty_dict(),
+          telemetry = {
+            enable = false,
+          },
+        },
+        telemetry = {
+          telemetryLevel = "off",
+        },
+      },
+      docs = {
+        description = [[
+         https://github.com/microsoft/pyright
+         `pyright`, a static type checker and language server for python
+         ]],
+      },
+    },
+  }
 
   null_ls.setup({
     on_attach = on_attach,
@@ -72,8 +116,16 @@ function M.setup(on_attach, capabilities)
     setup_jsonls = true,
     override = function(_, options)
       options.enabled = true
-      options.plugins =
-      { "nvim-cmp", "plenary.nvim", "neotest", "nvim-dap", "nvim-dap-ui", "nvim-lspconfig", "nvim-notify", "nui.nvim", }
+      options.plugins = {
+        "nvim-cmp",
+        "plenary.nvim",
+        "neotest",
+        "nvim-dap",
+        "nvim-dap-ui",
+        "nvim-lspconfig",
+        "nvim-notify",
+        "nui.nvim",
+      }
     end,
   })
   local server_configs = {
@@ -110,19 +162,19 @@ function M.setup(on_attach, capabilities)
         },
       },
     },
-    pyright = {
-      handlers = has_status and lsp_status.extensions.pyls_ms.setup() or nil,
-      on_attach = on_attach,
-      before_init = function(_, config)
-        config.settings.python.pythonPath = require("util").get_python_path(config.root_dir)
-      end,
-      settings = {
-        python = {
-          pythonPath = "python",
-        },
-      },
-      capabilities = capabilities,
-    },
+    -- pyright = {
+    --   handlers = has_status and lsp_status.extensions.pyls_ms.setup() or nil,
+    --   on_attach = on_attach,
+    --   before_init = function(_, config)
+    --     config.settings.python.pythonPath = require("util").get_python_path(config.root_dir)
+    --   end,
+    --   settings = {
+    --     python = {
+    --       pythonPath = "python",
+    --     },
+    --   },
+    --   capabilities = capabilities,
+    -- },
     volar = {
       filetypes = {
         "typescript",
@@ -144,12 +196,31 @@ function M.setup(on_attach, capabilities)
     }),
   }
 
-  local lspconfig = require("lspconfig")
   local mason_handlers = {
     function(server_name)
       lspconfig[server_name].setup({ on_attach = on_attach })
     end,
   }
+
+  lspconfig.pyright.setup({
+    on_attach = on_attach,
+    settings = {
+      python = {
+        -- analysis = {
+        --   indexing = true,
+        --   typeCheckingMode = "basic",
+        --   diagnosticMode = "workspace",
+        --   inlayHints = {
+        --     variableTypes = true,
+        --     functionReturnTypes = true,
+        --   },
+        --   diagnosticSeverityOverrides = {
+        --     reportMissingTypeStubs = "information",
+        --   },
+        -- },
+      },
+    },
+  })
   for server, settings in pairs(server_configs) do
     mason_handlers[server] = function()
       lspconfig[server].setup(settings)

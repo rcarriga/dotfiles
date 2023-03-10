@@ -73,11 +73,42 @@ function M.post()
       mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python",
       { include_configs = false }
     )
+
+    dap.adapters.node2 = {
+      type = "executable",
+      command = "node",
+      args = {
+        mason_registry.get_package("node-debug2-adapter"):get_install_path()
+            .. "/out/src/nodeDebug.js",
+      },
+    }
   end)
 
   dap.adapters.nlua = function(callback, config)
     callback({ type = "server", host = config.host, port = config.port })
   end
+
+  dap.configurations.javascript = {
+    {
+      name = "Launch",
+      type = "node2",
+      request = "launch",
+      program = "${file}",
+      args = { "--stdio" },
+      cwd = vim.fn.getcwd(),
+      env = { ELECTRON_RUN_AS_NODE = "true" },
+      sourceMaps = true,
+      protocol = "inspector",
+      console = "integratedTerminal",
+    },
+    {
+      -- For this to work you need to make sure the node process is started with the `--inspect` flag.
+      name = "Attach to process",
+      type = "node2",
+      request = "attach",
+      processId = require("dap.utils").pick_process,
+    },
+  }
 
   dap.configurations.python = {
     {
