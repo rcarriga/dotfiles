@@ -84,14 +84,12 @@ function M.setup(on_attach, capabilities)
         right_align_padding = 7,
         highlight = "Comment",
       },
-
       crate_graph = {
         backend = "x11",
         output = nil,
         full = true,
       },
     },
-
     server = {
       standalone = false,
     },
@@ -157,6 +155,7 @@ function M.setup(on_attach, capabilities)
               require("neodev.config").types(),
               "${3rd}/busted/library",
               "${3rd}/luassert/library",
+              "${3rd}/luv/library",
             },
           },
         },

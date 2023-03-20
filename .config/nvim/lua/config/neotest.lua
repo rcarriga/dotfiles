@@ -44,12 +44,6 @@ function M.post()
         dap = { justMyCode = false, console = "integratedTerminal" },
       }),
       require("neotest-plenary"),
-      require("neotest-jest")({
-        cwd = function(path)
-          local cwd = require("neotest-jest.util").find_package_json_ancestor(path)
-          return cwd
-        end,
-      }),
     },
   })
 

@@ -76,10 +76,6 @@ set foldtext=FoldText()
 ]])
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
-pcall(function()
-  require("impatient")
-end)
-
 vim.notify = function(...)
   local exists, notify = pcall(require, "notify")
   if exists then
@@ -124,8 +120,6 @@ for mode, mode_maps in pairs(maps) do
   end
 end
 
-vim.cmd([[command! PackCompile lua require("plugins").update() ]])
-
 -- From vim-unimpaired
 local function putline(how)
   local body, type = vim.fn.getreg(vim.v.register), vim.fn.getregtype(vim.v.register)
@@ -148,3 +142,5 @@ k("n", "]p", "", {
     putline("]p")
   end,
 })
+
+require("plugins")
