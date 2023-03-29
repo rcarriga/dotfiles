@@ -15,11 +15,11 @@ vim.opt.rtp:prepend(lazypath)
 local home = vim.loop.os_homedir()
 
 local function maybe_local(name)
-  local path = string.format("%s/Dev/repos/%s", home ,name)
+  local path = string.format("%s/Dev/repos/%s", home, name)
   if vim.loop.fs_stat(path) then
     return path
   end
-  print(vim.inspect{path})
+  print(vim.inspect({ path }))
 end
 
 local plugins = {
@@ -29,8 +29,18 @@ local plugins = {
     branch = "main",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
   },
-  { "ThePrimeagen/refactoring.nvim", config = function() require("config.refactoring").post() end },
-  { "echasnovski/mini.nvim", config = function() require("config.mini").post() end },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    config = function()
+      require("config.refactoring").post()
+    end,
+  },
+  {
+    "echasnovski/mini.nvim",
+    config = function()
+      require("config.mini").post()
+    end,
+  },
   {
     "nvim-neorg/neorg",
     config = function()
@@ -56,6 +66,7 @@ local plugins = {
   {
     "nvim-neotest/neotest",
     dir = maybe_local("neotest"),
+    keys = { "<leader>n" },
     config = function()
       require("config.neotest").post()
     end,
@@ -63,6 +74,16 @@ local plugins = {
       { "andythigpen/nvim-coverage" },
       { "nvim-neotest/neotest-python" },
       { "nvim-neotest/neotest-plenary" },
+      { "rouge8/neotest-rust" },
+      {
+        "mfussenegger/nvim-dap",
+        lazy = true,
+        config = function()
+          require("config.dap").post()
+        end,
+      },
+      { "mfussenegger/nvim-dap-python" },
+      { "rcarriga/nvim-dap-ui", dir = maybe_local("nvim-dap-ui") },
     },
   },
   {
@@ -152,16 +173,7 @@ local plugins = {
   },
   { "hiberabyss/nvim-dbg" },
   { "someone-stole-my-name/yaml-companion.nvim" },
-  {
-    "mfussenegger/nvim-dap",
-    config = function()
-      require("config.dap").post()
-    end,
-    dependencies = {
-      { "mfussenegger/nvim-dap-python" },
-      { "rcarriga/nvim-dap-ui", dir = maybe_local("nvim-dap-ui") },
-    },
-  },
+
   {
     "nvim-treesitter/nvim-treesitter",
     config = function()
@@ -196,4 +208,11 @@ local plugins = {
     },
   },
 }
-require("lazy").setup(plugins, {})
+require("lazy").setup(plugins, {
+  ui = {
+    border = vim.g.border_chars,
+  },
+  install = {
+    colorscheme = {},
+  },
+})

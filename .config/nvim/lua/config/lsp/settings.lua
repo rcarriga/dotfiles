@@ -27,8 +27,8 @@ function M.setup(on_attach, capabilities)
           "requirements.txt",
         }
         return lsputil.root_pattern(unpack(markers))(fname)
-            or lsputil.find_git_ancestor(fname)
-            or lsputil.path.dirname(fname)
+          or lsputil.find_git_ancestor(fname)
+          or lsputil.path.dirname(fname)
       end,
       settings = {
         python = {

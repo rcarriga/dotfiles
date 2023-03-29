@@ -1,5 +1,3 @@
-local neotest = require("neotest")
-
 local neotest_statuses = {
   "total",
   "passed",
@@ -31,6 +29,7 @@ local neoest_sections = {
 }
 
 local function neotest_status(buf)
+  local neotest = require("neotest")
   local adapters = neotest.state.adapter_ids()
   if #adapters == 0 then
     return
@@ -60,7 +59,7 @@ function WinBar()
   local elems = vim.split(path, "/", { trimempty = true })
   local bar = "%#WinBarPath#" .. table.concat(elems, " %#WinBarSep# %#WinBarPath#")
 
-  local tests = neotest_status(buf)
+  local tests = _G.NEOTEST_LOADED and neotest_status(buf)
   if tests then
     bar = bar .. " " .. tests .. " "
   end

@@ -29,6 +29,7 @@ function M.post()
       "neotest-summary",
       "Outline",
       "lsp-installer",
+      "mason",
     },
   })
 end

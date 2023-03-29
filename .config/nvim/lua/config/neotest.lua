@@ -1,6 +1,7 @@
 local M = {}
 
 function M.post()
+  _G.NEOTEST_LOADED = true
   local neotest = require("neotest")
   local lib = require("neotest.lib")
   local get_env = function()
@@ -23,7 +24,7 @@ function M.post()
     return env
   end
   neotest.setup({
-    log_level = vim.log.levels.WARN,
+    log_level = vim.log.levels.DEBUG,
     quickfix = {
       open = false,
     },

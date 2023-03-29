@@ -16,7 +16,6 @@ function M.post()
     vnoremap <silent> m <cmd>lua require('tsht').nodes()<CR>
   ]])
 
-
   parser_configs.gotmpl = {
     install_info = {
       url = "https://github.com/ngalaiko/tree-sitter-go-template",
@@ -24,9 +23,7 @@ function M.post()
     },
     filetype = "gotmpl",
     used_by = { "gohtmltmpl", "gotexttmpl", "gotmpl", "yaml" },
-
   }
-
 
   require("nvim-treesitter.configs").setup({
     highlight = {
