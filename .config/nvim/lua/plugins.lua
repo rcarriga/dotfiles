@@ -19,10 +19,17 @@ local function maybe_local(name)
   if vim.loop.fs_stat(path) then
     return path
   end
-  print(vim.inspect({ path }))
 end
 
 local plugins = {
+  {
+    "gorbit99/codewindow.nvim",
+    config = function()
+      local codewindow = require("codewindow")
+      codewindow.setup()
+      codewindow.apply_default_keybinds()
+    end,
+  },
   { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
   {
     "williamboman/mason.nvim",
@@ -35,12 +42,7 @@ local plugins = {
       require("config.refactoring").post()
     end,
   },
-  {
-    "echasnovski/mini.nvim",
-    config = function()
-      require("config.mini").post()
-    end,
-  },
+  { "echasnovski/mini.nvim" },
   {
     "nvim-neorg/neorg",
     config = function()
@@ -65,6 +67,7 @@ local plugins = {
   { "folke/noice.nvim", dependencies = { "MunifTanjim/nui.nvim" } },
   {
     "nvim-neotest/neotest",
+    branch = "feat/watch-consumer",
     dir = maybe_local("neotest"),
     keys = { "<leader>n" },
     config = function()
@@ -87,6 +90,7 @@ local plugins = {
     },
   },
   {
+    "rcarriga/nvim-notify",
     dir = maybe_local("nvim-notify"),
     config = function()
       require("config.notify").post()
@@ -133,6 +137,7 @@ local plugins = {
       "folke/trouble.nvim",
       "lvimuser/lsp-inlayhints.nvim",
       "nvim-lua/lsp-status.nvim",
+      "glepnir/lspsaga.nvim",
       "folke/lua-dev.nvim",
       "simrat39/rust-tools.nvim",
       "stevearc/aerial.nvim",

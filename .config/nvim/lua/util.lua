@@ -5,8 +5,9 @@ function M.get_python_path(workspace)
   local util = require("lspconfig/util")
 
   local path = util.path
-  if vim.env.VIRTUAL_ENV then
-    return path.join(vim.env.VIRTUAL_ENV, "bin", "python")
+  local env_path = vim.env.VIRTUAL_ENV or vim.env.CONDA_PREFIX
+  if env_path then
+    return path.join(env_path, "bin", "python")
   end
 
   -- Find and use virtualenv in workspace directory.

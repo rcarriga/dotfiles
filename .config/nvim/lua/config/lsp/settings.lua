@@ -161,6 +161,7 @@ function M.setup(on_attach, capabilities)
         },
       },
     },
+
     -- pyright = {
     --   handlers = has_status and lsp_status.extensions.pyls_ms.setup() or nil,
     --   on_attach = on_attach,
@@ -170,6 +171,25 @@ function M.setup(on_attach, capabilities)
     --   settings = {
     --     python = {
     --       pythonPath = "python",
+    --     },
+    --   },
+    --   capabilities = capabilities,
+    -- },
+
+    -- pyright = {
+    --   handlers = has_status and lsp_status.extensions.pyls_ms.setup() or nil,
+    --   on_attach = on_attach,
+    --   before_init = function(_, config)
+    --     config.settings.python.pythonPath = require("util").get_python_path(config.root_dir)
+    --   end,
+    --   settings = {
+    --     python = {
+    --       pythonPath = "python",
+    --       analysis = {
+    --         autoSearchPaths = true,
+    --         useLibraryCodeForTypes = true,
+    --         diagnosticMode = 'workspace',
+    --       },
     --     },
     --   },
     --   capabilities = capabilities,
@@ -202,21 +222,72 @@ function M.setup(on_attach, capabilities)
   }
 
   lspconfig.pyright.setup({
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+      client.commands["pylance.extractVariableWithRename"] = function(command, enriched_ctx)
+        command.command = "pylance.extractVariable"
+        vim.lsp.buf.execute_command(command)
+      end
+
+      client.commands["pylance.extractMethodWithRename"] = function(command, enriched_ctx)
+        command.command = "pylance.extractMethod"
+        vim.lsp.buf.execute_command(command)
+      end
+
+      vim.api.nvim_buf_create_user_command(bufnr, "PylanceOrganizeImports", function()
+        vim.lsp.buf.execute_command({
+          command = "pyright.organizeimports",
+          arguments = { vim.uri_from_bufnr(0) },
+        })
+      end, { desc = "Organize Imports" })
+
+      vim.api.nvim_buf_create_user_command(bufnr, "PylanceExtractVariable", function()
+        local pos_params = vim.lsp.util.make_given_range_params()
+        local params = {
+          command = "pylance.extractVariable",
+          arguments = {
+            vim.api.nvim_buf_get_name(0),
+            pos_params.range,
+          },
+        }
+        vim.lsp.buf.execute_command(params)
+        -- vim.lsp.buf.rename()
+      end, { range = true, desc = "Extract variable" })
+
+      vim.api.nvim_buf_create_user_command(bufnr, "PylanceExtractMethod", function()
+        local pos_params = vim.lsp.util.make_given_range_params()
+        local params = {
+          command = "pylance.extractMethod",
+          arguments = {
+            vim.api.nvim_buf_get_name(0),
+            pos_params.range,
+          },
+        }
+        vim.lsp.buf.execute_command(params)
+        -- vim.lsp.buf.rename()
+      end, { range = true, desc = "Extract methdod" })
+      on_attach(client, bufnr)
+    end,
+    before_init = function(_, config)
+      config.settings.python.pythonPath = require("util").get_python_path(config.root_dir)
+    end,
     settings = {
       python = {
-        -- analysis = {
-        --   indexing = true,
-        --   typeCheckingMode = "basic",
-        --   diagnosticMode = "workspace",
-        --   inlayHints = {
-        --     variableTypes = true,
-        --     functionReturnTypes = true,
-        --   },
-        --   diagnosticSeverityOverrides = {
-        --     reportMissingTypeStubs = "information",
-        --   },
-        -- },
+        analysis = {
+          typeCheckingMode = "basic",
+          indexing = true,
+          diagnosticMode = "workspace",
+          autoImportCompletions = true,
+          inlayHints = {
+            variableTypes = true,
+            functionReturnTypes = true,
+          },
+          diagnosticSeverityOverrides = {
+            reportMissingTypeStubs = "none",
+            reportUnusedExpression = "information",
+            reportPrivateUsage = "warning",
+            reportUnknownMemberType = "none",
+          },
+        },
       },
     },
   })

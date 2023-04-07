@@ -32,6 +32,10 @@ function M.post()
       virtual_text = true,
       signs = true,
     },
+    output = {
+      open_on_run = false,
+
+    },
     icons = {
       running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
     },
@@ -42,7 +46,8 @@ function M.post()
     },
     adapters = {
       require("neotest-python")({
-        dap = { justMyCode = false, console = "integratedTerminal" },
+        dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
+        pytest_discovery = true,
       }),
       require("neotest-plenary"),
     },
@@ -76,7 +81,7 @@ function M.post()
       neotest.run.run({ vim.fn.expand("%:p"), env = get_env() })
     end,
     ["<leader>ns"] = function()
-      for _, adapter_id in ipairs(neotest.run.adapters()) do
+      for _, adapter_id in ipairs(neotest.state.adapter_ids()) do
         neotest.run.run({ suite = true, adapter = adapter_id, env = get_env() })
       end
     end,

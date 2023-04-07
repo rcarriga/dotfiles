@@ -17,7 +17,6 @@ function M.post()
           "breakpoints",
           "stacks",
           "watches",
-          "something",
         },
         size = 80,
         position = "left",

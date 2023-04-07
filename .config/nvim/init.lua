@@ -28,6 +28,7 @@ for opt, val in pairs({
   completeopt = "menuone,noselect,menu",
   concealcursor = "",
   conceallevel = 2,
+  cursorline = true,
   cursorlineopt = "number",
   diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60",
   expandtab = true,

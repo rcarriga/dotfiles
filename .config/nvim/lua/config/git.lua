@@ -174,6 +174,7 @@ function M.post()
       status = {
         ["<CR>"] = "Toggle",
         ["<tab>"] = "",
+        ["o"] = "GoToFile",
       },
     },
   })

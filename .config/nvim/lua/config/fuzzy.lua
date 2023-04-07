@@ -2,6 +2,7 @@ local M = {}
 
 function M.post()
   local fzf = require("fzf-lua")
+  local actions = require("fzf-lua.actions")
   fzf.setup({
     winopts = {
       border = vim.g.border_chars,
@@ -16,6 +17,16 @@ function M.post()
     ["<leader>dh"] = fzf.help_tags,
     ["<leader>dc"] = function()
       fzf.files({ cmd = "yadm ls-files", cwd = vim.env.HOME })
+    end,
+    ["<leader>dn"] = function()
+      fzf.files({
+        cwd = "~/org/notes",
+        actions = {
+          ["default"] = function (selected, opts)
+            actions.file_edit(selected, opts)
+          end,
+        },
+      })
     end,
   }
 

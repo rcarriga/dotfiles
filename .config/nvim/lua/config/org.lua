@@ -49,45 +49,7 @@ function M.post()
     require("neorg").setup({
       load = {
         ["core.defaults"] = {},
-        ["core.keybinds"] = {
-          config = {
-            hook = function(keybinds)
-              keybinds.map_event_to_mode("norg", {
-                n = {
-                  { "<M-k>", "core.norg.manoeuvre.item_up" },
-                  { "<M-j>", "core.norg.manoeuvre.item_down" },
-                },
-                x = {
-                  { "ah", "core.norg.manoeuvre.textobject.around-heading" },
-                  { "at", "core.norg.manoeuvre.textobject.around-tag" },
-                  { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
-                  { "it", "core.norg.manoeuvre.textobject.inner-tag" },
-                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
-                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
-                },
-                o = {
-                  { "ah", "core.norg.manoeuvre.textobject.around-heading" },
-                  { "at", "core.norg.manoeuvre.textobject.around-tag" },
-                  { "ih", "core.norg.manoeuvre.textobject.inner-heading" },
-                  { "it", "core.norg.manoeuvre.textobject.inner-tag" },
-                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
-                  { "al", "core.norg.manoeuvre.textobject.around-whole-list" },
-                },
-              }, {
-                silent = true,
-                noremap = true,
-              })
-              keybinds.map_to_mode("norg", {
-                n = {
-                  { "<localleader>c", "<cmd>Neorg toc split<CR>" },
-                },
-              }, {
-                silent = true,
-                noremap = true,
-              })
-            end,
-          },
-        },
+        ["core.keybinds"] = {},
         ["core.norg.dirman"] = {
           config = {
             workspaces = {
@@ -131,23 +93,10 @@ function M.post()
 
                   return result
                 end)()
-                --[[ (function()
-                local result = {}
-
-                for i = 1, 6 do
-                    result["todo_item" .. i] = {
-                        text = "[<done>/<total>]",
-                        highlight = "DiagnosticVirtualTextHint",
-                    }
-                end
-
-                return result
-            end)() ]]
               ),
             },
           },
         },
-        -- ["core.integrations.telescope"] = {},
         ["core.export"] = {
           config = {
             export_dir = "~/notes/export",

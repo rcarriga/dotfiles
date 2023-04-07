@@ -12,8 +12,6 @@ function M.post()
         if not opts then
           return
         end
-        opts.border = "none"
-        opts.row = opts.row + 2
         return opts
       end,
       unpack(base_stages, 2),

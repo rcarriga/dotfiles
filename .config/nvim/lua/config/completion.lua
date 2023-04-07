@@ -94,32 +94,10 @@ function M.post()
     },
     sorting = {
       comparators = {
-        -- require("copilot_cmp.comparators").prioritize,
-        -- require("copilot_cmp.comparators").score,
+        require("copilot_cmp.comparators").prioritize,
+        require("copilot_cmp.comparators").score,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
-        -- Pyright suggests autoimports in a weird order. This will attempt to prioritise builtin modules and then
-        -- higher level modules, instead of the default of random modules ahead of builtins and module of definition
-        -- being suggested. Not perfect but better than default.
-        function(a, b)
-          a, b = a.completion_item, b.completion_item
-          if not is_auto_import(a) or not is_auto_import(b) then
-            return
-          end
-          if a.label ~= a.label then
-            return
-          end
-          if not a.labelDetails and b.labelDetails then
-            return
-          end
-          if not a.labelDetails then
-            return true
-          end
-          if not b.labelDetails then
-            return false
-          end
-          return #a.labelDetails.description < #b.labelDetails.description
-        end,
         function(a, b)
           local a_under = select(2, a.completion_item.label:find("^_+")) or 0
           local b_under = select(2, b.completion_item.label:find("^_+")) or 0
@@ -168,7 +146,7 @@ function M.post()
       { name = "nvim_lsp" },
       { name = "git" },
       { name = "luasnip" },
-      { name = "orgmode" },
+      { name = "path" },
     }),
     view = {
       entries = "custom",
