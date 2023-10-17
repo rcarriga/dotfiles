@@ -15,7 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 local home = vim.loop.os_homedir()
 
 local function maybe_local(name)
-  local path = string.format("%s/Dev/repos/%s", home, name)
+  local path = string.format("%s/Dev/%s", home, name)
   if vim.loop.fs_stat(path) then
     return path
   end
@@ -64,10 +64,9 @@ local plugins = {
   },
   { "Vimjas/vim-python-pep8-indent" },
   { "jose-elias-alvarez/null-ls.nvim" },
-  { "folke/noice.nvim", dependencies = { "MunifTanjim/nui.nvim" } },
+  { "folke/noice.nvim",               dependencies = { "MunifTanjim/nui.nvim" } },
   {
     "nvim-neotest/neotest",
-    branch = "feat/watch-consumer",
     dir = maybe_local("neotest"),
     keys = { "<leader>n" },
     config = function()
@@ -86,7 +85,7 @@ local plugins = {
         end,
       },
       { "mfussenegger/nvim-dap-python" },
-      { "rcarriga/nvim-dap-ui", dir = maybe_local("nvim-dap-ui") },
+      { "rcarriga/nvim-dap-ui",        dir = maybe_local("nvim-dap-ui") },
     },
   },
   {
@@ -97,8 +96,10 @@ local plugins = {
     end,
   },
   {
-    "sindrets/diffview.nvim",
-    dependencies = { "lewis6991/gitsigns.nvim", "ruifm/gitlinker.nvim", "TimUntersberger/neogit" },
+    "lewis6991/gitsigns.nvim",
+    dependencies = {
+      -- "sindrets/diffview.nvim",
+      "ruifm/gitlinker.nvim", "TimUntersberger/neogit" },
     config = function()
       require("config.git").post()
     end,
@@ -112,7 +113,7 @@ local plugins = {
     end,
   },
   { "nvim-tree/nvim-web-devicons" },
-  { "godlygeek/tabular", cmd = "Tabularize" },
+  { "godlygeek/tabular",          cmd = "Tabularize" },
   {
     "danymat/neogen",
     cmd = "Neogen",
@@ -127,7 +128,7 @@ local plugins = {
       require("config.filetree").post()
     end,
   },
-  { "machakann/vim-sandwich", keys = { "sa", "sr", "sd" } },
+  { "machakann/vim-sandwich",  keys = { "sa", "sr", "sd" } },
   {
     "neovim/nvim-lspconfig",
     config = function()
@@ -135,7 +136,6 @@ local plugins = {
     end,
     dependencies = {
       "folke/trouble.nvim",
-      "lvimuser/lsp-inlayhints.nvim",
       "nvim-lua/lsp-status.nvim",
       "glepnir/lspsaga.nvim",
       "folke/lua-dev.nvim",
@@ -166,10 +166,10 @@ local plugins = {
     "JoosepAlviste/nvim-ts-context-commentstring",
     dependencies = { "tpope/vim-commentary" },
   },
-  { "tpope/vim-abolish", cmd = "S" },
-  { "tpope/vim-eunuch", cmd = { "Rename", "Delete", "Remove", "Chmod" } },
-  { "voldikss/vim-floaterm", cmd = "FloatermNew" },
-  { "wellle/targets.vim", dependencies = { "wellle/line-targets.vim" } },
+  { "tpope/vim-abolish",      cmd = "S" },
+  { "tpope/vim-eunuch",       cmd = { "Rename", "Delete", "Remove", "Chmod" } },
+  { "voldikss/vim-floaterm",  cmd = "FloatermNew" },
+  { "wellle/targets.vim",     dependencies = { "wellle/line-targets.vim" } },
   {
     "ibhagwan/fzf-lua",
     config = function()
@@ -185,7 +185,7 @@ local plugins = {
       require("config.treesitter").post()
     end,
     dependencies = {
-      { "nvim-treesitter/playground" },
+      -- { "nvim-treesitter/playground" },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "nvim-treesitter/nvim-treesitter-refactor" },
       { "mfussenegger/nvim-ts-hint-textobject" },
@@ -193,24 +193,25 @@ local plugins = {
     },
   },
   {
-    { "hrsh7th/nvim-cmp" },
-    { "rafamadriz/friendly-snippets" },
-    { "petertriho/cmp-git" },
-    { "zbirenbaum/copilot.lua" },
-    { "zbirenbaum/copilot-cmp" },
-    { "onsails/lspkind-nvim" },
-    { "hrsh7th/cmp-nvim-lsp" },
-    { "hrsh7th/cmp-buffer" },
-    { "hrsh7th/cmp-cmdline" },
-    { "hrsh7th/cmp-path" },
-    { "rcarriga/cmp-dap", dir = maybe_local("cmp-dap") },
-    { "L3MON4D3/LuaSnip" },
-    {
-      "saadparwaiz1/cmp_luasnip",
-      config = function()
-        require("config.completion").post()
-      end,
+    "hrsh7th/nvim-cmp",
+    dependencies = { { "rafamadriz/friendly-snippets" },
+      { "petertriho/cmp-git" },
+      { "zbirenbaum/copilot.lua" },
+      { "zbirenbaum/copilot-cmp" },
+      { "onsails/lspkind-nvim" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      { "hrsh7th/cmp-buffer" },
+      { "hrsh7th/cmp-cmdline" },
+      { "hrsh7th/cmp-path" },
+      { "rcarriga/cmp-dap",            dir = maybe_local("cmp-dap") },
+      { "L3MON4D3/LuaSnip" },
+      {
+        "saadparwaiz1/cmp_luasnip",
+      },
     },
+    config = function()
+      require("config.completion").post()
+    end,
   },
 }
 require("lazy").setup(plugins, {

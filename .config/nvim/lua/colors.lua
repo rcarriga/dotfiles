@@ -210,8 +210,7 @@ local highlights = {
   DiagnosticInfo = { fg = c.info },
   DiagnosticHint = { fg = c.info },
   LspCodeLens = { fg = c.type_name, italic = true },
-  IndentBlanklineChar = { fg = c.grey2 },
-  IndentBlanklineContextChar = { fg = c.key },
+  IblIndent = { fg = c.grey2 },
 
   ["@lsp.type.property.lua"] = { fg = c.key },
   ["@lsp.mod.defaultLibrary.lua"] = { fg = c.built_in },
@@ -220,7 +219,7 @@ local highlights = {
   LspSelectedParam = { fg = c.normal, bold = true, underline = true },
 
   --lsp-inlayhints.nvim
-  LspInlayHint = { fg = c.hidden },
+  LspInlayHint = { fg = c.type_name, italic = true },
 
   --nvim-cmp
   CmpItemAbbr = { fg = c.normal },

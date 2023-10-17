@@ -99,6 +99,30 @@ function M.post()
 
   vim.cmd([[omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>]])
   vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]])
+
+  -- Treesitter automatic Python format strings
+  -- Adapted from https://gist.github.com/linguini1/ee91b6d8c196cbd731d10a61447af6a3
+  vim.api.nvim_create_augroup("py-fstring", { clear = true })
+  vim.api.nvim_create_autocmd("InsertCharPre", {
+    pattern = { "*.py" },
+    group = "py-fstring",
+    callback = function(opts)
+      if vim.v.char ~= "{" then return end
+
+      local node = vim.treesitter.get_node()
+
+      if not node then return end
+      if node:type() ~= "string" then node = node:parent() end
+      if not node then return end
+
+      local row, col, _, _ = vim.treesitter.get_node_range(node)
+
+      local first_char = vim.api.nvim_buf_get_text(opts.buf, row, col, row, col + 1, {})[1]
+      if first_char ~= "'" and first_char ~= '"' then return end
+
+      vim.api.nvim_input("<Esc>m'" .. row + 1 .. "gg" .. col + 1 .. "|if<Esc>`'la")
+    end,
+  })
 end
 
 return M

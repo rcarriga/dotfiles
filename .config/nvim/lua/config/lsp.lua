@@ -1,6 +1,82 @@
 local M = {}
 
+local function configure_watching()
+  local FSWATCH_EVENTS = {
+    Created = 1,
+    Updated = 2,
+    Removed = 3,
+    -- Renamed
+    OwnerModified = 2,
+    AttributeModified = 2,
+    MovedFrom = 1,
+    MovedTo = 3
+    -- IsFile
+    -- IsDir
+    -- IsSymLink
+    -- Link
+    -- Overflow
+  }
+
+  --- @param data string
+  --- @param opts table
+  --- @param callback fun(path: string, event: integer)
+  local function fswatch_output_handler(data, opts, callback)
+    local d = vim.split(data, '%s+')
+    local cpath = d[1]
+
+    for i = 2, #d do
+      if d[i] == 'IsDir' or d[i] == 'IsSymLink' or d[i] == 'PlatformSpecific' then
+        return
+      end
+    end
+
+    if opts.include_pattern and opts.include_pattern:match(cpath) == nil then
+      return
+    end
+
+    if opts.exclude_pattern and opts.exclude_pattern:match(cpath) ~= nil then
+      return
+    end
+
+    for i = 2, #d do
+      local e = FSWATCH_EVENTS[d[i]]
+      if e then
+        callback(cpath, e)
+      end
+    end
+  end
+
+  local function fswatch(path, opts, callback)
+    local obj = vim.system({
+      'fswatch',
+      '--recursive',
+      '--event-flags',
+      '--exclude', '/.git/',
+      path
+    }, {
+      stdout = function(error, data)
+        if data then
+          for line in vim.gsplit(data, '\n', { plain = true, trimempty = true }) do
+            fswatch_output_handler(line, opts, callback)
+          end
+        elseif error then
+          vim.notify(error, vim.log.levels.ERROR, { title = "LSP Watch" })
+        end
+      end
+    })
+
+    return function()
+      obj:kill(2)
+    end
+  end
+
+  if vim.fn.executable('fswatch') == 1 then
+    require('vim.lsp._watchfiles')._watchfunc = fswatch
+  end
+end
+
 function M.post()
+  configure_watching()
   local has_status, lsp_status = pcall(require, "lsp-status")
   if has_status then
     lsp_status.register_progress()
@@ -34,7 +110,7 @@ function M.post()
   end
   pcall(function()
     capabilities =
-      vim.tbl_deep_extend("keep", require("cmp_nvim_lsp").default_capabilities(), capabilities)
+        vim.tbl_deep_extend("keep", require("cmp_nvim_lsp").default_capabilities(), capabilities)
   end)
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
@@ -76,32 +152,6 @@ function M.post()
       kind = {},
     },
   })
-  require("lsp-inlayhints").setup({
-    inlay_hints = {
-      parameter_hints = {
-        show = true,
-        prefix = "← ",
-        separator = ", ",
-        remove_colon_start = false,
-        remove_colon_end = false,
-      },
-      type_hints = {
-        -- type and other hints
-        show = true,
-        prefix = "",
-        separator = ", ",
-        remove_colon_start = false,
-        remove_colon_end = false,
-      },
-      -- separator between types and parameter hints. Note that type hints are
-      -- shown before parameter
-      labels_separator = "",
-      -- whether to align to the length of the longest line in the file
-      max_len_align = false,
-      -- padding from the left if max_len_align is true
-      max_len_align_padding = 1,
-    },
-  })
 
   local aerial = require("aerial")
   aerial.setup({
@@ -133,20 +183,14 @@ function M.post()
     if has_status then
       lsp_status.on_attach(client)
     end
+    ---@type nio.lsp.types.ServerCapabilities
+    local server_capabilities = client.server_capabilities
+
     vim.keymap.set("n", "<leader>a", aerial.toggle, { buffer = bufnr })
-    pcall(function()
-      require("lsp-inlayhints").on_attach(client, bufnr)
-    end)
-    -- lsp_sig.on_attach({
-    --   floating_window_above_cur_line = true,
-    --   bind = true,
-    --   hint_enable = false,
-    --   hi_parameter = "LspSelectedParam",
-    --   zindex = 50,
-    --   handler_opts = {
-    --     border = vim.g.border_chars,
-    --   },
-    -- })
+
+    if server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint(bufnr, true)
+    end
 
     if client.server_capabilities.codeLensProvider then
       vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")

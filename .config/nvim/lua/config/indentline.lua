@@ -1,6 +1,6 @@
 local M = {}
 function M.post()
-  require("indent_blankline").setup({
+  require("ibl").setup({
     char = "│",
     buftype_exclude = { "terminal" },
     show_first_indent_level = false,

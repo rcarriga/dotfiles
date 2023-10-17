@@ -275,11 +275,13 @@ function M.setup(on_attach, capabilities)
         analysis = {
           typeCheckingMode = "basic",
           indexing = true,
-          diagnosticMode = "workspace",
+          diagnosticMode = "openFilesOnly",
           autoImportCompletions = true,
+          autoImportUserSymbols = true,
           inlayHints = {
             variableTypes = true,
             functionReturnTypes = true,
+            callArgumentNames = true,
           },
           diagnosticSeverityOverrides = {
             reportMissingTypeStubs = "none",
@@ -304,9 +306,9 @@ function M.setup(on_attach, capabilities)
   require("mason-lspconfig").setup({
     ensure_installed = vim.list_extend(vim.tbl_keys(server_configs), {
       "bashls",
-      "clangd",
+      -- "clangd",
       "gopls",
-      "hls",
+      -- "hls",
       "jsonls",
       "rust_analyzer",
       "vimls",

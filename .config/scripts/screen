@@ -1,8 +1,88 @@
-#!/bin/sh
-edp="eDP-1"
-hdmi="HDMI-1"
+#!/bin/zsh
+python3 <<EOF
+import re
+import subprocess as sp
+import sys
+from dataclasses import dataclass
 
-[[ "$1" == "HDMI" ]] && xrandr --output $edp --off --output DP1 --off --output DP2 --off --output $hdmi --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
-[[ "$1" == "EDPI" ]] && xrandr --output $edp --mode 1920x1080 --pos 0x0 --rotate normal --output DP1 --off --output DP2 --off --output $hdmi --off --output HDMI2 --off --output VIRTUAL1 --off
-[[ "$1" == "HDMIABOVE" ]] && xrandr --output $edp --primary --mode 1920x1080 --below $hdmi --output DP1 --off --output DP2 --off --output HDMI1 --mode 2560x1440 --pos 0x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
-[[ "$1" == "HDMIRIGHT" ]] && xrandr --output $edp --primary --mode 1920x1080 --pos 0x85 --rotate normal --output DP1 --off --output DP2 --off --output $hdmi --mode 2560x1440 --pos 1920x0 --rotate normal --output HDMI2 --off --output VIRTUAL1 --off
+
+@dataclass
+class MonitorSetting:
+    name: str
+    width: int
+    height: int
+    rate: float
+
+
+@dataclass
+class MonitorSettings:
+    disconnected: list[str]
+    connected: list[MonitorSetting]
+
+
+def get_best_settings(info: str):
+    name, _ = info.split(" ", 1)
+    dimensions, *rates = info.splitlines()[1].split()
+    highest_rate = max(
+        float(rate.replace("*", "").replace("+", "") or 0) for rate in rates
+    )
+    width, height = [int(d) for d in dimensions.split("x")]
+    return MonitorSetting(name=name, width=width, height=height, rate=highest_rate)
+
+
+def get_monitors():
+    process = sp.run(["xrandr"], stdout=sp.PIPE, stderr=sys.stderr)
+    process.check_returncode()
+
+    output = process.stdout.decode()
+
+    connected_monitor_info = re.split(r"\n(?=\S+ connected)", output)[1:]
+    disconnceted_monitor_names = [
+        info.split()[0] for info in re.split(r"\n(?=\S+ disconnected)", output)[1:]
+    ]
+    return MonitorSettings(
+        disconnected=disconnceted_monitor_names,
+        connected=[get_best_settings(info) for info in connected_monitor_info],
+    )
+
+
+def monitor_to_flags(monitor: MonitorSetting, pos: str) -> list[str]:
+    return [
+        "--output",
+        monitor.name,
+        "--mode",
+        f"{monitor.width}x{monitor.height}",
+        "--pos",
+        pos,
+        "--rotate",
+        "normal",
+        "--rate",
+        str(monitor.rate),
+    ]
+
+
+monitors = get_monitors()
+
+command = ["xrandr"]
+for name in monitors.disconnected:
+    command.extend(["--output", name, "--off"])
+
+last_width = 0
+match sorted(monitors.connected, key=lambda monitor: monitor.width):
+    case [builtin]:
+        command.extend(monitor_to_flags(builtin, "0x0"))
+    case [builtin, external]:
+        command.extend(monitor_to_flags(external, "0x0"))
+        command.extend(
+            monitor_to_flags(
+                builtin,
+                f"{external.width}x{external.height - builtin.height}",
+            )
+        )
+    case _:
+        raise NotImplementedError(monitors.connected)
+
+
+print(command)
+sp.run(command)
+EOF

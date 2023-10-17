@@ -1,4 +1,4 @@
-local M = {}
+  local M = {}
 
 function M.post()
   local dap = require("dap")
@@ -115,6 +115,7 @@ function M.post()
       request = "launch",
       name = "Launch file",
       justMyCode = false,
+      cwd = vim.fn.getcwd(),
       program = "${file}",
       console = "integratedTerminal",
       pythonPath = require("util").get_python_path(),

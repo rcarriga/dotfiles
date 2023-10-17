@@ -1,6 +1,15 @@
 #!/bin/bash
 
-[[ $1 == "UP" ]] && light -A 10
-[[ $1 == "DOWN" ]] && light -U 10
+level() {
+  brightnessctl | grep -o '[0-9]\+%' | grep -o '[0-9]\+'
+}
 
-light | grep -o '^[0-9]*'
+[[ $1 == "UP" ]] && brightnessctl s 10%+
+[[ $1 == "DOWN" ]] && brightnessctl s 10%-
+
+
+if [[ $(level) == 0 ]]; then
+  brightnessctl s 1%
+fi
+
+level

@@ -5,7 +5,7 @@ function M.post()
   local notify = require("notify")
 
   notify.setup({
-    render = "compact",
+    render = "wrapped-compact",
     stages = {
       function(...)
         local opts = base_stages[1](...)
@@ -17,7 +17,7 @@ function M.post()
       unpack(base_stages, 2),
     },
     background_colour = "#121212",
-    max_width = 120,
+    -- max_width = 120,
   })
 
   vim.api.nvim_set_keymap("n", "<leader>p", "", { callback = notify.dismiss })

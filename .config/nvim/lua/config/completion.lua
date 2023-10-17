@@ -9,7 +9,7 @@ function M.post()
     ext_prio_increase = 2,
     enable_autosnippets = true,
   })
-  require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/snippets" })
+  -- require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath("config") .. "/snippets" })
   -- require("luasnip.loaders.from_vscode").lazy_load()
 
   local t = function(str)
@@ -177,7 +177,7 @@ function M.post()
     callback = vim.schedule_wrap(function()
       require("copilot").setup({
         ft_disable = { "dap-repl", "c", "cpp", "dapui_watches", "dapui_scopes" },
-        copilot_node_command = vim.fs.normalize("~/.nvm/versions/node/v16.15.1/bin/node"),
+        -- copilot_node_command = vim.fs.normalize("~/.nvm/versions/node/v16.15.1/bin/node"),
       })
       require("copilot_cmp").setup()
     end),
