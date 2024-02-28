@@ -27,8 +27,8 @@ function M.setup(on_attach, capabilities)
           "requirements.txt",
         }
         return lsputil.root_pattern(unpack(markers))(fname)
-          or lsputil.find_git_ancestor(fname)
-          or lsputil.path.dirname(fname)
+            or lsputil.find_git_ancestor(fname)
+            or lsputil.path.dirname(fname)
       end,
       settings = {
         python = {
@@ -134,7 +134,7 @@ function M.setup(on_attach, capabilities)
         Lua = {
           hint = {
             enable = true,
-            setType = true,
+            setType = false,
           },
           IntelliSense = {
             traceLocalSet = true,
@@ -217,9 +217,15 @@ function M.setup(on_attach, capabilities)
 
   local mason_handlers = {
     function(server_name)
+      if server_name == "tsserver" then
+        return
+      end
       lspconfig[server_name].setup({ on_attach = on_attach })
     end,
   }
+
+  lspconfig.postgres_lsp.setup({})
+  lspconfig.nixd.setup({ on_attach = on_attach})
 
   lspconfig.pyright.setup({
     on_attach = function(client, bufnr)
@@ -279,9 +285,9 @@ function M.setup(on_attach, capabilities)
           autoImportCompletions = true,
           autoImportUserSymbols = true,
           inlayHints = {
-            variableTypes = true,
-            functionReturnTypes = true,
-            callArgumentNames = true,
+            -- variableTypes = true,
+            -- functionReturnTypes = true,
+            -- callArgumentNames = true,
           },
           diagnosticSeverityOverrides = {
             reportMissingTypeStubs = "none",
@@ -292,6 +298,7 @@ function M.setup(on_attach, capabilities)
         },
       },
     },
+
   })
   for server, settings in pairs(server_configs) do
     mason_handlers[server] = function()
@@ -312,7 +319,7 @@ function M.setup(on_attach, capabilities)
       "jsonls",
       "rust_analyzer",
       "vimls",
-      "tsserver",
+      -- "tsserver",
     }),
   })
   require("mason-lspconfig").setup_handlers(mason_handlers)

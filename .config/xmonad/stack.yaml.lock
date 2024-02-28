@@ -5,37 +5,37 @@
 
 packages:
 - completed:
+    name: xmonad-contrib
+    pantry-tree:
+      sha256: 1851d323fd68399a6a7fa8c67cd5a1a31b45c89874b83e78abfd3dab723cfb1e
+      size: 23470
+    sha256: e5bd4c1ba1952a1dc4101e4c4e8ae14732a75a30db80b786e18036b609839dcb
     size: 641493
     url: https://github.com/xmonad/xmonad-contrib/archive/ee3ea2402dee7876eccb32fc8a83bb2f3d3198bc.tar.gz
-    name: xmonad-contrib
     version: 0.17.0.9
-    sha256: e5bd4c1ba1952a1dc4101e4c4e8ae14732a75a30db80b786e18036b609839dcb
-    pantry-tree:
-      size: 23470
-      sha256: 1851d323fd68399a6a7fa8c67cd5a1a31b45c89874b83e78abfd3dab723cfb1e
   original:
     url: https://github.com/xmonad/xmonad-contrib/archive/ee3ea2402dee7876eccb32fc8a83bb2f3d3198bc.tar.gz
 - completed:
+    name: xmonad
+    pantry-tree:
+      sha256: d807c8aab1ad11c693261ad2073b81d3aa45a523df8df2458c86fc41ad4db1b0
+      size: 3649
+    sha256: 03b3c8dac72223b4870b5f8f01a74c1f1c9858aea9a2207e8590d7eaf6ec7960
     size: 104963
     url: https://github.com/xmonad/xmonad/archive/906b9d34b3e272ffbeaa2497ce09131d4a203515.tar.gz
-    name: xmonad
     version: 0.17.0.9
-    sha256: 03b3c8dac72223b4870b5f8f01a74c1f1c9858aea9a2207e8590d7eaf6ec7960
-    pantry-tree:
-      size: 3649
-      sha256: d807c8aab1ad11c693261ad2073b81d3aa45a523df8df2458c86fc41ad4db1b0
   original:
     url: https://github.com/xmonad/xmonad/archive/906b9d34b3e272ffbeaa2497ce09131d4a203515.tar.gz
 - completed:
     hackage: X11-1.10.1@sha256:962d3bedba2d3463f24c278cf04e0694d7d231e7f3cec856bc7c9205e7068524,3705
     pantry-tree:
-      size: 2860
       sha256: 0f5b3e653b46d3fd592886b294600da4d2eb09982ad63fb8bbc300f0c6fb5b9a
+      size: 2860
   original:
     hackage: X11-1.10.1@sha256:962d3bedba2d3463f24c278cf04e0694d7d231e7f3cec856bc7c9205e7068524,3705
 snapshots:
 - completed:
+    sha256: 7ad8f33179b32d204165a3a662c6269464a47a7e65a30abc38d01b5a38ec42c0
     size: 524164
     url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/22.yaml
-    sha256: 7ad8f33179b32d204165a3a662c6269464a47a7e65a30abc38d01b5a38ec42c0
   original: lts-14.22

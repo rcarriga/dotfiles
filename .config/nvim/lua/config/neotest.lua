@@ -1,8 +1,8 @@
 local M = {}
 
 function M.post()
-  _G.NEOTEST_LOADED = true
   local neotest = require("neotest")
+  _G.NEOTEST_LOADED = true
   local lib = require("neotest.lib")
   local get_env = function()
     local env = {}
@@ -25,6 +25,11 @@ function M.post()
   end
   neotest.setup({
     log_level = vim.log.levels.DEBUG,
+    discovery = {
+      filter_dir = function(dir)
+        return not vim.startswith(dir, "node_modules")
+      end,
+    },
     quickfix = {
       open = false,
     },
@@ -34,7 +39,6 @@ function M.post()
     },
     output = {
       open_on_run = false,
-
     },
     icons = {
       running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
@@ -47,26 +51,21 @@ function M.post()
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
-        pytest_discovery = true,
+        pytest_discover_instances = false,
       }),
+      require("neotest-vitest"),
       require("neotest-plenary"),
     },
   })
 
-  local group = vim.api.nvim_create_augroup("NeotestConfig", {})
-  for _, ft in ipairs({ "output", "attach", "summary" }) do
-    vim.api.nvim_create_autocmd("FileType", {
-      pattern = "neotest-" .. ft,
-      group = group,
-      callback = function(opts)
-        vim.keymap.set("n", "q", function()
-          pcall(vim.api.nvim_win_close, 0, true)
-        end, {
-          buffer = opts.buf,
-        })
-      end,
-    })
-  end
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "neotest-*",
+    callback = function(opts)
+      vim.keymap.set("n", "q", function()
+        vim.api.nvim_win_close(0, true)
+      end, { buffer = opts.buf })
+    end,
+  })
 
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "neotest-output-panel",

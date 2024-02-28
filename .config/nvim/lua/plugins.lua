@@ -23,6 +23,12 @@ end
 
 local plugins = {
   {
+    "nomnivore/ollama.nvim",
+    config = function()
+      require("config.ollama").post()
+    end,
+  },
+  {
     "gorbit99/codewindow.nvim",
     config = function()
       local codewindow = require("codewindow")
@@ -30,7 +36,7 @@ local plugins = {
       codewindow.apply_default_keybinds()
     end,
   },
-  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+  -- { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
   {
     "williamboman/mason.nvim",
     branch = "main",
@@ -62,8 +68,8 @@ local plugins = {
       require("config.indentline").post()
     end,
   },
-  { "Vimjas/vim-python-pep8-indent" },
-  { "jose-elias-alvarez/null-ls.nvim" },
+  -- { "Vimjas/vim-python-pep8-indent" },
+  { "nvimtools/none-ls.nvim" },
   { "folke/noice.nvim",               dependencies = { "MunifTanjim/nui.nvim" } },
   {
     "nvim-neotest/neotest",
@@ -74,8 +80,10 @@ local plugins = {
     end,
     dependencies = {
       { "andythigpen/nvim-coverage" },
-      { "nvim-neotest/neotest-python" },
-      { "nvim-neotest/neotest-plenary" },
+      { "nvim-neotest/nvim-nio",        dir = maybe_local("nvim-nio") },
+      { "nvim-neotest/neotest-python",  dir = maybe_local("neotest-python") },
+      { "nvim-neotest/neotest-plenary", dir = maybe_local("neotest-plenary") },
+      { "marilari88/neotest-vitest" },
       { "rouge8/neotest-rust" },
       {
         "mfussenegger/nvim-dap",
@@ -98,13 +106,21 @@ local plugins = {
   {
     "lewis6991/gitsigns.nvim",
     dependencies = {
-      -- "sindrets/diffview.nvim",
-      "ruifm/gitlinker.nvim", "TimUntersberger/neogit" },
+      "sindrets/diffview.nvim",
+      "ruifm/gitlinker.nvim",
+      "TimUntersberger/neogit",
+    },
     config = function()
       require("config.git").post()
     end,
   },
-  { "iamcco/markdown-preview.nvim", build = "cd app && yarn install" },
+  {
+    "iamcco/markdown-preview.nvim",
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+  },
   { "MTDL9/vim-log-highlighting" },
   {
     "glepnir/galaxyline.nvim",
@@ -150,26 +166,16 @@ local plugins = {
       require("config.colourpicker").post()
     end,
   },
-  { "simnalamburt/vim-mundo", cmd = "MundoToggle" },
-  {
-    "svermeulen/vim-subversive",
-    keys = {
-      "<plug>(SubversiveSubstituteRange)",
-      "<plug>(SubversiveSubstituteRange)",
-      "<plug>(SubversiveSubstituteWordRange)",
-      "<plug>(SubversiveSubstitute)",
-      "<plug>(SubversiveSubstituteLine)",
-      "<plug>(SubversiveSubstituteToEndOfLine)",
-    },
-  },
+  { "simnalamburt/vim-mundo",   cmd = "MundoToggle" },
+  { "svermeulen/vim-subversive" },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     dependencies = { "tpope/vim-commentary" },
   },
-  { "tpope/vim-abolish",      cmd = "S" },
-  { "tpope/vim-eunuch",       cmd = { "Rename", "Delete", "Remove", "Chmod" } },
-  { "voldikss/vim-floaterm",  cmd = "FloatermNew" },
-  { "wellle/targets.vim",     dependencies = { "wellle/line-targets.vim" } },
+  { "tpope/vim-abolish" },
+  { "tpope/vim-eunuch",      cmd = { "Rename", "Delete", "Remove", "Chmod" } },
+  { "voldikss/vim-floaterm", cmd = "FloatermNew" },
+  { "wellle/targets.vim",    dependencies = { "wellle/line-targets.vim" } },
   {
     "ibhagwan/fzf-lua",
     config = function()
@@ -185,7 +191,6 @@ local plugins = {
       require("config.treesitter").post()
     end,
     dependencies = {
-      -- { "nvim-treesitter/playground" },
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       { "nvim-treesitter/nvim-treesitter-refactor" },
       { "mfussenegger/nvim-ts-hint-textobject" },
@@ -194,7 +199,8 @@ local plugins = {
   },
   {
     "hrsh7th/nvim-cmp",
-    dependencies = { { "rafamadriz/friendly-snippets" },
+    dependencies = {
+      { "rafamadriz/friendly-snippets" },
       { "petertriho/cmp-git" },
       { "zbirenbaum/copilot.lua" },
       { "zbirenbaum/copilot-cmp" },

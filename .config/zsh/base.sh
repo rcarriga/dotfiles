@@ -1,6 +1,8 @@
 
 [[ -f "$ZDOTDIR/alias.sh" ]] && source "$ZDOTDIR/alias.sh"
 
+[[ -f "$ZDOTDIR/alias.local.sh" ]] && source "$ZDOTDIR/alias.local.sh"
+
 [[ -f "$ZDOTDIR/export.sh" ]] && source "$ZDOTDIR/export.sh"
 
 [[ -f "$ZDOTDIR/options.sh" ]] && source "$ZDOTDIR/options.sh"

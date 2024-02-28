@@ -1,7 +1,8 @@
-  local M = {}
+local M = {}
 
 function M.post()
   local dap = require("dap")
+
   local dapui = require("dapui")
   dapui.setup({
     force_buffers = false,
@@ -78,7 +79,7 @@ function M.post()
       command = "node",
       args = {
         mason_registry.get_package("node-debug2-adapter"):get_install_path()
-          .. "/out/src/nodeDebug.js",
+        .. "/out/src/nodeDebug.js",
       },
     }
   end)

@@ -189,14 +189,12 @@ function M.post()
     vim.keymap.set("n", "<leader>a", aerial.toggle, { buffer = bufnr })
 
     if server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint(bufnr, true)
+      vim.lsp.inlay_hint.enable(bufnr, true)
     end
 
     if client.server_capabilities.codeLensProvider then
       vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")
     end
-
-    local fold_win
 
     local lsp_util = require("config.lsp.util")
     local fzf = require("fzf-lua")
@@ -207,18 +205,7 @@ function M.post()
         ge = function()
           vim.diagnostic.open_float(0, { scope = "line" })
         end,
-        K = function()
-          if fold_win and vim.api.nvim_win_is_valid(fold_win) then
-            vim.api.nvim_set_current_win(fold_win)
-          end
-          fold_win = require("ufo").peekFoldedLinesUnderCursor()
-          if not fold_win then
-            vim.lsp.buf.hover()
-          else
-            vim.api.nvim_win_set_option(fold_win, "winhl", "Normal:Normal")
-            vim.api.nvim_win_set_option(fold_win, "winblend", 0)
-          end
-        end,
+        K = vim.lsp.buf.hover,
         gq = vim.lsp.buf.references,
         gr = lsp_util.rename,
         gD = function()
@@ -261,7 +248,6 @@ function M.post()
   end
 
   require("config.lsp.settings").setup(on_attach, capabilities)
-  require("ufo").setup()
 end
 
 return M

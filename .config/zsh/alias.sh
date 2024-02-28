@@ -51,6 +51,8 @@ alias dc="docker-compose"
 alias sa="sudo aura"
 alias sc="sudo systemctl"
 
+alias e="set -a; source .env; set +a;"
+
 if command -v floaterm &> /dev/null; then
   alias v=floaterm
 else

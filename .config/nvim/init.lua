@@ -32,9 +32,10 @@ for opt, val in pairs({
   cursorlineopt = "number",
   diffopt = "internal,filler,closeoff,algorithm:patience,linematch:60",
   expandtab = true,
-  fillchars = "fold: ,foldclose:,foldopen:,foldsep: ,diff: ,eob: ",
+  fillchars = "fold:─,foldclose:,foldopen:,foldsep: ,diff: ,eob: ",
   fixendofline = false,
   foldexpr = "nvim_treesitter#foldexpr()",
+  foldtext = '',
   foldlevel = 99,
   foldmethod = "expr",
   formatoptions = "lnjqr",
@@ -56,7 +57,6 @@ for opt, val in pairs({
   splitright = true,
   switchbuf = "useopen,uselast",
   tabstop = 2,
-  termguicolors = true,
   textwidth = 80,
   undodir = vim.fn.expand("~/.cache/nvim/undodir"),
   undofile = true,
@@ -71,10 +71,6 @@ end
 
 vim.g.mapleader = " "
 vim.opt.shortmess:append("c")
-vim.cmd([[
-let FoldText = {-> substitute(getline(v:foldstart),"\s*{{{[0-9]\s*$","","")." ▶"}
-set foldtext=FoldText()
-]])
 vim.g.border_chars = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 
 vim.notify = function(...)
@@ -143,5 +139,27 @@ k("n", "]p", "", {
     putline("]p")
   end,
 })
+local util = require("util")
+
+local runners = {
+  python = function(path)
+    local python_path
+    for _, client in pairs(vim.lsp.get_clients({bufnr = vim.fn.bufnr(path)})) do
+      if client.settings and client.settings.python then
+        python_path = client.settings.python.pythonPath
+      end
+    end
+    python_path = python_path or util.get_python_path(vim.loop.cwd())
+    vim.cmd(string.format("FloatermNew %s %s", python_path, path))
+  end,
+  lua = function()
+    vim.cmd(string.format("source %s", vim.fn.expand("%")))
+  end,
+}
+
+vim.keymap.set("n", "<leader>r", function()
+  local filetype = vim.bo.filetype
+  runners[filetype](vim.fn.expand("%"))
+end, { silent = true, noremap = true })
 
 require("plugins")

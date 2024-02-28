@@ -13,7 +13,7 @@ export ZVM_VI_SURROUND_BINDKEY="s-prefix"
 export PIPENV_VENV_IN_PROJECT=1
 
 # fzf
-export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" -g \"!undodir\" --hidden --color never --follow"
+export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" -g \"!undodir\" -g \"!assets\" --hidden --color never --follow"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview'"
 export FZF_CTRL_T_OPTS="--preview \". $ZDOTDIR/functions/fuzzy_preview {}\""
@@ -46,7 +46,8 @@ export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
 export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
 export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad"
-export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:${KREW_ROOT:-$HOME/.krew}/bin:$HOME/.nix-profile/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-11.0/lib64:/usr/local/lib"
 export HELM_EXPERIMENTAL_OCI=1
+export INPUTRC="${XDG_CONFIG_HOME}/inputrc"
 [[ -f ~/.config/system/local.export.sh ]] && source ~/.config/system/local.export.sh

@@ -72,6 +72,7 @@ local highlights = {
   StatusLine = { fg = c.normal },
   StatusLineNC = { fg = c.hidden },
   WinBar = { fg = c.normal },
+  WinBarNC = { fg = c.normal },
   WinBarSep = { fg = c.decoration, bg = c.grey1 },
   WinBarPath = { fg = c.grey5, bg = c.grey1 },
   IncSearch = { fg = c.green, bold = true, underline = true },
@@ -214,6 +215,7 @@ local highlights = {
 
   ["@lsp.type.property.lua"] = { fg = c.key },
   ["@lsp.mod.defaultLibrary.lua"] = { fg = c.built_in },
+  ["@lsp.type.parameter.python"] = { fg = c.parameter },
 
   -- LSP Signature
   LspSelectedParam = { fg = c.normal, bold = true, underline = true },

@@ -17,7 +17,10 @@ function M.post()
       unpack(base_stages, 2),
     },
     background_colour = "#121212",
-    -- max_width = 120,
+    max_width = 80,
+    on_open = function(win)
+      vim.api.nvim_set_option_value("wrap", true, { win = win })
+    end,
   })
 
   vim.api.nvim_set_keymap("n", "<leader>p", "", { callback = notify.dismiss })
