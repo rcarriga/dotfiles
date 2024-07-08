@@ -94,8 +94,6 @@ function M.post()
     },
     sorting = {
       comparators = {
-        require("copilot_cmp.comparators").prioritize,
-        require("copilot_cmp.comparators").score,
         cmp.config.compare.offset,
         cmp.config.compare.exact,
         function(a, b)
@@ -112,17 +110,6 @@ function M.post()
         cmp.config.compare.length,
         cmp.config.compare.order,
       },
-    },
-    formatting = {
-      format = function(entry, vim_item)
-        if entry.source.name == "copilot" then
-          vim_item.kind = ""
-          vim_item.kind_hl_group = "CmpItemKindCopilt"
-        else
-          vim_item.kind = cmp_kinds[vim_item.kind] or ""
-        end
-        return vim_item
-      end,
     },
     experimental = {
       ghost_text = {
@@ -142,7 +129,6 @@ function M.post()
       ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
     },
     sources = cmp.config.sources({
-      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "git" },
       { name = "luasnip" },
@@ -172,16 +158,6 @@ function M.post()
   --   }, {}),
   -- })
 
-  vim.api.nvim_create_autocmd("InsertEnter", {
-    once = true,
-    callback = vim.schedule_wrap(function()
-      require("copilot").setup({
-        ft_disable = { "dap-repl", "c", "cpp", "dapui_watches", "dapui_scopes" },
-        -- copilot_node_command = vim.fs.normalize("~/.nvm/versions/node/v16.15.1/bin/node"),
-      })
-      require("copilot_cmp").setup()
-    end),
-  })
 end
 
 return M

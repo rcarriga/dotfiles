@@ -37,7 +37,7 @@ c.info = c.cyan
 c.error = c.red
 
 local highlights = {
-  Normal = { fg = c.normal },
+  Normal = { fg = c.normal, bg = c.background },
   NormalFloat = { fg = c.normal },
   Border = { fg = c.border },
   FloatBorder = { fg = c.border },
@@ -295,6 +295,10 @@ local highlights = {
   NeotestSkippedWinBar = { fg = c.cyan, bg = c.grey1 },
 
   AerialVariableIcon = { fg = c.green },
+  AerialClass = { fg = c.type_name },
+  AerialMethod = { fg = c.func_name },
+
+  NvimTreeExecFile = { fg = c.violet },
 }
 
 local M = {}

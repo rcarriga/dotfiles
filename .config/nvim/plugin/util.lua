@@ -1,4 +1,3 @@
-
 P = function(...)
   local obj = select("#", ...) == 1 and select(1, ...) or { ... }
   local s = type(obj) == "string" and obj or vim.inspect(obj)
@@ -24,4 +23,3 @@ end)
 vim.cmd([[
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 ]])
-

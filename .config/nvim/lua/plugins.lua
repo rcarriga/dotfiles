@@ -23,12 +23,6 @@ end
 
 local plugins = {
   {
-    "nomnivore/ollama.nvim",
-    config = function()
-      require("config.ollama").post()
-    end,
-  },
-  {
     "gorbit99/codewindow.nvim",
     config = function()
       local codewindow = require("codewindow")
@@ -36,41 +30,59 @@ local plugins = {
       codewindow.apply_default_keybinds()
     end,
   },
-  -- { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
   {
     "williamboman/mason.nvim",
     branch = "main",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
   },
-  {
-    "ThePrimeagen/refactoring.nvim",
-    config = function()
-      require("config.refactoring").post()
-    end,
-  },
   { "echasnovski/mini.nvim" },
-  {
-    "nvim-neorg/neorg",
-    config = function()
-      require("config.org").post()
-    end,
-    cmd = "Neorg",
-    ft = "norg",
-    after = { "nvim-treesitter" },
-    dependencies = { "folke/zen-mode.nvim" },
-  },
   { "wbthomason/packer.nvim" },
   { "nvim-lua/plenary.nvim" },
-  { "antoinemadec/FixCursorHold.nvim" },
+  {
+    "antoinemadec/FixCursorHold.nvim",
+    init = function()
+      vim.g.cursorhold_updatetime = 50
+    end,
+  },
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
-      require("config.indentline").post()
+      require("ibl").setup({
+        indent = { char = "│" },
+        exclude = {
+          buftypes = {
+            "terminal",
+          },
+          filetypes = {
+            "",
+            "norg",
+            "help",
+            "markdown",
+            "dapui_scopes",
+            "dapui_stacks",
+            "dapui_watches",
+            "dapui_breakpoints",
+            "dapui_hover",
+            "dap-repl",
+            "LuaTree",
+            "dbui",
+            "term",
+            "fugitive",
+            "fugitiveblame",
+            "NvimTree",
+            "packer",
+            "neotest-summary",
+            "Outline",
+            "lsp-installer",
+            "mason",
+          },
+        },
+      })
     end,
   },
   -- { "Vimjas/vim-python-pep8-indent" },
   { "nvimtools/none-ls.nvim" },
-  { "folke/noice.nvim",               dependencies = { "MunifTanjim/nui.nvim" } },
+  { "folke/noice.nvim",      dependencies = { "MunifTanjim/nui.nvim" } },
   {
     "nvim-neotest/neotest",
     dir = maybe_local("neotest"),
@@ -108,7 +120,8 @@ local plugins = {
     dependencies = {
       "sindrets/diffview.nvim",
       "ruifm/gitlinker.nvim",
-      "TimUntersberger/neogit",
+      "seanbreckenridge/gitsigns-yadm.nvim",
+      { "TimUntersberger/neogit" },
     },
     config = function()
       require("config.git").post()
@@ -119,6 +132,9 @@ local plugins = {
     build = "cd app && npm install",
     init = function()
       vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_browser = "firefox"
+      vim.g.mkdp_auto_start = 0
+      vim.g.mkdp_auto_close = 0
     end,
   },
   { "MTDL9/vim-log-highlighting" },
@@ -131,56 +147,153 @@ local plugins = {
   { "nvim-tree/nvim-web-devicons" },
   { "godlygeek/tabular",          cmd = "Tabularize" },
   {
-    "danymat/neogen",
-    cmd = "Neogen",
-    config = function()
-      require("config.docs").post()
-    end,
-  },
-  {
     "kyazdani42/nvim-tree.lua",
-    keys = "<leader>x",
+    keys = {{ "<leader>x", "<CMD>NvimTreeToggle<CR>" }},
     config = function()
-      require("config.filetree").post()
+      require("nvim-tree").setup({
+        view = {
+          width = 45,
+        },
+        update_focused_file = {
+          enable = true,
+        },
+        renderer = {
+          indent_markers = {
+            enable = true,
+          },
+        },
+      })
     end,
   },
-  { "machakann/vim-sandwich",  keys = { "sa", "sr", "sd" } },
+  { "machakann/vim-sandwich", keys = { "sa", "sr", "sd" } },
   {
     "neovim/nvim-lspconfig",
     config = function()
       require("config.lsp").post()
     end,
+    keys = {
+      {
+        "<leader>td",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>tD",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+      {
+        "<leader>ts",
+        "<cmd>Trouble symbols toggle<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>tp",
+        "<cmd>Trouble lsp toggle win.size=0.3 win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
+      {
+        "<leader>tl",
+        "<cmd>Trouble loclist toggle<cr>",
+        desc = "Location List (Trouble)",
+      },
+      {
+        "<leader>tq",
+        "<cmd>Trouble qflist toggle<cr>",
+        desc = "Quickfix List (Trouble)",
+      },
+    },
     dependencies = {
-      "folke/trouble.nvim",
-      "nvim-lua/lsp-status.nvim",
-      "glepnir/lspsaga.nvim",
-      "folke/lua-dev.nvim",
-      "simrat39/rust-tools.nvim",
-      "stevearc/aerial.nvim",
+      {
+        "folke/trouble.nvim",
+        "nvim-lua/lsp-status.nvim",
+        "glepnir/lspsaga.nvim",
+        "folke/lua-dev.nvim",
+        "simrat39/rust-tools.nvim",
+        "stevearc/aerial.nvim",
+      },
     },
   },
-  { "rhysd/git-messenger.vim", keys = "<leader>gm" },
+  {
+    "rhysd/git-messenger.vim",
+    keys = "<leader>gm",
+    init = function()
+      vim.g.git_messenger_floating_win_opts = {
+        border = vim.g.border_chars,
+      }
+    end,
+  },
   {
     "uga-rosa/ccc.nvim",
     config = function()
-      require("config.colourpicker").post()
+      require("ccc").setup({
+        highlighter = {
+          auto_enable = true,
+        },
+      })
     end,
   },
-  { "simnalamburt/vim-mundo",   cmd = "MundoToggle" },
-  { "svermeulen/vim-subversive" },
+  {
+    "simnalamburt/vim-mundo",
+    cmd = "MundoToggle",
+    init = function()
+      vim.g.mundo_right = 1
+    end,
+    keys = {
+      { "<leader>u", "<cmd>MundoToggle<cr>" },
+    },
+  },
+  {
+    "svermeulen/vim-subversive",
+    keys = {
+      { "<leader>s",  "<plug>(SubversiveSubstituteRange)" },
+      { "<leader>s",  "<plug>(SubversiveSubstituteRange)" },
+      { "<leader>ss", "<plug>(SubversiveSubstituteWordRange)" },
+      { "x",          "<plug>(SubversiveSubstitute)" },
+      { "xx",         "<plug>(SubversiveSubstituteLine)" },
+      { "X",          "<plug>(SubversiveSubstituteToEndOfLine)" },
+    },
+  },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
     dependencies = { "tpope/vim-commentary" },
   },
   { "tpope/vim-abolish" },
-  { "tpope/vim-eunuch",      cmd = { "Rename", "Delete", "Remove", "Chmod" } },
-  { "voldikss/vim-floaterm", cmd = "FloatermNew" },
-  { "wellle/targets.vim",    dependencies = { "wellle/line-targets.vim" } },
+  { "tpope/vim-eunuch",       cmd = { "Rename", "Delete", "Remove", "Chmod" } },
+  {
+    "voldikss/vim-floaterm",
+    cmd = "FloatermNew",
+    init = function()
+      vim.g.floaterm_autoclose = 0
+    end,
+  },
+  { "wellle/targets.vim",                       dependencies = { "wellle/line-targets.vim" } },
   {
     "ibhagwan/fzf-lua",
     config = function()
-      require("config.fuzzy").post()
+      vim.cmd([[
+        inoremap <c-x><c-f> <cmd>lua require("fzf-lua").complete_path()<cr>
+        tunmap <C-h>
+        tunmap <C-j>
+        tunmap <C-k>
+        tunmap <C-l>
+      ]])
+      local fzf = require("fzf-lua")
+      fzf.setup({
+        fzf_colors = true,
+        winopts = {
+          border = vim.g.border_chars,
+        },
+      })
+      fzf.register_ui_select({ winopts = { height = 0.4, width = 0.4 } })
     end,
+    keys = {
+      { "<leader>df", "<cmd>FzfLua files<cr>" },
+      { "<leader>dg", "<cmd>FzfLua grep<cr>" },
+      { "<leader>db", "<cmd>FzfLua buffers<cr>" },
+      { "<leader>dh", "<cmd>FzfLua help_tags<cr>" },
+      { "<leader>dc", "<cmd>FzfLua files cmd=yadm\\ ls-files cwd=~/<cr>" },
+    },
   },
   { "hiberabyss/nvim-dbg" },
   { "someone-stole-my-name/yaml-companion.nvim" },
@@ -202,8 +315,6 @@ local plugins = {
     dependencies = {
       { "rafamadriz/friendly-snippets" },
       { "petertriho/cmp-git" },
-      { "zbirenbaum/copilot.lua" },
-      { "zbirenbaum/copilot-cmp" },
       { "onsails/lspkind-nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "hrsh7th/cmp-buffer" },

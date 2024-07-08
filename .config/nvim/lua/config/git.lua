@@ -5,30 +5,18 @@ function M.post()
 
   require("gitsigns").setup({
     signs = {
-      add = { hl = "GitSignsAdd", text = "┃", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+      add = { text = "┃" },
       change = {
-        hl = "GitSignsChange",
         text = "┃",
-        numhl = "GitSignsChangeNr",
-        linehl = "GitSignsChangeLn",
       },
       delete = {
-        hl = "GitSignsDelete",
         text = "┃",
-        numhl = "GitSignsDeleteNr",
-        linehl = "GitSignsDeleteLn",
       },
       topdelete = {
-        hl = "GitSignsDelete",
         text = "┳",
-        numhl = "GitSignsDeleteNr",
-        linehl = "GitSignsDeleteLn",
       },
       changedelete = {
-        hl = "GitSignsChange",
         text = "~",
-        numhl = "GitSignsChangeNr",
-        linehl = "GitSignsChangeLn",
       },
     },
     signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
@@ -55,7 +43,9 @@ function M.post()
       row = 0,
       col = 1,
     },
-    yadm = { enable = true },
+        _on_attach_pre = function(_, callback)
+        require("gitsigns-yadm").yadm_signs(callback)
+    end,
   })
   local keymaps = {
     -- Default keymap options

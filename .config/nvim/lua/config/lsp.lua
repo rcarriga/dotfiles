@@ -9,7 +9,7 @@ local function configure_watching()
     OwnerModified = 2,
     AttributeModified = 2,
     MovedFrom = 1,
-    MovedTo = 3
+    MovedTo = 3,
     -- IsFile
     -- IsDir
     -- IsSymLink
@@ -21,11 +21,11 @@ local function configure_watching()
   --- @param opts table
   --- @param callback fun(path: string, event: integer)
   local function fswatch_output_handler(data, opts, callback)
-    local d = vim.split(data, '%s+')
+    local d = vim.split(data, "%s+")
     local cpath = d[1]
 
     for i = 2, #d do
-      if d[i] == 'IsDir' or d[i] == 'IsSymLink' or d[i] == 'PlatformSpecific' then
+      if d[i] == "IsDir" or d[i] == "IsSymLink" or d[i] == "PlatformSpecific" then
         return
       end
     end
@@ -48,21 +48,22 @@ local function configure_watching()
 
   local function fswatch(path, opts, callback)
     local obj = vim.system({
-      'fswatch',
-      '--recursive',
-      '--event-flags',
-      '--exclude', '/.git/',
-      path
+      "fswatch",
+      "--recursive",
+      "--event-flags",
+      "--exclude",
+      "/.git/",
+      path,
     }, {
       stdout = function(error, data)
         if data then
-          for line in vim.gsplit(data, '\n', { plain = true, trimempty = true }) do
+          for line in vim.gsplit(data, "\n", { plain = true, trimempty = true }) do
             fswatch_output_handler(line, opts, callback)
           end
         elseif error then
           vim.notify(error, vim.log.levels.ERROR, { title = "LSP Watch" })
         end
-      end
+      end,
     })
 
     return function()
@@ -70,8 +71,8 @@ local function configure_watching()
     end
   end
 
-  if vim.fn.executable('fswatch') == 1 then
-    require('vim.lsp._watchfiles')._watchfunc = fswatch
+  if vim.fn.executable("fswatch") == 1 then
+    require("vim.lsp._watchfiles")._watchfunc = fswatch
   end
 end
 
@@ -81,9 +82,16 @@ function M.post()
   if has_status then
     lsp_status.register_progress()
   end
+  require("trouble").setup({})
   vim.diagnostic.config({
     signs = {
       priority = 5,
+      text = {
+        [vim.diagnostic.severity.ERROR] = "▶",
+        [vim.diagnostic.severity.WARN] = "▶",
+        [vim.diagnostic.severity.INFO] = "▶",
+        [vim.diagnostic.severity.HINT] = "▶",
+      },
     },
     underline = false,
     virtual_text = {
@@ -96,12 +104,6 @@ function M.post()
     },
     severity_sort = true,
   })
-  vim.cmd([[
-    sign define DiagnosticSignError text=▶ texthl=DiagnosticError numhl=DiagnosticsError
-    sign define DiagnosticSignWarn text=▶ texthl=DiagnosticWarn numhl=DiagnosticsWarning
-    sign define DiagnosticSignInfo text=▶ texthl=DiagnosticInfo numhl=DiagnosticsInformation
-    sign define DiagnosticSignHint text=▶ texthl=DiagnosticHint numhl=DiagnosticsHint
-  ]])
 
   require("config.lsp.handlers").setup()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -189,12 +191,12 @@ function M.post()
     vim.keymap.set("n", "<leader>a", aerial.toggle, { buffer = bufnr })
 
     if server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(bufnr, true)
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
 
-    if client.server_capabilities.codeLensProvider then
-      vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")
-    end
+    -- if client.server_capabilities.codeLensProvider and #vim.tbl_keys(client.server_capabilities.codeLensProvider) > 0 then
+    --   vim.cmd("autocmd BufEnter,CursorHold,InsertLeave <buffer> lua vim.lsp.codelens.refresh()")
+    -- end
 
     local lsp_util = require("config.lsp.util")
     local fzf = require("fzf-lua")
@@ -225,7 +227,7 @@ function M.post()
           vim.lsp.buf.format({ timeout_ms = 5000 })
         end,
         ["<space>lc"] = function()
-          vim.cmd("TroubleClose")
+          require("trouble").close()
         end,
       },
       i = {

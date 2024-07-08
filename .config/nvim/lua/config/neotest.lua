@@ -24,7 +24,6 @@ function M.post()
     return env
   end
   neotest.setup({
-    log_level = vim.log.levels.DEBUG,
     discovery = {
       filter_dir = function(dir)
         return not vim.startswith(dir, "node_modules")
