@@ -80,9 +80,43 @@ local plugins = {
       })
     end,
   },
-  -- { "Vimjas/vim-python-pep8-indent" },
   { "nvimtools/none-ls.nvim" },
-  { "folke/noice.nvim",      dependencies = { "MunifTanjim/nui.nvim" } },
+  {
+    "folke/noice.nvim",
+    config = function()
+      vim.defer_fn(function()
+        require("noice").setup({
+          cmdline = {
+            enabled = false,
+          },
+          messages = {
+            enabled = false,
+          },
+          popupmenu = {
+            enabled = false,
+          },
+          commands = {},
+          notify = {
+            enabled = false,
+          },
+          lsp = {
+            progress = {
+              enabled = false,
+            },
+            override = {
+              ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+              ["vim.lsp.util.stylize_markdown"] = true,
+              ["cmp.entry.get_documentation"] = true,
+            },
+          },
+          presets = {
+            lsp_doc_border = true,
+          },
+        })
+      end, 1000)
+    end,
+    dependencies = { "MunifTanjim/nui.nvim" },
+  },
   {
     "nvim-neotest/neotest",
     dir = maybe_local("neotest"),
@@ -112,20 +146,120 @@ local plugins = {
     "rcarriga/nvim-notify",
     dir = maybe_local("nvim-notify"),
     config = function()
-      require("config.notify").post()
+      local base_stages = require("notify.stages.slide")("bottom_up")
+      local notify = require("notify")
+
+      notify.setup({
+        render = "wrapped-compact",
+        stages = {
+          function(...)
+            local opts = base_stages[1](...)
+            if not opts then
+              return
+            end
+            return opts
+          end,
+          unpack(base_stages, 2),
+        },
+        background_colour = "#121212",
+        max_width = 80,
+        on_open = function(win)
+          vim.api.nvim_set_option_value("wrap", true, { win = win })
+        end,
+      })
+
+      vim.api.nvim_set_keymap("n", "<leader>p", "", { callback = notify.dismiss })
     end,
   },
   {
-    "lewis6991/gitsigns.nvim",
-    dependencies = {
-      "sindrets/diffview.nvim",
-      "ruifm/gitlinker.nvim",
-      "seanbreckenridge/gitsigns-yadm.nvim",
-      { "TimUntersberger/neogit" },
+    {
+      "lewis6991/gitsigns.nvim",
+      event = "VeryLazy",
+      config = function()
+        require("gitsigns").setup({
+          signs = {
+            add = { text = "┃" },
+            change = {
+              text = "┃",
+            },
+            delete = {
+              text = "┃",
+            },
+            topdelete = {
+              text = "┳",
+            },
+            changedelete = {
+              text = "~",
+            },
+          },
+          _on_attach_pre = function(_, callback)
+            require("gitsigns-yadm").yadm_signs(callback)
+          end,
+        })
+      end,
+      keys = {
+        {
+          "]h",
+          "&diff ? ']h' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'",
+          expr = true,
+        },
+        {
+          "[h",
+          "&diff ? '[h' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'",
+          expr = true,
+        },
+        { "<leader>hs", '<cmd>lua require"gitsigns".stage_hunk()<CR>' },
+        { "<leader>hu", '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>' },
+        { "<leader>hr", '<cmd>lua require"gitsigns".reset_hunk()<CR>' },
+        { "<leader>hR", '<cmd>lua require"gitsigns".reset_buffer()<CR>' },
+        { "<leader>hp", '<cmd>lua require"gitsigns".preview_hunk()<CR>' },
+        { "<leader>hb", '<cmd>lua require"gitsigns".blame_line({full = true})<CR>' },
+        { "<leader>hU", '<cmd>lua require"gitsigns".reset_buffer_index()<CR>' },
+        {
+          "<leader>hs",
+          '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+          mode = "v",
+        },
+        {
+          "<leader>hr",
+          '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+          mode = "v",
+        },
+        { "ih", ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', mode = "o" },
+        { "ih", ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>', mode = "x" },
+      },
     },
-    config = function()
-      require("config.git").post()
-    end,
+
+    {
+      "sindrets/diffview.nvim",
+      cmd = { "DiffviewOpen" },
+      config = function()
+        require("diffview").setup({})
+      end,
+    },
+    {
+      "ruifm/gitlinker.nvim",
+      keys = "<leader>gy",
+      config = function()
+        require("gitlinker").setup()
+      end,
+    },
+    "seanbreckenridge/gitsigns-yadm.nvim",
+    {
+      "aaronhallaert/advanced-git-search.nvim",
+      cmd = { "AdvancedGitSearch" },
+      config = function()
+        require("advanced_git_search.fzf").setup({
+          diff_plugin = "diffview",
+        })
+      end,
+    },
+    {
+      "TimUntersberger/neogit",
+      config = function()
+        require("neogit").setup({})
+      end,
+    },
   },
   {
     "iamcco/markdown-preview.nvim",
@@ -148,7 +282,7 @@ local plugins = {
   { "godlygeek/tabular",          cmd = "Tabularize" },
   {
     "kyazdani42/nvim-tree.lua",
-    keys = {{ "<leader>x", "<CMD>NvimTreeToggle<CR>" }},
+    keys = { { "<leader>x", "<CMD>NvimTreeToggle<CR>" } },
     config = function()
       require("nvim-tree").setup({
         view = {
@@ -209,7 +343,6 @@ local plugins = {
         "nvim-lua/lsp-status.nvim",
         "glepnir/lspsaga.nvim",
         "folke/lua-dev.nvim",
-        "simrat39/rust-tools.nvim",
         "stevearc/aerial.nvim",
       },
     },
@@ -313,21 +446,81 @@ local plugins = {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      { "rafamadriz/friendly-snippets" },
       { "petertriho/cmp-git" },
-      { "onsails/lspkind-nvim" },
       { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-cmdline" },
-      { "hrsh7th/cmp-path" },
-      { "rcarriga/cmp-dap",            dir = maybe_local("cmp-dap") },
-      { "L3MON4D3/LuaSnip" },
-      {
-        "saadparwaiz1/cmp_luasnip",
-      },
+      { "rcarriga/cmp-dap",    dir = maybe_local("cmp-dap") },
     },
     config = function()
-      require("config.completion").post()
+      local cmp = require("cmp")
+      require("cmp_git").setup({})
+
+      cmp.setup({
+        performance = {
+          debounce = 30,
+          throttle = 10,
+          fetching_timeout = 100,
+        },
+        window = {
+          completion = {
+            border = vim.g.border_chars,
+          },
+          documentation = {
+            border = vim.g.border_chars,
+          },
+        },
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            function(a, b)
+              local a_under = select(2, a.completion_item.label:find("^_+")) or 0
+              local b_under = select(2, b.completion_item.label:find("^_+")) or 0
+              if a_under == b_under then
+                return nil
+              end
+              return a_under < b_under
+            end,
+            cmp.config.compare.score,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
+        experimental = {
+          ghost_text = {
+            hl_group = "Comment",
+          },
+        },
+        mapping = {
+          ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+          ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+          ["<C-e>"] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+          }),
+          ["<CR>"] = cmp.mapping.confirm({}),
+          ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+          ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+        },
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "git" },
+        }),
+        view = {
+          entries = "custom",
+        },
+        enabled = function()
+          return vim.api.nvim_get_option_value("buftype", {}) ~= "prompt"
+              or require("cmp_dap").is_dap_buffer()
+        end,
+      })
+      cmp.setup.filetype({ "dap-repl", "dapui_watches" }, {
+        sources = {
+          { name = "dap" },
+        },
+      })
     end,
   },
 }

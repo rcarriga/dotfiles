@@ -30,10 +30,12 @@ function M.post()
     },
     render = {
       max_value_lines = 3,
+      sort_variables = function(a, b)
+        return a.name < b.name
+      end,
     },
     floating = { max_width = 0.9, max_height = 0.5, border = vim.g.border_chars },
   })
-  pcall(require("dap.ext.vscode").load_launchjs)
 
   local mappings = {
     ["<M-c>"] = dap.continue,
@@ -66,6 +68,7 @@ function M.post()
   -- Prevent race condition where mason isn't setup
   -- TODO: Find a better way to do this
   vim.schedule(function()
+    pcall(require("dap.ext.vscode").load_launchjs)
     local dap_python = require("dap-python")
 
     local mason_registry = require("mason-registry")
@@ -73,42 +76,7 @@ function M.post()
       mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python",
       { include_configs = false }
     )
-
-    dap.adapters.node2 = {
-      type = "executable",
-      command = "node",
-      args = {
-        mason_registry.get_package("node-debug2-adapter"):get_install_path()
-        .. "/out/src/nodeDebug.js",
-      },
-    }
   end)
-
-  dap.adapters.nlua = function(callback, config)
-    callback({ type = "server", host = config.host, port = config.port })
-  end
-
-  dap.configurations.javascript = {
-    {
-      name = "Launch",
-      type = "node2",
-      request = "launch",
-      program = "${file}",
-      args = { "--stdio" },
-      cwd = vim.fn.getcwd(),
-      env = { ELECTRON_RUN_AS_NODE = "true" },
-      sourceMaps = true,
-      protocol = "inspector",
-      console = "integratedTerminal",
-    },
-    {
-      -- For this to work you need to make sure the node process is started with the `--inspect` flag.
-      name = "Attach to process",
-      type = "node2",
-      request = "attach",
-      processId = require("dap.utils").pick_process,
-    },
-  }
 
   dap.configurations.python = {
     {
@@ -147,30 +115,6 @@ function M.post()
       end,
       port = function()
         return tonumber(vim.fn.input("Port [5678]: ")) or 5678
-      end,
-    },
-  }
-
-  dap.adapters.lldb = {
-    type = "executable",
-    attach = { pidProperty = "pid", pidSelect = "ask" },
-    command = "lldb-vscode",
-    env = { LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = "YES" },
-  }
-
-  dap.adapters.rust = dap.adapters.lldb
-
-  dap.configurations.rust = {
-    {
-      type = "rust",
-      request = "launch",
-      name = "lldb",
-      program = function()
-        local metadata_json = vim.fn.system("cargo metadata --format-version 1 --no-deps")
-        local metadata = vim.fn.json_decode(metadata_json)
-        local target_name = metadata.packages[1].targets[1].name
-        local target_dir = metadata.target_directory
-        return target_dir .. "/debug/" .. target_name
       end,
     },
   }
