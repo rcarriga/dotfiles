@@ -4,7 +4,6 @@ function M.setup(on_attach, capabilities)
   local null_ls = require("null-ls")
   local blt = null_ls.builtins
   local lspconfig = require("lspconfig")
-  local lsputil = require("lspconfig.util")
 
   null_ls.setup({
     on_attach = on_attach,
@@ -14,10 +13,8 @@ function M.setup(on_attach, capabilities)
       blt.formatting.stylua.with({
         extra_args = { "--config-path", vim.fs.normalize("~/.config/stylua.toml") },
       }),
-      blt.formatting.black.with({ args = { "--quiet", "-" } }),
       blt.formatting.goimports,
       blt.formatting.gofumpt,
-      blt.formatting.isort,
       blt.formatting.prettier,
       blt.formatting.shfmt,
     },
@@ -47,7 +44,17 @@ function M.setup(on_attach, capabilities)
     end,
   })
   local server_configs = {
+    ruff = {
+      on_attach = on_attach,
+      init_options = {
+        settings = {
+          configurationPreference = "filesystemFirst",
+        },
+      },
+    },
+
     basedpyright = {
+      on_attach = on_attach,
       before_init = function(_, config)
         config.settings.python.pythonPath = require("util").get_python_path(config.root_dir)
       end,
@@ -71,8 +78,10 @@ function M.setup(on_attach, capabilities)
       settings = {
         Lua = {
           hint = {
-            enable = false,
-            setType = false,
+            enable = true,
+            paramName = "Disable",
+            paramType = false,
+            setType = true,
             arrayIndex = false,
           },
           IntelliSense = {
@@ -102,6 +111,7 @@ function M.setup(on_attach, capabilities)
     },
 
     volar = {
+      on_attach = on_attach,
       filetypes = {
         "typescript",
         "javascript",
@@ -113,6 +123,7 @@ function M.setup(on_attach, capabilities)
       capabilities = capabilities,
     },
     yamlls = require("yaml-companion").setup({
+      on_attach = on_attach,
       lspconfig = {
         on_attach = on_attach,
         settings = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
@@ -120,6 +131,7 @@ function M.setup(on_attach, capabilities)
         capabilities = capabilities,
       },
     }),
+    ocamllsp = {},
   }
 
   local mason_handlers = {

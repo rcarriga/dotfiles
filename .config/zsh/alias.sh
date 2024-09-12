@@ -46,7 +46,7 @@ alias uuid="python -c \"import uuid; print(str(uuid.uuid4()));\""
 alias kc="kubectl"
 alias mk="minikube"
 alias d="docker"
-alias dc="docker-compose"
+alias dc="docker compose"
 
 alias sa="sudo aura"
 alias sc="sudo systemctl"

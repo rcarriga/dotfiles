@@ -1,3 +1,4 @@
+;extends
 ;; Taken from https://github.com/stsewd/sphinx.nvim
 ((role) @function.builtin
  (#any-of?

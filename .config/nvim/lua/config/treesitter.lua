@@ -95,10 +95,11 @@ function M.post()
       },
     },
   })
-  require('ts_context_commentstring').setup {}
+  require("ts_context_commentstring").setup({})
 
   vim.cmd([[omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>]])
   vim.cmd([[vnoremap <silent> m :lua require('tsht').nodes()<CR>]])
+
 end
 
 return M

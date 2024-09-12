@@ -150,7 +150,7 @@ label-mounted-background = ${colors.fs}
 type = internal/cpu
 interval = 5
 format-background = ${colors.cpu}
-label = "   %percentage-sum%%  "
+label = "     %percentage-sum%%   "
 
 [module/memory]
 type = internal/memory

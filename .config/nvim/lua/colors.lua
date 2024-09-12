@@ -287,6 +287,19 @@ local highlights = {
   NeogitHunkHeader = { fg = "#cccccc" },
   NeogitHunkHeaderHighlight = { fg = "#cccccc" },
 
+
+  GitGraphHash =       { fg = c.cyan },
+  GitGraphTimestamp =  { fg = c.grey3 },
+  GitGraphAuthor =     { fg = c.red },
+  GitGraphBranchName = { fg = c.green },
+  GitGraphBranchTag =  { fg = c.yellow, bold = true },
+  GitGraphBranchMsg =  { fg = c.grey5, bold = true },
+  GitGraphBranch1  =   { fg = c.cyan },
+  GitGraphBranch2  =   { fg = c.organge  },
+  GitGraphBranch3  =   { fg = c.red },
+  GitGraphBranch4  =   { fg = c.violet },
+  GitGraphBranch5  =   { fg = c.grey3 },
+
   FzfLuaBorder = { fg = c.border },
 
   NeotestPassedWinBar = { fg = c.success, bg = c.grey1 },

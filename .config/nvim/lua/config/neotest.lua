@@ -26,11 +26,17 @@ function M.post()
   neotest.setup({
     discovery = {
       filter_dir = function(dir)
-        return not vim.startswith(dir, "node_modules")
+        for _, d in ipairs({ "node_modules", "junk" }) do
+          if vim.startswith(dir, d) then
+            return false
+          end
+        end
+        return true
       end,
     },
     quickfix = {
       open = false,
+      enable = false,
     },
     status = {
       virtual_text = true,
@@ -50,7 +56,8 @@ function M.post()
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
-        pytest_discover_instances = false,
+        pytest_discover_instances = true,
+        args = { "-vv" },
       }),
       require("neotest-vitest"),
       require("neotest-plenary"),

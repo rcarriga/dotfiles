@@ -118,6 +118,12 @@ function M.post()
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
+
+  capabilities = vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    require("lsp-file-operations").default_capabilities()
+  )
   require("lspsaga").setup({
     diagnostic = {
       on_insert = false,
@@ -155,32 +161,6 @@ function M.post()
     },
   })
 
-  local aerial = require("aerial")
-  aerial.setup({
-    attach_mode = "global",
-    backends = { "lsp", "treesitter", "markdown", "man" },
-    layout = {
-      min_width = 28,
-    },
-    show_guides = true,
-    filter_kind = false,
-    guides = {
-      mid_item = "├ ",
-      last_item = "└ ",
-      nested_top = "│ ",
-      whitespace = "  ",
-    },
-    keymaps = {
-      ["[y"] = "actions.prev",
-      ["]y"] = "actions.next",
-      ["[Y"] = "actions.prev_up",
-      ["]Y"] = "actions.next_up",
-      ["{"] = false,
-      ["}"] = false,
-      ["[["] = false,
-      ["]]"] = false,
-    },
-  })
   local on_attach = function(client, bufnr)
     if has_status then
       lsp_status.on_attach(client)
@@ -188,10 +168,12 @@ function M.post()
     ---@type nio.lsp.types.ServerCapabilities
     local server_capabilities = client.server_capabilities
 
-    vim.keymap.set("n", "<leader>a", aerial.toggle, { buffer = bufnr })
-
     if server_capabilities.inlayHintProvider then
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+
+    if client.name == "ruff" then
+      server_capabilities.hoverProvider = false
     end
 
     -- if client.server_capabilities.codeLensProvider and #vim.tbl_keys(client.server_capabilities.codeLensProvider) > 0 then
@@ -219,14 +201,14 @@ function M.post()
         ["]d"] = vim.diagnostic.goto_next,
         ["[d"] = vim.diagnostic.goto_prev,
         ["<C-s>"] = vim.lsp.buf.signature_help,
-        ["<space>la"] = function()
+        ["<leader>la"] = function()
           vim.cmd("Lspsaga code_action")
         end,
-        ["<space>ls"] = fzf.lsp_document_symbols,
-        ["<space>lf"] = function()
+        ["<leader>ls"] = fzf.lsp_document_symbols,
+        ["<leader>lf"] = function()
           vim.lsp.buf.format({ timeout_ms = 5000 })
         end,
-        ["<space>lc"] = function()
+        ["<leader>lc"] = function()
           require("trouble").close()
         end,
       },
@@ -243,7 +225,7 @@ function M.post()
     vim.api.nvim_buf_set_keymap(
       bufnr,
       "x",
-      "<space>lf",
+      "<leader>lf",
       "",
       { callback = vim.lsp.buf.range_formatting, noremap = true }
     )

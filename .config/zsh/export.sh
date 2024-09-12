@@ -2,7 +2,7 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 export KEYTIMEOUT=1
 [[ $FPATH ]] && export FPATH="$ZDOTDIR/completions:$ZDOTDIR/functions:${FPATH}:$ZDOTDIR/functions.local" 
 export TERM=xterm-kitty
-export MANPATH="/usr/local/man:$MANPATH"
+export MANPATH="/home/ronan/.opam/default:/usr/local/man:$MANPATH"
 export EDITOR="nvim"
 export SCRIPT_DIR=$HOME/.config/scripts
 export MANPAGER='nvim +Man!'
@@ -11,6 +11,7 @@ export ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 export BAT_THEME="Monokai Extended Origin"
 export ZVM_VI_SURROUND_BINDKEY="s-prefix"
 export PIPENV_VENV_IN_PROJECT=1
+export OPAM_SWITCH_PREFIX='/home/ronan/.opam/default';
 
 # fzf
 export FZF_DEFAULT_COMMAND="rg --files --max-depth=10 -g \"!.git\" -g \"!undodir\" -g \"!assets\" --hidden --color never --follow"
@@ -46,7 +47,7 @@ export PYLINTHOME="$XDG_CONFIG_HOME/pylint"
 export XMONAD_CACHE_DIR="$XDG_CACHE_HOME/xmonad"
 export XMONAD_CONFIG_DIR="$XDG_CONFIG_HOME/xmonad"
 export XMONAD_DATA_DIR="$XDG_DATA_HOME/xmonad"
-export PATH="$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:${KREW_ROOT:-$HOME/.krew}/bin:$HOME/.nix-profile/bin:$PATH"
+export PATH="/home/ronan/.opam/default/bin:$SCRIPT_DIR:$HOME/.local/bin:$HOME/bin:/usr/local/bin:/home/ronan/.pyenv/bin:$GOPATH/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$M2_HOME/bin:$npm_config_prefix/bin:$HOME/.cache/gem/ruby/3.0.0/bin:$HOME/.cargo/bin/:${KREW_ROOT:-$HOME/.krew}/bin:$HOME/.nix-profile/bin:$PATH"
 export LD_LIBRARY_PATH="/usr/local/cuda-11.0/lib64:/usr/local/lib"
 export HELM_EXPERIMENTAL_OCI=1
 export INPUTRC="${XDG_CONFIG_HOME}/inputrc"

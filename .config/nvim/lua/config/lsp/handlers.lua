@@ -50,7 +50,7 @@ function M.setup()
     vim.api.nvim_win_set_buf(0, buf)
   end, {})
 
-  local handle_locations = function(err, result, ctx, config)
+  local handle_locations = function(err, result, ctx, _)
     local client_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
     if err then
       vim.notify(err.message)

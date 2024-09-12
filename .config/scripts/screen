@@ -72,11 +72,11 @@ match sorted(monitors.connected, key=lambda monitor: monitor.width):
     case [builtin]:
         command.extend(monitor_to_flags(builtin, "0x0"))
     case [builtin, external]:
-        command.extend(monitor_to_flags(external, "0x0"))
+        command.extend(monitor_to_flags(external, f"{builtin.width}x0"))
         command.extend(
             monitor_to_flags(
                 builtin,
-                f"{external.width}x{external.height - builtin.height}",
+                f"0x{external.height - builtin.height}",
             )
         )
     case _:

@@ -23,6 +23,18 @@ end
 
 local plugins = {
   {
+    "mikesmithgh/kitty-scrollback.nvim",
+    enabled = true,
+    lazy = true,
+    cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
+    event = { 'User KittyScrollbackLaunch' },
+    -- version = '*', -- latest stable version, may have breaking changes if major version changed
+    -- version = '^5.0.0', -- pin major version, include fixes and features that do not have breaking changes
+    config = function()
+      require('kitty-scrollback').setup()
+    end,
+  },
+  {
     "gorbit99/codewindow.nvim",
     config = function()
       local codewindow = require("codewindow")
@@ -139,7 +151,8 @@ local plugins = {
         end,
       },
       { "mfussenegger/nvim-dap-python" },
-      { "rcarriga/nvim-dap-ui",        dir = maybe_local("nvim-dap-ui") },
+      { "rcarriga/nvim-dap-ui",             dir = maybe_local("nvim-dap-ui") },
+      { "jbyuki/one-small-step-for-vimkind" },
     },
   },
   {
@@ -174,7 +187,8 @@ local plugins = {
   {
     {
       "lewis6991/gitsigns.nvim",
-      event = "VeryLazy",
+      -- event = "VeryLazy",
+      lazy = false,
       config = function()
         require("gitsigns").setup({
           signs = {
@@ -192,22 +206,14 @@ local plugins = {
               text = "~",
             },
           },
-          _on_attach_pre = function(_, callback)
-            require("gitsigns-yadm").yadm_signs(callback)
-          end,
+          -- _on_attach_pre = function(_, callback)
+          --   -- require("gitsigns-yadm").yadm_signs(callback)
+          -- end,
         })
       end,
       keys = {
-        {
-          "]h",
-          "&diff ? ']h' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'",
-          expr = true,
-        },
-        {
-          "[h",
-          "&diff ? '[h' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'",
-          expr = true,
-        },
+        { "]h",         "<cmd>lua require'gitsigns.actions'.next_hunk()<CR>" },
+        { "[h",         "<cmd>lua require'gitsigns.actions'prev_hunk()<CR>" },
         { "<leader>hs", '<cmd>lua require"gitsigns".stage_hunk()<CR>' },
         { "<leader>hu", '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>' },
         { "<leader>hr", '<cmd>lua require"gitsigns".reset_hunk()<CR>' },
@@ -236,6 +242,60 @@ local plugins = {
       config = function()
         require("diffview").setup({})
       end,
+    },
+    {
+      "isakbm/gitgraph.nvim",
+      keys = {
+        {
+          "<leader>gl",
+          function()
+            require("gitgraph").draw({}, { all = true, max_count = 5000 })
+          end,
+          desc = "GitGraph - Draw",
+        },
+      },
+      opts = {
+        hooks = {
+          -- Check diff of a commit
+          on_select_commit = function(commit)
+            vim.notify("DiffviewOpen " .. commit.hash .. "^!")
+            vim.cmd(":DiffviewOpen " .. commit.hash .. "^!")
+          end,
+          -- Check diff from commit a -> commit b
+          on_select_range_commit = function(from, to)
+            vim.notify("DiffviewOpen " .. from.hash .. "~1.." .. to.hash)
+            vim.cmd(":DiffviewOpen " .. from.hash .. "~1.." .. to.hash)
+          end,
+        },
+        symbols = {
+          merge_commit = "",
+          commit = "",
+          merge_commit_end = "",
+          commit_end = "",
+
+          -- Advanced symbols
+          GVER = "",
+          GHOR = "",
+          GCLD = "",
+          GCRD = "╭",
+          GCLU = "",
+          GCRU = "",
+          GLRU = "",
+          GLRD = "",
+          GLUD = "",
+          GRUD = "",
+          GFORKU = "",
+          GFORKD = "",
+          GRUDCD = "",
+          GRUDCU = "",
+          GLUDCD = "",
+          GLUDCU = "",
+          GLRDCL = "",
+          GLRDCR = "",
+          GLRUCL = "",
+          GLRUCR = "",
+        },
+      },
     },
     {
       "ruifm/gitlinker.nvim",
@@ -282,8 +342,10 @@ local plugins = {
   { "godlygeek/tabular",          cmd = "Tabularize" },
   {
     "kyazdani42/nvim-tree.lua",
+    dependencies = { "antosha417/nvim-lsp-file-operations" },
     keys = { { "<leader>x", "<CMD>NvimTreeToggle<CR>" } },
     config = function()
+      require("lsp-file-operations").setup()
       require("nvim-tree").setup({
         view = {
           width = 45,
@@ -308,7 +370,7 @@ local plugins = {
     keys = {
       {
         "<leader>td",
-        "<cmd>Trouble diagnostics toggle<cr>",
+        "<cmd>Trouble diagnostics toggle win.size=0.3 win.position=right<cr>",
         desc = "Diagnostics (Trouble)",
       },
       {
@@ -343,7 +405,6 @@ local plugins = {
         "nvim-lua/lsp-status.nvim",
         "glepnir/lspsaga.nvim",
         "folke/lua-dev.nvim",
-        "stevearc/aerial.nvim",
       },
     },
   },
@@ -444,11 +505,24 @@ local plugins = {
     },
   },
   {
+    "kndndrj/nvim-dbee",
+    lazy = false,
+    build = function()
+      require("dbee").install()
+    end,
+    config = function()
+      require("cmp-dbee").setup()
+      require("dbee").setup()
+    end,
+  },
+  {
     "hrsh7th/nvim-cmp",
     dependencies = {
+      { "MattiasMTS/cmp-dbee" },
       { "petertriho/cmp-git" },
       { "hrsh7th/cmp-nvim-lsp" },
       { "rcarriga/cmp-dap",    dir = maybe_local("cmp-dap") },
+      { "onsails/lspkind.nvim" },
     },
     config = function()
       local cmp = require("cmp")
@@ -504,9 +578,13 @@ local plugins = {
           ["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
           ["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
         },
+        formatting = {
+          format = require("lspkind").cmp_format({}),
+        },
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "git" },
+          { name = "cmp-dbee" },
         }),
         view = {
           entries = "custom",
@@ -532,3 +610,89 @@ require("lazy").setup(plugins, {
     colorscheme = {},
   },
 })
+
+-- Function to parse Ruff output and populate the quickfix list
+local function parse_ruff_output(output)
+  local qflist = {}
+  for line in output:gmatch("[^\r\n]+") do
+    -- Assuming Ruff output format is: FILE:LINE:COLUMN: ERROR
+    local filename, lnum, col, text = line:match("([^:]+):(%d+):(%d+): (.+)")
+    if filename and lnum and col and text then
+      table.insert(qflist, {
+        filename = filename,
+        lnum = tonumber(lnum),
+        col = tonumber(col),
+        text = text,
+      })
+    end
+  end
+  return qflist
+end
+
+local nio = require("nio")
+
+---@type nio.tasks.Task | nil
+local running_task
+
+vim.api.nvim_create_user_command("Ruff", function()
+  if running_task then
+    running_task.cancel()
+    running_task = nil
+    vim.notify("Stopped running Ruff")
+    return
+  end
+
+  vim.notify("Running Ruff")
+
+  local group = vim.api.nvim_create_augroup("ruff", { clear = true })
+  local ready_to_run = nio.control.event()
+  ready_to_run.set()
+
+  running_task = nio.run(function()
+    while true do
+      ready_to_run.wait()
+
+      local proc, run_err = nio.process.run({
+        cmd = "python",
+        args = { "-m", "ruff", "check", "--output-format=json" },
+      })
+      assert(not run_err and proc, run_err)
+
+      local output, read_err = proc.stdout.read()
+      assert(not read_err and output, read_err)
+
+      local success, results = pcall(vim.json.decode, output, {})
+      if not success then
+        vim.notify(("Error running Ruff\n%s"):format(proc.stderr.read()), vim.log.levels.ERROR)
+        proc.close()
+
+        return
+      end
+
+      proc.close()
+
+      local qflist = {}
+      for _, result in ipairs(results) do
+        qflist[#qflist + 1] = {
+          filename = result.filename,
+          lnum = result.location.row,
+          col = result.location.column,
+          text = string.format("%s: %s", result.code, result.message),
+        }
+      end
+      table.sort(qflist, function(a, b)
+        return a.filename < b.filename
+      end)
+      nio.fn.setqflist(qflist, "r")
+      vim.cmd("Trouble qflist open")
+      ready_to_run.clear()
+    end
+  end)
+
+  vim.api.nvim_create_autocmd("BufWrite", {
+    group = group,
+    callback = function()
+      ready_to_run.set()
+    end,
+  })
+end, {})

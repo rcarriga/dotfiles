@@ -35,7 +35,7 @@ for opt, val in pairs({
   fillchars = "fold:─,foldclose:,foldopen:,foldsep: ,diff: ,eob: ",
   fixendofline = false,
   foldexpr = "nvim_treesitter#foldexpr()",
-  foldtext = '',
+  foldtext = "",
   foldlevel = 99,
   foldmethod = "expr",
   formatoptions = "lnjqr",
@@ -144,7 +144,7 @@ local util = require("util")
 local runners = {
   python = function(path)
     local python_path
-    for _, client in pairs(vim.lsp.get_clients({bufnr = vim.fn.bufnr(path)})) do
+    for _, client in pairs(vim.lsp.get_clients({ bufnr = vim.fn.bufnr(path) })) do
       if client.settings and client.settings.python then
         python_path = client.settings.python.pythonPath
       end
@@ -188,5 +188,6 @@ vim.cmd([[
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 ]])
 
-require("plugins")
-
+if not vim.g.vscode then
+  require("plugins")
+end

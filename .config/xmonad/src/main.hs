@@ -119,6 +119,7 @@ myKeys mode =
     ("<XF86AudioRaiseVolume>", startScript "volume UP"),
     ("<XF86AudioLowerVolume>", startScript "volume DOWN"),
     ("<XF86AudioMute>", startScript "volume MUTE"),
+    ("<Print>", spawn "flameshot gui"),
     ("C-S-<Space>", spawn "rofi -show drun"),
     ("M-b", namedScratchpadAction myScratchpads "Blueman-manager"),
     ("M-<Tab>", toggleRecentNonEmptyWS),
