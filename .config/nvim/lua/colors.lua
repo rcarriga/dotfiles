@@ -276,10 +276,10 @@ local highlights = {
   logLevelDebug = { fg = c.grey3 },
   logLevelInfo = { fg = c.info },
 
-  MiniMapNormal = { fg = c.hidden },
-  MiniMapSymbolCount = { fg = c.info },
-  MiniMapSymbolLine = { fg = c.cyan },
-  MiniMapSymbolView = { fg = c.hidden },
+  -- MiniMapNormal = { fg = c.hidden },
+  -- MiniMapSymbolCount = { fg = c.info },
+  -- MiniMapSymbolLine = { fg = c.cyan },
+  -- MiniMapSymbolView = { fg = c.hidden },
 
   NeogitDiffAddHighlight = { fg = "#859900" },
   NeogitDiffDeleteHighlight = { fg = "#dc322f" },

@@ -26,12 +26,12 @@ local plugins = {
     "mikesmithgh/kitty-scrollback.nvim",
     enabled = true,
     lazy = true,
-    cmd = { 'KittyScrollbackGenerateKittens', 'KittyScrollbackCheckHealth' },
-    event = { 'User KittyScrollbackLaunch' },
+    cmd = { "KittyScrollbackGenerateKittens", "KittyScrollbackCheckHealth" },
+    event = { "User KittyScrollbackLaunch" },
     -- version = '*', -- latest stable version, may have breaking changes if major version changed
     -- version = '^5.0.0', -- pin major version, include fixes and features that do not have breaking changes
     config = function()
-      require('kitty-scrollback').setup()
+      require("kitty-scrollback").setup()
     end,
   },
   {
@@ -105,6 +105,9 @@ local plugins = {
             enabled = false,
           },
           popupmenu = {
+            enabled = false,
+          },
+          signature = {
             enabled = false,
           },
           commands = {},
@@ -242,6 +245,10 @@ local plugins = {
       config = function()
         require("diffview").setup({})
       end,
+      keys = {
+        { "<leader>gd", "<cmd>DiffviewOpen<CR>" },
+        { "<leader>gD", "<cmd>DiffviewClose<CR>" },
+      },
     },
     {
       "isakbm/gitgraph.nvim",
@@ -367,6 +374,7 @@ local plugins = {
     config = function()
       require("config.lsp").post()
     end,
+    lazy = false,
     keys = {
       {
         "<leader>td",
@@ -505,18 +513,35 @@ local plugins = {
     },
   },
   {
-    "kndndrj/nvim-dbee",
+    "saghen/blink.cmp",
     lazy = false,
-    build = function()
-      require("dbee").install()
-    end,
-    config = function()
-      require("cmp-dbee").setup()
-      require("dbee").setup()
-    end,
+    dependencies = "rafamadriz/friendly-snippets",
+    build = "cargo build --release",
+    opts = {
+      blocked_filetypes = { "markdown" },
+      highlight = {
+        use_nvim_cmp_as_default = true,
+      },
+      windows = {
+        autocomplete = {
+          border = vim.g.border_chars,
+        },
+        documentation = {
+          border = vim.g.border_chars,
+          auto_show = true,
+        },
+        signature_help = {
+          border = vim.g.border_chars,
+        },
+      },
+      nerd_font_variant = "mono",
+      accept = { auto_brackets = { enabled = true } },
+      trigger = { signature_help = { enabled = false } },
+    },
   },
   {
-    "hrsh7th/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
+    enabled = false,
     dependencies = {
       { "MattiasMTS/cmp-dbee" },
       { "petertriho/cmp-git" },

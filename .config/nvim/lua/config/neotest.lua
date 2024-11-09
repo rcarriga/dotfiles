@@ -7,7 +7,7 @@ function M.post()
   local get_env = function()
     local env = {}
     local file = ".env"
-    if not lib.files.exists(file) then
+    if not lib.files.exists(file) or true then
       return {}
     end
 
@@ -24,6 +24,7 @@ function M.post()
     return env
   end
   neotest.setup({
+    log_level = vim.log.levels.DEBUG,
     discovery = {
       filter_dir = function(dir)
         for _, d in ipairs({ "node_modules", "junk" }) do

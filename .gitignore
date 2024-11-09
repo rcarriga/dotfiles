@@ -19,4 +19,4 @@ undodir
 .config/nvim/spell
 test.py
 Pipfile*
-junk/*
+junk*/*

@@ -78,7 +78,8 @@ main = do
 myScratchpads :: [NamedScratchpad]
 myScratchpads =
   [ NS "bashtop" "kitty bashtop" (title =? "bashtop") defaultFloating,
-    NS "Blueman-manager" "blueman-manager" (className =? "Blueman-manager") defaultFloating
+    NS "Blueman-manager" "blueman-manager" (className =? "Blueman-manager") defaultFloating,
+    NS "galaxybudsclient" "galaxybudsclient" (className =? "galaxybudsclient") defaultFloating
   ]
 
 myWorkspaces :: [String]
@@ -122,6 +123,7 @@ myKeys mode =
     ("<Print>", spawn "flameshot gui"),
     ("C-S-<Space>", spawn "rofi -show drun"),
     ("M-b", namedScratchpadAction myScratchpads "Blueman-manager"),
+    ("M-c", namedScratchpadAction myScratchpads "galaxybudsclient"),
     ("M-<Tab>", toggleRecentNonEmptyWS),
     ( "M-S-t",
       spawn $ "pkill polybar || (sleep 1 && polybar " <> mode <> ")"

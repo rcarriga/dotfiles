@@ -8,10 +8,10 @@ function M.setup()
     "info",
     "info", -- map both hint and info to info?
   }
-  vim.lsp.handlers["window/showMessage"] = function(_, method, params, client_id)
-    local client = vim.lsp.get_client_by_id(client_id)
-    vim.notify(method.message, severity[params.type], { title = client and client.name })
-  end
+  -- vim.lsp.handlers["window/showMessage"] = function(_, method, params, client_id)
+  --   local client = vim.lsp.get_client_by_id(client_id)
+  --   vim.notify(method.message, severity[params.type], { title = client and client.name })
+  -- end
 
   local base_logger = vim.lsp.handlers["window/logMessage"]
   local protocol = vim.lsp.protocol

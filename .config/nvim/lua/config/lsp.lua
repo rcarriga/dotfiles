@@ -110,10 +110,10 @@ function M.post()
   if has_status then
     capabilities = vim.tbl_deep_extend("force", capabilities, lsp_status.capabilities)
   end
-  pcall(function()
-    capabilities =
-        vim.tbl_deep_extend("keep", require("cmp_nvim_lsp").default_capabilities(), capabilities)
-  end)
+  -- pcall(function()
+  --   capabilities =
+  --       vim.tbl_deep_extend("keep", require("cmp_nvim_lsp").default_capabilities(), capabilities)
+  -- end)
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
