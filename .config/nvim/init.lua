@@ -12,6 +12,20 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- vim.api.nvim_create_autocmd("SwapExists", {
+--   callback = function()
+--     vim.notify("Existing swap file found for new buffer", vim.log.levels.WARN)
+--     vim.v.swapchoice = "e"
+--   end,
+-- })
+
+-- https://github.com/neovim/neovim/issues/28692
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+  end,
+})
+
 -- Tell neovim which python to use
 vim.g.python3_host_prog = "/usr/bin/python3"
 
@@ -62,6 +76,7 @@ for opt, val in pairs({
   undofile = true,
   viewoptions = "cursor,folds,slash,unix",
   wrap = false,
+  winborder = "rounded"
 }) do
   local suc, err = pcall(set, opt, val)
   if not suc then
@@ -156,11 +171,6 @@ local runners = {
     vim.cmd(string.format("source %s", vim.fn.expand("%")))
   end,
 }
-
-vim.keymap.set("n", "<leader>r", function()
-  local filetype = vim.bo.filetype
-  runners[filetype](vim.fn.expand("%"))
-end, { silent = true, noremap = true })
 
 P = function(...)
   local obj = select("#", ...) == 1 and select(1, ...) or { ... }

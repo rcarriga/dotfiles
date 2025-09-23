@@ -49,6 +49,7 @@ import XMonad.Util.NamedScratchpad
     namedScratchpadAction,
   )
 import XMonad.Util.Run (safeSpawn)
+import XMonad.Hooks.SetWMName
 
 startScript :: String -> X ()
 startScript script_name = spawn $ "zsh $HOME/.config/scripts/" ++ script_name
@@ -69,7 +70,9 @@ main = do
               normalBorderColor = "#3E3D32",
               focusedBorderColor = "#bdbdbd",
               layoutHook = myLayoutHook,
-              startupHook = myStartupHook mode,
+              startupHook = do 
+                myStartupHook mode
+                setWMName "LG3D", -- https://bbs.archlinux.org/viewtopic.php?id=95437
               logHook = sendWorkspaceNames workspaceNameFile,
               borderWidth = 2
             }

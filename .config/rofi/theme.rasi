@@ -70,7 +70,7 @@ textbox {
 }
 
 listview {
-  require-input : true;
+  /* require-input : true; */
   columns       : 2;
   spacing       : 8px;
   fixed-height  : true;

@@ -83,6 +83,6 @@ match sorted(monitors.connected, key=lambda monitor: monitor.width):
         raise NotImplementedError(monitors.connected)
 
 
-print(command)
+print(' '.join(command))
 sp.run(command)
 EOF

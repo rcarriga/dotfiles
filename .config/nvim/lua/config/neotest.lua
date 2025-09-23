@@ -24,10 +24,9 @@ function M.post()
     return env
   end
   neotest.setup({
-    log_level = vim.log.levels.DEBUG,
     discovery = {
       filter_dir = function(dir)
-        for _, d in ipairs({ "node_modules", "junk" }) do
+        for _, d in ipairs({ "node_modules", "junk", ".venv", "__pycache__" }) do
           if vim.startswith(dir, d) then
             return false
           end
@@ -37,7 +36,7 @@ function M.post()
     },
     quickfix = {
       open = false,
-      enable = false,
+      enabled = false,
     },
     status = {
       virtual_text = true,
@@ -45,6 +44,9 @@ function M.post()
     },
     output = {
       open_on_run = false,
+    },
+    watch = {
+      enabled = false,
     },
     icons = {
       running_animated = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" },
@@ -57,7 +59,7 @@ function M.post()
     adapters = {
       require("neotest-python")({
         dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
-        pytest_discover_instances = true,
+        -- pytest_discover_instances = true,
         args = { "-vv" },
       }),
       require("neotest-vitest"),

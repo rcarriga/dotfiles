@@ -1,4 +1,50 @@
+local nio = require("nio")
+
 local M = {}
+
+local function apply_pyright_imports()
+  nio.run(function()
+    local buf = nio.api.nvim_get_current_buf()
+
+    local client = nio.lsp.get_clients({ name = "basedpyright" })[1]
+    if client == nil then
+      vim.notify("No client found", vim.log.levels.WARN)
+      return
+    end
+
+    local uri = vim.uri_from_bufnr(buf)
+
+    local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, true)
+    local diags = vim.lsp.diagnostic.from(vim.diagnostic.get(buf, {}))
+
+    ---@type nio.lsp.types.TextEdit[]
+    local edits = {}
+
+    for _, diag in ipairs(diags) do
+      if diag.code == "reportUndefinedVariable" then
+        local err, response = client.request.textDocument_codeAction({
+          textDocument = { uri = uri },
+          context = {
+            diagnostics = diags,
+          },
+          range = {
+            start = diag.range.start,
+            ["end"] = diag.range["end"],
+          },
+        })
+        assert(not err, err and err.message)
+        if response[1] then
+          vim.list_extend(edits, response[1].edit.changes[uri])
+        end
+      end
+    end
+    local deduped = {}
+    for _, edit in ipairs(edits) do
+      deduped[edit.newText] = edit
+    end
+    vim.lsp.util.apply_text_edits(vim.tbl_values(deduped), buf, "utf-16")
+  end)
+end
 
 local function configure_watching()
   local FSWATCH_EVENTS = {
@@ -169,7 +215,7 @@ function M.post()
     local server_capabilities = client.server_capabilities
 
     if server_capabilities.inlayHintProvider then
-      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      -- vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
 
     if client.name == "ruff" then
@@ -189,7 +235,11 @@ function M.post()
         ge = function()
           vim.diagnostic.open_float(0, { scope = "line" })
         end,
-        K = vim.lsp.buf.hover,
+        K = function()
+          vim.lsp.buf.hover({
+            silent = true,
+          })
+        end,
         gq = vim.lsp.buf.references,
         gr = lsp_util.rename,
         gD = function()
@@ -197,6 +247,7 @@ function M.post()
         end,
         gC = fzf.lsp_outgoing_calls,
         gb = lsp_util.previous_win,
+
         gL = vim.lsp.codelens.run,
         ["]d"] = vim.diagnostic.goto_next,
         ["[d"] = vim.diagnostic.goto_prev,
@@ -204,6 +255,7 @@ function M.post()
         ["<leader>la"] = function()
           vim.cmd("Lspsaga code_action")
         end,
+        ["<leader>li"] = apply_pyright_imports,
         ["<leader>ls"] = fzf.lsp_document_symbols,
         ["<leader>lf"] = function()
           vim.lsp.buf.format({ timeout_ms = 5000 })
@@ -211,9 +263,39 @@ function M.post()
         ["<leader>lc"] = function()
           require("trouble").close()
         end,
+        gh = function()
+          local row = vim.api.nvim_win_get_cursor(0)[1] - 1
+          local hint = vim.lsp.inlay_hint.get({
+            bufnr = 0,
+            range = {
+              start = { line = row, character = 0 },
+              ["end"] = { line = row + 1, character = 0 },
+            },
+          })[1]
+          if hint == nil then
+            vim.notify("No hint on current line", vim.log.levels.WARN, { title = "LSP" })
+            return
+          end
+
+          local c = vim.lsp.get_client_by_id(hint.client_id)
+          vim.lsp.util.apply_text_edits(hint.inlay_hint.textEdits, hint.bufnr, c.offset_encoding)
+
+          c:request("textDocument/hover", {
+            textDocument = { uri = vim.uri_from_bufnr(hint.bufnr) },
+            position = hint.inlay_hint.position,
+          })
+        end,
       },
       i = {
         ["<C-s>"] = vim.lsp.buf.signature_help,
+      },
+      v = {
+        ["<leader>lf"] = function()
+          vim.lsp.buf.format({ timeout_ms = 5000 })
+        end,
+        K = function()
+          vim.lsp.buf.hover()
+        end,
       },
     }
 

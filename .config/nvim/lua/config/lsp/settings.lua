@@ -4,6 +4,7 @@ function M.setup(on_attach, capabilities)
   local null_ls = require("null-ls")
   local blt = null_ls.builtins
   local lspconfig = require("lspconfig")
+  local configs = require("lspconfig.configs")
 
   null_ls.setup({
     on_attach = on_attach,
@@ -61,6 +62,13 @@ function M.setup(on_attach, capabilities)
       settings = {
         basedpyright = {
           typeCheckingMode = "standard",
+          analysis = {
+            inlayHints = { callArgumentNames = false },
+            diagnosticSeverityOverrides = {
+              reportUnhashable = false,
+              reportPrivateImportUsage = false,
+            },
+          },
         },
         python = {
           pythonPath = "python",
@@ -110,10 +118,13 @@ function M.setup(on_attach, capabilities)
       },
     },
 
-    volar = {
+    vue_ls = {
       on_attach = on_attach,
+      init_options = {
+        typescript = {},
+      },
       filetypes = {
-        "typescript",
+        -- "typescript",
         "javascript",
         "javascriptreact",
         "typescriptreact",
@@ -122,49 +133,71 @@ function M.setup(on_attach, capabilities)
       },
       capabilities = capabilities,
     },
-    yamlls = require("yaml-companion").setup({
-      on_attach = on_attach,
-      lspconfig = {
-        on_attach = on_attach,
-        settings = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
-        flags = { debounce_text_changes = 150 },
-        capabilities = capabilities,
-      },
-    }),
+    -- yamlls = require("yaml-companion").setup({
+    --   on_attach = on_attach,
+    --   lspconfig = {
+    --     on_attach = on_attach,
+    --     settings = { yaml = { schemas = { kubernetes = "helm/**.yaml" } } },
+    --     flags = { debounce_text_changes = 150 },
+    --     capabilities = capabilities,
+    --   },
+    -- }),
     ocamllsp = {},
+    -- ty = {
+    --   default_config = {
+    --     cmd = { "ty", "server" },
+    --     root_dir = function(fname)
+    --       return lspconfig.util.root_pattern(
+    --         "pyproject.toml",
+    --         "requirements.txt",
+    --         "Pipfile",
+    --         "pyrightconfig.json",
+    --         ".git"
+    --       )(fname)
+    --     end,
+    --     single_file_support = true,
+    --     filetypes = { "python" },
+    --     settings = {},
+    --   },
+    -- },
   }
 
-  local mason_handlers = {
-    function(server_name)
-      if server_name == "tsserver" then
+  -- lspconfig.postgres_lsp.setup({})
+  -- lspconfig.nixd.setup({ on_attach = on_attach })
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("lsp_attach_disable_ruff_hover", { clear = true }),
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      if client == nil then
         return
       end
-      lspconfig[server_name].setup({ on_attach = on_attach })
+      if client.name == "ruff" then
+        -- Disable hover in favor of Pyright
+        client.server_capabilities.hoverProvider = false
+      end
     end,
-  }
-
-  lspconfig.postgres_lsp.setup({})
-  lspconfig.nixd.setup({ on_attach = on_attach })
+    desc = "LSP: Disable hover capability from Ruff",
+  })
 
   for server, settings in pairs(server_configs) do
-    mason_handlers[server] = function()
-      lspconfig[server].setup(settings)
-    end
+    vim.lsp.config(server, settings)
+    vim.lsp.enable(server)
   end
   require("mason").setup({
     ui = {
       border = vim.g.border_chars,
     },
   })
-  require("mason-lspconfig").setup({
-    ensure_installed = vim.list_extend(vim.tbl_keys(server_configs), {
-      "bashls",
-      "gopls",
-      "jsonls",
-      "vimls",
-    }),
-  })
-  require("mason-lspconfig").setup_handlers(mason_handlers)
+  -- require("mason-lspconfig").setup({
+    -- ensure_installed = vim.list_extend(vim.tbl_keys(server_configs), {
+    --   "bashls",
+    --   "gopls",
+    --   "jsonls",
+    --   "vimls",
+    -- }),
+  -- })
+  -- require("mason-lspconfig").setup_handlers(mason_handlers)
 end
 
 return M

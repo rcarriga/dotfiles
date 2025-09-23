@@ -19,7 +19,7 @@ local c = {
 }
 
 c.normal = c.grey5
-c.border = c.grey3
+c.border = c.orange
 c.decoration = c.orange
 c.hidden = c.grey3
 c.built_in = c.red

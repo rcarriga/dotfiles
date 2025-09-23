@@ -6,11 +6,6 @@ function M.post()
   local dapui = require("dapui")
   dapui.setup({
     force_buffers = false,
-    element_mappings = {
-      scopes = {
-        edit = "l",
-      },
-    },
     layouts = {
       {
         elements = {
@@ -65,24 +60,18 @@ function M.post()
   vim.fn.sign_define("DapBreakpoint", { text = "→", texthl = "Error", linehl = "", numhl = "" })
   vim.fn.sign_define("DapStopped", { text = "→", texthl = "Success", linehl = "", numhl = "" })
 
-  -- Prevent race condition where mason isn't setup
-  -- TODO: Find a better way to do this
-  vim.schedule(function()
-    pcall(require("dap.ext.vscode").load_launchjs)
-    local dap_python = require("dap-python")
+  local dap_python = require("dap-python")
 
-    local mason_registry = require("mason-registry")
-    dap_python.setup(
-      mason_registry.get_package("debugpy"):get_install_path() .. "/venv/bin/python",
-      { include_configs = false }
-    )
-  end)
+  dap_python.setup(
+    vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python",
+    { include_configs = false }
+  )
 
   dap.configurations.python = {
     {
       type = "python",
       request = "launch",
-      name = "Launch file",
+      name = "Launch File",
       justMyCode = false,
       cwd = vim.fn.getcwd(),
       program = "${file}",
@@ -103,7 +92,7 @@ function M.post()
     {
       type = "python",
       request = "attach",
-      name = "Attach remote",
+      name = "Attach Remote",
       justMyCode = false,
       pythonPath = require("util").get_python_path(),
       host = function()
@@ -118,18 +107,6 @@ function M.post()
       end,
     },
   }
-
-  dap.configurations.lua = {
-    {
-      type = "nlua",
-      request = "attach",
-      name = "Attach to running Neovim instance",
-    },
-  }
-
-  dap.adapters.nlua = function(callback, config)
-    callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
-  end
 end
 
 return M
